@@ -23,6 +23,13 @@
 *.user
 *.userprefs
 
+# Unity Editor Layouts & Windows Templates
+*.wlt
+*.wlt.meta
+*.dwlt
+*.dwlt.meta
+[Uu]ser[Ss]ettings/
+
 # OS generated files
 .DS_Store
 Thumbs.db
