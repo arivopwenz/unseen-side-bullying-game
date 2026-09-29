@@ -1,16 +1,25 @@
-using UnityEngine;
+using System;
 
-public class QuestObjective : MonoBehaviour
+namespace BullyingGame.Quest
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [Serializable]
+    public class QuestObjective
     {
-        
-    }
+        public string objectiveId;
+        public string description;
+        public int requiredAmount = 1;
+        public int currentAmount;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public bool IsCompleted => currentAmount >= requiredAmount;
+
+        public void AddProgress(int amount = 1)
+        {
+            currentAmount = Math.Min(currentAmount + amount, requiredAmount);
+        }
+
+        public void Reset()
+        {
+            currentAmount = 0;
+        }
     }
 }
