@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
   lines:
   - speakerName: Guru BK
-    text: Selamat Pagi, Nak. Ada yang bisa Bapak bantu?
+    text: Halo, Nak. Ada yang bisa Bapak bantu?
   - speakerName: Guru BK
-    text: Jika kamu melihat teman yang di-bully, jangan diam saja.
+    text: Bapak dengar ada buku catatan harian siswa yang terjatuh di halaman luar.
   - speakerName: Guru BK
-    text: Laporkan ke guru atau orang dewasa terdekat, ya.
+    text: Bisakah kamu membantuku mencarinya dan membawanya kemari?

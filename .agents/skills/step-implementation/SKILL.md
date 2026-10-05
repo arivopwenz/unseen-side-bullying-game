@@ -22,91 +22,63 @@ description: >-
 
 ## Step Details Reference
 
-### Step 7 — PlayerInputHandler + WASD (CURRENT)
+### Step 7 — PlayerInputHandler + WASD (COMPLETED ✓)
 
 **Location**: `Assets/_Game/Scripts/Player/PlayerInputHandler.cs`
 **Namespace**: `BullyingGame.Player`
-**Dependencies**: PlayerMovement.cs, GameInputActions
+- PlayerInputHandler bridges GameInputActions with PlayerMovement.
+- Includes EnsureInputActions guard to prevent NullReference on domain reload.
+- Movement, Sprint, and cursor lock states handled.
 
-Tasks:
-- Create `PlayerInputHandler.cs`
-- Add `[RequireComponent(typeof(PlayerMovement))]`
-- Wire `GameInputActions.Movement` map
-- Read `Move` (Vector2) and `Sprint` (bool) inputs
-- Feed to `PlayerMovement.SetMoveInput()` and `SetSprintInput()`
-- Dispose `inputActions` in `OnDestroy()`
-- Test WASD movement and Shift sprint
+### Step 8 — Third-Person Camera + Cinemachine (COMPLETED ✓)
 
-### Step 8 — Third-Person Camera + Cinemachine
+**Location**: `Cameras/CinemachineCamera`
+- Cinemachine Orbital Follow + Rotation Composer + Deoccluder.
+- CameraTarget followed smoothly, cursor locked during gameplay.
 
-**Location**: `Assets/_Game/Scripts/Camera/` (new folder)
-**Namespace**: `BullyingGame.Camera`
-**Dependencies**: Cinemachine package (installed), Player
+### Step 9 — Camera-Relative Movement (COMPLETED ✓)
 
-Tasks:
-- Create Cinemachine FreeLook or Virtual Camera for third-person follow
-- Set Player as follow/look-at target
-- Configure basic orbit/distance settings
-- Lock cursor during gameplay
-- Read Look input from GameInputActions.Movement.Look
+**Location**: `Assets/_Game/Scripts/Player/PlayerMovement.cs`
+- Camera-relative direction calculation on horizontal plane.
+- Character rotates to face movement direction.
+- CharacterController null & enabled guarded against inactive calls.
 
-### Step 9 — Camera-Relative Movement
-
-**Location**: Modify `PlayerMovement.cs`
-**Dependencies**: Step 8 camera working
-
-Tasks:
-- Change movement calculation from player-orientation to camera-relative
-- Movement direction based on camera forward/right (flattened to XZ plane)
-- Player rotates to face movement direction
-
-### Step 10 — Interaction System
+### Step 10 — Interaction System (COMPLETED ✓)
 
 **Location**: `Assets/_Game/Scripts/Interaction/`
-**Namespace**: `BullyingGame.Interaction`
+- `IInteractable` interface: `GetPromptText()`, `CanInteract()`, `Interact(GameObject)`.
+- `InteractionDetector`: trigger-based detection with closest distance sorting.
+- `InteractionPromptUI`: World Space Canvas with automatic billboard rotation facing camera. Automatically positions prompt directly above whichever object is being targeted using `col.bounds.center + Vector3.up * (extents.y + offset)`. Auto-hides during dialogue.
 
-Tasks:
-- Create interactable interface/base class
-- Raycast or trigger-based detection from player
-- Show/hide interaction prompt
-- Handle Interact input action
-
-### Step 11 — NPC Prototype
+### Step 11 — NPC Prototype (COMPLETED ✓)
 
 **Location**: `Assets/_Game/Scripts/NPC/`
-**Namespace**: `BullyingGame.NPC`
+- `BaseNPC`: implements `IInteractable`. Supports `dialogueSpawnPoint` for exact player positioning during dialogue, automatic mutual rotation (NPC faces player, player faces NPC), and gentle rotation reset after dialogue ends. Gizmo visualization in Scene view.
 
-Tasks:
-- Create basic NPC MonoBehaviour
-- Implement IInteractable
-- NPC data via ScriptableObject (optional at this stage)
-
-### Step 12 — Dialogue System
+### Step 12 — Dialogue System (COMPLETED ✓)
 
 **Location**: `Assets/_Game/Scripts/Dialogue/`
-**Namespace**: `BullyingGame.Dialogue`
+- `DialogueData` & `DialogueLine`: ScriptableObject structure with `speakerName`, `text`, `voiceClip`.
+- `DialogueManager`: singleton event dispatcher (`OnDialogueStarted`, `OnLineDisplayed`, `OnDialogueEnded`).
+- `DialogueUI`: Screen Space Overlay with typewriter effect, voice clip playback, continue button delayed until typing finishes, advance dialogue on Enter/E or button click.
+- `DialogueCamera`: Cinemachine camera with priority blending (Priority 0 -> 20 on dialogue start, back to 0 on end). Uses cinematic Two-Shot 45° angle with `PlayerDialogueSpawnPoint` for consistent framing.
+- `DialogueInputHandler`: locks player input and unlocks cursor safely during dialogue.
 
-Tasks:
-- Dialogue data structure (ScriptableObject)
-- Dialogue UI (text box, speaker name, continue button)
-- Game state transition: Playing → Dialogue → Playing
-- Disable player input during dialogue
+### Step 13-15 — Quest System & HUD (COMPLETED ✓)
 
-### Step 13-15 — Quest System
+**Location**: `Assets/_Game/Scripts/Quest/`, `Assets/_Game/Scripts/UI/`
+- `QuestData` & `QuestObjective`: ScriptableObject definition with objectives and progress tracking.
+- `QuestManager`: manages quest states (Locked, Available, Active, Completed, Failed).
+- `QuestGiverNPC`: inherits from `BaseNPC`. Handles branching dialogue states (Intro/Available, Active, Completed).
+- `QuestItem`: implements `IInteractable`. Collects item, updates objective via `QuestManager.Instance.UpdateObjective()`, and triggers bullying event if linked.
+- `QuestHUDUI`: top-left modern dark glass HUD displaying active quest title and live objective counters `[V] / - (0/1)`. Auto-wires child elements in `Awake()`.
+- Data Assets: `Quest_Level01_LostNotebook.asset`, `Dialogue_GuruBK_Intro.asset`, `Dialogue_GuruBK_QuestActive.asset`, `Dialogue_GuruBK_QuestCompleted.asset`.
 
-**Location**: `Assets/_Game/Scripts/Quest/`
-**Namespace**: `BullyingGame.Quest`
-
-Tasks:
-- Quest definition (ScriptableObject)
-- Quest state management (separate from GameObjects)
-- Quest item tracking
-- Objective system with updates
-
-### Step 16-18 — Bullying Event System
+### Step 16-18 — Bullying Event System (CURRENT ←)
 
 **Location**: `Assets/_Game/Scripts/Events/`
 **Namespace**: `BullyingGame.Events`
+
 
 Tasks:
 - Event Director for cinematic sequences
