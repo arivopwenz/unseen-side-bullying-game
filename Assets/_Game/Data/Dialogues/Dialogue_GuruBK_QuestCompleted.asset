@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
-  m_Name: Dialogue_GuruBK_Intro
+  m_Name: Dialogue_GuruBK_QuestCompleted
   m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
   lines:
   - speakerName: Guru BK
-    text: Halo, Nak. Ada yang bisa Bapak bantu?
+    text: Luar biasa! Kamu berhasil menemukan buku catatan itu.
   - speakerName: Guru BK
-    text: Bapak dengar ada buku catatan harian siswa yang terjatuh di halaman luar.
-  - speakerName: Guru BK
-    text: Bisakah kamu membantuku mencarinya dan membawanya kemari?
+    text: Terima kasih atas kepedulian dan bantuanmu, Nak. Kamu murid yang sangat baik!

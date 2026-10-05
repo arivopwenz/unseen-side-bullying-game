@@ -41,7 +41,7 @@ namespace BullyingGame.Player
             }
             else
             {
-                var cam = FindFirstObjectByType<UnityEngine.Camera>();
+                var cam = FindAnyObjectByType<UnityEngine.Camera>();
                 if (cam != null)
                 {
                     cameraTransform = cam.transform;
@@ -65,7 +65,7 @@ namespace BullyingGame.Player
 
             float speed = isSprinting ? sprintSpeed : moveSpeed;
 
-            if (characterController.isGrounded && verticalVelocity < 0f)
+            if (characterController != null && characterController.enabled && characterController.isGrounded && verticalVelocity < 0f)
             {
                 verticalVelocity = -2f;
             }
@@ -73,14 +73,15 @@ namespace BullyingGame.Player
             verticalVelocity += gravity * Time.deltaTime;
 
             Vector3 velocity = movement * speed + Vector3.up * verticalVelocity;
-            characterController.Move(velocity * Time.deltaTime);
+
+            if (characterController != null && characterController.enabled)
+            {
+                characterController.Move(velocity * Time.deltaTime);
+            }
 
             RotateTowardsMovement(movement);
         }
 
-        /// <summary>
-        /// Calculates the movement direction relative to where the camera is facing on the horizontal plane.
-        /// </summary>
         private Vector3 CalculateCameraRelativeDirection(Vector2 input)
         {
             if (cameraTransform == null)
@@ -105,9 +106,6 @@ namespace BullyingGame.Player
             return Vector3.ClampMagnitude(direction, 1f);
         }
 
-        /// <summary>
-        /// Smoothly rotates the character to face the direction of movement.
-        /// </summary>
         private void RotateTowardsMovement(Vector3 movementDirection)
         {
             if (movementDirection.sqrMagnitude > 0.001f)

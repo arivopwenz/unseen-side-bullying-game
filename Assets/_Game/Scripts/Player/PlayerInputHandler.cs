@@ -3,10 +3,6 @@ using UnityEngine.InputSystem;
 
 namespace BullyingGame.Player
 {
-    /// <summary>
-    /// Reads input from GameInputActions and feeds it to PlayerMovement.
-    /// Bridges the Input System with the movement system, and manages gameplay cursor state.
-    /// </summary>
     [RequireComponent(typeof(PlayerMovement))]
     public class PlayerInputHandler : MonoBehaviour
     {
@@ -16,7 +12,7 @@ namespace BullyingGame.Player
         private void Awake()
         {
             playerMovement = GetComponent<PlayerMovement>();
-            inputActions = new GameInputActions();
+            EnsureInputActions();
         }
 
         private void Start()
@@ -26,16 +22,30 @@ namespace BullyingGame.Player
 
         private void OnEnable()
         {
+            EnsureInputActions();
             inputActions.Movement.Enable();
         }
 
         private void OnDisable()
         {
-            inputActions.Movement.Disable();
+            if (inputActions != null)
+            {
+                inputActions.Movement.Disable();
+            }
+        }
+
+        private void EnsureInputActions()
+        {
+            if (inputActions == null)
+            {
+                inputActions = new GameInputActions();
+            }
         }
 
         private void Update()
         {
+            if (inputActions == null || playerMovement == null) return;
+
             Vector2 moveInput = inputActions.Movement.Move.ReadValue<Vector2>();
             bool sprintInput = inputActions.Movement.Sprint.IsPressed();
 
@@ -67,6 +77,7 @@ namespace BullyingGame.Player
         private void OnDestroy()
         {
             inputActions?.Dispose();
+            inputActions = null;
         }
     }
 }

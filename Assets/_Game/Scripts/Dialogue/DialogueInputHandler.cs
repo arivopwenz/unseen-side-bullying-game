@@ -7,13 +7,36 @@ namespace BullyingGame.Dialogue
     {
         [SerializeField] private PlayerMovement playerMovement;
 
+        private void Start()
+        {
+            if (playerMovement == null)
+            {
+                playerMovement = FindAnyObjectByType<PlayerMovement>();
+            }
+            SubscribeEvents();
+        }
+
         private void OnEnable()
         {
+            SubscribeEvents();
+        }
+
+        private void OnDisable()
+        {
+            UnsubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            if (DialogueManager.Instance == null) return;
+            DialogueManager.Instance.OnDialogueStarted -= DisablePlayerInput;
+            DialogueManager.Instance.OnDialogueEnded -= EnablePlayerInput;
+
             DialogueManager.Instance.OnDialogueStarted += DisablePlayerInput;
             DialogueManager.Instance.OnDialogueEnded += EnablePlayerInput;
         }
 
-        private void OnDisable()
+        private void UnsubscribeEvents()
         {
             if (DialogueManager.Instance == null) return;
             DialogueManager.Instance.OnDialogueStarted -= DisablePlayerInput;

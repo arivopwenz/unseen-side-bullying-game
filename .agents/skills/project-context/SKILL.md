@@ -88,16 +88,16 @@ STEP 3  GameState System                      ✓
 STEP 4  Bootstrap → Main Menu Loading         ✓
 STEP 5  Main Menu UI Foundation               ✓ / paused
 STEP 6  Level_01 + Player Prototype           ✓
-STEP 7  PlayerInputHandler + WASD             ← CURRENT
-STEP 8  Third-Person Camera + Cinemachine
-STEP 9  Camera-Relative Movement
-STEP 10 Interaction System
-STEP 11 NPC Prototype
-STEP 12 Dialogue System
-STEP 13 Quest System
-STEP 14 Quest Item System
-STEP 15 Quest State Management
-STEP 16 Real-Time Cinematic Event Director
+STEP 7  PlayerInputHandler + WASD             ✓
+STEP 8  Third-Person Camera + Cinemachine     ✓
+STEP 9  Camera-Relative Movement              ✓
+STEP 10 Interaction System                    ✓
+STEP 11 NPC Prototype                         ✓
+STEP 12 Dialogue System                       ✓
+STEP 13 Quest System                          ✓
+STEP 14 Quest Item System                     ✓
+STEP 15 Quest State Management + HUD          ✓
+STEP 16 Real-Time Cinematic Event Director    ← CURRENT
 STEP 17 Bully NPC Group System
 STEP 18 Bullying Encounter
 STEP 19 QTE System
