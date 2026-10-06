@@ -45,6 +45,7 @@ namespace BullyingGame.Dialogue
 
         private void DisablePlayerInput()
         {
+            if (playerMovement == null) return;
             playerMovement.SetMoveInput(Vector2.zero);
             playerMovement.enabled = false;
             Cursor.lockState = CursorLockMode.None;
@@ -53,7 +54,14 @@ namespace BullyingGame.Dialogue
 
         private void EnablePlayerInput()
         {
-            playerMovement.enabled = true;
+            if (playerMovement != null)
+            {
+                bool cinematic = BullyingGame.Core.CutsceneManager.Instance != null &&
+                    BullyingGame.Core.CutsceneManager.Instance.CurrentDirector != null;
+                playerMovement.enabled = !cinematic;
+                playerMovement.SetMoveInput(Vector2.zero);
+                playerMovement.SetSprintInput(false);
+            }
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }

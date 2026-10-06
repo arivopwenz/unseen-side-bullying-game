@@ -158,6 +158,35 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "QTE",
+            "id": "434504d7-9969-4a7b-8fd6-c379747b5c8f",
+            "actions": [
+                {
+                    "name": "Tap",
+                    "type": "Button",
+                    "id": "fe6e15f7-2c0e-47e4-9d74-211ca4e8c633",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f008bf61-4c7b-4a24-9873-16bbc64a31fc",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

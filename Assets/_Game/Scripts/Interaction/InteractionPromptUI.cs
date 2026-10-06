@@ -93,6 +93,17 @@ namespace BullyingGame.Interaction
 
         private void LateUpdate()
         {
+            if (BullyingGame.Core.GameStateManager.Instance != null &&
+                BullyingGame.Core.GameStateManager.Instance.CurrentState != BullyingGame.Core.GameState.Playing)
+            {
+                if (promptPanel != null) promptPanel.SetActive(false);
+                return;
+            }
+            if (detector != null)
+            {
+                var target = detector.CurrentInteractable;
+                UpdatePrompt(target != null && target.CanInteract() ? target : null);
+            }
             if (Dialogue.DialogueManager.Instance != null && Dialogue.DialogueManager.Instance.IsDialogueActive)
             {
                 if (promptPanel != null && promptPanel.activeSelf)
