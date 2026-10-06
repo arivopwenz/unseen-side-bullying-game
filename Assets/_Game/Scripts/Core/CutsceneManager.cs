@@ -7,11 +7,9 @@ namespace BullyingGame.Core
     public class CutsceneManager : MonoBehaviour
     {
         public static CutsceneManager Instance { get; private set; }
-
         public event Action OnCutsceneStarted;
         public event Action OnCutsceneEnded;
-
-        private PlayableDirector currentDirector;
+        public PlayableDirector CurrentDirector { get; private set; }
 
         private void Awake()
         {
@@ -23,33 +21,59 @@ namespace BullyingGame.Core
             Instance = this;
         }
 
-        public void PlayCutscene(PlayableDirector director)
+        public bool TryPlayCutscene(PlayableDirector director)
         {
-            if (director == null || currentDirector != null) return;
-
-            currentDirector = director;
-            currentDirector.stopped += OnDirectorStopped;
-            currentDirector.Play();
-
-            GameManager.Instance?.SetState(GameState.Cinematic);
+            if (!isActiveAndEnabled || director == null ||
+                !director.isActiveAndEnabled || director.playableAsset == null ||
+                CurrentDirector != null || GameStateManager.Instance == null)
+                return false;
+            CurrentDirector = director;
+            director.stopped += OnDirectorStopped;
+            director.time = 0;
+            GameStateManager.Instance.SetState(GameState.Cinematic);
             OnCutsceneStarted?.Invoke();
+            director.Play();
+            return true;
         }
 
-        public void SkipCutscene()
+        public void PlayCutscene(PlayableDirector director) => TryPlayCutscene(director);
+        public void SkipCutscene() => StopCutscene(CurrentDirector);
+
+        public void PauseCutscene(PlayableDirector director)
         {
-            if (currentDirector == null) return;
-            currentDirector.time = currentDirector.duration;
-            currentDirector.Evaluate();
-            currentDirector.Stop();
+            if (director != null && director == CurrentDirector) director.Pause();
+        }
+
+        public void ResumeCutscene(PlayableDirector director)
+        {
+            if (director != null && director == CurrentDirector) director.Resume();
+        }
+
+        public void StopCutscene(PlayableDirector director)
+        {
+            if (director == null || director != CurrentDirector) return;
+            director.Stop();
+            // Fallback jika playback belum sempat memasuki Playing.
+            if (CurrentDirector == director) OnDirectorStopped(director);
         }
 
         private void OnDirectorStopped(PlayableDirector director)
         {
+            if (director != CurrentDirector) return;
             director.stopped -= OnDirectorStopped;
-            currentDirector = null;
-
-            GameManager.Instance?.SetState(GameState.Playing);
+            CurrentDirector = null;
             OnCutsceneEnded?.Invoke();
+            // Jangan menimpa loading/paused/dialogue yang mungkin dimulai listener.
+            if (GameStateManager.Instance != null &&
+                GameStateManager.Instance.CurrentState == GameState.Cinematic)
+                GameStateManager.Instance.SetState(GameState.Playing);
+        }
+
+        private void OnDisable() => StopCutscene(CurrentDirector);
+
+        private void OnDestroy()
+        {
+            if (Instance == this) Instance = null;
         }
     }
 }

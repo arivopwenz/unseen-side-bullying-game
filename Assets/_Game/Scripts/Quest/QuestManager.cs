@@ -28,8 +28,6 @@ namespace BullyingGame.Quest
         {
             if (quest == null || GetQuestState(quest) != QuestState.Available) return;
 
-            SetQuestState(quest, QuestState.Active);
-
             var objectives = new QuestObjective[quest.objectives.Length];
             for (int i = 0; i < quest.objectives.Length; i++)
             {
@@ -42,6 +40,7 @@ namespace BullyingGame.Quest
                 };
             }
             questProgress[quest.questId] = objectives;
+            SetQuestState(quest, QuestState.Active);
         }
 
         public void UpdateObjective(QuestData quest, string objectiveId, int amount = 1)

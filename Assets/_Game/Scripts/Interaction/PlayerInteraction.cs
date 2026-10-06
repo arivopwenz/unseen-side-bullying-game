@@ -47,6 +47,11 @@ namespace BullyingGame.Interaction
 
         private void OnInteractPressed(InputAction.CallbackContext context)
         {
+            if (BullyingGame.Core.GameStateManager.Instance != null &&
+                BullyingGame.Core.GameStateManager.Instance.CurrentState != BullyingGame.Core.GameState.Playing)
+                return;
+            if (BullyingGame.Dialogue.DialogueManager.Instance != null &&
+                BullyingGame.Dialogue.DialogueManager.Instance.IsDialogueActive) return;
             if (detector != null && detector.CurrentInteractable != null && detector.CurrentInteractable.CanInteract())
             {
                 detector.CurrentInteractable.Interact(gameObject);

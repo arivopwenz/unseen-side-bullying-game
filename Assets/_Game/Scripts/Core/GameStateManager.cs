@@ -35,5 +35,10 @@ namespace BullyingGame.Core
             Debug.Log($"Game State: {previousState} -> {newState}");
             OnStateChanged?.Invoke(previousState, newState);
         }
+
+        private void OnDestroy()
+        {
+            if (Instance == this) Instance = null;
+        }
     }
 }

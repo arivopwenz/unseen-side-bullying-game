@@ -15,8 +15,9 @@ namespace BullyingGame.Events
             if (triggerOnce && hasTriggered) return;
             if (!other.CompareTag("Player")) return;
 
-            hasTriggered = true;
-            BullyingEventManager.Instance.TriggerEvent(eventData);
+            if (BullyingEventManager.Instance != null &&
+                BullyingEventManager.Instance.TryTriggerEvent(eventData))
+                hasTriggered = true;
         }
     }
 }
