@@ -12,8 +12,12 @@ namespace BullyingGame.Cinematics
     {
         [SerializeField] private string speaker;
         [SerializeField] private Transform actor;
+        [SerializeField] private Unity.Cinemachine.CinemachineCamera shot;
+        [SerializeField] private float timelineTime;
         public string Speaker => speaker;
         public Transform Actor => actor;
+        public Unity.Cinemachine.CinemachineCamera Shot => shot;
+        public float TimelineTime => timelineTime;
     }
     public class StoryOpeningDirector : MonoBehaviour
     {
@@ -99,16 +103,20 @@ namespace BullyingGame.Cinematics
         {
             if (dialogueManager != null) { dialogueManager.OnDialogueEnded -= DialogueFinished; dialogueManager.OnLineDisplayed -= FrameLine; }
             dialogueManager = null;
-            if (IsRunning) { timeline.time=dialogueTime; timeline.Evaluate(); cutscenes.ResumeCutscene(timeline); }
+            if (IsRunning) { timeline.time=Math.Max(dialogueTime, timeline.duration-1.4); timeline.Evaluate(); cutscenes.ResumeCutscene(timeline); }
         }
         private void FrameLine(DialogueLine line)
         {
             if(!IsRunning || timeline==null || line==null) return;
             Transform focus=null;
-            if(speakers!=null) foreach(var speaker in speakers) if(speaker.Speaker==line.speakerName) { focus=speaker.Actor;break; }
+            Unity.Cinemachine.CinemachineCamera authoredShot = null;
+            float shotTime = 1.2f;
+            if(speakers!=null) foreach(var speaker in speakers) if(speaker.Speaker==line.speakerName)
+                { focus=speaker.Actor; authoredShot=speaker.Shot; shotTime=speaker.TimelineTime; break; }
             var sequence=UnityEngine.Object.FindAnyObjectByType<StoryChapterSequence>();
             if(player!=null && sequence!=null && line.speakerName==sequence.CurrentChapter.PlayerName) focus=player;
-            if(focus!=null && dialogueShot!=null)
+            if(authoredShot != null) timeline.time = shotTime;
+            else if(focus!=null && dialogueShot!=null)
             {
                 var position=focus.position+focus.forward*2.8f+focus.right*.7f+Vector3.up*1.65f;
                 dialogueShot.transform.SetPositionAndRotation(position,Quaternion.LookRotation(focus.position+Vector3.up*1.3f-position));

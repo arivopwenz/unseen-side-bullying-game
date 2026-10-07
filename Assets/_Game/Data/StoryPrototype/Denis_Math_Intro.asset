@@ -14,13 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
   lines:
   - speakerName: Pak Bambang
-    text: "Denis, coba 7 \xD7 6 + 8. Kerjakan perkalian lebih dahulu. Tidak perlu terburu-buru."
+    text: "Denis, coba kerjakan 7 \xD7 6 + 8 di papan tulis. Tidak perlu terburu-buru."
     voiceClip: {fileID: 0}
   - speakerName: Denis
     text: Baik, Pak. Aku mencoba fokus.
-    voiceClip: {fileID: 0}
-  - speakerName: Narasi
-    text: Pilih jawaban. Tidak ada timer atau pengurangan poin; adegan berikutnya tetap berlanjut apa pun jawabanmu.
     voiceClip: {fileID: 0}
   choiceId: 
   responses: []

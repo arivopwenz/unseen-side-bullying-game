@@ -14,31 +14,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
   lines:
   - speakerName: Narasi
-    text: Pagi di sekolah. Aji baru mengenal Denis, Ari, dan kelompok Billy. Hari ini ia melihat bagaimana satu kejadian bisa terasa berbeda bagi setiap orang.
+    text: Pagi di halaman sekolah. Bel belum berbunyi, tetapi Denis sudah berharap hari ini cepat selesai.
+    voiceClip: {fileID: 0}
+  - speakerName: Aji
+    text: Aku Aji, baru masuk sekolah ini. Aku ingin mengenal teman-teman di sini.
+    voiceClip: {fileID: 0}
+  - speakerName: Denis
+    text: Buku tugasku belum ketemu. Aku sudah mengerjakannya semalam...
     voiceClip: {fileID: 0}
   - speakerName: Billy
     text: Denis, jangan lewat sini kalau tidak membawa uang jajan.
     voiceClip: {fileID: 0}
+  - speakerName: Bima
+    text: Billy, bel sebentar lagi. Kita masuk saja.
+    voiceClip: {fileID: 0}
+  - speakerName: Fajar
+    text: Sudah, Denis. Turuti saja Billy biar cepat selesai.
+    voiceClip: {fileID: 0}
   - speakerName: Denis
     text: Aku hanya mau masuk sekolah. Tolong beri jalan.
     voiceClip: {fileID: 0}
-  - speakerName: Bima
-    text: Billy, bel sudah mau bunyi. Sudahlah.
-    voiceClip: {fileID: 0}
   - speakerName: Billy
-    text: Diam. Aku cuma bercanda, kan?
+    text: Santai. Aku cuma bercanda, kan?
     voiceClip: {fileID: 0}
   - speakerName: Ari
-    text: Aku melihat Denis mundur. Aku takut kalau maju, mereka akan menjadikanku sasaran berikutnya.
+    text: Aku Ari. Aku melihat Denis mundur, tapi aku takut jadi sasaran berikutnya.
+    voiceClip: {fileID: 0}
+  - speakerName: Pak Bambang
+    text: Selamat pagi. Saya Pak Bambang. Kalau ada yang mengganggu kalian, saya bersedia mendengarkan.
+    voiceClip: {fileID: 0}
+  - speakerName: Bu Sari
+    text: Anak-anak, jangan lupa sarapan. Kantin sudah buka.
     voiceClip: {fileID: 0}
   - speakerName: Aji
-    text: Denis terlihat tidak nyaman. Aku belum tahu ceritanya; aku harus mendengarkan dulu.
+    text: Denis terlihat tidak nyaman. Aku akan menemuinya dan mendengar apa yang ia butuhkan.
     voiceClip: {fileID: 0}
   - speakerName: Narasi
-    text: Aji menjadi jembatan untuk mengenal mereka. Mendengar kebutuhan seseorang lebih dahulu membuka kemungkinan membantu dengan aman.
-    voiceClip: {fileID: 0}
-  - speakerName: Aji
-    text: Aku akan menemui Denis di halaman.
+    text: Hari ini Aji mulai mengenal mereka. Setiap orang membawa cerita yang belum terlihat dari luar.
     voiceClip: {fileID: 0}
   choiceId: 
   responses: []

@@ -15,6 +15,7 @@ namespace BullyingGame.Core
     {
         [Header("Campaign")]
         [SerializeField] private NarrativeChapterData[] chapters;
+        [SerializeField, Range(1, 5)] private int sceneChapterNumber = 1;
         [SerializeField] private StoryOpeningDirector opening;
         [SerializeField] private PlayablePOVController playablePOV;
         [SerializeField] private VideoCutscenePlayer video;
@@ -26,7 +27,7 @@ namespace BullyingGame.Core
         public int ChapterNumber => chapterIndex + 1;
         public bool IsChapterComplete { get; private set; }
         private int chapterIndex, reflectionIndex;
-        private bool advancePending, reflectionPending, waitingForVideo;
+        private bool advancePending, reflectionPending, waitingForVideo, changingScene;
         private QuestManager quests;
         private QuizManager quiz;
 
@@ -52,6 +53,12 @@ namespace BullyingGame.Core
                 bool complete=true;
                 foreach(var mission in chapters[i].Missions) if(mission.IsApplicable) complete &= quests.GetQuestState(mission)==QuestState.Completed;
                 if(!complete) { chapterIndex=i; break; }
+            }
+            // The catalog restores the whole campaign; this scene only hosts its assigned chapter.
+            if (chapterIndex + 1 != sceneChapterNumber)
+            {
+                ChapterSceneFlow.Load(CurrentChapter.SceneName);
+                return;
             }
             bool resuming = false;
             foreach (var mission in CurrentChapter.Missions)
@@ -173,19 +180,33 @@ namespace BullyingGame.Core
         }
         public void AdvanceChapter()
         {
-            if (!IsChapterComplete) return;
+            if (!IsChapterComplete || changingScene) return;
+            var checkpoint = GetComponent<SceneCheckpoint>();
+            if (checkpoint == null || !checkpoint.CaptureNow()) return;
             if (chapterIndex == chapters.Length - 1)
             {
                 if (SaveManager.Instance != null) { SaveManager.Instance.CurrentData.campaignCompleted = true; SaveManager.Instance.SaveGame(); }
-                GameStateManager.Instance.SetState(GameState.Loading);
-                UnityEngine.SceneManagement.SceneManager.LoadScene("01_MainMenu");
+                changingScene = ChapterSceneFlow.Load("01_MainMenu");
                 return;
             }
-            chapterIndex++;
-            GameStateManager.Instance.SetState(GameState.Playing);
-            playablePOV?.Apply(CurrentChapter.Perspective);
-            playablePOV?.SetDisplayName(CurrentChapter.PlayerName);
-            EnterChapter(true);
+            var next = chapters[chapterIndex + 1];
+            if (!ChapterSceneFlow.CanLoad(next.SceneName)) return;
+            var save = SaveManager.Instance;
+            if (save == null) return;
+            int previousChapter = save.CurrentData.currentChapter;
+            bool previousPosition = save.CurrentData.hasPlayerPosition;
+            var previousPOV = save.CurrentData.currentPOV;
+            save.CurrentData.currentChapter = chapterIndex + 2;
+            save.CurrentData.currentPOV = next.Perspective;
+            save.CurrentData.hasPlayerPosition = false;
+            if (!save.TrySaveGame())
+            {
+                save.CurrentData.currentChapter = previousChapter;
+                save.CurrentData.currentPOV = previousPOV;
+                save.CurrentData.hasPlayerPosition = previousPosition;
+                return;
+            }
+            changingScene = ChapterSceneFlow.Load(next.SceneName);
         }
         private void OnDestroy()
         {

@@ -14,6 +14,7 @@ namespace BullyingGame.Events
         [SerializeField] private string[] answers;
         [SerializeField] private int correctAnswer;
         [SerializeField] private QTEData effortQTE;
+        [SerializeField] private DialogueData confrontationDialogue;
         [Header("Aftermath: Both Paths Continue")]
         [SerializeField] private DialogueData successDialogue;
         [SerializeField] private DialogueData failureDialogue;
@@ -22,6 +23,7 @@ namespace BullyingGame.Events
         public string[] Answers => answers;
         public int CorrectAnswer => correctAnswer;
         public QTEData EffortQTE => effortQTE;
+        public DialogueData ConfrontationDialogue => confrontationDialogue;
         public DialogueData Aftermath(bool success) => success ? successDialogue : failureDialogue;
     }
 }

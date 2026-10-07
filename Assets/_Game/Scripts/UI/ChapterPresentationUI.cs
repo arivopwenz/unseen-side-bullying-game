@@ -48,8 +48,8 @@ namespace BullyingGame.UI
             if (last && SaveManager.Instance != null) SaveManager.Instance.CurrentData.campaignCompleted = true;
             if (endPanel != null) endPanel.SetActive(true);
             if (endTitle != null) endTitle.text = last ? "Lima bab, tiga perspektif" : "Chapter selesai";
-            if (endMessage != null) endMessage.text = chapter.ClosingMessage + "\n\nRefleksi bukan penilaian atas nilai diri korban.";
-            if (nextLabel != null) nextLabel.text = last ? "Menu utama" : "Lanjut ke perspektif berikutnya";
+            if (endMessage != null) endMessage.text = chapter.ClosingMessage;
+            if (nextLabel != null) nextLabel.text = last ? "Menu utama" : "Lanjut ke chapter berikutnya";
         }
         private void Skip()
         {

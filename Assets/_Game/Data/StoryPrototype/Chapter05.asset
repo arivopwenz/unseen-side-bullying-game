@@ -16,6 +16,7 @@ MonoBehaviour:
   playerName: Ari
   perspective: 2
   allowsDialogueChoices: 0
+  sceneName: Level05
   missions:
   - {fileID: 11400000, guid: 7fee07228eabb084a9cc39eb17ead8d0, type: 2}
   - {fileID: 11400000, guid: dd022a0b5f7d28c478bdac10025d8ce8, type: 2}

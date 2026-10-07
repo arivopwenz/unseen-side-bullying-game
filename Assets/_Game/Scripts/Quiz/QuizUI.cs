@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 namespace BullyingGame.Quiz
 {
@@ -16,6 +17,7 @@ namespace BullyingGame.Quiz
         [SerializeField] private TextMeshProUGUI feedbackResultText;
         [SerializeField] private TextMeshProUGUI feedbackExplanationText;
         [SerializeField] private Button continueButton;
+        [SerializeField] private GameObject questionContent;
         private QuizManager manager;
         private void Awake()
         {
@@ -38,6 +40,7 @@ namespace BullyingGame.Quiz
         private void DisplayQuestion(QuizQuestion question)
         {
             if(panelRoot!=null) panelRoot.SetActive(true);
+            if(questionContent!=null) questionContent.SetActive(true);
             if(feedbackPanel!=null) feedbackPanel.SetActive(false);
             if(questionText!=null) questionText.text=question.questionText;
             if(continueButton!=null) continueButton.gameObject.SetActive(false);
@@ -50,14 +53,18 @@ namespace BullyingGame.Quiz
                 if(visible && optionTexts!=null && i<optionTexts.Length && optionTexts[i]!=null)
                     optionTexts[i].text=question.options[i];
             }
+            if (optionButtons.Length > 0 && optionButtons[0] != null)
+                EventSystem.current?.SetSelectedGameObject(optionButtons[0].gameObject);
         }
         private void ShowFeedback(bool correct,string explanation)
         {
             if(feedbackPanel!=null) feedbackPanel.SetActive(true);
+            if(questionContent!=null) questionContent.SetActive(false);
             if(feedbackResultText!=null) feedbackResultText.text=correct ? "Pilihan yang membantu" : "Mari pertimbangkan kembali";
             if(feedbackExplanationText!=null) feedbackExplanationText.text=explanation;
             if(optionButtons!=null) foreach(var button in optionButtons) if(button!=null) button.interactable=false;
             if(continueButton!=null) continueButton.gameObject.SetActive(true);
+            if (continueButton != null) EventSystem.current?.SetSelectedGameObject(continueButton.gameObject);
         }
         private void Continue()
         {

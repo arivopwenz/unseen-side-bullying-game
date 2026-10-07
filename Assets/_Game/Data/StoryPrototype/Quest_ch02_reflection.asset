@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Quest_ch02_reflection
   m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Quest.QuestData
   questId: ch02_reflection
-  questTitle: 'Refleksi: memahami tekanan Denis'
+  questTitle: Memahami tekanan Denis
   questDescription: 'Refleksi: pilihan saksi'
   objectives:
   - objectiveId: reflect
-    description: Selesaikan dua pertanyaan refleksi
+    description: Jawab dua pertanyaan tentang kejadian tadi
     requiredAmount: 1
     currentAmount: 0
   prerequisites:
