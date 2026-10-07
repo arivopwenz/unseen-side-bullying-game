@@ -17,7 +17,9 @@ namespace BullyingGame.Player
 
         private void Start()
         {
-            SetCursorLock(true);
+            if (BullyingGame.Core.GameStateManager.Instance == null ||
+                BullyingGame.Core.GameStateManager.Instance.CurrentState == BullyingGame.Core.GameState.Playing)
+                SetCursorLock(true);
         }
 
         private void OnEnable()
@@ -46,26 +48,20 @@ namespace BullyingGame.Player
         {
             if (inputActions == null || playerMovement == null) return;
 
+            if (BullyingGame.Core.GameStateManager.Instance != null &&
+                BullyingGame.Core.GameStateManager.Instance.CurrentState != BullyingGame.Core.GameState.Playing)
+            {
+                playerMovement.SetMoveInput(Vector2.zero);
+                playerMovement.SetSprintInput(false);
+                return;
+            }
+
             Vector2 moveInput = inputActions.Movement.Move.ReadValue<Vector2>();
             bool sprintInput = inputActions.Movement.Sprint.IsPressed();
 
             playerMovement.SetMoveInput(moveInput);
             playerMovement.SetSprintInput(sprintInput);
 
-            HandleCursorToggle();
-        }
-
-        private void HandleCursorToggle()
-        {
-            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
-            {
-                SetCursorLock(false);
-            }
-
-            if (Cursor.lockState != CursorLockMode.Locked && Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
-            {
-                SetCursorLock(true);
-            }
         }
 
         public void SetCursorLock(bool locked)

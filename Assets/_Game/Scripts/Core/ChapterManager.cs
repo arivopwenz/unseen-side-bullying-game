@@ -29,7 +29,7 @@ namespace BullyingGame.Core
         {
             if (SaveManager.Instance != null)
             {
-                CurrentChapter = SaveManager.Instance.CurrentData.currentChapter;
+                CurrentChapter = Mathf.Clamp(SaveManager.Instance.CurrentData.currentChapter, 1, totalChapters);
             }
         }
 
@@ -57,5 +57,11 @@ namespace BullyingGame.Core
             }
             OnChapterChanged?.Invoke(CurrentChapter);
         }
+        public void SyncChapter(int chapterNumber)
+        {
+            CurrentChapter = Mathf.Clamp(chapterNumber, 1, totalChapters);
+            OnChapterChanged?.Invoke(CurrentChapter);
+        }
+        private void OnDestroy() { if (Instance == this) Instance = null; }
     }
 }

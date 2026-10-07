@@ -15,5 +15,11 @@ MonoBehaviour:
   lines:
   - speakerName: Guru BK
     text: Bagaimana, Nak? Apakah kamu sudah menemukan buku catatan yang terjatuh di halaman?
+    voiceClip: {fileID: 0}
   - speakerName: Guru BK
     text: Segera cari ya, buku itu berisi catatan penting.
+    voiceClip: {fileID: 0}
+  choiceId: 
+  responses: []
+  contextChoiceId: 
+  contextResponses: []

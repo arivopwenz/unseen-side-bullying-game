@@ -81,7 +81,7 @@ namespace BullyingGame.UI
                 }
                 if (questObjectiveText != null)
                 {
-                    questObjectiveText.text = "Kembali dan bicara dengan Guru BK";
+                    questObjectiveText.text = quest.CompletionMessage;
                 }
             }
         }
@@ -107,6 +107,13 @@ namespace BullyingGame.UI
             }
 
             UpdateObjectiveDisplay(quest);
+        }
+
+        public void RefreshQuest(QuestData quest)
+        {
+            if (quest == null) return;
+            activeQuest = quest;
+            DisplayQuest(quest);
         }
 
         private void UpdateObjectiveDisplay(QuestData quest)

@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace BullyingGame.Core
 {
+    [DefaultExecutionOrder(-200)]
     public class GameStateManager : MonoBehaviour
     {
         public static GameStateManager Instance { get; private set; }

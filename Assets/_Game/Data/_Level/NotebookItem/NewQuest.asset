@@ -17,3 +17,6 @@ MonoBehaviour:
   questDescription: 
   objectives: []
   prerequisites: []
+  routeChoiceId: 
+  routeChoiceIndex: 0
+  completionMessage: Kembali dan bicara dengan pemberi misi.

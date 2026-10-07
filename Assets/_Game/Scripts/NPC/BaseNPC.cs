@@ -14,6 +14,8 @@ namespace BullyingGame.NPC
         private bool interactable = true;
         private Quaternion originalRotation;
         private Coroutine resetRotationCoroutine;
+        private bool ownsConversation;
+        public static event System.Action<Transform, Transform> OnConversationFramed;
 
         protected virtual void Awake()
         {
@@ -58,7 +60,9 @@ namespace BullyingGame.NPC
 
         private void HandleDialogueEnded()
         {
-            if (resetRotationAfterDialogue)
+            if (!ownsConversation) return;
+            ownsConversation = false;
+            if (resetRotationAfterDialogue && isActiveAndEnabled)
             {
                 if (resetRotationCoroutine != null)
                 {
@@ -86,15 +90,18 @@ namespace BullyingGame.NPC
             resetRotationCoroutine = null;
         }
 
-        public string GetPromptText()
+        public virtual string GetPromptText()
         {
             if (npcData == null) return "...";
-            return $"[E] {npcData.interactionPrompt} - {npcData.npcName}";
+            return $"{npcData.interactionPrompt} — {npcData.npcName}";
         }
 
-        public bool CanInteract()
+        public virtual bool CanInteract()
         {
-            return interactable && npcData != null;
+            return isActiveAndEnabled && interactable && npcData != null &&
+                (BullyingGame.Core.GameStateManager.Instance == null ||
+                 BullyingGame.Core.GameStateManager.Instance.CurrentState == BullyingGame.Core.GameState.Playing) &&
+                (DialogueManager.Instance == null || !DialogueManager.Instance.IsDialogueActive);
         }
 
         public void Interact(GameObject interactor)
@@ -112,7 +119,8 @@ namespace BullyingGame.NPC
                 if (dialogueSpawnPoint != null)
                 {
                     var controller = interactor.GetComponent<CharacterController>();
-                    if (controller != null)
+                    bool controllerEnabled = controller != null && controller.enabled;
+                    if (controllerEnabled)
                     {
                         controller.enabled = false;
                     }
@@ -130,10 +138,11 @@ namespace BullyingGame.NPC
                         interactor.transform.rotation = dialogueSpawnPoint.rotation;
                     }
 
-                    if (controller != null)
+                    if (controllerEnabled)
                     {
                         controller.enabled = true;
                     }
+                    Physics.SyncTransforms();
                 }
                 else
                 {
@@ -153,7 +162,10 @@ namespace BullyingGame.NPC
                 }
             }
 
+            if (interactor != null) OnConversationFramed?.Invoke(interactor.transform, transform);
+            ownsConversation = true;
             OnInteract(interactor);
+            if (DialogueManager.Instance == null || !DialogueManager.Instance.IsDialogueActive) ownsConversation = false;
         }
 
         protected abstract void OnInteract(GameObject interactor);

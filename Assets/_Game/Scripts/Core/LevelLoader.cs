@@ -11,6 +11,7 @@ namespace BullyingGame.Core
 
         [SerializeField] private CanvasGroup fadeCanvasGroup;
         [SerializeField] private float fadeDuration = 0.8f;
+        public bool IsLoading { get; private set; }
 
         private void Awake()
         {
@@ -25,12 +26,15 @@ namespace BullyingGame.Core
 
         public void LoadScene(string sceneName)
         {
+            if(IsLoading || string.IsNullOrWhiteSpace(sceneName) || !Application.CanStreamedLevelBeLoaded(sceneName)) return;
+            IsLoading=true;
+            Time.timeScale=1;
             StartCoroutine(LoadSceneRoutine(sceneName));
         }
 
         private IEnumerator LoadSceneRoutine(string sceneName)
         {
-            GameManager.Instance?.SetState(GameState.Loading);
+            GameStateManager.Instance?.SetState(GameState.Loading);
 
             if (fadeCanvasGroup != null)
             {
@@ -48,7 +52,7 @@ namespace BullyingGame.Core
                 yield return StartCoroutine(FadeRoutine(0f));
             }
 
-            GameManager.Instance?.SetState(GameState.Playing);
+            IsLoading=false;
         }
 
         private IEnumerator FadeRoutine(float targetAlpha)
@@ -56,14 +60,15 @@ namespace BullyingGame.Core
             float startAlpha = fadeCanvasGroup.alpha;
             float elapsed = 0f;
 
-            while (elapsed < fadeDuration)
+            while (elapsed < fadeDuration && fadeCanvasGroup != null)
             {
                 elapsed += Time.unscaledDeltaTime;
                 fadeCanvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, elapsed / fadeDuration);
                 yield return null;
             }
 
-            fadeCanvasGroup.alpha = targetAlpha;
+            if(fadeCanvasGroup != null) fadeCanvasGroup.alpha = targetAlpha;
         }
+        private void OnDestroy() { if(Instance==this) Instance=null; }
     }
 }

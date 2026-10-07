@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
+  m_Name: Bully_Consent
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
+  lines:
+  - speakerName: Billy
+    text: Denis, aku ingin mengembalikan uang dan memperbaiki tindakanku. Apa kamu bersedia membahasnya dengan pendamping?
+    voiceClip: {fileID: 0}
+  - speakerName: Denis
+    text: Dengan Pak Bambang, iya. Jangan mendatangiku sendirian dan jangan menuntut aku memaafkanmu.
+    voiceClip: {fileID: 0}
+  - speakerName: Billy
+    text: Aku akan menghormatinya. Aku tidak akan menghubungimu di luar cara yang kamu setujui.
+    voiceClip: {fileID: 0}
+  choiceId: 
+  responses: []
+  contextChoiceId: 
+  contextResponses: []

@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36400553b1d33244c8589a8884916610, type: 3}
+  m_Name: Chapter01
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Core.NarrativeChapterData
+  chapterTitle: "Sebelum memahami \u2022 Halaman sekolah"
+  playerName: Aji
+  perspective: 3
+  allowsDialogueChoices: 1
+  missions:
+  - {fileID: 11400000, guid: 50e1e538dbebaaa4982ea5ad21ba5159, type: 2}
+  - {fileID: 11400000, guid: 07a5792673da90d4a89344b985889acd, type: 2}
+  - {fileID: 11400000, guid: 4ba96b7a2b44723428f023959325e8bd, type: 2}
+  - {fileID: 11400000, guid: 4a328f8370328f540839ed5e81dd7091, type: 2}
+  - {fileID: 11400000, guid: 81f728d22b415a245b062e579f2e1cd2, type: 2}
+  - {fileID: 11400000, guid: 2dd0225f0b175be46b0f9ecbc04af809, type: 2}
+  - {fileID: 11400000, guid: d70ef0977a38d0e439f9118239b6b55a, type: 2}
+  - {fileID: 11400000, guid: 680e611369e88404b9d20ba7070f991e, type: 2}
+  - {fileID: 11400000, guid: 823b21aa1f28652419b9fcc9d62938df, type: 2}
+  openingDialogue: {fileID: 11400000, guid: e156fd24ec2e225418cfa95b3ba44697, type: 2}
+  introVideo: {fileID: 0}
+  reflections:
+  - questionText: "Saat teman dipalak, bantuan awal yang aman adalah\u2026"
+    options:
+    - Menyalahkannya karena takut
+    - Menemani dan menghubungi pihak tepercaya
+    - Memaksanya melawan sendiri
+    correctOptionIndex: 1
+    educationalExplanation: Korban tidak wajib menghadapi pelaku sendirian. Dengarkan, dampingi, dan cari bantuan yang aman.
+  - questionText: "Kalah pada QTE berarti\u2026"
+    options:
+    - Korban pantas dirundung
+    - Korban dilarang meminta bantuan
+    - Tantangan belum berhasil, hak atas dukungan tetap ada
+    correctOptionIndex: 2
+    educationalExplanation: Hasil QTE tidak menentukan kesalahan atau nilai diri korban. Cerita dan kesempatan mencari dukungan tetap berlanjut.
+  closingMessage: Aji mulai memahami bahwa membantu memerlukan persetujuan dan perhatian pada risiko. Buku Denis kembali, tetapi ancaman dan rasa takut belum hilang. Berikutnya kamu menjalani hari sekolah dari sudut pandang Denis.

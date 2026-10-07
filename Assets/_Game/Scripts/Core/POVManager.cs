@@ -7,7 +7,8 @@ namespace BullyingGame.Core
     {
         Victim,
         Bully,
-        Witness
+        Witness,
+        Protagonist
     }
 
     public class POVManager : MonoBehaviour
@@ -39,5 +40,6 @@ namespace BullyingGame.Core
         {
             return CurrentPOV == pov;
         }
+        private void OnDestroy() { if (Instance == this) Instance = null; }
     }
 }

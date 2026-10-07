@@ -16,6 +16,6 @@ MonoBehaviour:
   eventName: Pertemuan Setelah Mengambil Buku
   bullyingType: 0
   witnessDialogue: {fileID: 0}
-  confrontDialogue: {fileID: 0}
+  confrontDialogue: {fileID: 11400000, guid: 564838c109d9a3247ba11ca72ff0b3e4, type: 2}
   ignoreDialogue: {fileID: 0}
   relatedQuest: {fileID: 11400000, guid: 81f728d22b415a245b062e579f2e1cd2, type: 2}

@@ -9,6 +9,12 @@ description: >-
 
 # The Unseen Side — Bullying Education Game: Project Context
 
+## Active Design Update — 7 October 2026
+
+Latest revision: read `document/Chapter01_02_Narrative_Revision.md` before the older five-chapter document. Chapter 1 uses Aji (new Protagonist POV) with exactly three dialogue responses and mutually exclusive objective routes; choices commit only after normal completion and persist into Chapter 2 opening. Chapter 2 now uses Denis (Victim): untimed arithmetic with bullying after either answer, coerced food loss after either QTE effort result, money/extortion threats, Ari witness support and two reflections. Names Billy and Pak Bambang replace Raka and Bu Nadia. The user explicitly chose an indoor classroom exception; remaining campus/story areas are predominantly outdoors. Expanded campus is 64 x 56 m. There are 26 quest definitions including three exclusive routes, 24 playable per campaign. Chapters 3–5 remain earlier playable prototypes, with renamed characters, awaiting deeper rewriting. Do not run historical tests assuming 22 quests or old actor paths; use `Chapter12Smoke` and the latest documented results. Final character models are deferred to user-supplied assets. Use only the already-open Editor.
+
+Read `document/Five_Outdoor_Chapters_Implementation.md` for the current campaign, authoring workflow and verification results. The user now explicitly authorizes Codex to configure Unity directly, handle code and continue the roadmap autonomously. Use the existing Editor only: the machine has limited RAM. Never open a second Editor against this project. Five chapters must all remain outdoors, with multiple story-supporting quests per chapter. The original Step 16 roadmap below is historical. The saved Level01 contains a functional prototype campaign with 22 ordered quests, 10 reflections, three playable character roles, opening Timeline signals, escort, notebook QTE/random rehide, checkpoints, menu and audio. Names Arga/Dimas/Raka/Nara/Bima/Fajar/Bu Nadia are prototype names and remain editable. Final character art, produced After Effects media and physical Android validation are separate release work, not automatically completed by configuring their runtime hooks.
+
 ## Project Identity
 
 - **Type**: 3D Educational Bullying Game

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 877ae448c573e5d4ca7b7057745e5557, type: 3}
+  m_Name: Quest_ch05_consent
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Quest.QuestData
+  questId: ch05_consent
+  questTitle: Pertemuan dengan persetujuan
+  questDescription: Pertemuan dengan persetujuan
+  objectives:
+  - objectiveId: confirm_boundaries
+    description: Periksa kembali batas Denis
+    requiredAmount: 1
+    currentAmount: 0
+  prerequisites:
+  - {fileID: 11400000, guid: 7fee07228eabb084a9cc39eb17ead8d0, type: 2}
+  routeChoiceId: 
+  routeChoiceIndex: 0
+  completionMessage: Tujuan selesai. Langkah berikutnya akan muncul.

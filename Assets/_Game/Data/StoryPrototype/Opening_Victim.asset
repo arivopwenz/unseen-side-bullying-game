@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
+  m_Name: Opening_Victim
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
+  lines:
+  - speakerName: Narasi
+    text: Pagi di sekolah. Aji baru mengenal Denis, Ari, dan kelompok Billy. Hari ini ia melihat bagaimana satu kejadian bisa terasa berbeda bagi setiap orang.
+    voiceClip: {fileID: 0}
+  - speakerName: Billy
+    text: Denis, jangan lewat sini kalau tidak membawa uang jajan.
+    voiceClip: {fileID: 0}
+  - speakerName: Denis
+    text: Aku hanya mau masuk sekolah. Tolong beri jalan.
+    voiceClip: {fileID: 0}
+  - speakerName: Bima
+    text: Billy, bel sudah mau bunyi. Sudahlah.
+    voiceClip: {fileID: 0}
+  - speakerName: Billy
+    text: Diam. Aku cuma bercanda, kan?
+    voiceClip: {fileID: 0}
+  - speakerName: Ari
+    text: Aku melihat Denis mundur. Aku takut kalau maju, mereka akan menjadikanku sasaran berikutnya.
+    voiceClip: {fileID: 0}
+  - speakerName: Aji
+    text: Denis terlihat tidak nyaman. Aku belum tahu ceritanya; aku harus mendengarkan dulu.
+    voiceClip: {fileID: 0}
+  - speakerName: Narasi
+    text: Aji menjadi jembatan untuk mengenal mereka. Mendengar kebutuhan seseorang lebih dahulu membuka kemungkinan membantu dengan aman.
+    voiceClip: {fileID: 0}
+  - speakerName: Aji
+    text: Aku akan menemui Denis di halaman.
+    voiceClip: {fileID: 0}
+  choiceId: 
+  responses: []
+  contextChoiceId: 
+  contextResponses: []

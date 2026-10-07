@@ -11,6 +11,13 @@ namespace BullyingGame.Events
         [SerializeField] private BullyingEventData eventToTrigger;
         [SerializeField] private BullyingEventDirector eventDirector;
 
+        public void OnStartConfrontation()
+        {
+            if (eventDirector != null && eventDirector.IsRunning)
+                eventDirector.PlayConfrontationDialogue();
+            else Debug.LogWarning("Signal konfrontasi membutuhkan Event Director yang sedang menjalankan event.", this);
+        }
+
         public void OnStartBullyApproach()
         {
             if (eventDirector != null && eventDirector.IsRunning)
