@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
+  m_Name: Opening_Victim
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
+  lines:
+  - speakerName: Narasi
+    text: Pagi di halaman sekolah. Bel belum berbunyi, tetapi Denis sudah berharap hari ini cepat selesai.
+    voiceClip: {fileID: 0}
+  - speakerName: Aji
+    text: Aku Aji, baru masuk sekolah ini. Aku ingin mengenal teman-teman di sini.
+    voiceClip: {fileID: 0}
+  - speakerName: Denis
+    text: Buku tugasku belum ketemu. Aku sudah mengerjakannya semalam...
+    voiceClip: {fileID: 0}
+  - speakerName: Billy
+    text: Denis, jangan lewat sini kalau tidak membawa uang jajan.
+    voiceClip: {fileID: 0}
+  - speakerName: Bima
+    text: Billy, bel sebentar lagi. Kita masuk saja.
+    voiceClip: {fileID: 0}
+  - speakerName: Fajar
+    text: Sudah, Denis. Turuti saja Billy biar cepat selesai.
+    voiceClip: {fileID: 0}
+  - speakerName: Denis
+    text: Aku hanya mau masuk sekolah. Tolong beri jalan.
+    voiceClip: {fileID: 0}
+  - speakerName: Billy
+    text: Santai. Aku cuma bercanda, kan?
+    voiceClip: {fileID: 0}
+  - speakerName: Ari
+    text: Aku Ari. Aku melihat Denis mundur, tapi aku takut jadi sasaran berikutnya.
+    voiceClip: {fileID: 0}
+  - speakerName: Pak Bambang
+    text: Selamat pagi. Saya Pak Bambang. Kalau ada yang mengganggu kalian, saya bersedia mendengarkan.
+    voiceClip: {fileID: 0}
+  - speakerName: Bu Sari
+    text: Anak-anak, jangan lupa sarapan. Kantin sudah buka.
+    voiceClip: {fileID: 0}
+  - speakerName: Aji
+    text: Denis terlihat tidak nyaman. Aku akan menemuinya dan mendengar apa yang ia butuhkan.
+    voiceClip: {fileID: 0}
+  - speakerName: Narasi
+    text: Hari ini Aji mulai mengenal mereka. Setiap orang membawa cerita yang belum terlihat dari luar.
+    voiceClip: {fileID: 0}
+  choiceId: 
+  responses: []
+  contextChoiceId: 
+  contextResponses: []

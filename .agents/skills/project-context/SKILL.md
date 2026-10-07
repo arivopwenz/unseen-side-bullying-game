@@ -9,6 +9,14 @@ description: >-
 
 # The Unseen Side — Bullying Education Game: Project Context
 
+## Active Design Update — 7 October 2026
+
+Latest presentation/routing revision: read `document/Presentation_SceneSplit_Revision.md` first. Level01 now hosts ONLY Chapter 1; Level02–Level05 host the corresponding chapter, with async scene transitions and menu Continue routing. `chapters` remains a full catalog for restoring prerequisite/quest records, not an in-scene campaign. UI uses a compact right quest panel with a NavMesh direction arrow, no Chapter/POV header or duplicated bottom instructions; gameplay HUD hides during dialogue/cinematics/QTE/quiz/result. Question cards concern story events instead of QTE failure. Each level has a local Cinemachine/Signal Timeline for the opening; Chapter 1 introduces the cast individually. Deoccluder is a deferred manual learning step; DialogueFocus target is ready but the extension has not been added automatically. Read the latest test results, not earlier counts.
+
+Latest revision: read `document/Chapter01_02_Narrative_Revision.md` before the older five-chapter document. Chapter 1 uses Aji (new Protagonist POV) with exactly three dialogue responses and mutually exclusive objective routes; choices commit only after normal completion and persist into Chapter 2 opening. Chapter 2 now uses Denis (Victim): untimed arithmetic with bullying after either answer, coerced food loss after either QTE effort result, money/extortion threats, Ari witness support and two reflections. Names Billy and Pak Bambang replace Raka and Bu Nadia. The user explicitly chose an indoor classroom exception; remaining campus/story areas are predominantly outdoors. Expanded campus is 64 x 56 m. There are 26 quest definitions including three exclusive routes, 24 playable per campaign. Chapters 3–5 remain earlier playable prototypes, with renamed characters, awaiting deeper rewriting. Do not run historical tests assuming 22 quests or old actor paths; use `Chapter12Smoke` and the latest documented results. Final character models are deferred to user-supplied assets. Use only the already-open Editor.
+
+Read `document/Five_Outdoor_Chapters_Implementation.md` for the current campaign, authoring workflow and verification results. The user now explicitly authorizes Codex to configure Unity directly, handle code and continue the roadmap autonomously. Use the existing Editor only: the machine has limited RAM. Never open a second Editor against this project. Five chapters must all remain outdoors, with multiple story-supporting quests per chapter. The original Step 16 roadmap below is historical. The saved Level01 contains a functional prototype campaign with 22 ordered quests, 10 reflections, three playable character roles, opening Timeline signals, escort, notebook QTE/random rehide, checkpoints, menu and audio. Names Arga/Dimas/Raka/Nara/Bima/Fajar/Bu Nadia are prototype names and remain editable. Final character art, produced After Effects media and physical Android validation are separate release work, not automatically completed by configuring their runtime hooks.
+
 ## Project Identity
 
 - **Type**: 3D Educational Bullying Game
@@ -88,16 +96,16 @@ STEP 3  GameState System                      ✓
 STEP 4  Bootstrap → Main Menu Loading         ✓
 STEP 5  Main Menu UI Foundation               ✓ / paused
 STEP 6  Level_01 + Player Prototype           ✓
-STEP 7  PlayerInputHandler + WASD             ← CURRENT
-STEP 8  Third-Person Camera + Cinemachine
-STEP 9  Camera-Relative Movement
-STEP 10 Interaction System
-STEP 11 NPC Prototype
-STEP 12 Dialogue System
-STEP 13 Quest System
-STEP 14 Quest Item System
-STEP 15 Quest State Management
-STEP 16 Real-Time Cinematic Event Director
+STEP 7  PlayerInputHandler + WASD             ✓
+STEP 8  Third-Person Camera + Cinemachine     ✓
+STEP 9  Camera-Relative Movement              ✓
+STEP 10 Interaction System                    ✓
+STEP 11 NPC Prototype                         ✓
+STEP 12 Dialogue System                       ✓
+STEP 13 Quest System                          ✓
+STEP 14 Quest Item System                     ✓
+STEP 15 Quest State Management + HUD          ✓
+STEP 16 Real-Time Cinematic Event Director    ← CURRENT
 STEP 17 Bully NPC Group System
 STEP 18 Bullying Encounter
 STEP 19 QTE System

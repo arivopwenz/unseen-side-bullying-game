@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1b25e8ca6fa344ea4154617616dfae, type: 3}
+  m_Name: Event_Level01_Notebook
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Events.BullyingEventData
+  eventId: level01_notebook_encounter
+  eventName: Pertemuan Setelah Mengambil Buku
+  bullyingType: 0
+  witnessDialogue: {fileID: 0}
+  confrontDialogue: {fileID: 11400000, guid: 564838c109d9a3247ba11ca72ff0b3e4, type: 2}
+  ignoreDialogue: {fileID: 0}
+  relatedQuest: {fileID: 11400000, guid: 81f728d22b415a245b062e579f2e1cd2, type: 2}

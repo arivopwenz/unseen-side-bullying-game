@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36400553b1d33244c8589a8884916610, type: 3}
+  m_Name: Chapter04
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Core.NarrativeChapterData
+  chapterTitle: "Berani menetapkan batas \u2022 Taman lingkungan"
+  playerName: Denis
+  perspective: 0
+  allowsDialogueChoices: 0
+  sceneName: Level04
+  missions:
+  - {fileID: 11400000, guid: 503f6b87bdfddef449c3e7357438f2dc, type: 2}
+  - {fileID: 11400000, guid: c827610af0b05cf4d92abe801b163807, type: 2}
+  - {fileID: 11400000, guid: 30ad75db63e579c4dac30f26d5b45dae, type: 2}
+  - {fileID: 11400000, guid: 3238cd1389d285c40a59e50c60d4d9f8, type: 2}
+  openingDialogue: {fileID: 11400000, guid: b49dac7aac73aa14a9c3eae9d3bbec04, type: 2}
+  introVideo: {fileID: 0}
+  reflections:
+  - questionText: "Ejekan berulang di grup sebaiknya ditangani dengan\u2026"
+    options:
+    - Menyimpan bukti secara terbatas dan meminta bantuan
+    - Mengirim ulang untuk mempermalukan semua pihak
+    - Menyalahkan diri karena tidak cukup kuat
+    correctOptionIndex: 0
+    educationalExplanation: Simpan bukti tanpa menyebarkan ulang perundungan. Gunakan dukungan dan fitur laporan yang aman.
+  - questionText: "Korban sulit menolak saat diancam karena\u2026"
+    options:
+    - Ia setuju atas perlakuan itu
+    - Tekanan dan ketimpangan kuasa dapat membatasi pilihan
+    - Ia pantas dijadikan sasaran
+    correctOptionIndex: 1
+    educationalExplanation: Diam, menangis, atau mengikuti tuntutan di bawah ancaman bukan persetujuan dan bukan kesalahan korban.
+  closingMessage: Aji menjaga bukti, mencari pendampingan, dan menyatakan batas. Pengalaman takut tidak mengurangi haknya untuk aman.

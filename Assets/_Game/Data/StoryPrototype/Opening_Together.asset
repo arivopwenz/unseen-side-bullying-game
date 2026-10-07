@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
+  m_Name: Opening_Together
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
+  lines:
+  - speakerName: Narasi
+    text: Halaman sekolah setelah kegiatan. Billy, Denis, Aji, dan Ari bertemu dengan pendampingan Pak Bambang.
+    voiceClip: {fileID: 0}
+  - speakerName: Ari
+    text: Aku pernah memilih diam. Hari ini aku ingin menjadi saksi yang bisa dipercaya, bukan orang yang menjadikan kejadian ini tontonan.
+    voiceClip: {fileID: 0}
+  - speakerName: Billy
+    text: Aku sudah menghentikan pemalakan. Aku perlu mengembalikan uang dan memperbaiki tindakanku, bukan meminta kalian melupakan.
+    voiceClip: {fileID: 0}
+  - speakerName: Denis
+    text: Aku belum siap dekat denganmu. Aku ingin ada orang dewasa saat kita membahasnya.
+    voiceClip: {fileID: 0}
+  - speakerName: Billy
+    text: Aku akan menghormati itu. Aku tidak akan memaksamu menerima maafku.
+    voiceClip: {fileID: 0}
+  - speakerName: Aji
+    text: Kami juga butuh rencana kalau kejadian ini berulang, bukan hanya janji hari ini.
+    voiceClip: {fileID: 0}
+  - speakerName: Pak Bambang
+    text: Kita catat langkahnya, siapa yang mendampingi, dan bagaimana melaporkan tanpa membuat korban makin terpapar.
+    voiceClip: {fileID: 0}
+  - speakerName: Narasi
+    text: Perubahan tidak selesai dalam satu percakapan. Komitmen perlu tindakan, batas yang dihormati, dan tindak lanjut.
+    voiceClip: {fileID: 0}
+  choiceId: 
+  responses: []
+  contextChoiceId: 
+  contextResponses: []

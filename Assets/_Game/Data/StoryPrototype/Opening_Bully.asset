@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
+  m_Name: Opening_Bully
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
+  lines:
+  - speakerName: Narasi
+    text: 'Lapangan sekolah. Billy mendengar kembali kalimat yang sering ia dengar: ''Jangan kalah. Jangan terlihat lemah.'''
+    voiceClip: {fileID: 0}
+  - speakerName: Billy
+    text: Di rumah aku sering dibandingkan. Di kelompok ini, aku ingin jadi orang yang tidak bisa diremehkan.
+    voiceClip: {fileID: 0}
+  - speakerName: Bima
+    text: Jadi kamu membuat Denis takut supaya kami menganggapmu kuat?
+    voiceClip: {fileID: 0}
+  - speakerName: Billy
+    text: Awalnya aku mengira tawa kalian berarti kalian setuju. Aku terus mengulanginya agar tetap dianggap pemimpin.
+    voiceClip: {fileID: 0}
+  - speakerName: Denis
+    text: Aku tidak merasa itu lelucon. Aku takut bertemu kalian setiap pagi.
+    voiceClip: {fileID: 0}
+  - speakerName: Billy
+    text: Aku menyebutnya bercanda karena lebih mudah daripada mengakui aku menyakitimu.
+    voiceClip: {fileID: 0}
+  - speakerName: Narasi
+    text: Tekanan di rumah dan kebutuhan diterima menjelaskan sebagian latar Billy. Keduanya tidak membenarkan pemalakan atau intimidasi.
+    voiceClip: {fileID: 0}
+  - speakerName: Billy
+    text: Aku harus berhenti, mendengar dampaknya, dan bertanggung jawab. Denis tidak wajib memaafkanku.
+    voiceClip: {fileID: 0}
+  choiceId: 
+  responses: []
+  contextChoiceId: 
+  contextResponses: []

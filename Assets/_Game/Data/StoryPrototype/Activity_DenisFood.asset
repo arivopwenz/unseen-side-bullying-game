@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07ed5216558093b44babc2424af3cdb2, type: 3}
+  m_Name: Activity_DenisFood
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Events.NarrativeActivityData
+  kind: 1
+  instruction: 
+  answers: []
+  correctAnswer: 0
+  effortQTE: {fileID: 11400000, guid: e73487afce007e143bf59f776e1099f7, type: 2}
+  confrontationDialogue: {fileID: 11400000, guid: f6c7d5fad28a190499802f7d76f1fda5, type: 2}
+  successDialogue: {fileID: 11400000, guid: 8d816baa035f95c42bbf964d99498a67, type: 2}
+  failureDialogue: {fileID: 11400000, guid: b1667daa34d09ff4c8c02c534d033f95, type: 2}
