@@ -13,23 +13,11 @@ MonoBehaviour:
   m_Name: Denis_Lunch_Intro
   m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
   lines:
-  - speakerName: Narasi
-    text: Istirahat. Denis berjalan ke kantin untuk membeli makanan dengan sisa uang jajannya.
-    voiceClip: {fileID: 0}
   - speakerName: Bu Sari
     text: Ini rotimu, Denis. Duduklah di tempat yang teduh.
     voiceClip: {fileID: 0}
   - speakerName: Denis
     text: Terima kasih, Bu. Aku belum makan sejak pagi.
-    voiceClip: {fileID: 0}
-  - speakerName: Billy
-    text: Denis, makananmu untuk kami. Jangan pelit.
-    voiceClip: {fileID: 0}
-  - speakerName: Denis
-    text: Ini makanan yang baru kubeli. Aku membutuhkannya.
-    voiceClip: {fileID: 0}
-  - speakerName: Narasi
-    text: Kelompok Billy menutup jalan. Usaha Denis tidak mengubah keputusan mereka merampas makanan. Kamu dapat mengikuti QTE atau mengaktifkan Bantuan QTE di Pengaturan.
     voiceClip: {fileID: 0}
   choiceId: 
   responses: []

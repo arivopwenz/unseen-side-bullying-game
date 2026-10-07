@@ -16,6 +16,7 @@ MonoBehaviour:
   playerName: Billy
   perspective: 1
   allowsDialogueChoices: 0
+  sceneName: Level03
   missions:
   - {fileID: 11400000, guid: 8dec84fdba3306b4483bcbf65a8a1aee, type: 2}
   - {fileID: 11400000, guid: f092b0a93333b634ba8089342115f167, type: 2}

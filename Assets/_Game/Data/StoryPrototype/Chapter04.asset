@@ -16,6 +16,7 @@ MonoBehaviour:
   playerName: Denis
   perspective: 0
   allowsDialogueChoices: 0
+  sceneName: Level04
   missions:
   - {fileID: 11400000, guid: 503f6b87bdfddef449c3e7357438f2dc, type: 2}
   - {fileID: 11400000, guid: c827610af0b05cf4d92abe801b163807, type: 2}

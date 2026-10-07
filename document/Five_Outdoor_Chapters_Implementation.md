@@ -1,5 +1,7 @@
 # The Unseen Side — Implementasi Lima Chapter Outdoor
 
+> **Routing/tampilan terbaru:** [Presentation_SceneSplit_Revision.md](Presentation_SceneSplit_Revision.md). Level01 hanya untuk Chapter 1; Level02–Level05 memiliki host chapter terpisah. HUD bersih dan perkenalan karakter memakai Timeline.
+
 > **Revisi cerita terbaru:** baca [Chapter01_02_Narrative_Revision.md](Chapter01_02_Narrative_Revision.md). Chapter 1 sekarang memakai Aji dengan tiga jalur dialog, Chapter 2 memakai Denis dengan miniquest berhitung, pemalakan makanan, ancaman dan Ari sebagai saksi. Billy/Pak Bambang menggantikan nama Raka/Bu Nadia. Pengguna memilih kelas indoor khusus; lokasi lainnya tetap dominan outdoor. Ada 26 definisi quest, 24 dimainkan per route. Rincian cerita dan angka pengujian di bawah adalah riwayat prototipe sebelumnya, bukan bukti otomatis untuk revisi baru.
 
 Pembaruan: 7 Oktober 2026. Dokumen ini menggantikan arahan lama bahwa pengguna harus memasang seluruh konfigurasi Unity secara manual. Pengguna sudah memberi izin kepada Codex untuk mengerjakan kode, scene, aset data, kamera, Timeline dan UI langsung melalui Editor.

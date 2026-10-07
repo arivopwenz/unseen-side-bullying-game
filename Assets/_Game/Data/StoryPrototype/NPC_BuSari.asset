@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.NPC.NPCData
   npcName: Bu Sari
   description: 
-  interactionPrompt: Beli makanan / bicara
+  interactionPrompt: Bicara

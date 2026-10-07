@@ -13,6 +13,7 @@ namespace BullyingGame.Core
         [SerializeField] private string playerName;
         [SerializeField] private POVType perspective;
         [SerializeField] private bool allowsDialogueChoices;
+        [SerializeField] private string sceneName;
         [Header("Sequence")]
         [SerializeField] private QuestData[] missions;
         [SerializeField] private DialogueData openingDialogue;
@@ -23,6 +24,7 @@ namespace BullyingGame.Core
         public string PlayerName => playerName;
         public POVType Perspective => perspective;
         public bool AllowsDialogueChoices => allowsDialogueChoices;
+        public string SceneName => sceneName;
         public QuestData[] Missions => missions;
         public DialogueData OpeningDialogue => openingDialogue;
         public UnityEngine.Video.VideoClip IntroVideo => introVideo;

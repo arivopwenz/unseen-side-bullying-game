@@ -1,5 +1,7 @@
 # Chapter 1–2 — Aji, Denis, Ari, Billy dan Pak Bambang
 
+> **Revisi tampilan dan scene terbaru:** [Presentation_SceneSplit_Revision.md](Presentation_SceneSplit_Revision.md). Setiap chapter sekarang mempunyai Level01–Level05 sendiri; UI/kamera/pembukaan dan pertanyaan quest telah diperbarui. Laporan di bawah merupakan baseline cerita sebelum revisi tampilan tersebut.
+
 Pembaruan 7 Oktober 2026. Arahan pengguna pada revisi ini menggantikan rancangan Chapter 1 POV Arga / Chapter 2 POV Nara sebelumnya. Pengguna mengizinkan authoring langsung di Unity dan memilih ruang kelas **indoor khusus** untuk adegan papan tulis. Halaman, kantin, perjalanan dan mayoritas lokasi tetap outdoor. Model karakter final disediakan pengguna pada tahap berikutnya.
 
 ## Tujuan pengalaman

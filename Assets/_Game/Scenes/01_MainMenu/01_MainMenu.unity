@@ -2536,6 +2536,12 @@ MonoBehaviour:
   settingsPanel: {fileID: 1771269902}
   volumeSlider: {fileID: 591511007}
   statusText: {fileID: 395683446}
+  chapters:
+  - {fileID: 11400000, guid: 5999f54425124b948a76905b876434f1, type: 2}
+  - {fileID: 11400000, guid: 76d2d0da5d6cd634da6e6058d08ef1e1, type: 2}
+  - {fileID: 11400000, guid: a8cd087febaf5aa469a27d2ae9cd7f50, type: 2}
+  - {fileID: 11400000, guid: 735b5207a71bbba4aab0e44a3d5d9196, type: 2}
+  - {fileID: 11400000, guid: 7fce53e1b334e0f43a4bceb8129dae9e, type: 2}
 --- !u!114 &926814890
 MonoBehaviour:
   m_ObjectHideFlags: 0

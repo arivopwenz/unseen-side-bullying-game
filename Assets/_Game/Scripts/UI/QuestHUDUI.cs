@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using BullyingGame.Quest;
+using BullyingGame.Core;
 
 namespace BullyingGame.UI
 {
@@ -12,6 +13,15 @@ namespace BullyingGame.UI
         [SerializeField] private CanvasGroup canvasGroup;
 
         private QuestData activeQuest;
+
+        private void LateUpdate()
+        {
+            if (hudContainer == null) return;
+            bool visible = activeQuest != null && QuestManager.Instance != null &&
+                QuestManager.Instance.GetQuestState(activeQuest) == QuestState.Active &&
+                GameStateManager.Instance != null && GameStateManager.Instance.CurrentState == GameState.Playing;
+            hudContainer.SetActive(visible);
+        }
 
         private void Awake()
         {
@@ -134,15 +144,23 @@ namespace BullyingGame.UI
             for (int i = 0; i < objectives.Length; i++)
             {
                 var obj = objectives[i];
-                string status = obj.IsCompleted ? "[V] " : "- ";
-                result += $"{status}{obj.description} ({obj.currentAmount}/{obj.requiredAmount})";
-                if (i < objectives.Length - 1)
-                {
-                    result += "\n";
-                }
+                if (obj.IsCompleted) continue;
+                if (result.Length > 0) result += "\n";
+                result += obj.description;
+                if (obj.requiredAmount > 1) result += $" ({obj.currentAmount}/{obj.requiredAmount})";
             }
 
             questObjectiveText.text = result;
+            if (hudContainer != null && questTitleText != null)
+            {
+                float titleHeight = questTitleText.GetPreferredValues(questTitleText.rectTransform.rect.width, 1000).y;
+                float objectiveHeight = questObjectiveText.GetPreferredValues(questObjectiveText.rectTransform.rect.width, 1000).y;
+                questTitleText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, titleHeight);
+                questObjectiveText.rectTransform.anchoredPosition = new Vector2(24, -50 - titleHeight - 12);
+                questObjectiveText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, objectiveHeight);
+                hudContainer.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,
+                    Mathf.Clamp(50 + titleHeight + 12 + objectiveHeight + 55, 150, 340));
+            }
         }
     }
 }

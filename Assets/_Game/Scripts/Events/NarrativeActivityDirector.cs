@@ -23,6 +23,9 @@ namespace BullyingGame.Events
         [SerializeField] private Transform player;
         [SerializeField] private Transform[] gang;
         [SerializeField] private Transform confrontationStage;
+        [SerializeField] private Transform arithmeticStage;
+        [SerializeField] private Transform arithmeticCameraAnchor;
+        [SerializeField] private Transform[] arithmeticGangPoints;
         [SerializeField] private GameObject playerFood;
         [SerializeField] private GameObject takenFood;
         [SerializeField] private Behaviour[] controls;
@@ -36,7 +39,7 @@ namespace BullyingGame.Events
         private PrioritySettings cameraPriority;
         private Vector3[] actorPositions;
         private Quaternion[] actorRotations;
-        private bool awaitingAftermath, cancelling;
+        private bool awaitingAftermath, awaitingConfrontation, cancelling;
         public bool IsRunning => activity != null;
         public bool IsMathAwaitingAnswer => IsRunning && activity.Kind == NarrativeActivityKind.Arithmetic && mathPanel.activeSelf;
         public bool IsPressureActive => IsRunning && activity.Kind == NarrativeActivityKind.Coercion;
@@ -58,6 +61,7 @@ namespace BullyingGame.Events
             Cursor.lockState=CursorLockMode.None;Cursor.visible=true;
             if(data.Kind == NarrativeActivityKind.Arithmetic)
             {
+                if (arithmeticStage != null) TeleportPlayer(arithmeticStage);
                 StageGang();
                 Frame(false);
                 GameStateManager.Instance.SetState(GameState.Quiz);
@@ -69,25 +73,56 @@ namespace BullyingGame.Events
             }
             if(confrontationStage != null)
             {
-                var controller=player.GetComponent<CharacterController>();bool enabled=controller != null && controller.enabled;
-                if(enabled)controller.enabled=false;
-                player.SetPositionAndRotation(confrontationStage.position,confrontationStage.rotation);
-                if(enabled)controller.enabled=true;
-                Physics.SyncTransforms();
+                TeleportPlayer(confrontationStage);
             }
             if(playerFood != null) playerFood.SetActive(true);
             StageGang(); Frame(true);
+            if (data.ConfrontationDialogue != null)
+            {
+                GameStateManager.Instance.SetState(GameState.Cinematic);
+                awaitingConfrontation = true;
+                dialogue.OnDialogueEnded += ConfrontationFinished;
+                if (dialogue.TryStartDialogue(data.ConfrontationDialogue)) return true;
+                Complete(false); return false;
+            }
+            return StartEffort();
+        }
+        private void TeleportPlayer(Transform point)
+        {
+            var controller = player.GetComponent<CharacterController>();
+            bool enabled = controller != null && controller.enabled;
+            if (enabled) controller.enabled = false;
+            player.SetPositionAndRotation(point.position, point.rotation);
+            if (enabled) controller.enabled = true;
+            Physics.SyncTransforms();
+        }
+        private void ConfrontationFinished()
+        {
+            dialogue.OnDialogueEnded -= ConfrontationFinished;
+            awaitingConfrontation = false;
+            if (dialogue.LastDialogueCompleted) StartEffort();
+            else Complete(false);
+        }
+        private bool StartEffort()
+        {
             GameStateManager.Instance.SetState(GameState.QTE);
             qte.OnQTEEnded += EffortEnded;
             if(BullyingGame.UI.PlayerAccessibility.AssistedQTE) { qte.OnQTEEnded-=EffortEnded;StartAftermath(true);return true; }
-            if(qte.TryStartQTE(data.EffortQTE)) return true;
+            if(qte.TryStartQTE(activity.EffortQTE)) return true;
             Complete(false);return false;
         }
         private void Frame(bool confrontation)
         {
             if(activityCamera == null || player == null) return;
+            if (!confrontation && arithmeticCameraAnchor != null)
+            {
+                activityCamera.transform.SetPositionAndRotation(arithmeticCameraAnchor.position, arithmeticCameraAnchor.rotation);
+                activityCamera.Lens.FieldOfView = 56;
+                return;
+            }
             Vector3 focus=player.position+Vector3.up*1.25f+(confrontation ? player.forward*1.2f : Vector3.forward*1.1f);
-            Vector3 position=confrontation ? focus-player.forward*6+player.right*3+Vector3.up*2 : player.position+Vector3.right*3.6f+Vector3.back*1.1f+Vector3.up*2;
+            Vector3 position=confrontation ? focus-player.forward*4.8f+player.right*6.7f+Vector3.up*1.1f : player.position+Vector3.right*3.6f+Vector3.back*1.1f+Vector3.up*2;
+            focus -= Vector3.up * .55f;
             activityCamera.transform.SetPositionAndRotation(position,Quaternion.LookRotation(focus-position));
             activityCamera.Lens.FieldOfView=confrontation ? 53 : 46;
         }
@@ -98,10 +133,12 @@ namespace BullyingGame.Events
             {
                 if(gang[i] == null) continue;
                 actorPositions[i]=gang[i].position;actorRotations[i]=gang[i].rotation;
-                var position=activity.Kind == NarrativeActivityKind.Arithmetic
+                var position=activity.Kind == NarrativeActivityKind.Arithmetic && arithmeticGangPoints != null && i < arithmeticGangPoints.Length && arithmeticGangPoints[i] != null
+                    ? arithmeticGangPoints[i].position : activity.Kind == NarrativeActivityKind.Arithmetic
                     ? player.position+player.right*(2.3f+i*.45f)-player.forward*(.4f+i*.6f)
                     : player.position+player.forward*(2.2f+i*.35f)+player.right*((i-1)*1.3f);
-                Place(gang[i],position,Quaternion.LookRotation(-player.forward));
+                var facing = player.position - position; facing.y = 0;
+                Place(gang[i],position,Quaternion.LookRotation(facing.sqrMagnitude > .01f ? facing : -player.forward));
             }
         }
         private static void Place(Transform actor,Vector3 position,Quaternion rotation)
@@ -149,8 +186,9 @@ namespace BullyingGame.Events
             if(!IsRunning) return;
             cancelling=true;
             if(qte != null) { qte.OnQTEEnded-=EffortEnded; if(qte.IsQTEActive) qte.CancelQTE(); }
-            if(dialogue != null) { dialogue.OnDialogueEnded-=AftermathFinished; if(awaitingAftermath && dialogue.IsDialogueActive) dialogue.EndDialogue(); }
+            if(dialogue != null) { dialogue.OnDialogueEnded-=AftermathFinished; dialogue.OnDialogueEnded-=ConfrontationFinished; if((awaitingAftermath || awaitingConfrontation) && dialogue.IsDialogueActive) dialogue.EndDialogue(); }
             awaitingAftermath=false;
+            awaitingConfrontation=false;
             mathPanel.SetActive(false);
             if(playerFood != null) playerFood.SetActive(false);
             if(takenFood != null) takenFood.SetActive(false);

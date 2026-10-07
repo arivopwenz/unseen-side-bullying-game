@@ -16,6 +16,7 @@ MonoBehaviour:
   playerName: Aji
   perspective: 3
   allowsDialogueChoices: 1
+  sceneName: Level01
   missions:
   - {fileID: 11400000, guid: 50e1e538dbebaaa4982ea5ad21ba5159, type: 2}
   - {fileID: 11400000, guid: 07a5792673da90d4a89344b985889acd, type: 2}
@@ -36,11 +37,11 @@ MonoBehaviour:
     - Memaksanya melawan sendiri
     correctOptionIndex: 1
     educationalExplanation: Korban tidak wajib menghadapi pelaku sendirian. Dengarkan, dampingi, dan cari bantuan yang aman.
-  - questionText: "Kalah pada QTE berarti\u2026"
+  - questionText: Kelompok Billy mengancam dan mencoba merebut buku Denis. Siapa yang bertanggung jawab atas tindakan itu?
     options:
-    - Korban pantas dirundung
-    - Korban dilarang meminta bantuan
-    - Tantangan belum berhasil, hak atas dukungan tetap ada
+    - Denis, karena tidak mampu mempertahankan bukunya
+    - Aji, karena belum berhasil menghentikannya
+    - Billy dan teman-teman yang melakukan perundungan
     correctOptionIndex: 2
-    educationalExplanation: Hasil QTE tidak menentukan kesalahan atau nilai diri korban. Cerita dan kesempatan mencari dukungan tetap berlanjut.
+    educationalExplanation: Tanggung jawab berada pada pelaku. Denis tetap berhak mendapat dukungan, dan Aji dapat mencari bantuan tanpa harus melawan kelompok itu sendirian.
   closingMessage: Aji mulai memahami bahwa membantu memerlukan persetujuan dan perhatian pada risiko. Buku Denis kembali, tetapi ancaman dan rasa takut belum hilang. Berikutnya kamu menjalani hari sekolah dari sudut pandang Denis.

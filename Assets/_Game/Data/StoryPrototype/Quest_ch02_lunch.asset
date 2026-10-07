@@ -17,7 +17,7 @@ MonoBehaviour:
   questDescription: Istirahat yang tidak tenang
   objectives:
   - objectiveId: encounter
-    description: Beli makanan di kantin dan jalani kejadian
+    description: Datangi kantin saat istirahat
     requiredAmount: 1
     currentAmount: 0
   prerequisites:

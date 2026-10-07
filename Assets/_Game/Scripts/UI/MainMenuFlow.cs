@@ -19,6 +19,8 @@ namespace BullyingGame.UI
         [SerializeField] private GameObject settingsPanel;
         [SerializeField] private Slider volumeSlider;
         [SerializeField] private TMP_Text statusText;
+        [Header("Chapter Scenes")]
+        [SerializeField] private NarrativeChapterData[] chapters;
         private bool loading;
         private void Awake() => BootstrapLauncher.EnsurePersistentSystems();
         private void Start()
@@ -63,9 +65,19 @@ namespace BullyingGame.UI
             loading = true;
             if (newGameButton != null) newGameButton.interactable = false;
             if (continueButton != null) continueButton.interactable = false;
-            if (statusText != null) statusText.text = "Memuat halaman sekolah...";
+            if (statusText != null) statusText.text = "Memuat cerita...";
             GameStateManager.Instance.SetState(GameState.Loading);
-            yield return SceneManager.LoadSceneAsync("Level01");
+            int index = Mathf.Clamp(SaveManager.Instance.CurrentData.currentChapter - 1, 0, chapters.Length - 1);
+            string scene = chapters[index].SceneName;
+            if (ChapterSceneFlow.CanLoad(scene)) yield return SceneManager.LoadSceneAsync(scene);
+            else
+            {
+                loading = false;
+                GameStateManager.Instance.SetState(GameState.MainMenu);
+                if (newGameButton != null) newGameButton.interactable = true;
+                if (continueButton != null) continueButton.interactable = SaveManager.Instance.HasSave;
+                if (statusText != null) statusText.text = "Scene chapter belum tersedia.";
+            }
         }
         public void ToggleSettings() { if (settingsPanel != null) settingsPanel.SetActive(!settingsPanel.activeSelf); }
         private void SetVolume(float value) { AudioListener.volume = Mathf.Clamp01(value); PlayerPrefs.SetFloat("MasterVolume", AudioListener.volume); }

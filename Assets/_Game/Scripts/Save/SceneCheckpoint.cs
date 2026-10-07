@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using BullyingGame.Core;
 using BullyingGame.Quest;
 using BullyingGame.Events;
@@ -49,8 +50,15 @@ namespace BullyingGame.Save
             data.quests = quests.CaptureProgress();
             data.handledEvents = events != null ? events.CaptureHandledEvents() : new string[0];
             var items = UnityEngine.Object.FindObjectsByType<QuestItem>();
-            data.items = new QuestItemCheckpoint[items.Length];
-            for (int i = 0; i < items.Length; i++) data.items[i] = items[i].CaptureCheckpoint();
+            var records = new Dictionary<string, QuestItemCheckpoint>();
+            if (data.items != null) foreach (var item in data.items)
+                if (item != null && !string.IsNullOrWhiteSpace(item.itemId)) records[item.itemId] = item;
+            foreach (var item in items)
+            {
+                var record = item.CaptureCheckpoint();
+                records[record.itemId] = record;
+            }
+            data.items = new List<QuestItemCheckpoint>(records.Values).ToArray();
             if (player != null) { data.playerPosition = player.position; data.hasPlayerPosition = true; }
             if (!SaveManager.Instance.TrySaveGame()) { saveAt = Time.unscaledTime + 5f; return false; }
             dirty = false;
