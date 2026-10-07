@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36400553b1d33244c8589a8884916610, type: 3}
+  m_Name: Chapter02
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Core.NarrativeChapterData
+  chapterTitle: "Hari yang terasa panjang \u2022 POV Denis"
+  playerName: Denis
+  perspective: 0
+  allowsDialogueChoices: 0
+  missions:
+  - {fileID: 11400000, guid: 2f6c0da247113ed4291b2672d8192130, type: 2}
+  - {fileID: 11400000, guid: 5517b51f920b803449d2587728e01e8a, type: 2}
+  - {fileID: 11400000, guid: f9278c2565d64ff47b3ee5b607537b85, type: 2}
+  - {fileID: 11400000, guid: 92900f16f176d9b4da38dab1434e7fbd, type: 2}
+  - {fileID: 11400000, guid: 02e693ce69c3d554b81cdee5a2f0e15c, type: 2}
+  openingDialogue: {fileID: 11400000, guid: 7803e47d888eee747b1165c9a666f1a2, type: 2}
+  introVideo: {fileID: 0}
+  reflections:
+  - questionText: "Denis tetap diejek ketika menjawab benar maupun salah. Ini menunjukkan\u2026"
+    options:
+    - Denis harus selalu mendapat nilai sempurna
+    - Perundungan adalah tindakan pelaku, bukan akibat jawaban korban
+    - Salah menjawab membolehkan ejekan
+    correctOptionIndex: 1
+    educationalExplanation: Benar atau salah dalam pelajaran tidak menghapus hak Denis untuk belajar dengan aman.
+  - questionText: "Denis takut mengadu karena diancam. Dukungan awal yang sesuai adalah\u2026"
+    options:
+    - Memaksa ia mengadu di depan kelompok Billy
+    - Menyebarkan ceritanya agar ramai
+    - Menemani, menjaga privasi, dan mencari pendampingan yang aman
+    correctOptionIndex: 2
+    educationalExplanation: Ancaman membuat mencari bantuan terasa berisiko. Dengarkan dan siapkan bantuan tanpa menyalahkan atau meninggalkan korban.
+  closingMessage: Jawaban benar atau salah tidak menghentikan pilihan Billy merendahkan. Makanan dirampas dan ancaman membuat Denis takut mencari bantuan. Ari mulai hadir; dukungan dan keselamatan perlu ditindaklanjuti, bukan memaksa Denis langsung berani.

@@ -13,11 +13,23 @@ MonoBehaviour:
   m_Name: Quest_Level01_LostNotebook
   m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Quest.QuestData
   questId: quest_level01_lost_notebook
-  questTitle: Buku Catatan yang Hilang
-  questDescription: Temukan buku catatan harian siswa yang terjatuh di area sekolah.
+  questTitle: Buku tugas Denis yang hilang
+  questDescription: Buku tugas Denis yang hilang
   objectives:
-  - objectiveId: find_notebook
-    description: Cari Buku Catatan Siswa
+  - objectiveId: accept_request
+    description: Tanyakan buku tugas kepada Denis
     requiredAmount: 1
     currentAmount: 0
-  prerequisites: []
+  - objectiveId: find_notebook
+    description: Cari buku; bila direbut, cari lokasi barunya
+    requiredAmount: 1
+    currentAmount: 0
+  - objectiveId: return_notebook
+    description: Kembalikan buku kepada Denis
+    requiredAmount: 1
+    currentAmount: 0
+  prerequisites:
+  - {fileID: 11400000, guid: 50e1e538dbebaaa4982ea5ad21ba5159, type: 2}
+  routeChoiceId: 
+  routeChoiceIndex: 0
+  completionMessage: Langkah ini selesai. Ikuti tujuan berikutnya.

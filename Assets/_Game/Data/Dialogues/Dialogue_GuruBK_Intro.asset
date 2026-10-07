@@ -15,7 +15,14 @@ MonoBehaviour:
   lines:
   - speakerName: Guru BK
     text: Halo, Nak. Ada yang bisa Bapak bantu?
+    voiceClip: {fileID: 0}
   - speakerName: Guru BK
     text: Bapak dengar ada buku catatan harian siswa yang terjatuh di halaman luar.
+    voiceClip: {fileID: 0}
   - speakerName: Guru BK
     text: Bisakah kamu membantuku mencarinya dan membawanya kemari?
+    voiceClip: {fileID: 0}
+  choiceId: 
+  responses: []
+  contextChoiceId: 
+  contextResponses: []

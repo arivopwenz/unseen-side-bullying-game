@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
+  m_Name: DenisPressure_MathCorrect
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
+  lines:
+  - speakerName: Denis
+    text: 'Tujuh kali enam empat puluh dua, ditambah delapan: lima puluh.'
+    voiceClip: {fileID: 0}
+  - speakerName: Pak Bambang
+    text: Benar. Langkahmu tepat.
+    voiceClip: {fileID: 0}
+  - speakerName: Billy
+    text: Wah, sok pintar. Paling cuma hafal dari buku yang dicari Aji.
+    voiceClip: {fileID: 0}
+  - speakerName: Denis
+    text: Bahkan saat benar, mereka tetap mengejek. Aku takut mengangkat kepala.
+    voiceClip: {fileID: 0}
+  - speakerName: Pak Bambang
+    text: Billy, hentikan komentar itu. Denis berhak belajar tanpa direndahkan.
+    voiceClip: {fileID: 0}
+  - speakerName: Narasi
+    text: Teguran menghentikan ejekan saat itu, tetapi Denis masih membawa ketakutannya ke waktu istirahat.
+    voiceClip: {fileID: 0}
+  choiceId: 
+  responses: []
+  contextChoiceId: 
+  contextResponses: []

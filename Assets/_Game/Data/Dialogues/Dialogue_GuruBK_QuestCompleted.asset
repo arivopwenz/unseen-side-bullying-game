@@ -15,5 +15,11 @@ MonoBehaviour:
   lines:
   - speakerName: Guru BK
     text: Luar biasa! Kamu berhasil menemukan buku catatan itu.
+    voiceClip: {fileID: 0}
   - speakerName: Guru BK
     text: Terima kasih atas kepedulian dan bantuanmu, Nak. Kamu murid yang sangat baik!
+    voiceClip: {fileID: 0}
+  choiceId: 
+  responses: []
+  contextChoiceId: 
+  contextResponses: []

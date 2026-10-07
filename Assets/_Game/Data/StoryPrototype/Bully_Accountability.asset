@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
+  m_Name: Bully_Accountability
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
+  lines:
+  - speakerName: Billy
+    text: Saya sering merasa diremehkan di rumah. Di kelompok ini saya ingin mengendalikan orang lain.
+    voiceClip: {fileID: 0}
+  - speakerName: Pak Bambang
+    text: Perasaan itu perlu dibantu. Tetapi kamu bertanggung jawab atas pemalakan dan ancaman yang kamu lakukan.
+    voiceClip: {fileID: 0}
+  - speakerName: Billy
+    text: Saya akan berhenti meminta uang dan mengembalikan yang sudah saya ambil.
+    voiceClip: {fileID: 0}
+  - speakerName: Pak Bambang
+    text: Kita buat langkah yang dapat diperiksa. Denis tidak wajib memaafkan agar kamu mulai berubah.
+    voiceClip: {fileID: 0}
+  choiceId: 
+  responses: []
+  contextChoiceId: 
+  contextResponses: []

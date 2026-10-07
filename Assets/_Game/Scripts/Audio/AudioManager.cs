@@ -9,6 +9,7 @@ namespace BullyingGame.Audio
         [Header("Audio Sources")]
         [SerializeField] private AudioSource bgmSource;
         [SerializeField] private AudioSource sfxSource;
+        private float targetVolume;
 
         private void Awake()
         {
@@ -24,6 +25,8 @@ namespace BullyingGame.Audio
             if (sfxSource == null) sfxSource = gameObject.AddComponent<AudioSource>();
 
             bgmSource.loop = true;
+            bgmSource.playOnAwake = false;
+            sfxSource.playOnAwake = false;
         }
 
         public void PlayBGM(AudioClip clip, float volume = 1f)
@@ -31,6 +34,7 @@ namespace BullyingGame.Audio
             if (clip == null) return;
             bgmSource.clip = clip;
             bgmSource.volume = volume;
+            targetVolume = volume;
             bgmSource.Play();
         }
 
@@ -44,5 +48,11 @@ namespace BullyingGame.Audio
             if (clip == null) return;
             sfxSource.PlayOneShot(clip, volume);
         }
+        public void SetBGMGain(float volume) => targetVolume = Mathf.Clamp01(volume);
+        private void Update()
+        {
+            if (bgmSource != null) bgmSource.volume = Mathf.MoveTowards(bgmSource.volume, targetVolume, Time.unscaledDeltaTime * .5f);
+        }
+        private void OnDestroy() { if (Instance == this) Instance = null; }
     }
 }

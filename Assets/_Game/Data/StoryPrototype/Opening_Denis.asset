@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
+  m_Name: Opening_Denis
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
+  lines:
+  - speakerName: Narasi
+    text: Hari berikutnya. Kini kamu bermain sebagai Denis. Kejadian kemarin masih terasa, meski buku tugasmu sudah kembali.
+    voiceClip: {fileID: 0}
+  - speakerName: Denis
+    text: Aku mencoba belajar semalam, tapi setiap membaca aku teringat ancaman Billy. Aku tidur sedikit sekali.
+    voiceClip: {fileID: 0}
+  - speakerName: Aji
+    text: Kalau kamu membutuhkan teman, aku ada. Kamu boleh menentukan kapan ingin bercerita.
+    voiceClip: {fileID: 0}
+  - speakerName: Denis
+    text: Aku ingin mengadu, tapi takut mereka menungguku. Di rumah aku juga belum tahu bagaimana menjelaskan semuanya.
+    voiceClip: {fileID: 0}
+  - speakerName: Ari
+    text: Aku melihat Denis makin sering sendiri. Aku belum berani mendekat saat kelompok Billy ada.
+    voiceClip: {fileID: 0}
+  - speakerName: Pak Bambang
+    text: Denis, nanti kita mencoba satu soal di papan tulis. Kamu boleh mengerjakannya pelan-pelan.
+    voiceClip: {fileID: 0}
+  - speakerName: Denis
+    text: Aku biasanya bisa. Hari ini pikiranku seperti penuh suara lain.
+    voiceClip: {fileID: 0}
+  - speakerName: Narasi
+    text: Tekanan dapat menyulitkan konsentrasi. Nilai pelajaran bukan ukuran apakah seseorang pantas dihormati.
+    voiceClip: {fileID: 0}
+  choiceId: 
+  responses: []
+  contextChoiceId: aji_first_response
+  contextResponses:
+  - label: 
+    lines:
+    - speakerName: Denis
+      text: Kemarin Aji mendengarkan tanpa memaksaku. Aku tahu ada seseorang, walaupun rasa takutku belum hilang.
+      voiceClip: {fileID: 0}
+  - label: 
+    lines:
+    - speakerName: Denis
+      text: Kemarin konfrontasi Aji membuatku khawatir. Ia sudah meminta maaf, tetapi aku masih takut Billy membalas.
+      voiceClip: {fileID: 0}
+  - label: 
+    lines:
+    - speakerName: Denis
+      text: Kemarin Aji sempat pergi, lalu kembali. Aku ingin percaya, tetapi perlu waktu untuk merasa aman.
+      voiceClip: {fileID: 0}

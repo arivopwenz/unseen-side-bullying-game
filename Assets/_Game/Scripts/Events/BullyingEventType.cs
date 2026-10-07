@@ -15,6 +15,8 @@ namespace BullyingGame.Events
         InProgress,
         WaitingResponse,
         Resolved,
-        Failed
+        Failed,
+        Approaching,
+        Confrontation
     }
 }

@@ -14,6 +14,7 @@ namespace BullyingGame.QTE
         public event Action<int> OnProgressUpdated;
 
         public bool IsQTEActive { get; private set; }
+        public bool LastQTECancelled { get; private set; }
         public QTEData CurrentQTE => currentQTE;
         public float RemainingTime => Mathf.Max(0f, remainingTime);
         public int CurrentProgress => currentProgress;
@@ -55,6 +56,7 @@ namespace BullyingGame.QTE
                 return false;
 
             currentQTE = qteData;
+            LastQTECancelled = false;
             remainingTime = qteData.timeLimit;
             currentProgress = 0;
             IsQTEActive = true;
@@ -111,10 +113,11 @@ namespace BullyingGame.QTE
             }
         }
 
-        private void EndQTE(QTEResult result)
+        private void EndQTE(QTEResult result, bool cancelled = false)
         {
             if (!IsQTEActive) return;
             IsQTEActive = false;
+            LastQTECancelled = cancelled;
             if (result == QTEResult.Success)
             {
                 currentProgress = currentQTE.qteType == QTEType.HoldButton ? 100 :
@@ -131,7 +134,7 @@ namespace BullyingGame.QTE
             OnQTEEnded?.Invoke(result);
         }
 
-        public void CancelQTE() => EndQTE(QTEResult.Failed);
+        public void CancelQTE() => EndQTE(QTEResult.Failed, true);
         private void OnDisable() => CancelQTE();
         private void OnDestroy() { if (Instance == this) Instance = null; }
     }

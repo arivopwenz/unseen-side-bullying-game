@@ -69,6 +69,8 @@ namespace BullyingGame.QTE
             UpdateProgress(subscribedManager != null ? subscribedManager.CurrentProgress : 0);
             if (instructionText == null) return;
             string input = subscribedManager != null ? subscribedManager.InputDisplayName : "input";
+            instructionText.fontSize=data.NarrativeEffort ? 23 : 26;
+            if(data.NarrativeEffort) { instructionText.text=data.NarrativeInstruction.Replace("{input}",input);return; }
 
             switch (data.qteType)
             {
@@ -105,6 +107,7 @@ namespace BullyingGame.QTE
 
         private void ShowResult(QTEResult result)
         {
+            if(displayedQTE != null && displayedQTE.NarrativeEffort) { HidePanel();return; }
             if (resultText == null) { HidePanel(); return; }
             switch (result)
             {

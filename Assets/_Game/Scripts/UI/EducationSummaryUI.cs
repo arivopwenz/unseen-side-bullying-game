@@ -33,7 +33,7 @@ namespace BullyingGame.UI
 
             if (scoreText != null)
             {
-                scoreText.text = $"Skor Empati: {empathyScore}";
+                scoreText.text = $"Poin Refleksi: {empathyScore}";
             }
 
             if (messageText != null)
@@ -46,7 +46,7 @@ namespace BullyingGame.UI
                 summaryPanel.SetActive(true);
             }
 
-            GameManager.Instance?.SetState(GameState.Result);
+            GameStateManager.Instance?.SetState(GameState.Result);
         }
 
         private void OnContinueClicked()
@@ -56,7 +56,7 @@ namespace BullyingGame.UI
                 summaryPanel.SetActive(false);
             }
 
-            GameManager.Instance?.SetState(GameState.Playing);
+            GameStateManager.Instance?.SetState(GameState.Playing);
         }
     }
 }

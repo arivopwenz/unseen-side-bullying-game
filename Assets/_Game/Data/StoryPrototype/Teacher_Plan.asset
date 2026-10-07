@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
+  m_Name: Teacher_Plan
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
+  lines:
+  - speakerName: Pak Bambang
+    text: Aji, apa langkah berikutnya yang ingin kamu ajukan? Denis tetap perlu dilibatkan dalam keputusan.
+    voiceClip: {fileID: 0}
+  choiceId: aji_followup
+  responses:
+  - label: Susun pendampingan bersama Denis dan Ari, dengan menjaga privasinya.
+    lines:
+    - speakerName: Aji
+      text: Kita tanyakan batas Denis dan siapa yang boleh mendampingi.
+      voiceClip: {fileID: 0}
+    - speakerName: Pak Bambang
+      text: Baik. Kita periksa lagi keadaannya dan awasi risiko ancaman berikutnya.
+      voiceClip: {fileID: 0}
+  - label: Sebarkan kejadian ini supaya Billy dipermalukan.
+    lines:
+    - speakerName: Aji
+      text: Kalau kita sebarkan, Billy mungkin berhenti.
+      voiceClip: {fileID: 0}
+    - speakerName: Pak Bambang
+      text: Cerita Denis bukan alat untuk mempermalukan. Menyebarkannya dapat meningkatkan risiko. Kita batasi informasi kepada pihak yang menangani.
+      voiceClip: {fileID: 0}
+    - speakerName: Aji
+      text: Saya akan memperbaiki rencana dan meminta persetujuan Denis.
+      voiceClip: {fileID: 0}
+  - label: Saya ajak Billy berkelahi saja supaya kapok.
+    lines:
+    - speakerName: Aji
+      text: Saya ingin menyelesaikannya dengan berkelahi.
+      voiceClip: {fileID: 0}
+    - speakerName: Pak Bambang
+      text: Kekerasan menambah risiko bagi kalian dan Denis. Kita hentikan ancaman melalui pendampingan dan penanganan sekolah.
+      voiceClip: {fileID: 0}
+    - speakerName: Aji
+      text: Saya akan menjauh dari konfrontasi dan ikut rencana yang lebih aman.
+      voiceClip: {fileID: 0}
+  contextChoiceId: 
+  contextResponses: []

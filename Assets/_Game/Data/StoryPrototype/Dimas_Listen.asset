@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
+  m_Name: Dimas_Listen
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
+  lines:
+  - speakerName: Aji
+    text: Denis, tadi aku melihat Billy menghalangi jalanmu. Kamu mau ditemani?
+    voiceClip: {fileID: 0}
+  - speakerName: Denis
+    text: Jangan keras-keras. Mereka sering menungguku, dan aku tidak ingin ini jadi tontonan.
+    voiceClip: {fileID: 0}
+  - speakerName: Aji
+    text: Aku belum tahu semuanya. Aku ingin memahami apa yang kamu butuhkan.
+    voiceClip: {fileID: 0}
+  - speakerName: Denis
+    text: Buku tugasku juga hilang sejak mereka mendatangi mejaku. Besok harus dikumpulkan. Aku sudah sulit fokus akhir-akhir ini.
+    voiceClip: {fileID: 0}
+  choiceId: aji_first_response
+  responses:
+  - label: Aku dengarkan. Kalau kamu setuju, kita cari bukumu bersama.
+    lines:
+    - speakerName: Aji
+      text: Aku tidak akan menyebarkan ceritamu. Apa yang paling ingin kamu bantu sekarang?
+      voiceClip: {fileID: 0}
+    - speakerName: Denis
+      text: Terima kasih. Aku ingin bukuku kembali, tanpa membuat mereka makin marah.
+      voiceClip: {fileID: 0}
+  - label: Kita bikin Billy malu di depan semua orang!
+    lines:
+    - speakerName: Aji
+      text: Kalau semua orang tahu, Billy pasti malu!
+      voiceClip: {fileID: 0}
+    - speakerName: Denis
+      text: Tolong jangan. Kalau kamu memanas-manasi mereka, aku yang mereka tunggu sepulang sekolah.
+      voiceClip: {fileID: 0}
+    - speakerName: Narasi
+      text: Aji perlu menghadapi respons Billy, lalu memperbaiki cara membantu agar Denis tidak semakin terpapar.
+      voiceClip: {fileID: 0}
+  - label: Aku tidak mau ikut urusan ini. Selesaikan sendiri saja.
+    lines:
+    - speakerName: Aji
+      text: Aku takut ikut terseret. Aku pergi dulu.
+      voiceClip: {fileID: 0}
+    - speakerName: Denis
+      text: Aku mengerti kamu takut. Tapi aku jadi merasa benar-benar sendirian.
+      voiceClip: {fileID: 0}
+    - speakerName: Narasi
+      text: Ari melihat percakapan itu. Aji masih memiliki kesempatan untuk memahami dampak sikapnya.
+      voiceClip: {fileID: 0}
+  contextChoiceId: 
+  contextResponses: []

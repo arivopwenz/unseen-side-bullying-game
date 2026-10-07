@@ -11,6 +11,7 @@ namespace BullyingGame.Events
         public event Action<BullyingEventData, BullyingEventState> OnEventStateChanged;
         public BullyingEventData CurrentEvent { get; private set; }
         public BullyingEventState CurrentState { get; private set; }
+        public BullyingEventFailureReason LastFailureReason { get; private set; }
         private readonly HashSet<string> handledEvents = new HashSet<string>();
         private readonly Dictionary<BullyingEventData, BullyingEventDirector> directors =
             new Dictionary<BullyingEventData, BullyingEventDirector>();
@@ -28,6 +29,19 @@ namespace BullyingGame.Events
         public bool HasHandled(BullyingEventData data)
         {
             return data != null && handledEvents.Contains(data.eventId);
+        }
+
+        public string[] CaptureHandledEvents()
+        {
+            var ids = new string[handledEvents.Count]; handledEvents.CopyTo(ids); return ids;
+        }
+
+        public void RestoreHandledEvents(string[] ids)
+        {
+            if (CurrentEvent != null) return;
+            handledEvents.Clear();
+            if (ids != null) foreach (var id in ids)
+                if (!string.IsNullOrWhiteSpace(id)) handledEvents.Add(id);
         }
 
         public bool RegisterDirector(BullyingEventData data, BullyingEventDirector director)
@@ -59,6 +73,7 @@ namespace BullyingGame.Events
                 !directors.TryGetValue(data, out var director) || director == null ||
                 !director.CanStart(data)) return false;
             CurrentEvent = data;
+            LastFailureReason = BullyingEventFailureReason.Interrupted;
             SetState(BullyingEventState.Triggered);
             OnEventTriggered?.Invoke(data);
             return true;
@@ -74,20 +89,38 @@ namespace BullyingGame.Events
 
         public void WaitForResponse()
         {
-            if (CurrentState == BullyingEventState.InProgress)
+            if (CurrentState == BullyingEventState.InProgress || CurrentState == BullyingEventState.Confrontation)
                 SetState(BullyingEventState.WaitingResponse);
         }
 
-        public void ResolveEvent() => Finish(BullyingEventState.Resolved);
-        public void FailEvent() => Finish(BullyingEventState.Failed);
+        public void StartApproach()
+        {
+            if (CurrentState == BullyingEventState.InProgress)
+                SetState(BullyingEventState.Approaching);
+        }
 
-        private void Finish(BullyingEventState result)
+        public void StartConfrontation()
+        {
+            if (CurrentState == BullyingEventState.InProgress || CurrentState == BullyingEventState.Approaching)
+                SetState(BullyingEventState.Confrontation);
+        }
+
+        public void ResolveEvent() => Finish(BullyingEventState.Resolved);
+        public void FailEvent() => FailEvent(BullyingEventFailureReason.Interrupted);
+        public void FailEvent(BullyingEventFailureReason reason) =>
+            Finish(BullyingEventState.Failed, reason);
+
+        private void Finish(BullyingEventState result,
+            BullyingEventFailureReason reason = BullyingEventFailureReason.Interrupted)
         {
             if (CurrentEvent == null ||
                 (CurrentState != BullyingEventState.Triggered &&
                  CurrentState != BullyingEventState.InProgress &&
+                 CurrentState != BullyingEventState.Approaching &&
+                 CurrentState != BullyingEventState.Confrontation &&
                  CurrentState != BullyingEventState.WaitingResponse)) return;
             handledEvents.Add(CurrentEvent.eventId);
+            LastFailureReason = reason;
             SetState(result);
             CurrentEvent = null;
             SetState(BullyingEventState.Inactive);

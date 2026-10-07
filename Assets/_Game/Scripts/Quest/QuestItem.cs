@@ -14,11 +14,15 @@ namespace BullyingGame.Quest
         [SerializeField] private string promptText = "[E] Ambil Buku Catatan";
         [SerializeField] private bool destroyOnCollect = true;
         [SerializeField] private GameObject visualRoot;
+        [SerializeField] private string requiredObjectiveId;
+        [SerializeField] private string itemId = "";
         [Header("Bullying Event")]
         [SerializeField] private BullyingEventData eventToTrigger;
         [SerializeField] private BullyingEventDirector eventDirector;
 
-        private bool pending, collected;
+        private bool pending, collected, awaitingReveal;
+        private QuestItemState stateBeforeEncounter;
+        public QuestItemState State { get; private set; } = QuestItemState.Available;
         private BullyingEventManager subscribedManager;
         private Renderer[] renderers;
         private bool[] rendererStates;
@@ -37,13 +41,15 @@ namespace BullyingGame.Quest
 
         public bool CanInteract()
         {
-            if (pending || collected) return false;
+            if (pending || collected || awaitingReveal) return false;
             if (DialogueManager.Instance != null && DialogueManager.Instance.IsDialogueActive)
                 return false;
             if (GameStateManager.Instance != null &&
                 GameStateManager.Instance.CurrentState != GameState.Playing) return false;
             return quest == null || (QuestManager.Instance != null &&
-                QuestManager.Instance.GetQuestState(quest) == QuestState.Active);
+                QuestManager.Instance.GetQuestState(quest) == QuestState.Active &&
+                (string.IsNullOrWhiteSpace(requiredObjectiveId) ||
+                 QuestManager.Instance.IsObjectiveCompleted(quest, requiredObjectiveId)));
         }
 
         public void Interact(GameObject interactor)
@@ -67,6 +73,8 @@ namespace BullyingGame.Quest
                 return;
             }
             pending = true;
+            stateBeforeEncounter = State;
+            State = QuestItemState.Collected;
             SetVisible(false);
             subscribedManager = manager;
             manager.OnEventStateChanged += OnEventResult;
@@ -74,6 +82,7 @@ namespace BullyingGame.Quest
             {
                 Unsubscribe();
                 pending = false;
+                State = stateBeforeEncounter;
                 SetVisible(true);
             }
         }
@@ -83,16 +92,46 @@ namespace BullyingGame.Quest
             if (!pending || data != eventToTrigger) return;
             if (state != BullyingEventState.Resolved && state != BullyingEventState.Failed)
                 return;
+            bool rehide = state == BullyingEventState.Failed && subscribedManager != null &&
+                subscribedManager.LastFailureReason == BullyingEventFailureReason.QTEFailed;
             Unsubscribe();
             pending = false;
             if (state == BullyingEventState.Resolved) SecureItem();
-            else SetVisible(true);
+            else
+            {
+                State = stateBeforeEncounter;
+                if (rehide)
+                {
+                    State = QuestItemState.Stolen;
+                    var relocator = GetComponent<QuestItemRehide>();
+                    if (relocator != null && relocator.isActiveAndEnabled && relocator.TryRehide())
+                        State = QuestItemState.Rehidden;
+                    else
+                    {
+                        State = stateBeforeEncounter;
+                        if (relocator == null || !relocator.isActiveAndEnabled)
+                            Debug.LogWarning("Tambahkan dan aktifkan Quest Item Rehide pada item, lalu isi Hide Points untuk spawn acak saat QTE gagal.", this);
+                    }
+                }
+                awaitingReveal = true;
+            }
+        }
+
+        private void Update()
+        {
+            if (awaitingReveal && (GameStateManager.Instance == null ||
+                GameStateManager.Instance.CurrentState == GameState.Playing))
+            {
+                awaitingReveal = false;
+                SetVisible(true);
+            }
         }
 
         private void SecureItem()
         {
             if (collected) return;
             collected = true;
+            State = QuestItemState.Secured;
             if (quest != null && QuestManager.Instance != null)
                 QuestManager.Instance.UpdateObjective(quest, objectiveId, 1);
             SetVisible(false);
@@ -112,12 +151,41 @@ namespace BullyingGame.Quest
             subscribedManager = null;
         }
 
+        public QuestItemCheckpoint CaptureCheckpoint() => new QuestItemCheckpoint
+        {
+            itemId = itemId, state = State, position = transform.position
+        };
+
+        public void RestoreCheckpoint(QuestItemCheckpoint checkpoint)
+        {
+            if (pending || string.IsNullOrWhiteSpace(itemId)) return;
+            bool secured = QuestManager.Instance != null && QuestManager.Instance.IsObjectiveCompleted(quest, objectiveId);
+            if (secured || (checkpoint != null && checkpoint.itemId == itemId && checkpoint.state == QuestItemState.Secured))
+            {
+                State = QuestItemState.Secured;
+                collected = true;
+                SetVisible(false);
+            }
+            else if (checkpoint != null && checkpoint.itemId == itemId && checkpoint.state == QuestItemState.Rehidden)
+            {
+                var rehide = GetComponent<QuestItemRehide>();
+                if (rehide != null && rehide.IsAuthoredLocation(checkpoint.position))
+                {
+                    transform.position = checkpoint.position;
+                    State = QuestItemState.Rehidden;
+                    Physics.SyncTransforms();
+                }
+            }
+        }
+
         private void OnDisable()
         {
             Unsubscribe();
-            if (pending)
+            if (pending || awaitingReveal)
             {
+                if (pending) State = stateBeforeEncounter;
                 pending = false;
+                awaitingReveal = false;
                 SetVisible(true);
             }
         }

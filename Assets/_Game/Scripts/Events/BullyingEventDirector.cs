@@ -37,6 +37,9 @@ namespace BullyingGame.Events
         private QTEManager activeQTE;
         private BullyGroupController activeGroup;
         private bool waitingForGroup;
+        private DialogueData queuedDialogue;
+        private QTEData queuedQTE;
+        private bool qteQueued;
 
         public bool IsRunning => running;
 
@@ -94,6 +97,9 @@ namespace BullyingGame.Events
             }
             running = true;
             finishRequested = false;
+            queuedDialogue = null;
+            queuedQTE = null;
+            qteQueued = false;
             previousCursor = Cursor.lockState;
             previousCursorVisible = Cursor.visible;
             previousPriority = cinematicCamera.Priority;
@@ -135,38 +141,84 @@ namespace BullyingGame.Events
         public bool PlayDialogue(DialogueData data)
         {
             var dialogue = DialogueManager.Instance;
-            if (!running || finishRequested || waitingForGroup || activeDialogue != null || activeQTE != null ||
-                dialogue == null || dialogue.IsDialogueActive || data == null ||
+            if (!running || finishRequested || activeDialogue != null || activeQTE != null ||
+                dialogue == null || !dialogue.isActiveAndEnabled || dialogue.IsDialogueActive || data == null ||
                 data.lines == null || data.lines.Length == 0) return false;
+            // Notifications from one slow frame may cross several markers. Preserve their phase order.
+            if (waitingForGroup)
+            {
+                if (queuedDialogue != null) return false;
+                queuedDialogue = data;
+                return true;
+            }
             activeDialogue = dialogue;
             dialogue.OnDialogueEnded += OnDialogueEnded;
             cutscenes.PauseCutscene(timelineDirector);
-            dialogue.StartDialogue(data);
-            return true;
+            if (dialogue.TryStartDialogue(data)) return true;
+            dialogue.OnDialogueEnded -= OnDialogueEnded;
+            activeDialogue = null;
+            cutscenes.ResumeCutscene(timelineDirector);
+            return false;
+        }
+
+        public bool PlayConfrontationDialogue()
+        {
+            if (!running || finishRequested || activeDialogue != null || activeQTE != null)
+                return false;
+            if (eventData != null && PlayDialogue(eventData.confrontDialogue))
+            {
+                if (!waitingForGroup) events.StartConfrontation();
+                return true;
+            }
+            Debug.LogWarning("Dialog konfrontasi tidak dapat dimulai. Isi Event Data > Confront Dialogue dan periksa Dialogue Manager.", this);
+            if (events != null && events.CurrentEvent == eventData) events.FailEvent();
+            return false;
         }
 
         private void OnDialogueEnded()
         {
             if (activeDialogue == null) return;
+            bool completed = activeDialogue.LastDialogueCompleted;
             activeDialogue.OnDialogueEnded -= OnDialogueEnded;
             activeDialogue = null;
-            if (running && !finishRequested) cutscenes.ResumeCutscene(timelineDirector);
+            if (!running || finishRequested) return;
+            if (completed)
+            {
+                if (qteQueued) StartQueuedQTE();
+                else cutscenes.ResumeCutscene(timelineDirector);
+            }
+            else if (events != null && events.CurrentEvent == eventData) events.FailEvent();
         }
 
         public bool PlayQTE(QTEData data)
         {
             var qte = QTEManager.Instance;
-            if (!running || finishRequested || waitingForGroup || activeDialogue != null || activeQTE != null ||
+            if (!running || finishRequested || activeQTE != null ||
                 qte == null || qte.IsQTEActive) return false;
+            if (waitingForGroup || activeDialogue != null)
+            {
+                if (qteQueued) return false;
+                queuedQTE = data;
+                qteQueued = true;
+                return true;
+            }
             activeQTE = qte;
             qte.OnQTEEnded += OnQTEEnded;
             cutscenes.PauseCutscene(timelineDirector);
             events.WaitForResponse();
             GameStateManager.Instance.SetState(GameState.QTE);
             if (qte.TryStartQTE(data)) return true;
-            OnQTEEnded(QTEResult.Failed);
+            FinishQTE(QTEResult.Failed, true);
             Debug.LogWarning("QTE could not start; event failed safely. Check input and data.", this);
             return false;
+        }
+
+        private void StartQueuedQTE()
+        {
+            var data = queuedQTE;
+            queuedQTE = null;
+            qteQueued = false;
+            if (!PlayQTE(data) && events != null && events.CurrentEvent == eventData) events.FailEvent();
         }
 
         public bool PlayBullyApproach()
@@ -181,6 +233,7 @@ namespace BullyingGame.Events
             }
             activeGroup = bullyGroup;
             waitingForGroup = true;
+            events.StartApproach();
             activeGroup.OnApproachCompleted += OnBullyApproachCompleted;
             cutscenes.PauseCutscene(timelineDirector);
             if (activeGroup.TryStartApproach()) return true;
@@ -194,7 +247,18 @@ namespace BullyingGame.Events
             waitingForGroup = false;
             if (activeGroup != null) activeGroup.OnApproachCompleted -= OnBullyApproachCompleted;
             if (!running || finishRequested) return;
-            if (success) cutscenes.ResumeCutscene(timelineDirector);
+            if (success)
+            {
+                events.StartConfrontation();
+                if (queuedDialogue != null)
+                {
+                    var data = queuedDialogue;
+                    queuedDialogue = null;
+                    if (!PlayDialogue(data)) events.FailEvent();
+                }
+                else if (qteQueued) StartQueuedQTE();
+                else cutscenes.ResumeCutscene(timelineDirector);
+            }
             else
             {
                 Debug.LogWarning($"Bully approach gagal: {activeGroup?.LastFailure}. Gameplay akan dipulihkan.", this);
@@ -204,13 +268,18 @@ namespace BullyingGame.Events
 
         private void OnQTEEnded(QTEResult result)
         {
+            FinishQTE(result, activeQTE == null || activeQTE.LastQTECancelled);
+        }
+
+        private void FinishQTE(QTEResult result, bool interrupted)
+        {
             if (activeQTE != null) activeQTE.OnQTEEnded -= OnQTEEnded;
             activeQTE = null;
             if (GameStateManager.Instance != null && GameStateManager.Instance.CurrentState == GameState.QTE)
                 GameStateManager.Instance.SetState(GameState.Cinematic);
             if (events == null || events.CurrentEvent != eventData) return;
             if (result == QTEResult.Success) events.ResolveEvent();
-            else events.FailEvent();
+            else events.FailEvent(interrupted ? BullyingEventFailureReason.Interrupted : BullyingEventFailureReason.QTEFailed);
         }
 
         private void OnCutsceneEnded()
@@ -224,6 +293,9 @@ namespace BullyingGame.Events
         private void RestoreGameplay()
         {
             if (!running) return;
+            queuedDialogue = null;
+            queuedQTE = null;
+            qteQueued = false;
             waitingForGroup = false;
             if (activeGroup != null)
             {
