@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace BullyingGame.Dialogue
 {
@@ -6,6 +7,7 @@ namespace BullyingGame.Dialogue
     public class DialogueLine
     {
         public string speakerName;
-        public string text;
+        [TextArea(2, 5)] public string text;
+        public AudioClip voiceClip;
     }
 }

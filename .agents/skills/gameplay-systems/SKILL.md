@@ -154,7 +154,7 @@ Design intent:
 - Context-sensitive actions
 - Works with NPC dialogue and item pickup
 
-## Dialogue System (Future — Step 12)
+## Dialogue System (Step 12)
 
 Design intent:
 - Support narrative dialogue (multi-POV)
@@ -163,13 +163,45 @@ Design intent:
 - Educational feedback text
 - Use ScriptableObjects for dialogue data
 
-## Quest System (Future — Step 13-15)
+### Dynamic Camera System for Dialogue & Action Events:
+- **Cinemachine Dynamic Dialogue Camera**:
+  - Automatically blends from player follow camera to dialogue framing when dialogue starts (`OnDialogueStarted`).
+  - Framing options: Over-the-shoulder (OTS) shot, speaker close-up, rule-of-thirds framing between Player and NPC.
+  - Dynamic Zoom: Zoom-in during serious/critical dialogue moments, zoom-out when multiple characters participate.
+  - Smooth blend transition back to gameplay follow camera when dialogue ends (`OnDialogueEnded`).
+- **Cinematic Event Action Camera (Bullying Encounter & QTE)**:
+  - Dynamic angle transitions to emphasize tension (Dutch angle, low angle confrontation, dramatic zoom during QTE timers).
+  - High emotional impact without feeling static or monotonous.
 
-Design intent:
-- Quest definitions via ScriptableObjects
-- Quest state tracking (separate from GameObjects)
-- Quest item tracking
-- Objective updates (especially after QTE failure → item rehidden)
+## Interaction & World-Space Prompt Architecture (Implemented — Step 10)
+
+- **IInteractable Pattern**: Decoupled interface implemented by NPCs (`BaseNPC`), Quest Items (`QuestItem`), and world props.
+- **Dynamic World-Space Placement**:
+  - `InteractionCanvas` is in `RenderMode.WorldSpace` with `(0.004, 0.004, 0.004)` scale.
+  - Automatically calculates physical bounds via `col.bounds.center + Vector3.up * (extents.y + offset)` so the prompt dynamically hovers directly above the target (tall NPCs at head height, small items on ground right above the prop).
+  - Billboard rotation: `parentCanvas.transform.rotation = mainCamera.transform.rotation` keeping it readable from any camera angle.
+  - Automatically hides when no interactable is detected or during dialogue.
+
+## Dialogue & Camera Framing Architecture (Implemented — Step 12)
+
+- **Dialogue Flow**: `DialogueData` (ScriptableObject) -> `DialogueManager` event dispatcher -> `DialogueUI` with typewriter effect, voice audio, and delayed continue button.
+- **Dialogue Camera & PlayerDialogueSpawnPoint**:
+  - Two-Shot 45° angle Cinemachine camera (`DialogueCamera`, Priority 0 -> 20 on dialogue start, resets to 0 on dialogue end).
+  - NPCs support `PlayerDialogueSpawnPoint` child GameObject:
+    - On dialogue start: Player is placed at `PlayerDialogueSpawnPoint` on the left of the camera frame, facing the NPC.
+    - NPC rotates to face Player on the right of the camera frame.
+    - Creates a balanced, cinematic two-shot composition from any approach angle.
+    - On dialogue end: NPC smoothly rotates back to original orientation over 0.5s; player is free to walk away.
+    - Scene View gizmo (cyan sphere and line) renders on NPC selection for visual stand-point adjustment.
+
+## Quest System Architecture (Implemented — Step 13-15)
+
+- **Data Models**: `QuestData` (ScriptableObject) with arrays of `QuestObjective` (`objectiveId`, `description`, `requiredAmount`, `currentAmount`).
+- **State Machine**: `QuestState` (`Locked`, `Available`, `Active`, `Completed`, `Failed`).
+- **QuestManager**: Singleton event hub dispatching `OnQuestStateChanged` and `OnObjectiveProgress`.
+- **QuestGiverNPC**: Inherits from `BaseNPC`. Branches dialogue based on quest state (Intro/Giver, Active reminder, Completed appreciation).
+- **QuestItem**: Implements `IInteractable`. Collects item, advances quest objective, and triggers linked bullying event.
+- **QuestHUDUI**: Screen Space overlay in top-left with dark glass background, displaying active quest title and live objective counters `[V] / - (0/1)`.
 
 ## Multi-POV Narrative System (Future — Step 24)
 
@@ -184,9 +216,9 @@ Design intent:
 Systems should be built in this order (dependencies flow downward):
 
 ```text
-Player Movement (✓) → Camera → Camera-Relative Movement →
-Interaction → NPC → Dialogue → Quest → Quest Items →
-Quest State → Event Director → Bully NPC → Bullying Encounter →
+Player Movement (✓) → Camera (✓) → Camera-Relative Movement (✓) →
+Interaction (✓) → NPC (✓) → Dialogue (✓) → Quest (✓) → Quest Items (✓) →
+Quest State + HUD (✓) → Event Director (Step 16) → Bully NPC → Bullying Encounter →
 QTE → QTE Results → Item Rehide → Cinematic Camera →
 Animation → Multi-POV → Cutscenes → Save → Quiz →
 Level Progression → Audio → HUD → Addressables → Polish

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
+  m_Name: Witness_Consent
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
+  lines:
+  - speakerName: Ari
+    text: Pak Bambang bersedia mendampingi. Apa yang boleh aku sampaikan sebagai saksi?
+    voiceClip: {fileID: 0}
+  - speakerName: Denis
+    text: Ceritakan pemalakan yang kamu lihat. Jangan kirim video tangisku atau membahasnya di grup.
+    voiceClip: {fileID: 0}
+  - speakerName: Ari
+    text: Aku akan menghormati batas itu. Kalau ada yang bertanya, aku tidak akan menyebarkan ceritamu.
+    voiceClip: {fileID: 0}
+  choiceId: 
+  responses: []
+  contextChoiceId: 
+  contextResponses: []

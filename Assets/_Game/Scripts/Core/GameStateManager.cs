@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace BullyingGame.Core
 {
+    [DefaultExecutionOrder(-200)]
     public class GameStateManager : MonoBehaviour
     {
         public static GameStateManager Instance { get; private set; }
@@ -34,6 +35,11 @@ namespace BullyingGame.Core
             CurrentState = newState;
             Debug.Log($"Game State: {previousState} -> {newState}");
             OnStateChanged?.Invoke(previousState, newState);
+        }
+
+        private void OnDestroy()
+        {
+            if (Instance == this) Instance = null;
         }
     }
 }

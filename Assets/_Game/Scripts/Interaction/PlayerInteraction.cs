@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 namespace BullyingGame.Interaction
 {
-
     [RequireComponent(typeof(InteractionDetector))]
     public class PlayerInteraction : MonoBehaviour
     {
@@ -13,29 +12,47 @@ namespace BullyingGame.Interaction
         private void Awake()
         {
             detector = GetComponent<InteractionDetector>();
-            inputActions = new GameInputActions();
+            EnsureInputActions();
         }
 
         private void OnEnable()
         {
+            EnsureInputActions();
             inputActions.Movement.Interact.performed += OnInteractPressed;
             inputActions.Movement.Interact.Enable();
         }
 
         private void OnDisable()
         {
-            inputActions.Movement.Interact.performed -= OnInteractPressed;
-            inputActions.Movement.Interact.Disable();
+            if (inputActions != null)
+            {
+                inputActions.Movement.Interact.performed -= OnInteractPressed;
+                inputActions.Movement.Interact.Disable();
+            }
+        }
+
+        private void EnsureInputActions()
+        {
+            if (inputActions == null)
+            {
+                inputActions = new GameInputActions();
+            }
         }
 
         private void OnDestroy()
         {
             inputActions?.Dispose();
+            inputActions = null;
         }
 
         private void OnInteractPressed(InputAction.CallbackContext context)
         {
-            if (detector.CurrentInteractable != null && detector.CurrentInteractable.CanInteract())
+            if (BullyingGame.Core.GameStateManager.Instance != null &&
+                BullyingGame.Core.GameStateManager.Instance.CurrentState != BullyingGame.Core.GameState.Playing)
+                return;
+            if (BullyingGame.Dialogue.DialogueManager.Instance != null &&
+                BullyingGame.Dialogue.DialogueManager.Instance.IsDialogueActive) return;
+            if (detector != null && detector.CurrentInteractable != null && detector.CurrentInteractable.CanInteract())
             {
                 detector.CurrentInteractable.Interact(gameObject);
             }

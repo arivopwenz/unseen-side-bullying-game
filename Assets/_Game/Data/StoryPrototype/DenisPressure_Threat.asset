@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
+  m_Name: DenisPressure_Threat
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
+  lines:
+  - speakerName: Billy
+    text: Uangmu juga sini. Kalau kamu mengadu ke guru atau orang tua, kamu akan menyesal. Aku tunggu setelah sekolah.
+    voiceClip: {fileID: 0}
+  - speakerName: Denis
+    text: Aku takut. Uang itu untuk pulang.
+    voiceClip: {fileID: 0}
+  - speakerName: Fajar
+    text: Jangan cari masalah. Diam saja.
+    voiceClip: {fileID: 0}
+  - speakerName: Denis
+    text: Kalau aku cerita, bagaimana kalau ancaman itu benar-benar terjadi? Aku belum sanggup menjelaskan.
+    voiceClip: {fileID: 0}
+  - speakerName: Narasi
+    text: Ancaman membatasi rasa aman Denis. Tanggung jawab pemalakan tetap berada pada pelaku; Denis tidak harus melawan sendirian.
+    voiceClip: {fileID: 0}
+  choiceId: 
+  responses: []
+  contextChoiceId: 
+  contextResponses: []

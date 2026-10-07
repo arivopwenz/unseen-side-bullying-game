@@ -1,4 +1,8 @@
+> Pembaruan aktif 7 Oktober 2026: lihat [Implementasi Lima Chapter Outdoor](Five_Outdoor_Chapters_Implementation.md). Pengguna kini mengizinkan konfigurasi Unity otomatis; hanya satu Editor boleh berjalan. Roadmap lama di bawah adalah catatan historis.
+
 # Bullying Education Game --- Development Handoff
+
+> Catatan 6 Oktober 2026: status di bawah merupakan snapshot historis. Untuk arahan Chapter 1 terbaru, tiga POV, status implementasi, dan konfigurasi Step 21, baca [Chapter01_Design_dan_Step21_ItemRehide.md](Chapter01_Design_dan_Step21_ItemRehide.md). Identitas pemain/pemilik buku pada rancangan itu masih menunggu konfirmasi; jangan menyalin konteks Guru BK lama ke semua karakter.
 
 **Unity:** 6.6.0f1\
 **Primary platform:** Windows Desktop / PC\

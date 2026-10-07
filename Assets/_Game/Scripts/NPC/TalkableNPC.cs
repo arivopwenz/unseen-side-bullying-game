@@ -1,22 +1,18 @@
 using UnityEngine;
+using BullyingGame.Dialogue;
+
 
 namespace BullyingGame.NPC
 {
     public class TalkableNPC : BaseNPC
     {
-        [SerializeField] private string[] dialogueLines;
-        private int currentLineIndex;
+        [SerializeField] private DialogueData dialogueData;
 
         protected override void OnInteract(GameObject interactor)
         {
-            if (dialogueLines == null || dialogueLines.Length == 0)
-            {
-                Debug.Log($"{npcData.npcName}: ...");
-                return;
-            }
+            if (dialogueData == null) return;
+            DialogueManager.Instance.StartDialogue(dialogueData);
 
-            Debug.Log($"{npcData.npcName}: {dialogueLines[currentLineIndex]}");
-            currentLineIndex = (currentLineIndex + 1) % dialogueLines.Length;
         }
     }
 }
