@@ -82,10 +82,19 @@ namespace BullyingGame.Dialogue
 
             if (currentLineIndex >= activeLines.Length)
             {
+                if (responsePlaying && selectedChoice >= 0 && currentDialogue.Responses[selectedChoice].RetryChoices)
+                {
+                    selectedChoice = -1;
+                    responsePlaying = false;
+                    IsAwaitingChoice = true;
+                    currentLineIndex = activeLines.Length - 1;
+                    OnChoicesRequested?.Invoke(currentDialogue.Responses);
+                    return;
+                }
                 var sequence = UnityEngine.Object.FindAnyObjectByType<StoryChapterSequence>();
                 if(!responsePlaying && sequence != null && sequence.CurrentChapter.AllowsDialogueChoices &&
                     POVManager.Instance != null && POVManager.Instance.CurrentPOV == POVType.Protagonist &&
-                    !string.IsNullOrWhiteSpace(currentDialogue.ChoiceId) && currentDialogue.Responses != null && currentDialogue.Responses.Length == 3)
+                    !string.IsNullOrWhiteSpace(currentDialogue.ChoiceId) && currentDialogue.Responses != null && currentDialogue.Responses.Length >= 2 && currentDialogue.Responses.Length <= 3)
                 {
                     currentLineIndex = activeLines.Length - 1;
                     IsAwaitingChoice = true;
@@ -102,6 +111,18 @@ namespace BullyingGame.Dialogue
         public void EndDialogue()
         {
             FinishDialogue(false);
+        }
+
+        public bool TryShowSummary(DialogueData expected, DialogueData summary)
+        {
+            if (!IsDialogueActive || IsPaused || currentDialogue != expected || IsAwaitingChoice || responsePlaying ||
+                summary == null || summary.lines == null || summary.lines.Length == 0) return false;
+            foreach (var line in summary.lines) if (line == null) return false;
+            // Keep the owning NPC subscribed; only reading the summary completes its objective.
+            activeLines = summary.lines;
+            currentLineIndex = 0;
+            DisplayCurrentLine();
+            return true;
         }
 
         private bool IsPaused => GameStateManager.Instance != null && GameStateManager.Instance.CurrentState == GameState.Paused;

@@ -153,6 +153,8 @@ namespace BullyingGame.Dialogue
         private void UpdateLine(DialogueLine line)
         {
             if (line == null) return;
+            // A submit used to select a response must not also advance its first line.
+            startedFrame = Time.frameCount;
             if (speakerNameText != null) speakerNameText.text = line.speakerName;
             if (voiceAudioSource != null)
             {

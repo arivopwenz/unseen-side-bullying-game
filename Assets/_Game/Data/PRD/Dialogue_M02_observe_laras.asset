@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
+  m_Name: Dialogue_M02_observe_laras
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
+  lines:
+  - speakerName: Dion
+    text: Jangan ajak Laras ke kelompok kalian.
+    voiceClip: {fileID: 0}
+  - speakerName: Laras
+    text: Aku mencari tempat lain saja.
+    voiceClip: {fileID: 0}
+  - speakerName: Narasi
+    text: Aji mendengar hasutan Dion, tetapi belum mengetahui pola dan dampaknya.
+    voiceClip: {fileID: 0}
+  choiceId: M02/observe_laras
+  responses:
+  - label: Tidak ikut mengucilkan; cari konteks dengan izin.
+    lines:
+    - speakerName: Aji
+      text: Aku tidak ikut hasutan itu. Aku dapat bertanya nanti dengan izin Laras.
+      voiceClip: {fileID: 0}
+    retryChoices: 0
+  - label: Anggap semua siswa pasti pelaku.
+    lines:
+    - speakerName: Narasi
+      text: Jangan menambahkan tuduhan tentang siswa lain tanpa mengetahui perannya. Coba pilih respons lain.
+      voiceClip: {fileID: 0}
+    retryChoices: 1
+  contextChoiceId: 
+  contextResponses: []

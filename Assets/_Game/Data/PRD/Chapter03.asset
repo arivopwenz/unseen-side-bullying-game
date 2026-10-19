@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36400553b1d33244c8589a8884916610, type: 3}
+  m_Name: Chapter03
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Core.NarrativeChapterData
+  chapterTitle: Bangku yang Kosong
+  playerName: Aji
+  perspective: 3
+  allowsDialogueChoices: 1
+  sceneName: Level03
+  missions:
+  - {fileID: 11400000, guid: 7b6d6092db726f74eb7172cef0c2ce06, type: 2}
+  - {fileID: 11400000, guid: 1624c1bfc2b699643a25b01656cbf034, type: 2}
+  - {fileID: 11400000, guid: 801e004ed66d17540925a0863c0e558e, type: 2}
+  openingDialogue: {fileID: 11400000, guid: 4db24d38d05e6e348a3e3cf82362fbf7, type: 2}
+  introVideo: {fileID: 0}
+  reflections: []
+  closingMessage: Laras mendapat tempat belajar aman. Bu Ratih memeriksa keterangan terpisah, menghentikan hasutan dan memantau kelompok. Laras tidak diwajibkan berteman dengan Dion.

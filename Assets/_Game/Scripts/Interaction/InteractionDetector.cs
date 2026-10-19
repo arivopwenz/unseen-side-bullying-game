@@ -32,7 +32,7 @@ namespace BullyingGame.Interaction
 
         private void Update()
         {
-            if (nearbyInteractables.Count > 0)
+            if (nearbyInteractables.Count > 0 || CurrentInteractable != null)
             {
                 UpdateCurrentInteractable();
             }
@@ -48,7 +48,7 @@ namespace BullyingGame.Interaction
                 var candidate = nearbyInteractables[i];
                 if (candidate is Component comp && comp != null)
                 {
-                    if (candidate.CanInteract())
+                    if (candidate.CanInteract() && HasLineOfSight(comp.transform))
                     {
                         float dist = Vector3.Distance(transform.position, comp.transform.position);
                         if (dist < minDistance)
@@ -69,6 +69,18 @@ namespace BullyingGame.Interaction
                 CurrentInteractable = closest;
                 OnInteractableChanged?.Invoke(CurrentInteractable);
             }
+        }
+        private bool HasLineOfSight(Transform target)
+        {
+            Vector3 origin=transform.position+Vector3.up*1.25f;
+            Vector3 destination=target.position+Vector3.up*1.1f;
+            Vector3 direction=destination-origin;
+            foreach(var hit in Physics.RaycastAll(origin,direction.normalized,direction.magnitude,~0,QueryTriggerInteraction.Ignore))
+            {
+                if(hit.transform==transform || hit.transform.IsChildOf(transform) || hit.transform==target || hit.transform.IsChildOf(target))continue;
+                return false;
+            }
+            return true;
         }
     }
 }

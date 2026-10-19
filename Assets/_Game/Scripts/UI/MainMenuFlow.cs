@@ -44,15 +44,21 @@ namespace BullyingGame.UI
                 volumeSlider.value = AudioListener.volume;
                 volumeSlider.onValueChanged.AddListener(SetVolume);
             }
-            if (statusText != null) statusText.text = SaveManager.Instance.CurrentData.campaignCompleted
-                ? "Cerita selesai. Mulai baru untuk memainkan ketiga perspektif lagi."
-                : "WASD bergerak • Mouse kamera • E bicara/ambil • Space QTE • Esc jeda";
+            if (statusText != null) statusText.text = SaveManager.Instance.LastError ?? (SaveManager.Instance.CurrentData.campaignCompleted
+                ? "Cerita selesai. Dukungan dan pemantauan sekolah berlanjut."
+                : "Aji • 5 chapter • 15 misi\nWASD bergerak • Mouse kamera • E interaksi • J jurnal • M peta • Esc jeda");
+            UnityEngine.EventSystems.EventSystem.current?.SetSelectedGameObject(newGameButton.gameObject);
         }
         public void NewGame()
         {
             if (loading) return;
-            SaveManager.Instance.ResetProgress();
-            StartCoroutine(LoadLevel());
+            StoryOverlay.Show("Mulai cerita baru?", "Progres cerita saat ini akan diganti. Pengaturan kamera, audio dan teks tetap dipertahankan.", new[]{"Batal", "Mulai baru"}, index =>
+            {
+                StoryOverlay.Current?.Dismiss();
+                if(index != 1) return;
+                if(SaveManager.Instance.TryResetProgress()) StartCoroutine(LoadLevel());
+                else if(statusText!=null)statusText.text=SaveManager.Instance.LastError;
+            });
         }
         public void ContinueGame()
         {
@@ -79,7 +85,8 @@ namespace BullyingGame.UI
                 if (statusText != null) statusText.text = "Scene chapter belum tersedia.";
             }
         }
-        public void ToggleSettings() { if (settingsPanel != null) settingsPanel.SetActive(!settingsPanel.activeSelf); }
+        public void ToggleSettings() => StorySettings.Show();
+        public void ShowHelp() => StorySettings.Help();
         private void SetVolume(float value) { AudioListener.volume = Mathf.Clamp01(value); PlayerPrefs.SetFloat("MasterVolume", AudioListener.volume); }
         private void OnDisable() => PlayerPrefs.Save();
         public void Quit() => Application.Quit();

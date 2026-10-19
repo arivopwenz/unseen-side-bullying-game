@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
+  m_Name: Dialogue_M13_context
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
+  lines:
+  - speakerName: Narasi
+    text: Konteks khusus pemain. Aji tidak hadir, menguping, atau mencatat isi konseling ini.
+    voiceClip: {fileID: 0}
+  - speakerName: Narasi
+    text: Dion mengalami komunikasi merendahkan dan kurang didengar di rumah. Ini salah satu latar fiksi, bukan penyebab tunggal. Tidak semua anak dengan masalah keluarga melakukan perundungan.
+    voiceClip: {fileID: 0}
+  - speakerName: Dion
+    text: Aku ingin terlihat berkuasa. Aku tetap bertanggung jawab merendahkan teman.
+    voiceClip: {fileID: 0}
+  - speakerName: Tio
+    text: Tawaku memperkuat ejekan. Aku harus berhenti mendukungnya.
+    voiceClip: {fileID: 0}
+  - speakerName: Fajar
+    text: Aku bertanggung jawab menyembunyikan tas dan membantu tekanan. Barang sudah kukembalikan; perilakuku harus berhenti.
+    voiceClip: {fileID: 0}
+  - speakerName: Pak Arif
+    text: 'Sekolah menetapkan batas: hentikan perilaku, pulihkan kerugian, ikuti konsekuensi edukatif dan pertemuan tindak lanjut. Keluarga diajak mendukung perubahan.'
+    voiceClip: {fileID: 0}
+  - speakerName: Pak Arif
+    text: Bantuan untuk Dion tidak mengurangi perlindungan korban. Permintaan maaf tidak mewajibkan korban memaafkan.
+    voiceClip: {fileID: 0}
+  choiceId: 
+  responses: []
+  contextChoiceId: 
+  contextResponses: []

@@ -196,17 +196,11 @@ namespace BullyingGame.Core
             int previousChapter = save.CurrentData.currentChapter;
             bool previousPosition = save.CurrentData.hasPlayerPosition;
             var previousPOV = save.CurrentData.currentPOV;
-            save.CurrentData.currentChapter = chapterIndex + 2;
-            save.CurrentData.currentPOV = next.Perspective;
+            save.SetChapterCheckpoint(chapterIndex + 2, "CH" + (chapterIndex + 2).ToString("00") + "/start");
             save.CurrentData.hasPlayerPosition = false;
-            if (!save.TrySaveGame())
-            {
-                save.CurrentData.currentChapter = previousChapter;
-                save.CurrentData.currentPOV = previousPOV;
-                save.CurrentData.hasPlayerPosition = previousPosition;
-                return;
-            }
+            // Destination is committed only by its stable SceneCheckpoint after successful loading.
             changingScene = ChapterSceneFlow.Load(next.SceneName);
+            if (!changingScene) { save.SetChapterCheckpoint(previousChapter, "CH" + previousChapter.ToString("00") + "/stable"); save.CurrentData.hasPlayerPosition = previousPosition; }
         }
         private void OnDestroy()
         {

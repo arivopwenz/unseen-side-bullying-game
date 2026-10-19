@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
+  m_Name: Dialogue_M11_retrieve
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
+  lines:
+  - speakerName: Bu Ratih
+    text: Fajar, kembalikan tas Raka. Menyembunyikan barang dan mendukung pemaksaan tugas harus dihentikan.
+    voiceClip: {fileID: 0}
+  - speakerName: Fajar
+    text: Tasnya di tempat penyimpanan ini. Saya kembalikan, Bu.
+    voiceClip: {fileID: 0}
+  - speakerName: Bu Ratih
+    text: Saya menangani pengembaliannya dan tekanan PR, bukan hanya tas.
+    voiceClip: {fileID: 0}
+  choiceId: M11/retrieve
+  responses:
+  - label: Biarkan guru menangani pengembalian tas.
+    lines:
+    - speakerName: Narasi
+      text: Bu Ratih menerima tas dari Fajar untuk dikembalikan kepada Raka.
+      voiceClip: {fileID: 0}
+    retryChoices: 0
+  - label: Rebut tas atau ajak berkelahi.
+    lines:
+    - speakerName: Narasi
+      text: Guru sudah mendampingi. Perampasan atau perkelahian menambah risiko. Coba pilih respons lain.
+      voiceClip: {fileID: 0}
+    retryChoices: 1
+  contextChoiceId: 
+  contextResponses: []

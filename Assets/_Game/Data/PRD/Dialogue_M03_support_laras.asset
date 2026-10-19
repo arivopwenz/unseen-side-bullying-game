@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
+  m_Name: Dialogue_M03_support_laras
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
+  lines:
+  - speakerName: Laras
+    text: Aku belum ingin membahas kejadian tadi.
+    voiceClip: {fileID: 0}
+  choiceId: M03/support_laras
+  responses:
+  - label: Hormati waktunya dan tawarkan bantuan nanti.
+    lines:
+    - speakerName: Laras
+      text: Terima kasih memberi ruang.
+      voiceClip: {fileID: 0}
+    retryChoices: 0
+  - label: Tawarkan berjalan bersama tanpa bercerita.
+    lines:
+    - speakerName: Laras
+      text: Aku memilih sendiri dulu.
+      voiceClip: {fileID: 0}
+    - speakerName: Aji
+      text: Baik, aku menghormatinya.
+      voiceClip: {fileID: 0}
+    retryChoices: 0
+  - label: Minta Laras segera berteman dengan Dion.
+    lines:
+    - speakerName: Narasi
+      text: Laras tidak wajib berteman dengan orang yang mengganggunya. Coba pilih respons lain.
+      voiceClip: {fileID: 0}
+    retryChoices: 1
+  contextChoiceId: 
+  contextResponses: []

@@ -23,6 +23,8 @@ namespace BullyingGame.Dialogue
     {
         [SerializeField, TextArea] private string label;
         [SerializeField] private DialogueLine[] lines;
+        [SerializeField] private bool retryChoices;
+        public bool RetryChoices => retryChoices;
         public string Label => label;
         public DialogueLine[] Lines => lines;
     }

@@ -148,6 +148,8 @@ namespace BullyingGame.UI
                 if (result.Length > 0) result += "\n";
                 result += obj.description;
                 if (obj.requiredAmount > 1) result += $" ({obj.currentAmount}/{obj.requiredAmount})";
+                // Keep one readable next objective; the journal retains the completed context.
+                break;
             }
 
             questObjectiveText.text = result;

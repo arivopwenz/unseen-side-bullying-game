@@ -11,6 +11,7 @@ namespace BullyingGame.Quiz
         public string[] options;
         public int correctOptionIndex;
         public string educationalExplanation;
+        public string[] optionExplanations;
     }
     public class QuizManager : MonoBehaviour
     {
@@ -43,9 +44,17 @@ namespace BullyingGame.Quiz
                 GameStateManager.Instance==null || GameStateManager.Instance.CurrentState!=GameState.Quiz) return;
             IsAnswered=true;
             bool correct=index==CurrentQuestion.correctOptionIndex;
-            if(!string.IsNullOrWhiteSpace(reflectionId)) Save.SaveManager.Instance?.RecordReflectionAnswer(reflectionId,correct);
+            if(!string.IsNullOrWhiteSpace(reflectionId)) Save.SaveManager.Instance?.RecordReflectionAnswer(reflectionId,index,correct);
             else if(correct) Save.SaveManager.Instance?.AddEmpathyScore(10);
-            OnAnswerSubmitted?.Invoke(correct,CurrentQuestion.educationalExplanation);
+            string explanation = CurrentQuestion.optionExplanations != null && index < CurrentQuestion.optionExplanations.Length
+                ? CurrentQuestion.optionExplanations[index] : CurrentQuestion.educationalExplanation;
+            OnAnswerSubmitted?.Invoke(correct,explanation);
+        }
+        public void RetryAnswer()
+        {
+            if (!IsQuizActive || !IsAnswered || GameStateManager.Instance.CurrentState != GameState.Quiz) return;
+            IsAnswered = false;
+            OnQuizStarted?.Invoke(CurrentQuestion);
         }
         public void CloseQuiz()
         {

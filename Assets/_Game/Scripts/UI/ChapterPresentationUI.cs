@@ -23,8 +23,10 @@ namespace BullyingGame.UI
         [SerializeField] private TextMeshProUGUI endMessage;
         [SerializeField] private TextMeshProUGUI nextLabel;
         [SerializeField] private Button nextButton;
+        private BullyingGame.Events.SchoolStoryPresentation storyPresentation;
         private void Start()
         {
+            storyPresentation = Object.FindAnyObjectByType<BullyingGame.Events.SchoolStoryPresentation>();
             if (endPanel != null) endPanel.SetActive(false);
             if (sequence != null) { sequence.OnChapterStarted += Started; sequence.OnChapterCompleted += Completed; }
             if (skipButton != null) skipButton.onClick.AddListener(Skip);
@@ -34,7 +36,8 @@ namespace BullyingGame.UI
         {
             if (skipButton != null) skipButton.gameObject.SetActive(
                 GameStateManager.Instance != null && GameStateManager.Instance.CurrentState != GameState.Paused &&
-                ((opening != null && opening.IsRunning) || (video != null && video.IsRunning)));
+                ((opening != null && opening.IsRunning && !opening.IsShowingSkipSummary) || (video != null && video.IsRunning) ||
+                 (storyPresentation != null && storyPresentation.CanSkipPrivateScene)));
         }
         private void Started(NarrativeChapterData chapter, int number)
         {
@@ -47,13 +50,14 @@ namespace BullyingGame.UI
         {
             if (last && SaveManager.Instance != null) SaveManager.Instance.CurrentData.campaignCompleted = true;
             if (endPanel != null) endPanel.SetActive(true);
-            if (endTitle != null) endTitle.text = last ? "Lima bab, tiga perspektif" : "Chapter selesai";
+            if (endTitle != null) endTitle.text = last ? "Dukungan berlanjut" : "Chapter selesai";
             if (endMessage != null) endMessage.text = chapter.ClosingMessage;
             if (nextLabel != null) nextLabel.text = last ? "Menu utama" : "Lanjut ke chapter berikutnya";
         }
         private void Skip()
         {
             if (video != null && video.IsRunning) video.SkipVideo();
+            else if (storyPresentation != null && storyPresentation.CanSkipPrivateScene) storyPresentation.SkipPrivateScene();
             else opening?.Skip();
         }
         private void Next() => sequence?.AdvanceChapter();
