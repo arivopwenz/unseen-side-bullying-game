@@ -205,8 +205,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f67560dde239940a9cdec9bcdaafeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Player.PlayerMovement
-  moveSpeed: 4
-  sprintSpeed: 6
+  moveSpeed: 2
+  sprintSpeed: 3
   rotationSpeed: 12
   cameraTransform: {fileID: 0}
   gravity: -20
