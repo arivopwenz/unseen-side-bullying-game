@@ -44,18 +44,28 @@ namespace BullyingGame.Save
         public static SaveManager Instance { get; private set; }
         public GameSaveData CurrentData { get; private set; } = new GameSaveData();
         public string LastError { get; private set; }
-        public bool HasSave => File.Exists(saveFilePath);
+        public bool HasSave => !disableSaving && File.Exists(saveFilePath);
+        [Header("Development")]
+        [Tooltip("Centang untuk menonaktifkan sistem save selama development. Tidak ada file save yang dibaca maupun ditulis.")]
+        [SerializeField] private bool disableSaving = false;
+
         private string saveFilePath;
         private void Awake()
         {
             if(Instance!=null && Instance!=this) { Destroy(gameObject);return; }
             Instance=this;DontDestroyOnLoad(gameObject);
             saveFilePath=Path.Combine(Application.persistentDataPath,"savegame.json");
+            if (disableSaving)
+            {
+                CurrentData = new GameSaveData();
+                return;
+            }
             LoadGame();
         }
         public void SaveGame() => TrySaveGame();
         public bool TrySaveGame()
         {
+            if (disableSaving) return true;
             string temporary=saveFilePath+".tmp";
             try
             {
@@ -75,6 +85,7 @@ namespace BullyingGame.Save
         }
         public void LoadGame()
         {
+            if (disableSaving) { CurrentData = new GameSaveData(); return; }
             if(!TryLoad(saveFilePath) && !TryLoad(saveFilePath+".bak")) CurrentData=new GameSaveData();
         }
         private bool TryLoad(string path)

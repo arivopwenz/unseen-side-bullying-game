@@ -30,7 +30,7 @@ namespace BullyingGame.Player
         {
             float speed = agent != null && agent.enabled && agent.isOnNavMesh ? agent.velocity.magnitude :
                 controller != null && controller.enabled ? Vector3.ProjectOnPlane(controller.velocity, Vector3.up).magnitude : 0;
-            animator.SetFloat(Speed, Mathf.Clamp01(speed / 4f), .12f, Time.deltaTime);
+                        animator.SetFloat(Speed, speed, .12f, Time.deltaTime);
             var state = GameStateManager.Instance != null ? GameStateManager.Instance.CurrentState : GameState.Playing;
             float look = state == GameState.Dialogue || state == GameState.Cinematic || state == GameState.QTE ? .65f : .12f;
             if (headAim != null) headAim.weight = Mathf.Lerp(headAim.weight, look, 1f - Mathf.Exp(-5 * Time.deltaTime));

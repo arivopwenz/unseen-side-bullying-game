@@ -60,7 +60,12 @@ namespace BullyingGame.Player
             bool sprintInput = inputActions.Movement.Sprint.IsPressed();
 
             playerMovement.SetMoveInput(moveInput);
-            playerMovement.SetSprintInput(sprintInput);
+                        playerMovement.SetSprintInput(sprintInput);
+
+            if (inputActions.Movement.Jump.WasPressedThisFrame())
+            {
+                playerMovement.RequestJump();
+            }
 
         }
 

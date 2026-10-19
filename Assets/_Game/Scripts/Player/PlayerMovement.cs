@@ -19,11 +19,33 @@ namespace BullyingGame.Player
         private CharacterController characterController;
         private Vector2 moveInput;
         private bool isSprinting;
-        private float verticalVelocity;
+                [Header("Animation")]
+        [SerializeField] private string speedParameterName = "Speed";
+        [SerializeField] private float animationDampTime = 0.12f;
+
+        private Animator animator;
+private float verticalVelocity;
+
+        [Header("Jump")]
+        [SerializeField] private float jumpForce = 8f;
+        [SerializeField] private string jumpTriggerName = "Jump";
+        [SerializeField] private string groundedBoolName = "Grounded";
+
+        private bool hasSpeedParam;
+        private bool hasJumpTriggerParam;
+        private bool hasGroundedParam;
+
+        private bool jumpRequested;
 
         private void Awake()
         {
             characterController = GetComponent<CharacterController>();
+            animator = GetComponent<Animator>();
+            if (animator == null)
+            {
+                animator = GetComponentInChildren<Animator>();
+            }
+            CacheAnimatorParams();
         }
 
         private void Start()
@@ -59,13 +81,23 @@ namespace BullyingGame.Player
             isSprinting = sprinting;
         }
 
+        public void RequestJump()
+        {
+            jumpRequested = true;
+        }
+
+
         private void Update()
         {
             Vector3 movement = CalculateCameraRelativeDirection(moveInput);
 
             float speed = isSprinting ? sprintSpeed : moveSpeed;
 
-            if (characterController != null && characterController.enabled && characterController.isGrounded && verticalVelocity < 0f)
+            bool isGrounded = characterController != null && characterController.enabled && characterController.isGrounded;
+
+            HandleJump(isGrounded);
+
+            if (isGrounded && verticalVelocity < 0f)
             {
                 verticalVelocity = -2f;
             }
@@ -79,8 +111,80 @@ namespace BullyingGame.Player
                 characterController.Move(velocity * Time.deltaTime);
             }
 
+            if (animator != null && characterController != null && hasGroundedParam)
+            {
+                animator.SetBool(groundedBoolName, characterController.isGrounded);
+            }
+
+            UpdateAnimation(velocity);
             RotateTowardsMovement(movement);
         }
+
+        private void UpdateAnimation(Vector3 velocity)
+        {
+            if (animator == null || !hasSpeedParam)
+            {
+                return;
+            }
+
+            float horizontalSpeed = new Vector3(velocity.x, 0f, velocity.z).magnitude;
+            animator.SetFloat(speedParameterName, horizontalSpeed, animationDampTime, Time.deltaTime);
+        }
+
+        private void HandleJump(bool isGrounded)
+        {
+            if (!jumpRequested)
+            {
+                return;
+            }
+
+            jumpRequested = false;
+
+            if (isGrounded)
+            {
+                verticalVelocity = jumpForce;
+                if (animator != null)
+                {
+                    if (hasJumpTriggerParam)
+                    {
+                        animator.SetTrigger(jumpTriggerName);
+                    }
+
+                    if (hasGroundedParam)
+                    {
+                        animator.SetBool(groundedBoolName, false);
+                    }
+                }
+            }
+        }
+
+        private void CacheAnimatorParams()
+        {
+            hasSpeedParam = HasAnimatorParam(speedParameterName);
+            hasJumpTriggerParam = HasAnimatorParam(jumpTriggerName);
+            hasGroundedParam = HasAnimatorParam(groundedBoolName);
+        }
+
+        private bool HasAnimatorParam(string paramName)
+        {
+            if (animator == null || string.IsNullOrEmpty(paramName))
+            {
+                return false;
+            }
+
+            foreach (var p in animator.parameters)
+            {
+                if (p.name == paramName)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
+
 
         private Vector3 CalculateCameraRelativeDirection(Vector2 input)
         {
