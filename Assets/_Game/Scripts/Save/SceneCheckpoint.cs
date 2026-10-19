@@ -13,6 +13,7 @@ namespace BullyingGame.Save
         [Header("Checkpoint")]
         [SerializeField] private Transform player;
         private bool dirty;
+        private bool failureShown;
         private float saveAt;
         private QuestManager quests;
         private BullyingEventManager events;
@@ -47,6 +48,16 @@ namespace BullyingGame.Save
             if (SaveManager.Instance == null || quests == null || GameStateManager.Instance == null ||
                 (GameStateManager.Instance.CurrentState != GameState.Playing && GameStateManager.Instance.CurrentState != GameState.Result)) return false;
             var data = SaveManager.Instance.CurrentData;
+            if (sequence != null)
+            {
+                SaveManager.Instance.SetChapterCheckpoint(sequence.ChapterNumber, "CH" + sequence.ChapterNumber.ToString("00") + "/stable");
+                data.missionId = sequence.ActiveQuest != null ? sequence.ActiveQuest.questId : "M" + (sequence.ChapterNumber * 3).ToString("00");
+                if (sequence.IsChapterComplete && System.Array.IndexOf(data.completedChapters, data.chapterId) < 0)
+                {
+                    var completed = new List<string>(data.completedChapters) { data.chapterId };
+                    data.completedChapters = completed.ToArray();
+                }
+            }
             data.quests = quests.CaptureProgress();
             data.handledEvents = events != null ? events.CaptureHandledEvents() : new string[0];
             var items = UnityEngine.Object.FindObjectsByType<QuestItem>();
@@ -60,9 +71,36 @@ namespace BullyingGame.Save
             }
             data.items = new List<QuestItemCheckpoint>(records.Values).ToArray();
             if (player != null) { data.playerPosition = player.position; data.hasPlayerPosition = true; }
-            if (!SaveManager.Instance.TrySaveGame()) { saveAt = Time.unscaledTime + 5f; return false; }
+            if (!SaveManager.Instance.TrySaveGame())
+            {
+                dirty = true;
+                saveAt = Time.unscaledTime + 5f;
+                ShowSaveFailure();
+                return false;
+            }
+            failureShown = false;
             dirty = false;
             return true;
+        }
+        private void ShowSaveFailure()
+        {
+            if (failureShown || BullyingGame.UI.StoryOverlay.Current != null) return;
+            failureShown = true;
+            var state = GameStateManager.Instance.CurrentState;
+            float timeScale = Time.timeScale;
+            GameStateManager.Instance.SetState(GameState.Paused);
+            Time.timeScale = 0;
+            BullyingGame.UI.StoryOverlay.Show("Checkpoint belum tersimpan",
+                "Progres sesi ini masih tersedia, tetapi belum berhasil disimpan. Coba simpan lagi sebelum keluar.\n\n" + SaveManager.Instance.LastError,
+                new[] { "Coba simpan lagi", "Kembali ke permainan" }, index =>
+                {
+                    BullyingGame.UI.StoryOverlay.Current?.Dismiss();
+                    if (index == 0) { failureShown = false; CaptureNow(); }
+                }, () =>
+                {
+                    Time.timeScale = timeScale;
+                    if (GameStateManager.Instance != null) GameStateManager.Instance.SetState(state);
+                });
         }
         private void OnApplicationPause(bool paused) { if (paused) CaptureNow(); }
         private void OnApplicationQuit() => CaptureNow();

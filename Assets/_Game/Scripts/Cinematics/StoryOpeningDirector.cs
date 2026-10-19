@@ -24,6 +24,8 @@ namespace BullyingGame.Cinematics
         [Header("Timeline")]
         [SerializeField] private PlayableDirector timeline;
         [SerializeField] private CutsceneManager cutscenes;
+        [Header("Skip Summary")]
+        [SerializeField] private DialogueData skipSummary;
         [Header("Gameplay Controls")]
         [SerializeField] private Behaviour[] controls;
         [Header("Opening Blocking")]
@@ -35,6 +37,7 @@ namespace BullyingGame.Cinematics
         [SerializeField] private OpeningSpeakerFocus[] speakers;
         public event Action OnFinished;
         public bool IsRunning { get; private set; }
+        public bool IsShowingSkipSummary { get; private set; }
         private DialogueData dialogue;
         private DialogueManager dialogueManager;
         private bool[] enabledStates;
@@ -44,6 +47,9 @@ namespace BullyingGame.Cinematics
         private CursorLockMode cursor;
         private bool visible;
         private double dialogueTime;
+        private DialogueData activeSummary;
+        private DialogueManager summaryManager;
+        private bool summaryPending;
 
         public bool TryPlay(DialogueData openingDialogue)
         {
@@ -127,7 +133,61 @@ namespace BullyingGame.Cinematics
         }
         public void Skip()
         {
-            if (IsRunning) cutscenes.StopCutscene(timeline);
+            if (!IsRunning || IsShowingSkipSummary || cutscenes == null ||
+                GameStateManager.Instance != null && GameStateManager.Instance.CurrentState == GameState.Paused) return;
+            cutscenes.PauseCutscene(timeline);
+            // Stop the original conversation without completing either the opening or a mission.
+            if (dialogueManager != null)
+            {
+                var manager = dialogueManager;
+                manager.OnDialogueEnded -= DialogueFinished;
+                manager.OnLineDisplayed -= FrameLine;
+                dialogueManager = null;
+                if (manager.CurrentDialogue == dialogue) manager.EndDialogue();
+            }
+            activeSummary = skipSummary != null ? skipSummary : dialogue;
+            if (activeSummary == null || activeSummary.lines == null || activeSummary.lines.Length == 0)
+            {
+                // An invalid authoring reference must not leave controls permanently locked.
+                cutscenes.StopCutscene(timeline);
+                return;
+            }
+            IsShowingSkipSummary = true;
+            summaryPending = true;
+            TryShowSummary();
+        }
+        private void Update()
+        {
+            if (summaryPending && IsRunning && GameStateManager.Instance != null &&
+                GameStateManager.Instance.CurrentState != GameState.Paused) TryShowSummary();
+        }
+        private void TryShowSummary()
+        {
+            var manager = DialogueManager.Instance;
+            if (!summaryPending || manager == null || manager.IsDialogueActive) return;
+            summaryManager = manager;
+            manager.OnDialogueEnded += SummaryFinished;
+            if (manager.TryStartDialogue(activeSummary)) summaryPending = false;
+            else
+            {
+                manager.OnDialogueEnded -= SummaryFinished;
+                summaryManager = null;
+            }
+        }
+        private void SummaryFinished()
+        {
+            bool completed = summaryManager != null && summaryManager.LastDialogueCompleted;
+            if (summaryManager != null) summaryManager.OnDialogueEnded -= SummaryFinished;
+            summaryManager = null;
+            if (!IsRunning) return;
+            if (!completed)
+            {
+                // Cancellation does not acknowledge the learning message. It can be read again.
+                summaryPending = true;
+                return;
+            }
+            summaryPending = false;
+            cutscenes.StopCutscene(timeline);
         }
         private void Finished()
         {
@@ -139,6 +199,16 @@ namespace BullyingGame.Cinematics
         {
             if (!IsRunning) return;
             IsRunning = false;
+            IsShowingSkipSummary = false;
+            summaryPending = false;
+            if (summaryManager != null)
+            {
+                var manager = summaryManager;
+                manager.OnDialogueEnded -= SummaryFinished;
+                summaryManager = null;
+                if (manager.CurrentDialogue == activeSummary) manager.EndDialogue();
+            }
+            activeSummary = null;
             if (cutscenes != null) cutscenes.OnCutsceneEnded -= Finished;
             if (dialogueManager != null)
             {

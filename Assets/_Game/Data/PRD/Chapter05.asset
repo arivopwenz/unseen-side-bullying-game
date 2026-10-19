@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36400553b1d33244c8589a8884916610, type: 3}
+  m_Name: Chapter05
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Core.NarrativeChapterData
+  chapterTitle: Pemulihan dan Perubahan
+  playerName: Aji
+  perspective: 3
+  allowsDialogueChoices: 1
+  sceneName: Level05
+  missions:
+  - {fileID: 11400000, guid: 5c5d080ed6ea7bb48a5905cd9cdae446, type: 2}
+  - {fileID: 11400000, guid: 13e06dec2bb00214e9d82b72880246a8, type: 2}
+  - {fileID: 11400000, guid: a9ec7187b124fb94d9c8737d767fe999, type: 2}
+  openingDialogue: {fileID: 11400000, guid: 5e442573f60a74244bf9b5d988302b47, type: 2}
+  introVideo: {fileID: 0}
+  reflections:
+  - questionText: Aji melihat satu kejadian janggal. Apa langkah tepat?
+    options:
+    - Simpulkan seluruh pola sudah terbukti
+    - Catat pengamatan, cari konteks, tawarkan bantuan
+    - Tunggu semua bukti sebelum boleh menolong
+    correctOptionIndex: 1
+    educationalExplanation: Benar. Cari pengulangan dan ketimpangan kuasa; ketidaknyamanan dapat dibantu sejak awal.
+    optionExplanations:
+    - Satu kejadian belum menjelaskan seluruh pola. Bedakan fakta dan dugaan.
+    - Benar. Cari pengulangan dan ketimpangan kuasa; ketidaknyamanan dapat dibantu sejak awal.
+    - Catatan tidak harus lengkap untuk meminta bantuan guru.
+  - questionText: Bima tertawa ketika diejek. Apa artinya?
+    options:
+    - Ia pasti nyaman
+    - Ia setuju diejek
+    - Tawa dapat menyembunyikan ketidaknyamanan
+    correctOptionIndex: 2
+    educationalExplanation: Benar. Bima tertawa agar ejekan cepat selesai. Dengarkan dengan izin.
+    optionExplanations:
+    - Tawa canggung tidak membuktikan kenyamanan.
+    - Tawa atau diam tidak otomatis berarti persetujuan.
+    - Benar. Bima tertawa agar ejekan cepat selesai. Dengarkan dengan izin.
+  - questionText: Laras belum mau menerima ajakan kelompok. Apa respons membantu?
+    options:
+    - Hormati pilihan dan tawarkan alternatif guru
+    - Paksa demi kebaikannya
+    - Batalkan bantuan sampai ia mau terbuka
+    correctOptionIndex: 0
+    educationalExplanation: Benar. Laras tetap berhak belajar aman dan boleh memilih bicara sendiri.
+    optionExplanations:
+    - Benar. Laras tetap berhak belajar aman dan boleh memilih bicara sendiri.
+    - Paksaan menghilangkan kendali Laras; dukungan memberi pilihan.
+    - Bantuan bukan imbalan karena korban mau bercerita.
+  - questionText: Jurnal Raka belum lengkap dan ia takut balasan. Apa langkah aman?
+    options:
+    - Rekam pelaku diam-diam
+    - Minta guru membantu secara privat
+    - Batalkan laporan jika bertemu Fajar
+    correctOptionIndex: 1
+    educationalExplanation: Benar. Pisahkan fakta dan cerita, pilih rute atau pendamping nyaman, minta rencana perlindungan.
+    optionExplanations:
+    - Tidak perlu memata-matai sebelum mencari perlindungan.
+    - Benar. Pisahkan fakta dan cerita, pilih rute atau pendamping nyaman, minta rencana perlindungan.
+    - Bertemu pelaku tidak membatalkan bantuan. Guru menangani risiko balasan.
+  - questionText: Bagaimana memahami latar keluarga Dion?
+    options:
+    - Membenarkan tindakannya
+    - Semua anak bermasalah keluarga menjadi pelaku
+    - Memberi konteks; Dion tetap bertanggung jawab
+    correctOptionIndex: 2
+    educationalExplanation: Benar. Dukungan perubahan pelaku tetap disertai penghentian perilaku dan perlindungan korban.
+    optionExplanations:
+    - Latar bukan pembenaran perundungan.
+    - Tidak semua anak dengan masalah keluarga melakukan perundungan.
+    - Benar. Dukungan perubahan pelaku tetap disertai penghentian perilaku dan perlindungan korban.
+  - questionText: Tas kembali dan pelaku meminta maaf, tetapi teman masih takut. Berikutnya?
+    options:
+    - Lanjutkan pemeriksaan privat dan pendampingan guru
+    - Paksa segera memaafkan
+    - Anggap selesai karena barang kembali
+    correctOptionIndex: 0
+    educationalExplanation: Benar. Pemulihan berpusat pada rasa aman. Guru menangani kebutuhan lanjutan; korban tidak wajib memaafkan.
+    optionExplanations:
+    - Benar. Pemulihan berpusat pada rasa aman. Guru menangani kebutuhan lanjutan; korban tidak wajib memaafkan.
+    - Memaafkan bukan syarat perlindungan atau akhir permainan.
+    - Barang kembali belum membuktikan rasa aman pulih. Tindak lanjut tetap diperlukan.
+  closingMessage: Pak Beni memantau lapangan; Bu Ratih memeriksa kelompok dan tugas; Pak Arif menyediakan pertemuan privat serta perlindungan dari balasan. Dion, Tio dan Fajar wajib menghentikan perilaku dan memperbaiki kerugian. Korban boleh belum memaafkan. Dukungan teman membuka bantuan; sekolah bertanggung jawab menjaga rasa aman. Pemantauan terus berjalan, bukan janji perubahan permanen.

@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
+  m_Name: Dialogue_M03_support_bima
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
+  lines:
+  - speakerName: Aji
+    text: Ingin ngobrol atau waktu sendiri?
+    voiceClip: {fileID: 0}
+  - speakerName: Bima
+    text: Aku ingin istirahat dulu.
+    voiceClip: {fileID: 0}
+  choiceId: M03/support_bima
+  responses:
+  - label: Beri ruang; tersedia bila Bima ingin ditemani.
+    lines:
+    - speakerName: Bima
+      text: Terima kasih tidak memaksaku.
+      voiceClip: {fileID: 0}
+    retryChoices: 0
+  - label: Tawarkan duduk bersama tanpa wajib bercerita.
+    lines:
+    - speakerName: Bima
+      text: Boleh, sebentar saja.
+      voiceClip: {fileID: 0}
+    retryChoices: 0
+  - label: Paksa Bima menjelaskan semuanya sekarang.
+    lines:
+    - speakerName: Narasi
+      text: Dukungan tidak mensyaratkan cerita lengkap. Hormati waktu Bima. Coba pilih respons lain.
+      voiceClip: {fileID: 0}
+    retryChoices: 1
+  contextChoiceId: 
+  contextResponses: []

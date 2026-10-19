@@ -19,6 +19,7 @@ namespace BullyingGame.Quiz
         [SerializeField] private Button continueButton;
         [SerializeField] private GameObject questionContent;
         private QuizManager manager;
+        private Button retryButton;
         private void Awake()
         {
             if(panelRoot!=null) panelRoot.SetActive(false);
@@ -34,11 +35,23 @@ namespace BullyingGame.Quiz
         {
             manager=QuizManager.Instance;
             if(manager==null) return;
+            if (continueButton != null)
+            {
+                retryButton = Instantiate(continueButton, continueButton.transform.parent);
+                retryButton.name = "PerbaikiJawaban";
+                var rect = retryButton.GetComponent<RectTransform>();
+                rect.anchoredPosition += Vector2.left * 300;
+                retryButton.GetComponentInChildren<TextMeshProUGUI>().text = "Perbaiki jawaban";
+                retryButton.onClick = new Button.ButtonClickedEvent();
+                retryButton.onClick.AddListener(() => manager.RetryAnswer());
+                retryButton.gameObject.SetActive(false);
+            }
             manager.OnQuizStarted+=DisplayQuestion;manager.OnAnswerSubmitted+=ShowFeedback;manager.OnQuizClosed+=Hide;
             if(manager.IsQuizActive) DisplayQuestion(manager.CurrentQuestion);
         }
         private void DisplayQuestion(QuizQuestion question)
         {
+            if(retryButton!=null) retryButton.gameObject.SetActive(false);
             if(panelRoot!=null) panelRoot.SetActive(true);
             if(questionContent!=null) questionContent.SetActive(true);
             if(feedbackPanel!=null) feedbackPanel.SetActive(false);
@@ -58,6 +71,7 @@ namespace BullyingGame.Quiz
         }
         private void ShowFeedback(bool correct,string explanation)
         {
+            if(retryButton!=null) retryButton.gameObject.SetActive(true);
             if(feedbackPanel!=null) feedbackPanel.SetActive(true);
             if(questionContent!=null) questionContent.SetActive(false);
             if(feedbackResultText!=null) feedbackResultText.text=correct ? "Pilihan yang membantu" : "Mari pertimbangkan kembali";

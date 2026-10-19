@@ -25,7 +25,7 @@ namespace BullyingGame.UI
         {
             if(pausePanel!=null) pausePanel.SetActive(false);
             if(resumeButton!=null) resumeButton.onClick.AddListener(ResumeGame);
-            if(restartButton!=null) restartButton.onClick.AddListener(RestartLevel);
+            if(restartButton!=null) restartButton.onClick.AddListener(ReturnToMenu);
             if(quitButton!=null) quitButton.onClick.AddListener(QuitGame);
         }
         private void OnEnable()
@@ -34,13 +34,18 @@ namespace BullyingGame.UI
             actionWasEnabled=pauseAction.action.enabled;
             pauseAction.action.performed+=PausePressed;pauseAction.action.Enable();
         }
-        private void PausePressed(InputAction.CallbackContext context) => TogglePause();
+        private void PausePressed(InputAction.CallbackContext context)
+        {
+            if(StoryOverlay.DismissedFrame==Time.frameCount)return;
+            if(StoryOverlay.Current!=null){StoryOverlay.Current.Dismiss();return;}
+            TogglePause();
+        }
         public void TogglePause() { if(isPaused) ResumeGame();else PauseGame(); }
         public void PauseGame()
         {
             var states=GameStateManager.Instance;
             if(isPaused || states==null || states.CurrentState==GameState.Loading || states.CurrentState==GameState.Boot ||
-                states.CurrentState==GameState.MainMenu || states.CurrentState==GameState.Result) return;
+                states.CurrentState==GameState.MainMenu) return;
             isPaused=true;previousState=states.CurrentState;previousTimeScale=Time.timeScale;
             pausedDirector=CutsceneManager.Instance!=null ? CutsceneManager.Instance.CurrentDirector : null;
             timelineWasPlaying=pausedDirector!=null && pausedDirector.state==PlayState.Playing;
@@ -68,6 +73,12 @@ namespace BullyingGame.UI
             ResumeGame();Time.timeScale=1;
             GameStateManager.Instance?.SetState(GameState.Loading);
             UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+        }
+        public void ShowSettings() => StorySettings.Show();
+        public void ReturnToMenu()
+        {
+            ResumeGame(); Time.timeScale=1;
+            ChapterSceneFlow.Load("01_MainMenu");
         }
         public void QuitGame() { ResumeGame();Application.Quit(); }
         private void OnDisable()

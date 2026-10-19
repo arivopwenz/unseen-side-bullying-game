@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
+  m_Name: Dialogue_M05_plan
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
+  lines:
+  - speakerName: Bima
+    text: Aku takut bercerita di depan Dion. Bagaimana meminta bantuan?
+    voiceClip: {fileID: 0}
+  choiceId: M05/plan
+  responses:
+  - label: Tawarkan menemani ke Pak Beni secara pribadi.
+    lines:
+    - speakerName: Bima
+      text: Aku bersedia, asal bukan di depan mereka.
+      voiceClip: {fileID: 0}
+    - speakerName: Aji
+      text: Kita menyampaikan yang diketahui dengan tenang.
+      voiceClip: {fileID: 0}
+    retryChoices: 0
+  - label: Jika belum siap, konsultasikan perlindungan secara terbatas.
+    lines:
+    - speakerName: Bima
+      text: Aku belum siap ikut.
+      voiceClip: {fileID: 0}
+    - speakerName: Aji
+      text: Aku dapat menyampaikan yang kulihat tanpa memaksamu membuka cerita.
+      voiceClip: {fileID: 0}
+    retryChoices: 0
+  - label: Balas hinaan atau ajak berkelahi.
+    lines:
+    - speakerName: Narasi
+      text: Balasan hinaan atau perkelahian menambah risiko. Bantuan guru tersedia tanpa menghadapi kelompok sendiri. Coba pilih respons lain.
+      voiceClip: {fileID: 0}
+    retryChoices: 1
+  contextChoiceId: 
+  contextResponses: []

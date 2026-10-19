@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
+  m_Name: Dialogue_M08_offer
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
+  lines:
+  - speakerName: Aji
+    text: Boleh bergabung denganku dan Sari. Peran apa yang nyaman? Kita juga bisa meminta alternatif Bu Ratih.
+    voiceClip: {fileID: 0}
+  choiceId: M08/offer
+  responses:
+  - label: Terima Laras secara sukarela dan tanyakan perannya.
+    lines:
+    - speakerName: Laras
+      text: Aku mau menyusun ide presentasi.
+      voiceClip: {fileID: 0}
+    - speakerName: Sari
+      text: Kita bagi pekerjaan adil.
+      voiceClip: {fileID: 0}
+    retryChoices: 0
+  - label: Hormati alternatif bantuan guru dan tempat belajar lain.
+    lines:
+    - speakerName: Laras
+      text: Aku ingin meminta tempat lain kepada Bu Ratih.
+      voiceClip: {fileID: 0}
+    - speakerName: Aji
+      text: Baik, kamu tidak wajib menerima ajakanku.
+      voiceClip: {fileID: 0}
+    retryChoices: 0
+  - label: Paksa bergabung agar masalah cepat selesai.
+    lines:
+    - speakerName: Narasi
+      text: Penolakan ajakan bukan kegagalan. Beri pilihan yang menjaga kendali Laras. Coba pilih respons lain.
+      voiceClip: {fileID: 0}
+    retryChoices: 1
+  contextChoiceId: 
+  contextResponses: []

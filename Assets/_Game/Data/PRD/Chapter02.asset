@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36400553b1d33244c8589a8884916610, type: 3}
+  m_Name: Chapter02
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Core.NarrativeChapterData
+  chapterTitle: Di Balik Tawa di Lapangan
+  playerName: Aji
+  perspective: 3
+  allowsDialogueChoices: 1
+  sceneName: Level02
+  missions:
+  - {fileID: 11400000, guid: 88c712491838b9146bbf3162fd3f5efe, type: 2}
+  - {fileID: 11400000, guid: 19930c52a01462a48b14c798044dec20, type: 2}
+  - {fileID: 11400000, guid: 183f62795c39b484db124b2a71549e85, type: 2}
+  openingDialogue: {fileID: 11400000, guid: 013bf36b4601c4343b56d49c04434144, type: 2}
+  introVideo: {fileID: 0}
+  reflections: []
+  closingMessage: Pak Beni menghentikan komentar tubuh dan membagi tim adil. Bima boleh ikut atau beristirahat. Guru berkoordinasi dengan BK dan akan memeriksa kembali rasa amannya.

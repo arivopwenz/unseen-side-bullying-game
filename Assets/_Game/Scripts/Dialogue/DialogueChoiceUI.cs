@@ -13,6 +13,7 @@ namespace BullyingGame.Dialogue
         [SerializeField] private TMP_Text[] labels;
         private DialogueManager manager;
         private GameObject previousSelection;
+        private int shownFrame;
         private void Start()
         {
             if(panel != null) panel.SetActive(false);
@@ -25,13 +26,14 @@ namespace BullyingGame.Dialogue
         }
         private void Show(DialogueResponse[] choices)
         {
-            if(panel == null || choices == null || choices.Length != buttons.Length) return;
+            if(panel == null || choices == null || choices.Length > buttons.Length) return;
             previousSelection = EventSystem.current != null ? EventSystem.current.currentSelectedGameObject : null;
             panel.SetActive(true);
-            for(int i=0;i<buttons.Length;i++) { labels[i].text = choices[i].Label; buttons[i].interactable=true; }
+            shownFrame = Time.frameCount;
+            for(int i=0;i<buttons.Length;i++) { buttons[i].gameObject.SetActive(i < choices.Length); if(i < choices.Length) { labels[i].text = choices[i].Label; buttons[i].interactable=true; } }
             if(EventSystem.current != null) EventSystem.current.SetSelectedGameObject(buttons[0].gameObject);
         }
-        public void Choose(int index) { if(manager != null && manager.SelectChoice(index)) Hide(); }
+        public void Choose(int index) { if(Time.frameCount > shownFrame && manager != null && manager.SelectChoice(index)) Hide(); }
         private void Line(DialogueLine line) { if(manager != null && !manager.IsAwaitingChoice) Hide(); }
         private void Hide()
         {

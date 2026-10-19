@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 877ae448c573e5d4ca7b7057745e5557, type: 3}
+  m_Name: Quest_M10
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Quest.QuestData
+  questId: M10
+  questTitle: "M10 \xB7 Mendengar pengakuan Raka"
+  questDescription: Mendengar pengakuan Raka
+  objectives:
+  - objectiveId: listen
+    description: Dengarkan kebutuhan Raka
+    requiredAmount: 1
+    currentAmount: 0
+  - objectiveId: witness
+    description: Catat keterangan Sari sesuai yang diketahui
+    requiredAmount: 1
+    currentAmount: 0
+  prerequisites:
+  - {fileID: 11400000, guid: 801e004ed66d17540925a0863c0e558e, type: 2}
+  routeChoiceId: 
+  routeChoiceIndex: 0
+  completionMessage: Kembali dan bicara dengan pemberi misi.

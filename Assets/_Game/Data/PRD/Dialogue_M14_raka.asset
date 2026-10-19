@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292627ae068a3d044b459df3febbab20, type: 3}
+  m_Name: Dialogue_M14_raka
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Dialogue.DialogueData
+  lines:
+  - speakerName: Aji
+    text: Boleh menanyakan tas dan tugasmu?
+    voiceClip: {fileID: 0}
+  - speakerName: Raka
+    text: Tas aman, tetapi aku takut melewati kelompok itu saat pulang.
+    voiceClip: {fileID: 0}
+  choiceId: M14/raka
+  responses:
+  - label: Minta rencana pendampingan konkret.
+    lines:
+    - speakerName: Pak Arif
+      text: Saya atur pendampingan pulang, titik bantuan guru dan pemeriksaan privat besok. Bu Ratih memantau tugasmu.
+      voiceClip: {fileID: 0}
+    retryChoices: 0
+  - label: Beri ruang agar Raka bicara privat sendiri.
+    lines:
+    - speakerName: Raka
+      text: Aku ingin menjelaskan sendiri.
+      voiceClip: {fileID: 0}
+    - speakerName: Pak Arif
+      text: Baik. Kita susun pendampingan pulang dan pemeriksaan besok tanpa wajib bercerita bersama siswa lain.
+      voiceClip: {fileID: 0}
+    retryChoices: 0
+  - label: Abaikan ketakutan karena tas kembali.
+    lines:
+    - speakerName: Narasi
+      text: Barang kembali belum menghilangkan risiko balasan. Tawarkan bantuan konkret. Coba pilih respons lain.
+      voiceClip: {fileID: 0}
+    retryChoices: 1
+  contextChoiceId: 
+  contextResponses: []
