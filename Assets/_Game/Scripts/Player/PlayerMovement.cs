@@ -48,6 +48,22 @@ private float verticalVelocity;
             CacheAnimatorParams();
         }
 
+        private void OnDisable()
+        {
+            // When movement is disabled (dialogue, cinematic, pause), zero the
+            // locomotion Speed immediately; otherwise the blend tree keeps
+            // looping with the last damped Speed value.
+            if (animator != null && hasSpeedParam)
+            {
+                animator.SetFloat(speedParameterName, 0f);
+            }
+
+            moveInput = Vector2.zero;
+            isSprinting = false;
+            jumpRequested = false;
+        }
+
+
         private void Start()
         {
             FindCamera();
