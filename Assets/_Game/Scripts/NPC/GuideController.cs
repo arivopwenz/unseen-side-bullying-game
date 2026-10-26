@@ -145,6 +145,37 @@ namespace BullyingGame.NPC
             }
         }
 
+        /// <summary>Start guiding from a later waypoint (e.g. the canteen leg), without restarting the tour.</summary>
+        public void BeginLeg(int startIndex)
+        {
+            FindPlayer();
+            if (waypoints == null || waypoints.Count == 0)
+            {
+                CurrentState = GuideState.Idle;
+                return;
+            }
+            if (startIndex < 0) startIndex = 0;
+            if (startIndex >= waypoints.Count) startIndex = waypoints.Count - 1;
+            waypointIndex = startIndex;
+            if (agent != null)
+            {
+                agent.enabled = true;
+                agent.speed = walkSpeed;
+                agent.updateRotation = true;
+                if (!agent.isOnNavMesh)
+                {
+                    NavMeshHit hit;
+                    if (NavMesh.SamplePosition(transform.position, out hit, 3f, NavMesh.AllAreas))
+                    {
+                        agent.Warp(hit.position);
+                    }
+                }
+                agent.isStopped = false;
+                agent.SetDestination(waypoints[waypointIndex].position);
+            }
+            CurrentState = GuideState.Leading;
+        }
+
         /// <summary>Freeze the guide in place (used by later sequence stages).</summary>
         public void PauseGuide()
         {

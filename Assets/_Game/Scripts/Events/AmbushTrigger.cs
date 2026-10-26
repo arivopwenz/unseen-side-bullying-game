@@ -69,9 +69,11 @@ namespace BullyingGame.Events
         private System.Collections.IEnumerator ConfrontWithDialogue()
         {
             beatRunning = true;
+            FaceGuideToBully();
             dialogue.PlayLinesRange(0, 2);
             yield return StartCoroutine(WaitDialogue(2));
             yield return StartCoroutine(HitBeat());
+            FaceGuideToBully();
             dialogue.PlayLinesRange(2, 3);
             yield return StartCoroutine(WaitDialogue(3));
             group.EndEncounter();
@@ -153,6 +155,25 @@ namespace BullyingGame.Events
             cameraActivated = false;
             if (gameplayCamera != null) gameplayCamera.gameObject.SetActive(true);
             ambushCamera.gameObject.SetActive(false);
+        }
+
+        // Bima menghadap ke Nakal selama konfrontasi (Ari 2026-10-26: di
+        // mini-cutscene Bima harus melihat pembully, bukan membelakanginya).
+        // Dipanggil di awal dialog dan sesudah HitBeat (posisi berubah).
+        private void FaceGuideToBully()
+        {
+            if (guide == null || group == null) return;
+            BullyNPC nakal = null;
+            for (int i = 0; i < group.MemberCount; i++)
+            {
+                var m = group.GetMemberNPC(i);
+                if (m != null && m.name == "Nakal") { nakal = m; break; }
+            }
+            if (nakal == null) return;
+            Vector3 dir = nakal.transform.position - guide.transform.position;
+            dir.y = 0;
+            if (dir.sqrMagnitude < 0.001f) return;
+            guide.transform.rotation = Quaternion.LookRotation(dir.normalized);
         }
 
         private System.Collections.IEnumerator HitBeat()

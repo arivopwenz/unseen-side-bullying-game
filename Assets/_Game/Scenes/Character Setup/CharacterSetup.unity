@@ -1686,6 +1686,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IbuGuru@Idle
       objectReference: {fileID: 0}
+    - target: {fileID: 7278707700902339122, guid: 798b032587d874745a22a2e9517d3039, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7946877220920719496, guid: 798b032587d874745a22a2e9517d3039, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.9385585
@@ -2132,6 +2136,10 @@ PrefabInstance:
     - target: {fileID: 2728584983052489448, guid: 98716e6dc66da3949988f9b8aff04207, type: 3}
       propertyPath: m_Name
       value: IbuKantin@Standing Idle
+      objectReference: {fileID: 0}
+    - target: {fileID: 2728584983052489448, guid: 98716e6dc66da3949988f9b8aff04207, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3044526091912721471, guid: 98716e6dc66da3949988f9b8aff04207, type: 3}
       propertyPath: m_Enabled
