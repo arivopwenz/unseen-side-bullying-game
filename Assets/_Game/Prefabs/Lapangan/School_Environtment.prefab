@@ -34,7 +34,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5617429887287881696}
+  m_Father: {fileID: 1624537345846692721}
   m_LocalEulerAnglesHint: {x: 47.709, y: -90, z: 0}
 --- !u!114 &5099167780366045484
 MonoBehaviour:
@@ -1698,7 +1698,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5617429887287881696}
+  m_Father: {fileID: 1624537345846692721}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1250099564270469891
 MonoBehaviour:
@@ -3954,7 +3954,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5617429887287881696}
+  m_Father: {fileID: 1624537345846692721}
   m_LocalEulerAnglesHint: {x: -30, y: 0, z: 0}
 --- !u!114 &6524434082702025038
 MonoBehaviour:
@@ -4310,7 +4310,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5617429887287881696}
+  m_Father: {fileID: 1624537345846692721}
   m_LocalEulerAnglesHint: {x: 133.172, y: -90, z: 0}
 --- !u!114 &6713055194048312529
 MonoBehaviour:
@@ -13057,13 +13057,9 @@ Transform:
   - {fileID: 975666092757582214}
   - {fileID: 8476328613193385618}
   - {fileID: 2414658114247836649}
-  - {fileID: 6284151213619595679}
-  - {fileID: 7416516817565609062}
-  - {fileID: 8877522770592036548}
-  - {fileID: 8996461910850295180}
+  - {fileID: 1624537345846692721}
   - {fileID: 8667067704273646484}
   - {fileID: 4766036016930416872}
-  - {fileID: 3045568033375488110}
   - {fileID: 7716985577152592213}
   - {fileID: 5447838849072494772}
   - {fileID: 6786220739106620644}
@@ -14887,7 +14883,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5617429887287881696}
+  m_Father: {fileID: 1624537345846692721}
   m_LocalEulerAnglesHint: {x: -150, y: 0, z: 0}
 --- !u!114 &7446784557604016378
 MonoBehaviour:
@@ -17345,6 +17341,42 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!1 &6823727693227301606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1624537345846692721}
+  m_Layer: 0
+  m_Name: Genteng
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1624537345846692721
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6823727693227301606}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6284151213619595679}
+  - {fileID: 7416516817565609062}
+  - {fileID: 8877522770592036548}
+  - {fileID: 8996461910850295180}
+  - {fileID: 3045568033375488110}
+  m_Father: {fileID: 5617429887287881696}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6894116947327792630
 GameObject:
   m_ObjectHideFlags: 0
