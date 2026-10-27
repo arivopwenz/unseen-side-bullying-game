@@ -13,6 +13,19 @@ namespace BullyingGame.UI
         private static GroundMarker instance;
         private UnityEngine.Light glowLight;
 
+        [Header("Denyut cahaya (bisa diedit manual di Inspector)")]
+        public float baseIntensity = 2.5f;
+        public float pulseIntensity = 0.7f;
+        public float pulseScale = 0.1f;
+
+        [Header("Atur manual (biar tidak ditimpa kode)")]
+        [Tooltip("Geseran permanen dari titik objective (meter). Mis. (1.5, 0, 4.5) menggeser marker sedikit dari titik aslinya.")]
+        public Vector3 manualOffset = Vector3.zero;
+        [Tooltip("Pengali ukuran permanen. 1 = normal, 0.5 = setengah, 2 = dua kali lipat.")]
+        public float manualScale = 1f;
+        [Tooltip("Bila AKTIF: marker DIAM di posisi & skala Transform scene (yang kamu drag di Editor), tidak mengikuti objective dan tidak didenyutkan skalanya. Matikan lagi bila ingin marker mengikuti objective.")]
+        public bool lockToSceneTransform = false;
+
         private static readonly string[] charRoots = new string[]
         {
             "Bima_Guide", "Nakal", "Nakal1", "Player", "GuruBK_Placeholder"
@@ -21,6 +34,25 @@ namespace BullyingGame.UI
         private void Awake()
         {
             instance = this;
+            if (!TryBindScene()) BuildProcedural();
+            gameObject.SetActive(false);
+        }
+
+        /// <summary>Pakai disc + lampu scene bila sudah ada (dibuat manual di Editor).
+        /// Bila tidak ada sama sekali, kembalikan false agar Awake membangunnya via kode.</summary>
+        private bool TryBindScene()
+        {
+            bool hasDisc = false;
+            foreach (Transform c in transform)
+            {
+                if (c.name == "MarkerDisc") hasDisc = true;
+                if (c.name == "GlowLight") glowLight = c.GetComponent<UnityEngine.Light>();
+            }
+            return hasDisc || glowLight != null;
+        }
+
+        private void BuildProcedural()
+        {
             // Inti paling terang di tengah, meredup ke luar (radial gradient palsu via cincin).
             MakeDisc(0.55f, 0.04f, new Color(1f, 0.95f, 0.1f, 1f), 1.6f);
             MakeDisc(0.9f, 0.03f, new Color(1f, 0.78f, 0f, 1f), 1.1f);
@@ -33,10 +65,9 @@ namespace BullyingGame.UI
             glowLight = lightObj.AddComponent<UnityEngine.Light>();
             glowLight.type = LightType.Point;
             glowLight.color = new Color(1f, 0.85f, 0.2f, 1f);
-            glowLight.intensity = 2.5f;
+            glowLight.intensity = baseIntensity;
             glowLight.range = 5f;
             glowLight.shadows = LightShadows.None;
-            gameObject.SetActive(false);
         }
 
         private void MakeDisc(float radius, float y, Color color, float emission)
@@ -67,12 +98,14 @@ namespace BullyingGame.UI
             if (arr.Length > 0) instance = arr[0];
         }
 
-        /// <summary>Tempatkan marker di sebuah TEMPAT (endpoint misi). Bukan karakter.</summary>
+        /// <summary>Tempatkan marker di sebuah TEMPAT (endpoint misi). Bukan karakter.
+        /// Bila lockToSceneTransform aktif, posisi TIDAK dipindah (tetap di Transform scene manual).</summary>
         public static void SetTarget(Vector3 place)
         {
             Ensure();
             if (instance == null) return;
-            instance.transform.position = ProjectGround(place);
+            if (!instance.lockToSceneTransform)
+                instance.transform.position = ProjectGround(place) + instance.manualOffset;
             instance.gameObject.SetActive(true);
         }
 
@@ -102,9 +135,12 @@ namespace BullyingGame.UI
         private void Update()
         {
             float pulse = Mathf.Sin(Time.time * 4f);
-            float s = 1f + 0.1f * pulse;
-            transform.localScale = new Vector3(s, 1f, s);
-            if (glowLight != null) glowLight.intensity = 2.5f + 0.7f * pulse;
+            if (!lockToSceneTransform)
+            {
+                float s = manualScale * (1f + pulseScale * pulse);
+                transform.localScale = new Vector3(s, 1f, s);
+            }
+            if (glowLight != null) glowLight.intensity = baseIntensity + pulseIntensity * pulse;
         }
     }
 }
