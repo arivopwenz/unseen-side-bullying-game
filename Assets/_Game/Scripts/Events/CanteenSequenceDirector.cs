@@ -295,30 +295,9 @@ namespace BullyingGame.Events
             PlayableDirector pd2 = timelineSlot2 != null ? timelineSlot2.GetComponent<PlayableDirector>() : null;
             if (pd2 == null || pd2.playableAsset == null) PlayBellSound();
 
-            // Objective 2 dimulai: Bima + Aji jalan ke kantin.
-            if (guide != null)
-            {
-                StartObjective2();
-            }
-            else
-            {
-                if (bima != null && bimaCanteenMark != null)
-                {
-                    var ag = bima.GetComponent<NavMeshAgent>();
-                    if (ag != null && ag.isOnNavMesh) ag.Warp(bimaCanteenMark.position);
-                    else bima.transform.position = bimaCanteenMark.position;
-                }
-                MissionTitleCard.ShowTitle("OBJECTIVE 2", "Kantin");
-                MissionBanner.SetObjective("Temui Bima di kantin");
-                Vector3 fbPlace = bimaCanteenMark != null ? bimaCanteenMark.position : new Vector3(-39.5f, 0f, -1f);
-                GroundMarker.SetTarget(fbPlace);
-                Minimap.SetMissionTarget(fbPlace);
-                CompanionBar.SetCompanion("Bima", 1f, true);
-                ClockHUD.SetSchedule("Istirahat");
-                interceptFired = false;
-                if (interceptZone != null) interceptZone.SetActive(true);
-                Phase = CanteenPhase.Arrived;
-            }
+            // MISI 1 SELESAI di sini (atas permintaan Ari 2026-10-29):
+            // tidak lanjut ke Objective 2 / kantin (mekanik kantin dinonaktifkan).
+            Phase = CanteenPhase.Complete;
         }
 
         private void StartObjective2()

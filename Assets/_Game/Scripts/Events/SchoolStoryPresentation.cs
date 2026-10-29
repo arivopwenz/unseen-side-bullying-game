@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.AI;
 using Unity.Cinemachine;
 using BullyingGame.Core;
@@ -29,7 +29,7 @@ namespace BullyingGame.Events
         private bool privateScene;
         private Renderer[] playerRenderers;
         private bool[] visibility;
-        private void Start(){dialogues=DialogueManager.Instance;if(dialogues!=null){dialogues.OnDialogueStarted+=Stage;dialogues.OnDialogueEnded+=Restore;}privateStage.SetActive(false);}
+        private void Start(){dialogues=DialogueManager.Instance;if(dialogues!=null){dialogues.OnDialogueStarted+=Stage;dialogues.OnDialogueEnded+=Restore;}if(privateStage!=null)privateStage.SetActive(false);}
         private void Update()
         {
             var q=QuestManager.Instance;if(q==null)return;
@@ -48,7 +48,7 @@ namespace BullyingGame.Events
             var data=dialogues.CurrentDialogue;if(data==null)return;
             if(data.name=="Dialogue_M13_context")
             {
-                privateScene=true;summaryShown=false;privateStage.SetActive(true);privateCamera.Priority=40;
+                privateScene=true;summaryShown=false;if(privateStage!=null)privateStage.SetActive(true);if(privateCamera!=null)privateCamera.Priority=40;
                 playerRenderers=player.GetComponentsInChildren<Renderer>(true);visibility=new bool[playerRenderers.Length];
                 for(int i=0;i<playerRenderers.Length;i++){visibility[i]=playerRenderers[i].enabled;playerRenderers[i].enabled=false;}return;
             }
@@ -74,7 +74,7 @@ namespace BullyingGame.Events
         }
         private void Restore()
         {
-            if(privateScene){privateScene=false;privateStage.SetActive(false);privateCamera.Priority=0;for(int i=0;i<playerRenderers.Length;i++)if(playerRenderers[i]!=null)playerRenderers[i].enabled=visibility[i];}
+            if(privateScene){privateScene=false;if(privateStage!=null)privateStage.SetActive(false);if(privateCamera!=null)privateCamera.Priority=0;for(int i=0;i<playerRenderers.Length;i++)if(playerRenderers[i]!=null)playerRenderers[i].enabled=visibility[i];}
             if(staged!=null){for(int i=0;i<staged.Length;i++)if(staged[i]!=null){Place(staged[i],positions[i]);staged[i].rotation=rotations[i];}staged=null;}
         }
         private void OnDestroy(){if(dialogues!=null){dialogues.OnDialogueStarted-=Stage;dialogues.OnDialogueEnded-=Restore;}Restore();}

@@ -121,13 +121,12 @@ namespace BullyingGame.UI
 
             if (classroom != null && classroom.Finished)
             {
-                if (lastPhase != "KANTIN INVITE") { MissionTitleCard.ShowTitle("OBJECTIVE 2", "Kantin"); lastPhase = "KANTIN INVITE"; }
-                MissionBanner.SetObjective("Ikuti Bima ke kantin");
-                Vector3 canteenPlace = canteenMark != null ? canteenMark.position : new Vector3(-39.5f, 0f, -1f);
-                GroundMarker.SetTarget(canteenPlace);
-                Minimap.SetMissionTarget(canteenPlace);
+                if (lastPhase != "MISI 1 DONE") { MissionTitleCard.ShowTitle("MISI 1", "Selesai"); lastPhase = "MISI 1 DONE"; }
+                MissionBanner.SetObjective("Misi 1 selesai");
+                GroundMarker.ClearTarget();
+                Minimap.ClearMissionTarget();
                 ClockHUD.SetSchedule("Istirahat");
-                CompanionBar.SetCompanion("Bima", 1f, true);
+                CompanionBar.SetCompanion("", 0f, false);
                 return;
             }
 
