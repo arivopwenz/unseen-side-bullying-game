@@ -144,7 +144,7 @@ namespace BullyingGame.Events
             Mission1Complete = true;
             if (playerTf != null) { ReturnPosition = playerTf.position; HasReturnPosition = true; }
             yield return new WaitForSeconds(0.5f);
-            SceneManager.LoadScene(CutsceneSceneName);
+            LoadingScreen.LoadSceneWithLoading(CutsceneSceneName);
         }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+using BullyingGame.UI;
 
 namespace BullyingGame.Cinematics
 {
@@ -27,7 +28,7 @@ namespace BullyingGame.Cinematics
             if (director == null || director.playableAsset == null)
             {
                 yield return new WaitForSeconds(2f);
-                SceneManager.LoadScene(LevelSceneName);
+                LoadingScreen.LoadSceneWithLoading(LevelSceneName);
                 yield break;
             }
             if (director.state != PlayState.Playing) director.Play();
@@ -38,7 +39,7 @@ namespace BullyingGame.Cinematics
                 yield return null;
             }
             if (director != null) director.Stop();
-            SceneManager.LoadScene(LevelSceneName);
+            LoadingScreen.LoadSceneWithLoading(LevelSceneName);
         }
     }
 }
