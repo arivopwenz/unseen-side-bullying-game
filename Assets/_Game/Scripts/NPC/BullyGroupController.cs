@@ -27,6 +27,8 @@ namespace BullyingGame.NPC
 
         public event Action<bool> OnApproachCompleted;
         public BullyGroupState CurrentState { get; private set; }
+        public int MemberCount => members != null ? members.Length : 0;
+        public BullyNPC GetMemberNPC(int i) => (members != null && i >= 0 && i < members.Length) ? members[i].NPC : null;
         public string LastFailure { get; private set; }
         private float elapsed;
 

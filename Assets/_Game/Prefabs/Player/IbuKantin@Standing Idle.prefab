@@ -1,0 +1,203 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2962392481519513529
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.6141393
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.00000013529666
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.4523784
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      propertyPath: m_Name
+      value: IbuKantin@Standing Idle
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664098864995057252, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ce8e0085dde5a8945a22812a3762f99b, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 2b8cb91233ff2fa4fb8048a8fe8f1b64, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      propertyPath: m_AnimatePhysics
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8480180702082809961}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7802475434451433269}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8587259789378536003}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2937424825606899618}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4870361902173366067}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3044526091912721471}
+  m_SourcePrefab: {fileID: 100100000, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+--- !u!1 &2728584983052489448 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c1bd0d798423fa4287eed8341409517, type: 3}
+  m_PrefabInstance: {fileID: 2962392481519513529}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8480180702082809961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2728584983052489448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05bb310dfbf940b42b27857b32c28ef1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Interaction.InteractionDetector
+--- !u!114 &7802475434451433269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2728584983052489448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c00ab0f4f680c94abf0c72d96420e92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Interaction.PlayerInteraction
+--- !u!143 &8587259789378536003
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2728584983052489448}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1.9
+  m_Radius: 0.56
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.01
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.95, z: 0}
+--- !u!114 &2937424825606899618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2728584983052489448}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f67560dde239940a9cdec9bcdaafeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Player.PlayerMovement
+  moveSpeed: 4
+  sprintSpeed: 6
+  rotationSpeed: 12
+  cameraTransform: {fileID: 0}
+  gravity: -20
+  speedParameterName: Speed
+  animationDampTime: 0.12
+  jumpForce: 8
+  jumpTriggerName: Jump
+  groundedBoolName: Grounded
+--- !u!114 &4870361902173366067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2728584983052489448}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2644e1b726ec6d54283aec7590e537f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Player.PlayerInputHandler
+--- !u!195 &3044526091912721471
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2728584983052489448}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.9
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

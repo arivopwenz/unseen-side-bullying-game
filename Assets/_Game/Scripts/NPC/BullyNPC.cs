@@ -14,6 +14,11 @@ namespace BullyingGame.NPC
         [SerializeField, Min(1f)] private float turnSpeed = 360f;
 
         private NavMeshAgent agent;
+        private Animator animator;
+        private bool hasSpeedParam;
+        private bool hasGroundedParam;
+        private const string speedParameterName = "Speed";
+        private const string groundedParameterName = "Grounded";
         private Vector3 destination, homePosition;
         private Quaternion homeRotation;
         private Transform faceTarget;
@@ -27,7 +32,26 @@ namespace BullyingGame.NPC
         private NavMeshAgent Agent => agent != null ? agent : agent = GetComponent<NavMeshAgent>();
         private bool IsOnNavMesh => isActiveAndEnabled && Agent.isActiveAndEnabled && Agent.isOnNavMesh;
 
-        private void Awake() => agent = GetComponent<NavMeshAgent>();
+        private void Awake()
+        {
+            agent = GetComponent<NavMeshAgent>();
+            animator = GetComponentInChildren<Animator>();
+            hasSpeedParam = false;
+            if (animator != null)
+            {
+                foreach (AnimatorControllerParameter parameter in animator.parameters)
+                {
+                    if (parameter.name == speedParameterName && parameter.type == AnimatorControllerParameterType.Float)
+                        hasSpeedParam = true;
+                    if (parameter.name == groundedParameterName && parameter.type == AnimatorControllerParameterType.Bool)
+                        hasGroundedParam = true;
+                }
+                // NPC agent tidak pernah melompat: Grounded harus true sejak frame
+                // pertama, kalau tidak transisi Locomotion->Jump (IfNot Grounded)
+                // di controller Nakal/Nakal2 mengunci animator di pose Jump selamanya.
+                if (hasGroundedParam) animator.SetBool(groundedParameterName, true);
+            }
+        }
 
         internal bool TryPrepare(Vector3 target, out NavMeshPath path, out string reason)
         {
@@ -62,6 +86,17 @@ namespace BullyingGame.NPC
         {
             if (owned || !IsOnNavMesh || path == null || path.corners.Length == 0) return false;
             homePosition = Agent.nextPosition;
+            // nextPosition sits baseOffset above the NavMesh for models whose
+            // feet are below the root (sebesar baseOffset), which is farther
+            // than TryPrepare's 0.6 m sample distance, so ReturnHome could never
+            // find the way home. Project home onto the NavMesh at capture time
+            // so the return path is always findable.
+            NavMeshHit homeHit;
+            var homeFilter = new NavMeshQueryFilter { agentTypeID = Agent.agentTypeID, areaMask = Agent.areaMask };
+            if (NavMesh.SamplePosition(homePosition, out homeHit, navMeshSampleDistance + Agent.baseOffset + 0.1f, homeFilter))
+            {
+                homePosition = homeHit.position;
+            }
             homeRotation = transform.rotation;
             previousStopped = Agent.isStopped;
             previousUpdateRotation = Agent.updateRotation;
@@ -96,8 +131,22 @@ namespace BullyingGame.NPC
             return false;
         }
 
+        private void UpdateAnimationSpeed()
+        {
+            if (animator == null) return;
+            if (hasGroundedParam) animator.SetBool(groundedParameterName, true);
+            if (!hasSpeedParam) return;
+            float speed = 0f;
+            if (Agent != null && Agent.enabled && !Agent.isStopped)
+            {
+                speed = Agent.velocity.magnitude;
+            }
+            animator.SetFloat(speedParameterName, speed);
+        }
+
         private void Update()
         {
+            UpdateAnimationSpeed();
             if (!owned || !IsOnNavMesh) return;
             bool paused = GameStateManager.Instance != null &&
                 GameStateManager.Instance.CurrentState == GameState.Paused;
