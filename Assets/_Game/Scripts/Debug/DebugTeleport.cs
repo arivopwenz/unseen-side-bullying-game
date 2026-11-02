@@ -38,7 +38,19 @@ namespace BullyingGame.DebugTools
         private void TeleportTo(Vector3 dest)
         {
             var playerGO = GameObject.FindGameObjectWithTag("Player");
-            if (playerGO != null) playerGO.transform.position = dest;
+            if (playerGO != null)
+            {
+                // Player pakai CharacterController + Rigidbody: set transform saja akan
+                // dikembalikan physics (snap back). Matikan CC, set posisi, samakan
+                // Rigidbody, nyalakan lagi, SyncTransforms (pola PRDSmoke).
+                var cc = playerGO.GetComponent<CharacterController>();
+                if (cc != null) cc.enabled = false;
+                playerGO.transform.position = dest;
+                var rb = playerGO.GetComponent<Rigidbody>();
+                if (rb != null) { rb.position = dest; rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero; }
+                if (cc != null) cc.enabled = true;
+                Physics.SyncTransforms();
+            }
             var bimaGO = GameObject.Find("Bima_Guide");
             if (bimaGO != null)
             {

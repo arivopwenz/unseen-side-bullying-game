@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.AI;
+using BullyingGame.UI;
 
 namespace BullyingGame.Events
 {
@@ -20,6 +21,7 @@ namespace BullyingGame.Events
     public class BekalCutsceneTrigger : MonoBehaviour
     {
         public PlayableDirector director;
+        public string cutsceneSceneName = "Level01 1";
         public bool triggerOnce = true;
         private bool triggered = false;
         private Behaviour playerMovement;
@@ -29,6 +31,8 @@ namespace BullyingGame.Events
             if (triggered) return;
             if (!other.CompareTag("Player")) return;
             if (triggerOnce) triggered = true;
+            LoadingScreen.LoadSceneWithLoading(cutsceneSceneName);
+            return; // Canteen kini dimainkan di scene 'Level01 1', bukan Director di Level01
             // Kunci Player selama cutscene (cari PlayerMovement by Name, tanpa dependensi namespace)
             var playerGO = GameObject.FindGameObjectWithTag("Player");
             if (playerGO != null) {
