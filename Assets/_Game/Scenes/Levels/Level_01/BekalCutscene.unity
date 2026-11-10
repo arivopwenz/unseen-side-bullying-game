@@ -5104,7 +5104,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3306296207387102999, guid: f90c31126b0b3f740b3013bb7dd4e189, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.5
+      value: -46.735313
       objectReference: {fileID: 0}
     - target: {fileID: 3306296207387102999, guid: f90c31126b0b3f740b3013bb7dd4e189, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5112,11 +5112,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3306296207387102999, guid: f90c31126b0b3f740b3013bb7dd4e189, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -14.5
+      value: 15.32063
       objectReference: {fileID: 0}
     - target: {fileID: 3306296207387102999, guid: f90c31126b0b3f740b3013bb7dd4e189, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.84792966
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3306296207387102999, guid: f90c31126b0b3f740b3013bb7dd4e189, type: 3}
       propertyPath: m_LocalRotation.x
@@ -5124,7 +5124,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3306296207387102999, guid: f90c31126b0b3f740b3013bb7dd4e189, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.53010875
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3306296207387102999, guid: f90c31126b0b3f740b3013bb7dd4e189, type: 3}
       propertyPath: m_LocalRotation.z
@@ -5145,6 +5145,10 @@ PrefabInstance:
     - target: {fileID: 3710547991445806625, guid: f90c31126b0b3f740b3013bb7dd4e189, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8863785789544879469, guid: f90c31126b0b3f740b3013bb7dd4e189, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are already bound by a Humanoid avatar. These transforms can only be changed by Humanoid clips.\n\tFrom animation clip 'Jump'\n\tFrom animation clip 'Warrior Idle_new'\n\tFrom animation clip 'Walking'\n\tFrom animation clip 'Standard Run'"
       objectReference: {fileID: 0}
     - target: {fileID: 8863785789544879469, guid: f90c31126b0b3f740b3013bb7dd4e189, type: 3}
       propertyPath: m_ApplyRootMotion
@@ -5180,6 +5184,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2785901118326560173, guid: f90c31126b0b3f740b3013bb7dd4e189, type: 3}
       insertIndex: -1
       addedObject: {fileID: 108089397}
+    - targetCorrespondingSourceObject: {fileID: 2785901118326560173, guid: f90c31126b0b3f740b3013bb7dd4e189, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 108089408}
   m_SourcePrefab: {fileID: 100100000, guid: f90c31126b0b3f740b3013bb7dd4e189, type: 3}
 --- !u!1 &108089396 stripped
 GameObject:
@@ -5228,6 +5235,25 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 8863785789544879469, guid: f90c31126b0b3f740b3013bb7dd4e189, type: 3}
   m_PrefabInstance: {fileID: 108089395}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &108089408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108089396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.BoneRenderer
+  boneShape: 1
+  drawBones: 1
+  drawTripods: 0
+  boneSize: 1
+  tripodSize: 1
+  boneColor: {r: 0, g: 0, b: 1, a: 0.5}
+  m_Transforms: []
 --- !u!1 &111877157
 GameObject:
   m_ObjectHideFlags: 0
@@ -24602,7 +24628,7 @@ Transform:
   m_GameObject: {fileID: 523195111}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000014207087, y: 0.24092017, z: 0.000057372723, w: 0.97054493}
-  m_LocalPosition: {x: -8.609, y: 1.237, z: -53.43954}
+  m_LocalPosition: {x: -32.371456, y: 1.2523084, z: 12.94053}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -27801,7 +27827,7 @@ Transform:
   m_GameObject: {fileID: 596826000}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000014207087, y: 0.24092017, z: 0.000057372723, w: 0.97054493}
-  m_LocalPosition: {x: -8.609, y: 4.427, z: -53.43954}
+  m_LocalPosition: {x: -32.371456, y: 4.4423084, z: 12.94053}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47886,7 +47912,7 @@ Transform:
   m_GameObject: {fileID: 1056442453}
   serializedVersion: 2
   m_LocalRotation: {x: -0.014808444, y: 0.7069538, z: -0.014882535, w: -0.7069481}
-  m_LocalPosition: {x: -20.069, y: 1.287, z: -52.34954}
+  m_LocalPosition: {x: -43.831455, y: 1.3023083, z: 14.03053}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -54749,7 +54775,7 @@ Transform:
   m_GameObject: {fileID: 1263827338}
   serializedVersion: 2
   m_LocalRotation: {x: -0.014808444, y: 0.7069538, z: -0.014882535, w: -0.7069481}
-  m_LocalPosition: {x: -10.768999, y: 1.287, z: -52.34954}
+  m_LocalPosition: {x: -34.53137, y: 1.3022755, z: 14.030538}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -66017,6 +66043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Events.BekalCutsceneTrigger
   director: {fileID: 1036656403}
+  cutsceneSceneName: Level01 1
   triggerOnce: 1
 --- !u!43 &1501090900
 Mesh:
@@ -73465,6 +73492,10 @@ PrefabInstance:
     - target: {fileID: 4318951507145372094, guid: 023a0cfbf0a9b494e95cdbdba4aaaa26, type: 3}
       propertyPath: m_Name
       value: Nakal1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5960615851624239905, guid: 023a0cfbf0a9b494e95cdbdba4aaaa26, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are already bound by a Humanoid avatar. These transforms can only be changed by Humanoid clips.\n\tFrom animation clip 'Unarmed Idle 01'\n\tFrom animation clip 'Strut Walking'\n\tFrom animation clip 'Running'\n\tFrom animation clip 'Jump'"
       objectReference: {fileID: 0}
     - target: {fileID: 5960615851624239905, guid: 023a0cfbf0a9b494e95cdbdba4aaaa26, type: 3}
       propertyPath: m_ApplyRootMotion
