@@ -175623,7 +175623,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4244280bce8f2ed4a88431b569ef6d01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AreaSekolahGraphicsController
+  enableFullColorGraphics: 1
+  globalVolume: {fileID: 7008721390903741957}
+  mainDirectionalLight: {fileID: 607795909915108272}
+  fullColorSkybox: {fileID: 2100000, guid: 12ccb828343c3405fb94289774b51aad, type: 2}
+  lightweightSkybox: {fileID: 0}
+  controlSceneRenderSettings: 1
+  controlSceneCameras: 1
   lightweightMode: 0
+  hideHeavyMeshesInLightweightMode: 0
   triangleThreshold: 500000
   affectedRenderers:
   - {fileID: 6380692375908196668}
@@ -175652,6 +175660,8 @@ MonoBehaviour:
   - {fileID: 6342561602538154559}
   - {fileID: 711674236001209140}
   - {fileID: 8951984484945469661}
+  lastEnableFullColorGraphics: 1
+  lastLightweightMode: 0
 --- !u!1 &4847603198099180130
 GameObject:
   m_ObjectHideFlags: 0
@@ -322489,7 +322499,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 86
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1963406342505736395
 Transform:
   m_ObjectHideFlags: 0

@@ -12,39 +12,65 @@ namespace BullyingGame.EditorTools
     {
         private const string MenuRoot = "Tools/The Unseen Side/Optimizer/";
 
+        [MenuItem(MenuRoot + "0. Terapkan URP Full Color Preset (Kualitas Penuh)")]
+        public static void ApplyFullColorURPSettings()
+        {
+            if (ApplyURPShadowSettings(140f, 4, 2048, 2048, 8, "Apply Full Color URP Preset"))
+            {
+                Debug.Log("<color=cyan>[Optimizer] Berhasil mengembalikan URP Full Color Preset!</color>\n" +
+                          "• Shadow Distance: 140m\n" +
+                          "• Cascades: 4\n" +
+                          "• Main Shadow Res: 2048\n" +
+                          "• Additional Shadow Res: 2048");
+            }
+        }
+
         [MenuItem(MenuRoot + "1. Terapkan URP Developer Preset (Bayangan Ringan)")]
         public static void ApplyDeveloperURPSettings()
+        {
+            if (ApplyURPShadowSettings(45f, 2, 1024, 512, 4, "Apply Developer URP Preset"))
+            {
+                Debug.Log("<color=green>[Optimizer] Berhasil menerapkan URP Developer Preset!</color>\n" +
+                          "• Shadow Distance: 45m (sebelumnya 140m)\n" +
+                          "• Cascades: 2 (sebelumnya 4)\n" +
+                          "• Main Shadow Res: 1024\n" +
+                          "• Additional Shadow Res: 512");
+            }
+        }
+
+        private static bool ApplyURPShadowSettings(
+            float shadowDistance,
+            int cascadeCount,
+            int mainShadowResolution,
+            int additionalShadowResolution,
+            int additionalLightLimit,
+            string undoLabel)
         {
             var urpAsset = GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
             if (urpAsset == null)
             {
                 Debug.LogWarning("[Optimizer] Active Render Pipeline is not a UniversalRenderPipelineAsset.");
-                return;
+                return false;
             }
 
-            Undo.RecordObject(urpAsset, "Apply Developer URP Preset");
-            urpAsset.shadowDistance = 45f;
-            urpAsset.shadowCascadeCount = 2;
+            Undo.RecordObject(urpAsset, undoLabel);
+            urpAsset.shadowDistance = shadowDistance;
+            urpAsset.shadowCascadeCount = cascadeCount;
 
             var so = new SerializedObject(urpAsset);
             var mainRes = so.FindProperty("m_MainLightShadowmapResolution");
-            if (mainRes != null) mainRes.intValue = 1024;
+            if (mainRes != null) mainRes.intValue = mainShadowResolution;
 
             var addRes = so.FindProperty("m_AdditionalLightsShadowmapResolution");
-            if (addRes != null) addRes.intValue = 512;
+            if (addRes != null) addRes.intValue = additionalShadowResolution;
 
             var addLimit = so.FindProperty("m_AdditionalLightsPerObjectLimit");
-            if (addLimit != null && addLimit.intValue > 4) addLimit.intValue = 4;
+            if (addLimit != null) addLimit.intValue = additionalLightLimit;
 
             so.ApplyModifiedProperties();
             EditorUtility.SetDirty(urpAsset);
             AssetDatabase.SaveAssets();
-
-            Debug.Log("<color=green>[Optimizer] Berhasil menerapkan URP Developer Preset!</color>\n" +
-                      "• Shadow Distance: 45m (sebelumnya 140m)\n" +
-                      "• Cascades: 2 (sebelumnya 4)\n" +
-                      "• Main Shadow Res: 1024\n" +
-                      "• Additional Shadow Res: 512");
+            return true;
         }
 
         [MenuItem(MenuRoot + "2. Kompresi FBX Lingkungan (Mesh Compression High)")]
