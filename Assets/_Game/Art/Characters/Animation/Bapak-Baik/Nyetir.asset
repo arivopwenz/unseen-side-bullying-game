@@ -1,0 +1,420 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78c6efa51b78674bac5fa1e7f03afe6, type: 3}
+  m_Name: Nyetir
+  m_EditorClassIdentifier: AloneSoft.VeryAnimation.Editor::VeryAnimation.PoseTemplate
+  isHuman: 1
+  haveRootT: 1
+  rootT: {x: 0.0017975082, y: 1.0658423, z: 0.09607533}
+  haveRootQ: 1
+  rootQ: {x: 0.000104503706, y: -0.00025861058, z: 0.000018528779, w: 1}
+  musclePropertyNames:
+  - Spine Front-Back
+  - Spine Left-Right
+  - Spine Twist Left-Right
+  - Chest Front-Back
+  - Chest Left-Right
+  - Chest Twist Left-Right
+  - UpperChest Front-Back
+  - UpperChest Left-Right
+  - UpperChest Twist Left-Right
+  - Neck Nod Down-Up
+  - Neck Tilt Left-Right
+  - Neck Turn Left-Right
+  - Head Nod Down-Up
+  - Head Tilt Left-Right
+  - Head Turn Left-Right
+  - Left Eye Down-Up
+  - Left Eye In-Out
+  - Right Eye Down-Up
+  - Right Eye In-Out
+  - Jaw Close
+  - Jaw Left-Right
+  - Left Upper Leg Front-Back
+  - Left Upper Leg In-Out
+  - Left Upper Leg Twist In-Out
+  - Left Lower Leg Stretch
+  - Left Lower Leg Twist In-Out
+  - Left Foot Up-Down
+  - Left Foot Twist In-Out
+  - Left Toes Up-Down
+  - Right Upper Leg Front-Back
+  - Right Upper Leg In-Out
+  - Right Upper Leg Twist In-Out
+  - Right Lower Leg Stretch
+  - Right Lower Leg Twist In-Out
+  - Right Foot Up-Down
+  - Right Foot Twist In-Out
+  - Right Toes Up-Down
+  - Left Shoulder Down-Up
+  - Left Shoulder Front-Back
+  - Left Arm Down-Up
+  - Left Arm Front-Back
+  - Left Arm Twist In-Out
+  - Left Forearm Stretch
+  - Left Forearm Twist In-Out
+  - Left Hand Down-Up
+  - Left Hand In-Out
+  - Right Shoulder Down-Up
+  - Right Shoulder Front-Back
+  - Right Arm Down-Up
+  - Right Arm Front-Back
+  - Right Arm Twist In-Out
+  - Right Forearm Stretch
+  - Right Forearm Twist In-Out
+  - Right Hand Down-Up
+  - Right Hand In-Out
+  - LeftHand.Thumb.1 Stretched
+  - LeftHand.Thumb.Spread
+  - LeftHand.Thumb.2 Stretched
+  - LeftHand.Thumb.3 Stretched
+  - LeftHand.Index.1 Stretched
+  - LeftHand.Index.Spread
+  - LeftHand.Index.2 Stretched
+  - LeftHand.Index.3 Stretched
+  - LeftHand.Middle.1 Stretched
+  - LeftHand.Middle.Spread
+  - LeftHand.Middle.2 Stretched
+  - LeftHand.Middle.3 Stretched
+  - LeftHand.Ring.1 Stretched
+  - LeftHand.Ring.Spread
+  - LeftHand.Ring.2 Stretched
+  - LeftHand.Ring.3 Stretched
+  - LeftHand.Little.1 Stretched
+  - LeftHand.Little.Spread
+  - LeftHand.Little.2 Stretched
+  - LeftHand.Little.3 Stretched
+  - RightHand.Thumb.1 Stretched
+  - RightHand.Thumb.Spread
+  - RightHand.Thumb.2 Stretched
+  - RightHand.Thumb.3 Stretched
+  - RightHand.Index.1 Stretched
+  - RightHand.Index.Spread
+  - RightHand.Index.2 Stretched
+  - RightHand.Index.3 Stretched
+  - RightHand.Middle.1 Stretched
+  - RightHand.Middle.Spread
+  - RightHand.Middle.2 Stretched
+  - RightHand.Middle.3 Stretched
+  - RightHand.Ring.1 Stretched
+  - RightHand.Ring.Spread
+  - RightHand.Ring.2 Stretched
+  - RightHand.Ring.3 Stretched
+  - RightHand.Little.1 Stretched
+  - RightHand.Little.Spread
+  - RightHand.Little.2 Stretched
+  - RightHand.Little.3 Stretched
+  muscleValues:
+  - 0.00000004268868
+  - -6.361108e-16
+  - 0.00000004268868
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0.00000025613204
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - -0.360969
+  - -0.03587803
+  - 0.0010713029
+  - 1.0018319
+  - -0.035047717
+  - -0.01942523
+  - -0.061603382
+  - -0.00000040981135
+  - -0.360969
+  - -0.03587803
+  - 0.0010713029
+  - 1.0034404
+  - -0.03389707
+  - -0.017523557
+  - -0.06115471
+  - -0.00000044396222
+  - 0.025401663
+  - 0.004382576
+  - 0.35556793
+  - 0.31999826
+  - 0.357222
+  - 0.93409556
+  - -0.3394154
+  - 0.07893747
+  - 0.096355
+  - 0.025134949
+  - -0.004374514
+  - 0.35765687
+  - 0.31248668
+  - 0.3233026
+  - 0.9175154
+  - -0.3079516
+  - 0.066616505
+  - 0.10881067
+  - -0.5789344
+  - 0.22673771
+  - 0.5533627
+  - 0.536983
+  - 0.52941203
+  - -0.18119197
+  - 0.91329455
+  - 0.7142063
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - -0.5542764
+  - 0.208575
+  - 0.5157193
+  - 0.5152247
+  - 0.60509497
+  - -0.11447354
+  - 0.86163914
+  - 0.70943785
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  tdofIndices: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000i
+  tdofValues:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  ikIndices: 00000000010000000200000003000000i
+  ikValues:
+  - position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 1}
+  - position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 1}
+  - position: {x: -0.07210172, y: -0.6002795, z: 0.6307879}
+    rotation: {x: -0.71375614, y: 0.16926551, z: -0.6622324, w: 0.1528064}
+  - position: {x: 0.06905064, y: -0.60462284, z: 0.6341965}
+    rotation: {x: -0.6627204, y: 0.15334257, z: -0.71340686, w: 0.16834073}
+  transformPaths:
+  - 
+  - Mesh_0
+  - mixamorig:Hips
+  - mixamorig:Hips/mixamorig:LeftUpLeg
+  - mixamorig:Hips/mixamorig:LeftUpLeg/mixamorig:LeftLeg
+  - mixamorig:Hips/mixamorig:LeftUpLeg/mixamorig:LeftLeg/mixamorig:LeftFoot
+  - mixamorig:Hips/mixamorig:LeftUpLeg/mixamorig:LeftLeg/mixamorig:LeftFoot/mixamorig:LeftToeBase
+  - mixamorig:Hips/mixamorig:LeftUpLeg/mixamorig:LeftLeg/mixamorig:LeftFoot/mixamorig:LeftToeBase/mixamorig:LeftToe_End
+  - mixamorig:Hips/mixamorig:RightUpLeg
+  - mixamorig:Hips/mixamorig:RightUpLeg/mixamorig:RightLeg
+  - mixamorig:Hips/mixamorig:RightUpLeg/mixamorig:RightLeg/mixamorig:RightFoot
+  - mixamorig:Hips/mixamorig:RightUpLeg/mixamorig:RightLeg/mixamorig:RightFoot/mixamorig:RightToeBase
+  - mixamorig:Hips/mixamorig:RightUpLeg/mixamorig:RightLeg/mixamorig:RightFoot/mixamorig:RightToeBase/mixamorig:RightToe_End
+  - mixamorig:Hips/mixamorig:Spine
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandIndex1
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandIndex1/mixamorig:LeftHandIndex2
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandIndex1/mixamorig:LeftHandIndex2/mixamorig:LeftHandIndex3
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandIndex1/mixamorig:LeftHandIndex2/mixamorig:LeftHandIndex3/mixamorig:LeftHandIndex4
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandThumb1
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandThumb1/mixamorig:LeftHandThumb2
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandThumb1/mixamorig:LeftHandThumb2/mixamorig:LeftHandThumb3
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandThumb1/mixamorig:LeftHandThumb2/mixamorig:LeftHandThumb3/mixamorig:LeftHandThumb4
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:Neck
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:Neck/mixamorig:Head
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:Neck/mixamorig:Head/mixamorig:HeadTop_End
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2/mixamorig:RightHandIndex3
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2/mixamorig:RightHandIndex3/mixamorig:RightHandIndex4
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1/mixamorig:RightHandThumb2
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1/mixamorig:RightHandThumb2/mixamorig:RightHandThumb3
+  - mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1/mixamorig:RightHandThumb2/mixamorig:RightHandThumb3/mixamorig:RightHandThumb4
+  transformValues:
+  - position: {x: 1177.4867, y: 2.289, z: -86.9431}
+    rotation: {x: -0, y: -0.79350966, z: -0, w: 0.60855764}
+    scale: {x: 1.3447, y: 1.3447, z: 1.3447}
+  - position: {x: -0, y: 0, z: 0}
+    rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: -0.0016788018, y: 0.8394438, z: -0.09175747}
+    rotation: {x: -0.0000004723733, y: 0.00025779006, z: 0.000017070874, w: 1}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: -0.09125651, y: -0.05681382, z: 0.0019334945}
+    rotation: {x: 0.0047179153, y: 0.52292526, z: 0.8522512, w: -0.013955899}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 0, y: 0.36893642, z: 0}
+    rotation: {x: -0.041880433, y: -0.0096708145, z: 0.0046562897, w: 0.999065}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: -6.9849193e-10, y: 0.29801098, z: -0.0000000018626451}
+    rotation: {x: 0.52380127, y: 0.060528312, z: -0.036320977, w: 0.8489107}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 0, y: 0.20016555, z: 0}
+    rotation: {x: 0.28533703, y: 0.025950342, z: -0.00772886, w: 0.9580447}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: -3.882976e-11, y: 0.08394656, z: 9.682953e-11}
+    rotation: {x: 0, y: -0, z: -0, w: 1}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 0.09125651, y: -0.05681386, z: 0.007037252}
+    rotation: {x: -0.0047128624, y: 0.5224772, z: 0.8525257, w: 0.013970672}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: -0.0000000016298145, y: 0.36894298, z: -4.656613e-10}
+    rotation: {x: -0.04810301, y: 0.009302206, z: -0.004695734, w: 0.998788}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 0.000000003259629, y: 0.29843456, z: 0.0000000018626451}
+    rotation: {x: 0.5315662, y: -0.0593889, z: 0.03650018, w: 0.84414345}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 0, y: 0.20156777, z: -0.000000014901161}
+    rotation: {x: 0.28309074, y: -0.026117802, z: 0.007712096, w: 0.9587065}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 1.5997595e-10, y: 0.08522248, z: 7.365411e-11}
+    rotation: {x: 0, y: -0, z: -0, w: 1}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 0, y: 0.10228736, z: -0.004922794}
+    rotation: {x: -0.024042279, y: 0.0000011920929, z: -0.000017046928, w: 0.999711}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: -6.42219e-14, y: 0.11947318, z: 4.656613e-10}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 1.1210333e-13, y: 0.1365409, z: 4.656613e-10}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: -0.06618367, y: 0.12828058, z: -0.002032048}
+    rotation: {x: 0.56639767, y: -0.41720632, z: 0.5838844, w: 0.40523025}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 0.00000002142042, y: 0.14210336, z: -0.000000018626451}
+    rotation: {x: -0.13504098, y: 0.12527254, z: -0.013936961, w: 0.98279023}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 0.000000028288497, y: 0.17944174, z: -0.0000000026151952}
+    rotation: {x: -0.0100111505, y: 0.008202574, z: -0.04483116, w: 0.9989108}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 0.000000047166793, y: 0.25160694, z: 0.00000008661749}
+    rotation: {x: -0.06844092, y: -0.37354898, z: 0.03061394, w: 0.9245755}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 0.000000028822797, y: 0.06543506, z: 0.0021696952}
+    rotation: {x: 0.051583406, y: 0.005596772, z: -0.061615925, w: 0.99675035}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 0.0005310407, y: 0.051056456, z: 0.0000000536711}
+    rotation: {x: -0.035945576, y: 0.00026858595, z: -0.015657691, w: 0.99923104}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: -0.002126854, y: 0.0373007, z: 0.00000006080518}
+    rotation: {x: 0.03443296, y: -0.00038516516, z: 0.035380837, w: 0.9987805}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 0.0015959027, y: 0.033316612, z: 6.462446e-10}
+    rotation: {x: 0, y: -0, z: -0, w: 1}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 0.030490069, y: 0.029455926, z: -0.000000013038516}
+    rotation: {x: -0.005874768, y: 0.055271246, z: -0.32877725, w: 0.9427705}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 0.004121165, y: 0.03366434, z: -0.000000016763806}
+    rotation: {x: 0.008711138, y: 0.032209013, z: 0.0033217971, w: 0.9994377}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 0.0023106486, y: 0.030724308, z: 0.000000055879354}
+    rotation: {x: 0.0044851145, y: 0.022928484, z: -0.16867816, w: 0.98539436}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: -0.006431743, y: 0.018941041, z: -3.8744097e-10}
+    rotation: {x: 0, y: -0, z: -0, w: 1}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 1.2611627e-13, y: 0.15360853, z: -9.313226e-10}
+    rotation: {x: 0.024042588, y: -0, z: -0, w: 0.999711}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 1.7894827e-13, y: 0.06563306, z: 0.010929019}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: -0, y: 0.4858048, z: 0.08089476}
+    rotation: {x: 0, y: -0, z: -0, w: 1}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 0.06618367, y: 0.1282025, z: -0.000409632}
+    rotation: {x: -0.5743743, y: -0.41143033, z: 0.5765641, w: -0.4103574}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: -0.000000017695129, y: 0.14210337, z: 0.000000033527613}
+    rotation: {x: -0.13761081, y: -0.109345585, z: 0.0058079474, w: 0.98441505}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: -0.00000002186141, y: 0.17961586, z: 0.00000003208561}
+    rotation: {x: -0.011889607, y: -0.007756278, z: 0.056252703, w: 0.99831563}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: -0.000000017244503, y: 0.25161663, z: -0.000000007385097}
+    rotation: {x: -0.05519841, y: 0.34770706, z: -0.036866166, w: 0.9352507}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: -0.000000040834493, y: 0.06457742, z: 0.0016488996}
+    rotation: {x: -0.014226288, y: 0.013756931, z: -0.064466804, w: -0.99772364}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 0.00025121882, y: 0.049907383, z: -0.000000009578798}
+    rotation: {x: 0.017823115, y: 0.000054568052, z: -0.0015119612, w: -0.99984}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 0.0009910561, y: 0.039298266, z: -0.00000001487706}
+    rotation: {x: -0.036501586, y: 0.00013676286, z: 0.013790309, w: -0.9992385}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: -0.0012422792, y: 0.033673827, z: -2.2712499e-10}
+    rotation: {x: 0, y: -0, z: -0, w: 1}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: -0.031932764, y: 0.027726766, z: -0.000000013038516}
+    rotation: {x: 0.00782405, y: 0.057848707, z: -0.32789052, w: -0.9429105}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: -0.005508962, y: 0.033380754, z: -0.00000004656613}
+    rotation: {x: -0.011147901, y: 0.026866762, z: -0.06477645, w: -0.9974758}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 0.0012803394, y: 0.031550184, z: -0.000000031664968}
+    rotation: {x: -0.0068022828, y: 0.02375338, z: -0.037991226, w: -0.9989726}
+    scale: {x: 1, y: 1, z: 1}
+  - position: {x: 0.004228629, y: 0.021617722, z: 4.4938187e-10}
+    rotation: {x: 0, y: -0, z: -0, w: 1}
+    scale: {x: 1, y: 1, z: 1}
+  blendShapePaths: []
+  blendShapeValues: []
