@@ -1,0 +1,170 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 393dcd81b5278cd4bb1be73ebf7f22c2, type: 3}
+  m_Name: Level01_LangkahPertama
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.LevelOne.LevelOneContent
+  quests:
+  - {fileID: 11400000, guid: 6093616a15d83574d8cd9db17adb5703, type: 2}
+  - {fileID: 11400000, guid: 902e04d6c5b870c4aba0195218faa701, type: 2}
+  - {fileID: 11400000, guid: 78a9bbfb08192074486c2d62a94b0f92, type: 2}
+  - {fileID: 11400000, guid: c17482222d9264740a70267891cbb3ab, type: 2}
+  - {fileID: 11400000, guid: af6b87cc03b486a418e8d5401cec77cd, type: 2}
+  steps:
+  - id: meet
+    nodeId: MeetBima
+    objective: Temui Bima di dekat gerbang.
+    questIndex: 0
+    action: 1
+    lines:
+    - 'Aji: Hai, aku Aji. Kamu tahu kelas VIII A di mana?'
+    - 'Bima: Kebetulan aku kelas VIII A. Yuk, aku anter!'
+    - "KARTU AKSI: dekati penanda; tombol 1\u20133 memilih aksi, E menjalankan. Ikuti Bima ke depan kelas. TAB membuka jurnal."
+    puzzle: {fileID: 0}
+    journal: 'Gerbang: Aji bertemu Bima dan meminta petunjuk kelas VIII A.'
+    search: 0
+  - id: class_front
+    nodeId: ClassFront
+    objective: Ikuti Bima dan temukan papan kelas VIII A.
+    questIndex: 0
+    action: 0
+    lines:
+    - Aji membaca papan VIII A. Bima sampai bersama Aji.
+    - Meminta petunjuk adalah bagian dari beradaptasi di tempat baru.
+    puzzle: {fileID: 0}
+    journal: 
+    search: 0
+  - id: corridor
+    nodeId: Corridor
+    objective: Amati keadaan Bima di koridor.
+    questIndex: 1
+    action: 0
+    lines:
+    - Memet menghadang dan menyenggol bahu Bima.
+    - 'Memet: Wih, Bima! Sekarang punya temen baru, nih!'
+    - 'Raka: Tumben ada yang mau jalan bareng!'
+    - Bima menunduk. Memet dan Raka pergi; Aji mendekat tanpa bertengkar.
+    puzzle: {fileID: 0}
+    journal: 
+    search: 0
+  - id: check_bima
+    nodeId: BimaCorridor
+    objective: Tanyakan keadaan Bima dengan Kartu Kata K-01.
+    questIndex: 1
+    action: 1
+    lines:
+    - 'Aji: Eh, Bim...'
+    - 'KARTU KATA: susun tiga frasa menjadi kalimat yang mendukung. Klik frasa berurutan lalu Ucapkan.'
+    puzzle: {fileID: 11400000, guid: 6726faaa262f89144b94d9b14aea7245, type: 2}
+    journal: 'Koridor: Bima tampak takut setelah dihadang. ''Cuma bercanda'' belum tentu aman jika teman merasa takut.'
+    search: 0
+  - id: introduction
+    nodeId: Teacher
+    objective: Temui Bu Ratna untuk perkenalan kelas.
+    questIndex: 2
+    action: 1
+    lines:
+    - 'Bu Ratna: Teman-teman, ini Aji. Tolong bantu dia beradaptasi.'
+    - 'Aji: Halo, semuanya. Senang kenal kalian.'
+    puzzle: {fileID: 0}
+    journal: 
+    search: 0
+  - id: sikka
+    nodeId: Sikka
+    objective: Amati kursi kosong dan tanyakan kepada Bima.
+    questIndex: 2
+    action: 0
+    lines:
+    - 'Aji: Bim, bangku itu biasanya ditempati siapa?'
+    - 'Bima: Sikka. Belakangan dia sering nggak masuk.'
+    - Aji belum tahu alasannya. Jangan menyebarkan dugaan tentang teman yang tidak masuk.
+    puzzle: {fileID: 0}
+    journal: 'Informasi Sikka: kursinya kosong; menurut Bima ia sering tidak masuk. Penyebab belum diketahui, jangan sebarkan dugaan.'
+    search: 0
+  - id: canteen
+    nodeId: Canteen
+    objective: Saat istirahat, temui Bima di kantin.
+    questIndex: 3
+    action: 0
+    lines:
+    - Memet mengambil bekal dan botol Bima.
+    - 'Memet: Kalau nggak ada uang, bekalmu aja aku ambil!'
+    - 'Bima: Jangan, itu bekal dari rumah.'
+    - 'Fatimah: Aku lihat dia ke arah rak dekat kantin. Aku bantu cari, ya.'
+    - Memet pergi. Aji tetap di area ramai dan tidak mengejarnya.
+    puzzle: {fileID: 0}
+    journal: 
+    search: 0
+  - id: offer
+    nodeId: BimaCanteen
+    objective: Tenangkan Bima dan tawarkan bantuan (K-02).
+    questIndex: 3
+    action: 1
+    lines:
+    - Bima tampak sedih. Aji menawarkan bantuan tanpa menyalahkannya.
+    puzzle: {fileID: 11400000, guid: 6d34b339e0afd1640973db4c560a8fd8, type: 2}
+    journal: 
+    search: 0
+  - id: witness
+    nodeId: Fatimah
+    objective: Tanya Fatimah tentang arah barang Bima.
+    questIndex: 3
+    action: 1
+    lines:
+    - 'Fatimah: Memet melewati sisi meja kantin. Botol biru tampak di rak troli; bekalnya dekat bangku pojok.'
+    - 'Fatimah: Aku bantu cari, ya. Kita tetap di tempat terbuka. Kalau perlu masuk area kerja, minta izin petugas dulu.'
+    puzzle: {fileID: 0}
+    journal: 'Petunjuk Fatimah: periksa meja, bangku dekat taman, rak troli, pot besar, dan bangku pojok. Jangan masuk area kerja tanpa izin.'
+    search: 0
+  - id: items
+    nodeId: P1
+    objective: Periksa lima titik terbuka; temukan dan ambil botol serta bekal Bima.
+    questIndex: 3
+    action: 2
+    lines:
+    - 
+    puzzle: {fileID: 0}
+    journal: BOTOL-BIMA dan BEKAL-BIMA ditemukan secara aman, dua ID barang berbeda. Tidak mengambil tas milik orang lain.
+    search: 1
+  - id: return
+    nodeId: Bench
+    objective: Kembalikan kedua barang kepada Bima di bangku taman.
+    questIndex: 4
+    action: 4
+    lines:
+    - 'Aji: Ini barangmu, Bim. Sudah lengkap?'
+    - 'Bima: Iya, botol sama bekalnya sudah ada. Makasih... tapi aku takut besok diambil lagi.'
+    puzzle: {fileID: 0}
+    journal: Barang pribadi Bima sudah dikembalikan 2/2. Mengambil barang tanpa izin dan membuat pemilik takut bukan keusilan biasa.
+    search: 0
+  - id: support
+    nodeId: Bench
+    objective: Dengarkan Bima dan susun dukungan (K-03).
+    questIndex: 4
+    action: 1
+    lines:
+    - Bima masih takut. Tawarkan dukungan tanpa memaksanya segera melapor.
+    puzzle: {fileID: 11400000, guid: d6909e54a6672284eac2480cb4494c14, type: 2}
+    journal: 'Dukungan korban: Bima didengar, ditawari teman ke guru, dan boleh memilih kapan bercerita.'
+    search: 0
+  - id: record
+    nodeId: Bench
+    objective: Catat kronologi dan pelajaran di jurnal.
+    questIndex: 4
+    action: 5
+    lines:
+    - 'Pengamatan Aji: Memet mengejek dan menyenggol Bima di koridor; di kantin, bekal serta botol diambil tanpa izin.'
+    - 'Keterangan Bima: ia takut barangnya diambil lagi. Fatimah membantu menunjukkan arah; kedua barang sudah kembali.'
+    - 'Tindak lanjut: dengarkan pilihan Bima, tetap di tempat ramai, dan tawarkan pendampingan ke Bu Ratna. Jika ada bahaya, segera minta bantuan orang dewasa.'
+    puzzle: {fileID: 0}
+    journal: 'Kronologi insiden tersimpan: pengamatan Aji, keterangan Bima/Fatimah, barang kembali, pilihan pendampingan Bu Ratna.'
+    search: 0
+  reflection: Candaan yang membuat orang takut perlu dihentikan. Mengambil barang pribadi teman tanpa izin bukan tindakan yang benar. Dukungan korban berarti mendengar, membantu secara aman, dan menawarkan orang dewasa yang dapat dipercaya.

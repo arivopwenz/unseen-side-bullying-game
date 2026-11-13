@@ -39,12 +39,15 @@ namespace BullyingGame.Events
         }
         [Header("Pemicu")]
         public float touchDistance = 2.0f;
+        [Header("Zona yang sudah ada — dipakai saat integrasi PRD aktif")]
+        [SerializeField] private Collider activationZone;
         private bool hasTriggered = false;
         private Transform playerTf;
         private Transform markerTf;
 
         private void Start()
         {
+            if (BullyingGame.LevelOne.LevelOneExistingFlow.Current != null) return;
             if (Mission1Complete)
             {
                 hasTriggered = true;
@@ -112,6 +115,14 @@ namespace BullyingGame.Events
 
         private void Update()
         {
+            var flow = BullyingGame.LevelOne.LevelOneExistingFlow.Current;
+            if (flow != null)
+            {
+                var player = flow.Player;
+                if (!hasTriggered && player != null && activationZone != null && activationZone.bounds.Contains(player.transform.position + Vector3.up))
+                    hasTriggered = flow.TryClassroomZone();
+                return;
+            }
             if (Mission1Complete || hasTriggered) return;
             if (playerTf == null)
             {

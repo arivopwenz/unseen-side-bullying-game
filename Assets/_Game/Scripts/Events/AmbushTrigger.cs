@@ -15,6 +15,8 @@ namespace BullyingGame.Events
     [RequireComponent(typeof(Collider))]
     public class AmbushTrigger : MonoBehaviour
     {
+        public event System.Action EncounterCompleted;
+        public bool IsRunning => beatRunning || lockedPlayer != null;
         [Header("References")]
         [SerializeField] private GuideController guide;
         [SerializeField] private BullyGroupController group;
@@ -37,12 +39,13 @@ namespace BullyingGame.Events
 
         private void OnTriggerEnter(Collider other)
         {
+            var flow = BullyingGame.LevelOne.LevelOneExistingFlow.Current;
+            if (flow != null && !flow.CanStartAmbush) return;
             if (triggerOnce && hasTriggered) return;
             if (guide == null || group == null) return;
             bool isPlayer = other.CompareTag("Player");
             bool isGuide = other.gameObject == guide.gameObject;
             if (!isPlayer && !isGuide) return;
-            hasTriggered = true;
             guide.PauseGuide();
             if (!group.TryStartApproach())
             {
@@ -50,6 +53,7 @@ namespace BullyingGame.Events
                 guide.ResumeGuide();
                 return;
             }
+            hasTriggered = true;
             LockPlayer();
             group.OnApproachCompleted += OnApproachCompleted;
         }
@@ -110,6 +114,7 @@ namespace BullyingGame.Events
         {
             UnlockPlayer();
             DeactivateCineCamera();
+            EncounterCompleted?.Invoke();
         }
 
         private void LockPlayer()

@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 4488456034960222994}
   - component: {fileID: 686574224852797095}
   m_Layer: 0
-  m_Name: karakter_utama
+  m_Name: Aji
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
