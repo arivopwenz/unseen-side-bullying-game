@@ -32,7 +32,17 @@ namespace BullyingGame.Events
         public float walkSpeed = 1.8f;
 
     /// <summary>Entry point publik untuk trigger cutscene (mis. Bekal) agar bisa memulai Misi 2 tanpa refleksi. Idempotent (aman dipanggil ulang).</summary>
-    public void StartCanteenWalk() { StartMission2(); }
+    public void StartCanteenWalk()
+    {
+        if (bimaAgent == null)
+        {
+            var player = GameObject.FindGameObjectWithTag("Player");
+            var bima = GameObject.Find("Bima_Guide");
+            if (player != null) { playerTf = player.transform; playerMovement = player.GetComponent<PlayerMovement>(); }
+            if (bima != null) { bimaTf = bima.transform; bimaAgent = bima.GetComponent<NavMeshAgent>(); bimaAnimator = bima.GetComponent<Animator>(); }
+        }
+        StartMission2();
+    }
         private bool hasTriggered = false;
         private bool walkingToCanteen = false;
         private Vector3 canteenPos = new Vector3(-39.50f, -0.07f, -1.00f);
@@ -72,11 +82,18 @@ namespace BullyingGame.Events
 
         private void Start()
         {
+            if (BullyingGame.LevelOne.LevelOneExistingFlow.Current != null) return;
             if (YellowCircleTrigger.Mission1Complete && !ConversationDone && !hasTriggered)
             {
                 hasTriggered = true;
                 StartCoroutine(ConversationSequence());
             }
+        }
+        public void BeginExistingConversation()
+        {
+            if (hasTriggered || ConversationDone) return;
+            hasTriggered = true;
+            StartCoroutine(ConversationSequence());
         }
 
         private void Update()
