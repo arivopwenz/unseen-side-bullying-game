@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a68f15f2a5d210458b8439de32da6c3, type: 3}
+  m_Name: WRD_L01_01
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.LevelOne.WordCardData
+  puzzleId: WRD_L01_01
+  title: Beri ruang dan cari bantuan
+  context: Memet dan Raka masih di area kantin. Bicaralah dari tempat ramai bersama Bima.
+  hint: Sampaikan batas dengan tenang dan cari bantuan orang dewasa.
+  feedback: Awali dengan meminta mereka berhenti, beri ruang bagi Bima, lalu tawarkan mencari bantuan guru.
+  response: 'Raka: Met, udah. Ayo pergi.
+
+    Aji: Bim, yuk kita temui Bu Ratna.'
+  phrases:
+  - id: W1
+    text: Memet, Raka, tolong berhenti.
+  - id: W2
+    text: Bima perlu ruang.
+  - id: W3
+    text: Kalau ada masalah, kita bisa bicara sama Bu Ratna.
+  - id: D1
+    text: Kalian selalu bikin masalah.
+  - id: D2
+    text: Bima harus urus sendiri.
+  answer:
+  - W1
+  - W2
+  - W3

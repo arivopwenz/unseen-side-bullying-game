@@ -20,6 +20,8 @@ namespace BullyingGame.LevelOne
         [SerializeField] private LevelOneStaging staging;
         [Header("Use the scene's original guide, trigger zones and cutscenes")]
         [SerializeField] private bool useExistingFlow;
+        [SerializeField] private LevelOneDayTwoFlow dayTwo;
+        public bool IsDayTwo => dayTwo != null;
         public bool UsesExistingFlow => useExistingFlow;
         public event Action ProgressChanged;
         [Header("Rebindable UI actions")]
@@ -53,6 +55,7 @@ namespace BullyingGame.LevelOne
         }
         void Start()
         {
+            LevelOneCheckpoint.UseDayTwo = IsDayTwo;
             Progress = LevelOneCheckpoint.Load(content.Steps.Length);
             if (Progress.externalCompleted == null) Progress.externalCompleted = new string[0];
             QuestManager.Instance.RestoreProgress(Progress.quests, content.Quests);
@@ -62,6 +65,7 @@ namespace BullyingGame.LevelOne
                 var controller = player.GetComponent<CharacterController>(); controller.enabled = false;
                 player.transform.position = hit.position; controller.enabled = true;
             }
+            dayTwo?.RestoreBima(Progress);
             lastProgress = Time.unscaledTime; Ready = true;
             staging?.Apply(this);
             if (useExistingFlow) ConsumeExternalSteps();
@@ -95,6 +99,7 @@ namespace BullyingGame.LevelOne
         {
             if (Searching)
             {
+                if (IsDayTwo) return Progress.bottleFound ? LevelOneAction.Take : LevelOneAction.Inspect;
                 if (point.Id == "Staff") return LevelOneAction.Ask;
                 if (point.Id == "P3" && Progress.bottleFound && !Progress.bottleTaken || point.Id == "P5" && Progress.lunchFound && !Progress.lunchTaken) return LevelOneAction.Take;
                 return LevelOneAction.Inspect;
@@ -104,11 +109,13 @@ namespace BullyingGame.LevelOne
         public bool IsRelevant(LevelOnePoint point)
         {
             if (!Ready || Complete) return false;
+            if (Searching && IsDayTwo) return point.Id == "P3" && !Progress.bottleTaken;
             if (Searching) return point.Id == "Staff" && !Progress.permission || point.Id.StartsWith("P") && point.Id.Length == 2 &&
                 !(point.Id == "P3" && Progress.bottleTaken) && !(point.Id == "P5" && Progress.lunchTaken);
             return point.Id == Step.nodeId;
         }
         public bool CanUse(LevelOnePoint point) => Ready && !IsModal && IsRelevant(point) &&
+            (!IsDayTwo || dayTwo.CanInteract(point)) &&
             (!useExistingFlow || StepIndex == 5 || StepIndex >= 7) &&
             (StepIndex != 1 || staging == null || staging.BimaNear(point.transform)) &&
             GameStateManager.Instance != null && GameStateManager.Instance.CurrentState == GameState.Playing;
@@ -129,8 +136,18 @@ namespace BullyingGame.LevelOne
         public void Use(LevelOnePoint point)
         {
             if (!CanUse(point) || !IsReachable(point)) return;
+            if (IsDayTwo && Step.id == "incident") { dayTwo.StartIncident(); return; }
             if (Searching) { Search(point); return; }
-            if (Step.action == LevelOneAction.Return && (!Progress.bottleTaken || !Progress.lunchTaken)) return;
+            if (Step.action == LevelOneAction.Return && (!Progress.bottleTaken || !IsDayTwo && !Progress.lunchTaken))
+            {
+                if (IsDayTwo) Present(new[] { "Cari botol Bima terlebih dahulu." });
+                return;
+            }
+            if (IsDayTwo && Step.puzzle != null)
+            {
+                OpenDayTwoPuzzle();
+                return;
+            }
             var current = Step;
             SetModal(GameState.Dialogue);
             Action show = () => view.ShowLines(current.lines, () =>
@@ -155,9 +172,58 @@ namespace BullyingGame.LevelOne
             if (Complete)
             {
                 AddJournal(content.Reflection); Save();
+                if (IsDayTwo) { CloseModal(); return; }
                 view.ShowLines(new[] { "LEVEL 1 SELESAI — LANGKAH PERTAMA", content.Reflection, "Pelajaran tersimpan di jurnal. TAB untuk membacanya lagi. Level 2 belum diubah oleh implementasi ini." }, CloseModal);
             }
             else CloseModal();
+        }
+        void OpenDayTwoPuzzle()
+        {
+            var current = Step;
+            SetModal(GameState.Dialogue);
+            void Open() => view.ShowDayTwoPuzzle(current.puzzle, Progress, () => Resolve(current), CloseModal, Save);
+            if (Progress.wordCardShown) Open();
+            else view.ShowCard("Kartu Kata", current.objective, () =>
+            {
+                Progress.wordCardShown = true;
+                Save();
+                Open();
+            });
+        }
+        public void BeginIncident()
+        {
+            SetModal(GameState.Cinematic);
+            view.SetGameplayVisible(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        public void FinishIncident(bool completed)
+        {
+            if (!IsDayTwo || Step?.id != "incident") return;
+            if (!completed)
+            {
+                GameStateManager.Instance.SetState(GameState.Dialogue);
+                view.ShowLines(new[] { "Adegan kantin gagal dimuat. Dekati penanda dan tekan E untuk mencoba lagi." }, CloseModal);
+                return;
+            }
+            Resolve(Step);
+            PresentActionCard();
+        }
+        public void PresentActionCard()
+        {
+            if (IsModal || Progress.actionCardShown || Step?.id != "clue") return;
+            SetModal(GameState.Dialogue);
+            view.ShowActionCard("Cari dan kembalikan botol Bima", () =>
+            {
+                Progress.actionCardShown = true;
+                Save();
+                CloseModal();
+            });
+        }
+        void Present(string[] lines)
+        {
+            SetModal(GameState.Dialogue);
+            view.ShowLines(lines, CloseModal);
         }
         public bool ExternalDone(string id) => Progress != null && Progress.externalCompleted.Contains(id);
         public void CompleteExternal(string id)
@@ -190,6 +256,22 @@ namespace BullyingGame.LevelOne
         }
         void Search(LevelOnePoint point)
         {
+            if (IsDayTwo)
+            {
+                SetModal(GameState.Dialogue);
+                if (Progress.bottleFound)
+                {
+                    Progress.bottleTaken = true;
+                    Resolve(Step);
+                }
+                else
+                {
+                    Progress.bottleFound = true;
+                    Save();
+                    view.ShowLines(new[] { "Botol Bima ada di dekat bangku belakang kantin. Tekan E untuk mengambilnya." }, CloseModal);
+                }
+                return;
+            }
             string message;
             if (point.Id == "Staff") { Progress.permission = true; message = "Aji: Bu, boleh ambil botol biru berlabel Bima di rak?\nPetugas kantin: Boleh. Saya dampingi, ya. Tunggu di sisi pengunjung; jangan masuk area kerja."; }
             else if (point.Id == "P3")
@@ -228,9 +310,11 @@ namespace BullyingGame.LevelOne
             Debug.Log("[Level01 PRD] " + text);
         }
         public string QuestTitle => Complete ? "Level 1 selesai" : content.Quests[Step.questIndex].questTitle;
-        public string Objective => Complete ? "Pelajaran tersimpan. TAB membuka jurnal." : Step.objective + (Searching ? " (" + HeldCount + "/2)" : "");
+        public string Objective => Complete ? "Pelajaran tersimpan. TAB membuka jurnal." : Step.objective + (Searching && !IsDayTwo ? " (" + HeldCount + "/2)" : "");
         public bool HintActive => Searching && Time.unscaledTime - lastProgress > 90;
-        public string JournalText => string.Join("\n\n", Progress.journal) + "\n\nBarang: " + (Progress.returned ? "2/2 sudah dikembalikan kepada Bima." : HeldCount + "/2 — " + (Progress.bottleTaken ? "BOTOL-BIMA " : "") + (Progress.lunchTaken ? "BEKAL-BIMA" : "")) + "\n\nTujuan saat ini: " + Objective;
+        public string JournalText => IsDayTwo
+            ? string.Join("\n\n", Progress.journal) + "\n\nTujuan saat ini: " + Objective
+            : string.Join("\n\n", Progress.journal) + "\n\nBarang: " + (Progress.returned ? "2/2 sudah dikembalikan kepada Bima." : HeldCount + "/2 — " + (Progress.bottleTaken ? "BOTOL-BIMA " : "") + (Progress.lunchTaken ? "BEKAL-BIMA" : "")) + "\n\nTujuan saat ini: " + Objective;
         public void ShowJournal()
         {
             SetModal(GameState.Paused); view.ShowJournal(JournalText, CloseModal);
@@ -240,7 +324,8 @@ namespace BullyingGame.LevelOne
             SetModal(GameState.Paused);
             view.ShowPause(CloseModal, () => { Save(); CloseModal(); }, () => view.ConfirmRestart(() =>
             {
-                Progress = new LevelOneSaveData(); QuestManager.Instance.RestoreProgress(null, content.Quests); EnsureQuest(); Save();
+                SaveFailed = !LevelOneCheckpoint.Write(LevelOneCheckpoint.NewProgress());
+                if (SaveFailed) { ShowPause(); return; }
                 UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
             }, ShowPause));
         }
@@ -264,6 +349,7 @@ namespace BullyingGame.LevelOne
         public void Save()
         {
             if (Progress == null || player == null || QuestManager.Instance == null) return;
+            dayTwo?.CaptureBima(Progress);
             Progress.quests = QuestManager.Instance.CaptureProgress(); Progress.position = player.transform.position; Progress.hasPosition = true;
             SaveFailed = !LevelOneCheckpoint.Write(Progress);
         }
@@ -271,7 +357,13 @@ namespace BullyingGame.LevelOne
         void OnApplicationPause(bool pause) { if (pause && Ready) Save(); }
         void OnDisable()
         {
-            input?.Dispose(); input = null; journalAction.Disable(); pauseAction.Disable(); cardOne.Disable(); cardTwo.Disable(); cardThree.Disable();
+            if (input != null)
+            {
+                input.Movement.Disable();
+                input.Dispose();
+                input = null;
+            }
+            journalAction.Disable(); pauseAction.Disable(); cardOne.Disable(); cardTwo.Disable(); cardThree.Disable();
         }
     }
 }

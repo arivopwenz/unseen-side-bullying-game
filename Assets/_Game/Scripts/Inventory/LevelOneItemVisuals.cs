@@ -9,8 +9,9 @@ namespace BullyingGame.LevelOne
         void Update()
         {
             if (director == null || !director.Ready) return;
-            bottle.SetActive(director.Searching && director.Progress.bottleFound && !director.Progress.bottleTaken);
-            lunch.SetActive(director.Searching && director.Progress.lunchFound && !director.Progress.lunchTaken);
+            bottle.SetActive((director.Searching || director.IsDayTwo && director.Step?.id == "clue") &&
+                (director.IsDayTwo || director.Progress.bottleFound) && !director.Progress.bottleTaken);
+            lunch.SetActive(!director.IsDayTwo && director.Searching && director.Progress.lunchFound && !director.Progress.lunchTaken);
         }
     }
 }

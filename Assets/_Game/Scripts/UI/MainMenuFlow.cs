@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using BullyingGame.Core;
 using BullyingGame.Save;
+using BullyingGame.LevelOne;
 
 namespace BullyingGame.UI
 {
@@ -34,7 +35,7 @@ namespace BullyingGame.UI
             if (continueButton != null)
             {
                 continueButton.onClick.AddListener(ContinueGame);
-                continueButton.interactable = SaveManager.Instance.HasSave;
+                continueButton.interactable = CanContinue;
             }
             if (settingsButton != null) settingsButton.onClick.AddListener(ToggleSettings);
             if (quitButton != null) quitButton.onClick.AddListener(Quit);
@@ -56,14 +57,21 @@ namespace BullyingGame.UI
             {
                 StoryOverlay.Current?.Dismiss();
                 if(index != 1) return;
-                if(SaveManager.Instance.TryResetProgress()) StartCoroutine(LoadLevel());
-                else if(statusText!=null)statusText.text=SaveManager.Instance.LastError;
+                if (!SaveManager.Instance.TryResetProgress())
+                {
+                    if (statusText != null) statusText.text = SaveManager.Instance.LastError;
+                    return;
+                }
+                if (LevelOneCheckpoint.ResetDayTwo()) StartCoroutine(LoadLevel());
+                else if (statusText != null) statusText.text = "Progres Level 01 gagal direset. Coba lagi.";
             });
         }
+        private bool CanContinue => SaveManager.Instance.HasSave || LevelOneCheckpoint.HasDayTwoProgress;
+
         public void ContinueGame()
         {
-            if (loading || !SaveManager.Instance.HasSave) return;
-            SaveManager.Instance.LoadGame();
+            if (loading || !CanContinue) return;
+            if (SaveManager.Instance.HasSave) SaveManager.Instance.LoadGame();
             StartCoroutine(LoadLevel());
         }
         private IEnumerator LoadLevel()
@@ -81,7 +89,7 @@ namespace BullyingGame.UI
                 loading = false;
                 GameStateManager.Instance.SetState(GameState.MainMenu);
                 if (newGameButton != null) newGameButton.interactable = true;
-                if (continueButton != null) continueButton.interactable = SaveManager.Instance.HasSave;
+                if (continueButton != null) continueButton.interactable = CanContinue;
                 if (statusText != null) statusText.text = "Scene chapter belum tersedia.";
             }
         }

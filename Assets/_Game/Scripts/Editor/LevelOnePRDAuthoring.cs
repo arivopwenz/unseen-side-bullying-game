@@ -19,7 +19,7 @@ namespace BullyingGame.EditorTools
     public static class LevelOnePRDAuthoring
     {
         const string Folder = "Assets/_Game/Data/LevelOnePRD/";
-        public const string RootName = "[Level01 PRD - Langkah Pertama]";
+        public const string RootName = "questLevel01";
         static readonly Dictionary<string, LevelOnePoint> points = new Dictionary<string, LevelOnePoint>();
         static void Edit(UnityEngine.Object target, Action<SerializedObject> edit)
         {

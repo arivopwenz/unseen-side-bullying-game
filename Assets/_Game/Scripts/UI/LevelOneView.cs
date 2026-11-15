@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,9 +13,16 @@ namespace BullyingGame.LevelOne
     {
         RectTransform canvas, modal, hud;
         TMP_Text title, objective, prompt, cardText, navigation, saveText;
-        RectTransform promptBackdrop;
+        RectTransform promptBackdrop, actionPanel;
+        LevelOneSaveData dayTwoProgress;
+        Action closePuzzle;
         [Header("Keep the project's existing quest HUD")]
         [SerializeField] private bool useExistingHUD;
+        [Header("Kartu Aksi")]
+        [SerializeField] private CanvasGroup actionCardArtwork;
+        [SerializeField] private Image actionCardImage;
+        Coroutine actionCardReveal;
+        Vector3 actionCardRestScale;
         RectTransform trackerPanel;
         WordCardData puzzle;
         readonly List<string> selected = new List<string>();
@@ -23,6 +31,12 @@ namespace BullyingGame.LevelOne
         string puzzleFeedback = "Klik keping berurutan untuk mengisi tiga slot. Klik slot untuk melepas keping.";
         void Awake()
         {
+            if (actionCardArtwork != null && actionCardImage != null)
+            {
+                actionCardRestScale = actionCardImage.rectTransform.localScale;
+                actionCardArtwork.gameObject.SetActive(false);
+            }
+
             var root = new GameObject("Level01 PRD Canvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             root.transform.SetParent(transform, false); canvas = root.GetComponent<RectTransform>();
             var c = root.GetComponent<Canvas>(); c.renderMode = RenderMode.ScreenSpaceOverlay; c.sortingOrder = 200;
@@ -35,7 +49,7 @@ namespace BullyingGame.LevelOne
             objective = Text(tracker, "Objective", "", new Vector2(0, -20), new Vector2(520, 100), 25);
             promptBackdrop = Panel(hud, "Prompt backdrop", new Vector2(0, -260), new Vector2(1120, 90));
             prompt = Text(promptBackdrop, "Interaction prompt", "", Vector2.zero, new Vector2(1080, 80), 29); prompt.alignment = TextAlignmentOptions.Center;
-            var cards = Panel(hud, "Kartu Aksi", new Vector2(620, -410), new Vector2(610, 160));
+            var cards = actionPanel = Panel(hud, "Kartu Aksi", new Vector2(620, -410), new Vector2(610, 160));
             Text(cards, "Label", "KARTU AKSI", new Vector2(0, 48), new Vector2(570, 35), 23);
             cardText = Text(cards, "Cards", "", new Vector2(0, -15), new Vector2(570, 85), 25);
             navigation = Text(hud, "Destination", "", new Vector2(0, 430), new Vector2(660, 90), 24); navigation.alignment = TextAlignmentOptions.Center;
@@ -44,13 +58,14 @@ namespace BullyingGame.LevelOne
         public void Refresh(LevelOneDirector director, string[] cards, int active)
         {
             hud.gameObject.SetActive(!director.IsModal);
+            actionPanel.gameObject.SetActive(!director.IsDayTwo);
             title.text = director.QuestTitle; objective.text = director.Objective;
             trackerPanel.gameObject.SetActive(!useExistingHUD);
             navigation.gameObject.SetActive(!useExistingHUD);
             prompt.text = director.Nearest == null ? "" : "E • " + director.Nearest.GetPromptText();
             promptBackdrop.gameObject.SetActive(director.Nearest != null);
             cardText.text = cards.Length == 0 ? "Dekati penanda tujuan untuk melihat aksi." : string.Join("    ", cards.Select((s, i) => (i == active ? "<color=#FFD46B>" : "<color=#C2D6DF>") + (i + 1) + "  " + s + "</color>"));
-            saveText.text = director.SaveFailed ? "Simpan gagal. ESC → Simpan untuk mencoba lagi." : "TAB  Jurnal     ESC  Jeda     Barang " + director.HeldCount + "/2";
+            saveText.text = director.IsDayTwo && !director.SaveFailed ? "TAB  Jurnal     ESC  Jeda" : director.SaveFailed ? "Simpan gagal. ESC → Simpan untuk mencoba lagi." : "TAB  Jurnal     ESC  Jeda     Barang " + director.HeldCount + "/2";
             var target = director.Target;
             if (target == null) navigation.text = "";
             else
@@ -59,7 +74,7 @@ namespace BullyingGame.LevelOne
                 Vector3 delta = target.transform.position - director.Player.transform.position;
                 var camera = UnityEngine.Camera.main;
                 float angle = camera != null ? Vector3.SignedAngle(Vector3.ProjectOnPlane(camera.transform.forward, Vector3.up), Vector3.ProjectOnPlane(delta, Vector3.up), Vector3.up) : 0;
-                navigation.text = (angle < -30 ? "← " : angle > 30 ? "→ " : "↑ ") + target.Label + "  •  " + Mathf.RoundToInt(distance) + " m" + (director.HintActive ? "\nPetunjuk: rak troli (P3) dan bangku pojok (P5)." : "");
+                navigation.text = (angle < -30 ? "← " : angle > 30 ? "→ " : "↑ ") + target.Label + "  •  " + Mathf.RoundToInt(distance) + " m" + (director.HintActive && !director.IsDayTwo ? "\nPetunjuk: rak troli (P3) dan bangku pojok (P5)." : "");
             }
         }
         static TMP_Text Text(Transform p, string name, string text, Vector2 position, Vector2 size, float font) => StoryOverlay.Text(p, name, text, position, size, font);
@@ -75,12 +90,19 @@ namespace BullyingGame.LevelOne
             var panel = Panel(modal, name, Vector2.zero, new Vector2(1220, 850));
             Text(panel, "Heading", name, new Vector2(0, 355), new Vector2(1120, 70), 32); return panel;
         }
-        public void HideModal() { if (modal != null) { modal.gameObject.SetActive(false); Destroy(modal.gameObject); modal = null; } }
+        public void HideModal()
+        {
+            HideActionCardArtwork();
+            if (modal == null) return;
+            modal.gameObject.SetActive(false);
+            Destroy(modal.gameObject);
+            modal = null;
+        }
         public void ShowLines(string[] lines, Action finished)
         {
             if (lines == null || lines.Length == 0) { finished?.Invoke(); return; }
             int index = 0;
-            var panel = Modal("LANGKAH PERTAMA");
+            var panel = Modal("SAATNYA BERTINDAK");
             var body = Text(panel, "Dialogue", lines[0], new Vector2(0, 20), new Vector2(1090, 510), 32);
             var counter = Text(panel, "Page", "1 / " + lines.Length, new Vector2(-430, -350), new Vector2(200, 45), 24);
             Button nextButton = null;
@@ -89,10 +111,109 @@ namespace BullyingGame.LevelOne
                 if (++index >= lines.Length) { nextButton.interactable = false; finished?.Invoke(); return; }
                 body.text = lines[index]; counter.text = (index + 1) + " / " + lines.Length;
             });
+            Select(nextButton);
+        }
+        public void SetGameplayVisible(bool visible) => hud.gameObject.SetActive(visible);
+        public void ShowActionCard(string objectiveText, Action finished)
+        {
+            if (actionCardArtwork == null || actionCardImage == null || actionCardImage.sprite == null)
+            {
+                ShowCard("Kartu Aksi", objectiveText, finished);
+                return;
+            }
+
+            HideModal();
+            SetGameplayVisible(false);
+            UnityEngine.EventSystems.EventSystem.current?.SetSelectedGameObject(null);
+            actionCardArtwork.alpha = 0f;
+            actionCardArtwork.gameObject.SetActive(true);
+            actionCardReveal = StartCoroutine(RevealActionCard(objectiveText, finished));
+        }
+
+        IEnumerator RevealActionCard(string objectiveText, Action finished)
+        {
+            const float popEnd = .36f;
+            const float flipEnd = 1.26f;
+            const float exitStart = 2f;
+            const float exitEnd = 2.28f;
+            float elapsed = 0f;
+            while (elapsed < exitEnd)
+            {
+                float pop = Mathf.Clamp01(elapsed / popEnd);
+                float flip = Mathf.InverseLerp(popEnd, flipEnd, elapsed);
+                float exit = Mathf.InverseLerp(exitStart, exitEnd, elapsed);
+                float scale = Mathf.Lerp(.58f, 1f, Mathf.SmoothStep(0f, 1f, pop))
+                    + Mathf.Sin(pop * Mathf.PI) * .17f;
+                scale *= Mathf.Lerp(1f, .83f, exit);
+                float width = Mathf.Max(.02f, Mathf.Abs(Mathf.Cos(flip * 2f * Mathf.PI)));
+                actionCardImage.rectTransform.localScale = Vector3.Scale(actionCardRestScale, new Vector3(scale * width, scale, 1f));
+                actionCardArtwork.alpha = Mathf.Clamp01(pop * 3f) * (1f - exit);
+                yield return null;
+                elapsed += Mathf.Min(Time.unscaledDeltaTime, .09f);
+            }
+
+            actionCardReveal = null;
+            ShowCard("Kartu Aksi", objectiveText, finished);
+        }
+
+        void HideActionCardArtwork()
+        {
+            if (actionCardReveal != null)
+            {
+                StopCoroutine(actionCardReveal);
+                actionCardReveal = null;
+            }
+            if (actionCardArtwork != null) actionCardArtwork.gameObject.SetActive(false);
+            if (actionCardImage != null) actionCardImage.rectTransform.localScale = actionCardRestScale;
+        }
+
+        void OnDisable() => HideActionCardArtwork();
+
+        public void ShowCard(string heading, string objectiveText, Action finished)
+        {
+            var panel = Modal(heading.ToUpperInvariant());
+            Text(panel, "Objective", objectiveText, Vector2.zero, new Vector2(1060, 260), 46);
+            Select(StoryOverlay.Button(panel, "Lanjut", new Vector2(400, -345), new Vector2(260, 65), finished));
+            StartCoroutine(RevealCard(panel));
+        }
+        static System.Collections.IEnumerator RevealCard(RectTransform panel)
+        {
+            float elapsed = 0;
+            while (panel != null && panel.gameObject.activeInHierarchy && elapsed < .3f)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                panel.localScale = Vector3.one * Mathf.Lerp(.88f, 1f, elapsed / .3f);
+                yield return null;
+            }
+        }
+        static void Select(Button button) => UnityEngine.EventSystems.EventSystem.current?.SetSelectedGameObject(button.gameObject);
+        public void ShowDayTwoPuzzle(WordCardData data, LevelOneSaveData progress, Action completed, Action close, Action saved)
+        {
+            dayTwoProgress = progress; closePuzzle = close; puzzle = data;
+            failures = progress.puzzleFailures; solved = completed; save = saved;
+            selected.Clear();
+            selected.AddRange((progress.wordSlots ?? Array.Empty<string>())
+                .Where(id => data.Phrases.Any(phrase => phrase.id == id)).Distinct().Take(3));
+            if (progress.wordOrder == null || progress.wordOrder.Length != data.Phrases.Count())
+            {
+                progress.wordOrder = data.Phrases.OrderBy(_ => UnityEngine.Random.value).Select(phrase => phrase.id).ToArray();
+                saved?.Invoke();
+            }
+            puzzleFeedback = "Pilih potongan kalimat untuk mengisi tiga slot.";
+            DrawPuzzle();
+        }
+        void RedrawPuzzle()
+        {
+            if (dayTwoProgress != null)
+            {
+                dayTwoProgress.wordSlots = selected.ToArray();
+                save?.Invoke();
+            }
+            DrawPuzzle();
         }
         public void ShowPuzzle(WordCardData data, int[] attempts, Action completed, Action saved)
         {
-            puzzle = data; failures = attempts; solved = completed; save = saved; selected.Clear();
+            dayTwoProgress = null; puzzle = data; failures = attempts; solved = completed; save = saved; selected.Clear();
             puzzleFeedback = "Klik keping berurutan. Klik slot untuk melepasnya; keping salah belum diucapkan ke Bima.";
             DrawPuzzle();
         }
@@ -103,22 +224,25 @@ namespace BullyingGame.LevelOne
             for (int i = 0; i < 3; i++)
             {
                 int slot = i; string label = i < selected.Count ? puzzle.TextFor(selected[i]) : "Slot " + (i + 1);
-                StoryOverlay.Button(panel, label, new Vector2((i - 1) * 360, 130), new Vector2(345, 95), () => { if (slot < selected.Count) { selected.RemoveAt(slot); DrawPuzzle(); } });
+                StoryOverlay.Button(panel, label, new Vector2((i - 1) * 360, 130), new Vector2(345, 95), () => { if (slot < selected.Count) { selected.RemoveAt(slot); RedrawPuzzle(); } });
             }
             // Stable, shuffled presentation; correct phrases are never preselected.
-            var phrases = puzzle.Phrases.OrderBy(p => p.id).ToArray();
+            var phrases = dayTwoProgress == null
+                ? puzzle.Phrases.OrderBy(p => p.id).ToArray()
+                : puzzle.Phrases.OrderBy(p => Array.IndexOf(dayTwoProgress.wordOrder, p.id)).ToArray();
             for (int i = 0; i < phrases.Length; i++)
             {
                 var phrase = phrases[i];
-                var b = StoryOverlay.Button(panel, phrase.text, new Vector2((i % 3 - 1) * 360, -i / 3 * 95), new Vector2(345, 80), () => { if (selected.Count < 3 && !selected.Contains(phrase.id)) { selected.Add(phrase.id); DrawPuzzle(); } });
-                b.interactable = !selected.Contains(phrase.id);
+                var b = StoryOverlay.Button(panel, phrase.text, new Vector2((i % 3 - 1) * 360, -i / 3 * 95), new Vector2(345, 80), () => { if (selected.Count < 3 && !selected.Contains(phrase.id)) { selected.Add(phrase.id); RedrawPuzzle(); } });
+                b.interactable = selected.Count < 3 && !selected.Contains(phrase.id);
             }
             int failureIndex = puzzle.Id == "K-01" ? 0 : puzzle.Id == "K-02" ? 1 : 2;
             string feedback = puzzleFeedback + (failures[failureIndex] >= 2 ? "\nPetunjuk: " + puzzle.Hint : "");
             Text(panel, "Feedback", feedback, new Vector2(0, -205), new Vector2(1100, 135), 24);
-            StoryOverlay.Button(panel, "Susun ulang", new Vector2(-400, -345), new Vector2(260, 65), () => { selected.Clear(); DrawPuzzle(); });
-            if (failures[failureIndex] >= 4) StoryOverlay.Button(panel, "Bantu susun", new Vector2(0, -345), new Vector2(260, 65), () => { selected.Clear(); selected.AddRange(puzzle.Answer); DrawPuzzle(); });
-            StoryOverlay.Button(panel, "Ucapkan", new Vector2(400, -345), new Vector2(260, 65), () =>
+            StoryOverlay.Button(panel, "Susun ulang", new Vector2(-400, -345), new Vector2(260, 65), () => { selected.Clear(); RedrawPuzzle(); });
+            if (dayTwoProgress != null) StoryOverlay.Button(panel, "Kembali", new Vector2(0, -345), new Vector2(260, 65), closePuzzle);
+            else if (failures[failureIndex] >= 4) StoryOverlay.Button(panel, "Bantu susun", new Vector2(0, -345), new Vector2(260, 65), () => { selected.Clear(); selected.AddRange(puzzle.Answer); DrawPuzzle(); });
+            var check = StoryOverlay.Button(panel, dayTwoProgress != null ? "Periksa" : "Ucapkan", new Vector2(400, -345), new Vector2(260, 65), () =>
             {
                 if (selected.Count != 3) { puzzleFeedback = "Isi ketiga slot dahulu."; DrawPuzzle(); return; }
                 if (!puzzle.IsCorrect(selected))
@@ -129,6 +253,11 @@ namespace BullyingGame.LevelOne
                 Debug.Log("[Level01 PRD] " + puzzle.Id + " solved, retries=" + failures[failureIndex]);
                 ShowLines(new[] { "Aji: “" + string.Join(" ", selected.Select(puzzle.TextFor)) + "”", puzzle.Response, "Mengapa aman: " + puzzle.Hint }, solved);
             });
+            if (dayTwoProgress != null)
+            {
+                check.interactable = selected.Count == 3;
+                Select(check.interactable ? check : panel.GetComponentsInChildren<Button>().First(b => b.interactable));
+            }
         }
         public void ShowJournal(string body, Action close)
         {
