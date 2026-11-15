@@ -137,6 +137,15 @@ namespace BullyingGame.LevelOne
                 .Where(renderer => renderer.enabled).ToArray();
             foreach (var renderer in renderers) renderer.enabled = false;
 
+            var gameplayCamera = UnityEngine.Camera.main;
+            var gameplayBrain = gameplayCamera != null ? gameplayCamera.GetComponent<CinemachineBrain>() : null;
+            var gameplayListener = gameplayCamera != null ? gameplayCamera.GetComponent<AudioListener>() : null;
+            bool brainWasEnabled = gameplayBrain != null && gameplayBrain.enabled;
+            bool listenerWasEnabled = gameplayListener != null && gameplayListener.enabled;
+            if (gameplayCamera != null) gameplayCamera.enabled = false;
+            if (brainWasEnabled) gameplayBrain.enabled = false;
+            if (listenerWasEnabled) gameplayListener.enabled = false;
+
             AsyncOperation load = null;
             try { load = SceneManager.LoadSceneAsync(incidentScene, LoadSceneMode.Additive); }
             catch (System.Exception exception) { Debug.LogException(exception); }
@@ -147,14 +156,14 @@ namespace BullyingGame.LevelOne
                     .FirstOrDefault(candidate => candidate.name == timelineName)
                 : null;
             bool completed = false;
-            var brain = UnityEngine.Camera.main?.GetComponent<CinemachineBrain>();
-            if (timeline != null && timeline.playableAsset != null && brain != null &&
+            var brain = timeline?.playableAsset?.outputs
+                .Where(output => output.outputTargetType == typeof(CinemachineBrain))
+                .Select(output => timeline.GetGenericBinding(output.sourceObject) as CinemachineBrain)
+                .FirstOrDefault();
+            if (brain != null && brain.gameObject.scene == scene && brain.isActiveAndEnabled &&
+                brain.TryGetComponent<UnityEngine.Camera>(out var cutsceneCamera) && cutsceneCamera.isActiveAndEnabled &&
                 timeline.duration > 0 && !double.IsInfinity(timeline.duration))
             {
-                foreach (var output in timeline.playableAsset.outputs)
-                    if (output.outputTargetType == typeof(CinemachineBrain))
-                        timeline.SetGenericBinding(output.sourceObject, brain);
-
                 timeline.timeUpdateMode = DirectorUpdateMode.UnscaledGameTime;
                 timeline.extrapolationMode = DirectorWrapMode.None;
                 double duration = timeline.duration;
@@ -177,6 +186,9 @@ namespace BullyingGame.LevelOne
             }
             if (!completed) Debug.LogError("L01-C01 did not complete its authored Timeline.");
             if (scene.IsValid() && scene.isLoaded) yield return SceneManager.UnloadSceneAsync(scene);
+            if (gameplayCamera != null) gameplayCamera.enabled = true;
+            if (brainWasEnabled && gameplayBrain != null) gameplayBrain.enabled = true;
+            if (listenerWasEnabled && gameplayListener != null) gameplayListener.enabled = true;
             foreach (var renderer in renderers) if (renderer != null) renderer.enabled = true;
             Finish(completed);
         }
