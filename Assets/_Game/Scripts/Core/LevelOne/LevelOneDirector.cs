@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using BullyingGame.Core;
 using BullyingGame.Quest;
+using BullyingGame.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 
 namespace BullyingGame.LevelOne
 {
@@ -21,12 +24,15 @@ namespace BullyingGame.LevelOne
         [Header("Use the scene's original guide, trigger zones and cutscenes")]
         [SerializeField] private bool useExistingFlow;
         [SerializeField] private LevelOneDayTwoFlow dayTwo;
+        [SerializeField] private LevelOneBottleGrab bottleGrab;
         public bool IsDayTwo => dayTwo != null;
         public bool UsesExistingFlow => useExistingFlow;
         public event Action ProgressChanged;
         [Header("Rebindable UI actions")]
         [SerializeField] private InputAction journalAction = new InputAction("Journal", InputActionType.Button, "<Keyboard>/tab");
-        [SerializeField] private InputAction pauseAction = new InputAction("Pause", InputActionType.Button, "<Keyboard>/escape");
+        readonly InputAction gamepadJournal = new InputAction("Gamepad Journal", InputActionType.Button, "<Gamepad>/select");
+        readonly InputAction gamepadCancel = new InputAction("Gamepad Cancel", InputActionType.Button, "<Gamepad>/buttonEast");
+        readonly InputAction gamepadScroll = new InputAction("Gamepad Journal Scroll", InputActionType.Value, "<Gamepad>/rightStick/y");
         [SerializeField] private InputAction cardOne = new InputAction("CardOne", InputActionType.Button, "<Keyboard>/1");
         [SerializeField] private InputAction cardTwo = new InputAction("CardTwo", InputActionType.Button, "<Keyboard>/2");
         [SerializeField] private InputAction cardThree = new InputAction("CardThree", InputActionType.Button, "<Keyboard>/3");
@@ -43,6 +49,35 @@ namespace BullyingGame.LevelOne
         public bool SaveFailed { get; private set; }
         public bool Ready { get; private set; }
         GameInputActions input;
+        ActiveInputDeviceTracker promptDevice;
+        public string InteractPrompt { get; private set; }
+        public string PausePrompt { get; private set; }
+        public string JournalPrompt { get; private set; }
+
+        void RefreshPrompts()
+        {
+            if (input == null || promptDevice == null) return;
+            var device = promptDevice.Device;
+            InteractPrompt = InputPromptResolver.Label(input.Movement.Interact, device);
+            PausePrompt = InputPromptResolver.Label(input.Movement.Pause, device);
+            JournalPrompt = InputPromptResolver.Label(device is Gamepad ? gamepadJournal : journalAction, device);
+            var ui = EventSystem.current?.GetComponent<InputSystemUIInputModule>();
+            var submit = InputPromptResolver.Label(ui?.submit?.action, device);
+            view.SetControlPrompts(
+                FormatPrompt(input.Movement.Move, "Gerak"),
+                FormatPrompt(input.Movement.Look, "Kamera"),
+                FormatPrompt(input.Movement.Sprint, "Lari"),
+                FormatPrompt(input.Movement.Jump, "Lompat"),
+                FormatPrompt(input.Movement.Interact, "Interaksi"),
+                string.IsNullOrEmpty(JournalPrompt) ? "" : $"[{JournalPrompt}] Jurnal",
+                string.IsNullOrEmpty(PausePrompt) ? "" : $"[{PausePrompt}] Jeda",
+                submit);
+            string FormatPrompt(InputAction action, string caption)
+            {
+                string label = InputPromptResolver.Label(action, device);
+                return string.IsNullOrEmpty(label) ? "" : $"[{label}] {caption}";
+            }
+        }
         bool[] controlStates;
         float lastProgress;
         int dismissedFrame;
@@ -50,11 +85,17 @@ namespace BullyingGame.LevelOne
         int selectedCard;
         void OnEnable()
         {
-            input = new GameInputActions(); input.Movement.Interact.Enable();
-            journalAction.Enable(); pauseAction.Enable(); cardOne.Enable(); cardTwo.Enable(); cardThree.Enable();
+            input = new GameInputActions();
+            input.Movement.Interact.Enable();
+            input.Movement.Pause.Enable();
+            journalAction.Enable(); cardOne.Enable(); cardTwo.Enable(); cardThree.Enable();
+            gamepadJournal.Enable(); gamepadCancel.Enable(); gamepadScroll.Enable();
+            promptDevice = new ActiveInputDeviceTracker();
+            promptDevice.Changed += RefreshPrompts;
         }
         void Start()
         {
+            RefreshPrompts();
             LevelOneCheckpoint.UseDayTwo = IsDayTwo;
             Progress = LevelOneCheckpoint.Load(content.Steps.Length);
             if (Progress.externalCompleted == null) Progress.externalCompleted = new string[0];
@@ -74,8 +115,15 @@ namespace BullyingGame.LevelOne
         void Update()
         {
             if (!Ready || GameStateManager.Instance != null && GameStateManager.Instance.CurrentState == GameState.Cinematic) return;
-            if (journalAction.WasPressedThisFrame() && !IsModal) ShowJournal();
-            if (pauseAction.WasPressedThisFrame() && !IsModal) ShowPause();
+            if (IsModal)
+            {
+                if (gamepadCancel.WasPressedThisFrame() || input.Movement.Pause.WasPressedThisFrame())
+                    view.CancelModal();
+                if (IsModal) view.ScrollJournal(gamepadScroll.ReadValue<float>() * Time.unscaledDeltaTime);
+                return;
+            }
+            if (journalAction.WasPressedThisFrame() || gamepadJournal.WasPressedThisFrame()) ShowJournal();
+            else if (input.Movement.Pause.WasPressedThisFrame()) ShowPause();
             if (IsModal || dismissedFrame == Time.frameCount) return;
             Nearest = points.Where(p => p.CanInteract() && IsReachable(p)).OrderBy(p => (p.transform.position - player.transform.position).sqrMagnitude).FirstOrDefault();
             var available = points.Where(p => IsRelevant(p) && IsReachable(p)).Select(ActionFor).Distinct().Take(3).ToArray();
@@ -156,7 +204,12 @@ namespace BullyingGame.LevelOne
                 else if ((StepIndex == 2 || StepIndex == 6) && staging != null) staging.Depart(() => Resolve(current));
                 else Resolve(current);
             });
-            if ((StepIndex == 2 || StepIndex == 6) && staging != null) staging.Approach(show);
+            if (IsDayTwo && current.action == LevelOneAction.Return && bottleGrab != null)
+            {
+                view.SetGameplayVisible(false);
+                bottleGrab.HandOver(show);
+            }
+            else if ((StepIndex == 2 || StepIndex == 6) && staging != null) staging.Approach(show);
             else show();
         }
         void Resolve(LevelOneStep current)
@@ -203,7 +256,7 @@ namespace BullyingGame.LevelOne
             if (!completed)
             {
                 GameStateManager.Instance.SetState(GameState.Dialogue);
-                view.ShowLines(new[] { "Adegan kantin gagal dimuat. Dekati penanda dan tekan E untuk mencoba lagi." }, CloseModal);
+                view.ShowLines(new[] { "Adegan kantin gagal dimuat. Dekati penanda dan gunakan tombol interaksi untuk mencoba lagi." }, CloseModal);
                 return;
             }
             Resolve(Step);
@@ -261,14 +314,24 @@ namespace BullyingGame.LevelOne
                 SetModal(GameState.Dialogue);
                 if (Progress.bottleFound)
                 {
-                    Progress.bottleTaken = true;
-                    Resolve(Step);
+                    var current = Step;
+                    void FinishPickup()
+                    {
+                        Progress.bottleTaken = true;
+                        Resolve(current);
+                    }
+                    if (bottleGrab == null) FinishPickup();
+                    else
+                    {
+                        view.SetGameplayVisible(false);
+                        bottleGrab.PickUp(FinishPickup);
+                    }
                 }
                 else
                 {
                     Progress.bottleFound = true;
                     Save();
-                    view.ShowLines(new[] { "Botol Bima ada di dekat bangku belakang kantin. Tekan E untuk mengambilnya." }, CloseModal);
+                    view.ShowLines(new[] { "Ini botol Bima. Gunakan tombol interaksi lagi untuk mengambilnya." }, CloseModal);
                 }
                 return;
             }
@@ -355,15 +418,28 @@ namespace BullyingGame.LevelOne
         }
         void OnApplicationQuit() { if (Ready) Save(); }
         void OnApplicationPause(bool pause) { if (pause && Ready) Save(); }
+        void OnDestroy()
+        {
+            gamepadJournal.Dispose();
+            gamepadCancel.Dispose();
+            gamepadScroll.Dispose();
+        }
         void OnDisable()
         {
+            if (promptDevice != null)
+            {
+                promptDevice.Changed -= RefreshPrompts;
+                promptDevice.Dispose();
+                promptDevice = null;
+            }
             if (input != null)
             {
                 input.Movement.Disable();
                 input.Dispose();
                 input = null;
             }
-            journalAction.Disable(); pauseAction.Disable(); cardOne.Disable(); cardTwo.Disable(); cardThree.Disable();
+            journalAction.Disable(); cardOne.Disable(); cardTwo.Disable(); cardThree.Disable();
+            gamepadJournal.Disable(); gamepadCancel.Disable(); gamepadScroll.Disable();
         }
     }
 }

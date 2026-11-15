@@ -51,6 +51,8 @@ namespace BullyingGame.LevelOne
             {
                 case "incident":
                     return !playing && IsBimaNear(point.transform, 3f);
+                case "return":
+                    return IsBimaNear(point.transform, 2.6f);
                 case "report":
                     return IsBimaNear(point.transform, 4.5f);
                 default:

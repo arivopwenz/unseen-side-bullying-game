@@ -15,7 +15,8 @@ namespace BullyingGame.LevelOne
         TMP_Text title, objective, prompt, cardText, navigation, saveText;
         RectTransform promptBackdrop, actionPanel;
         LevelOneSaveData dayTwoProgress;
-        Action closePuzzle;
+        Action closePuzzle, cancelModal;
+        ScrollRect journalScroll;
         [Header("Keep the project's existing quest HUD")]
         [SerializeField] private bool useExistingHUD;
         [Header("Kartu Aksi")]
@@ -62,10 +63,11 @@ namespace BullyingGame.LevelOne
             title.text = director.QuestTitle; objective.text = director.Objective;
             trackerPanel.gameObject.SetActive(!useExistingHUD);
             navigation.gameObject.SetActive(!useExistingHUD);
-            prompt.text = director.Nearest == null ? "" : "E • " + director.Nearest.GetPromptText();
+            prompt.text = director.Nearest == null ? "" : FormatControl(director.InteractPrompt, director.Nearest.GetPromptText());
             promptBackdrop.gameObject.SetActive(director.Nearest != null);
             cardText.text = cards.Length == 0 ? "Dekati penanda tujuan untuk melihat aksi." : string.Join("    ", cards.Select((s, i) => (i == active ? "<color=#FFD46B>" : "<color=#C2D6DF>") + (i + 1) + "  " + s + "</color>"));
-            saveText.text = director.IsDayTwo && !director.SaveFailed ? "TAB  Jurnal     ESC  Jeda" : director.SaveFailed ? "Simpan gagal. ESC → Simpan untuk mencoba lagi." : "TAB  Jurnal     ESC  Jeda     Barang " + director.HeldCount + "/2";
+            saveText.text = director.SaveFailed ? "Simpan gagal. Coba simpan lagi dari menu jeda." :
+                FormatControl(director.JournalPrompt, "Jurnal") + "     " + FormatControl(director.PausePrompt, "Jeda");
             var target = director.Target;
             if (target == null) navigation.text = "";
             else
@@ -93,11 +95,27 @@ namespace BullyingGame.LevelOne
         public void HideModal()
         {
             HideActionCardArtwork();
+            cancelModal = null;
+            journalScroll = null;
+            controlHelp = null;
+            puzzleHelp = null;
             if (modal == null) return;
+            var events = UnityEngine.EventSystems.EventSystem.current;
+            var focused = events != null ? events.currentSelectedGameObject : null;
+            if (focused != null && focused.transform.IsChildOf(modal))
+                events.SetSelectedGameObject(null);
             modal.gameObject.SetActive(false);
             Destroy(modal.gameObject);
             modal = null;
         }
+        public void CancelModal() => cancelModal?.Invoke();
+
+        public void ScrollJournal(float delta)
+        {
+            if (journalScroll != null && Mathf.Abs(delta) > .001f)
+                journalScroll.verticalNormalizedPosition = Mathf.Clamp01(journalScroll.verticalNormalizedPosition + delta);
+        }
+
         public void ShowLines(string[] lines, Action finished)
         {
             if (lines == null || lines.Length == 0) { finished?.Invoke(); return; }
@@ -224,21 +242,30 @@ namespace BullyingGame.LevelOne
             for (int i = 0; i < 3; i++)
             {
                 int slot = i; string label = i < selected.Count ? puzzle.TextFor(selected[i]) : "Slot " + (i + 1);
-                StoryOverlay.Button(panel, label, new Vector2((i - 1) * 360, 130), new Vector2(345, 95), () => { if (slot < selected.Count) { selected.RemoveAt(slot); RedrawPuzzle(); } });
+                var slotButton = StoryOverlay.Button(panel, label, new Vector2((i - 1) * 360, 130), new Vector2(345, 95), () =>
+                {
+                    selected.RemoveAt(slot);
+                    RedrawPuzzle();
+                });
+                slotButton.interactable = slot < selected.Count;
             }
             // Stable, shuffled presentation; correct phrases are never preselected.
             var phrases = dayTwoProgress == null
                 ? puzzle.Phrases.OrderBy(p => p.id).ToArray()
                 : puzzle.Phrases.OrderBy(p => Array.IndexOf(dayTwoProgress.wordOrder, p.id)).ToArray();
+            Button firstFreeTile = null;
             for (int i = 0; i < phrases.Length; i++)
             {
                 var phrase = phrases[i];
                 var b = StoryOverlay.Button(panel, phrase.text, new Vector2((i % 3 - 1) * 360, -i / 3 * 95), new Vector2(345, 80), () => { if (selected.Count < 3 && !selected.Contains(phrase.id)) { selected.Add(phrase.id); RedrawPuzzle(); } });
                 b.interactable = selected.Count < 3 && !selected.Contains(phrase.id);
+                if (b.interactable && firstFreeTile == null) firstFreeTile = b;
             }
             int failureIndex = puzzle.Id == "K-01" ? 0 : puzzle.Id == "K-02" ? 1 : 2;
             string feedback = puzzleFeedback + (failures[failureIndex] >= 2 ? "\nPetunjuk: " + puzzle.Hint : "");
-            Text(panel, "Feedback", feedback, new Vector2(0, -205), new Vector2(1100, 135), 24);
+            Text(panel, "Feedback", feedback, new Vector2(0, -188), new Vector2(1100, 95), 24);
+            puzzleHelp = Text(panel, "Control hint", FormatControl(submitPrompt, "Pilih tombol yang disorot"),
+                new Vector2(0, -272), new Vector2(1100, 40), 22);
             StoryOverlay.Button(panel, "Susun ulang", new Vector2(-400, -345), new Vector2(260, 65), () => { selected.Clear(); RedrawPuzzle(); });
             if (dayTwoProgress != null) StoryOverlay.Button(panel, "Kembali", new Vector2(0, -345), new Vector2(260, 65), closePuzzle);
             else if (failures[failureIndex] >= 4) StoryOverlay.Button(panel, "Bantu susun", new Vector2(0, -345), new Vector2(260, 65), () => { selected.Clear(); selected.AddRange(puzzle.Answer); DrawPuzzle(); });
@@ -256,26 +283,44 @@ namespace BullyingGame.LevelOne
             if (dayTwoProgress != null)
             {
                 check.interactable = selected.Count == 3;
-                Select(check.interactable ? check : panel.GetComponentsInChildren<Button>().First(b => b.interactable));
+                cancelModal = closePuzzle;
             }
+            Select(firstFreeTile != null ? firstFreeTile : check);
         }
         public void ShowJournal(string body, Action close)
         {
             var panel = Modal("JURNAL • TUJUAN, PETUNJUK & PEMBELAJARAN");
             var viewport = StoryOverlay.Rect(panel, "Viewport", new Vector2(0, 5), new Vector2(1100, 590));
             viewport.gameObject.AddComponent<Image>().color = Color.clear; viewport.gameObject.AddComponent<RectMask2D>();
-            var scroll = viewport.gameObject.AddComponent<ScrollRect>(); scroll.horizontal = false; scroll.movementType = ScrollRect.MovementType.Clamped;
+            var scroll = journalScroll = viewport.gameObject.AddComponent<ScrollRect>(); scroll.horizontal = false; scroll.movementType = ScrollRect.MovementType.Clamped;
             var text = Text(viewport, "Entries", string.IsNullOrEmpty(body) ? "Catatan akan muncul saat Aji memahami kejadian." : body, Vector2.zero, new Vector2(1060, 590), 26);
             var rect = text.rectTransform; rect.anchorMin = new Vector2(0, 1); rect.anchorMax = new Vector2(1, 1); rect.pivot = new Vector2(.5f, 1); rect.anchoredPosition = Vector2.zero; rect.sizeDelta = new Vector2(-30, 590);
             text.ForceMeshUpdate(); rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Mathf.Max(590, text.preferredHeight + 30));
             scroll.viewport = viewport; scroll.content = rect;
-            StoryOverlay.Button(panel, "Kembali", new Vector2(400, -345), new Vector2(260, 65), close);
+            cancelModal = close;
+            Select(StoryOverlay.Button(panel, "Kembali", new Vector2(400, -345), new Vector2(260, 65), close));
         }
+        TMP_Text controlHelp, puzzleHelp;
+        string controlsText, submitPrompt;
+        static string FormatControl(string input, string action) =>
+            string.IsNullOrEmpty(input) ? action : $"[{input}] {action}";
+
+        public void SetControlPrompts(string move, string look, string sprint, string jump,
+            string interact, string journal, string pause, string submit)
+        {
+            controlsText = string.Join("\n", new[] { move, look, sprint, jump, interact, journal, pause }
+                .Where(label => !string.IsNullOrEmpty(label)));
+            submitPrompt = submit;
+            if (controlHelp != null) controlHelp.text = controlsText;
+            if (puzzleHelp != null) puzzleHelp.text = FormatControl(submitPrompt, "Pilih tombol yang disorot");
+        }
+
         public void ShowPause(Action close, Action saveAction, Action restart)
         {
             var p = Modal("JEDA");
-            Text(p, "Controls", "WASD — berjalan\nMouse — kamera\n1–3 — pilih Kartu Aksi\nE — jalankan aksi di dekat penanda\nTAB — jurnal\n\nKartu Kata: klik frasa berurutan; klik slot untuk membatalkan. Tidak ada timer atau penalti.\nProgres otomatis tersimpan setelah setiap langkah dan barang.", new Vector2(0, 40), new Vector2(1100, 500), 28);
-            StoryOverlay.Button(p, "Lanjut", new Vector2(-380, -345), new Vector2(260, 65), close);
+            controlHelp = Text(p, "Controls", controlsText ?? "", new Vector2(0, 40), new Vector2(1100, 500), 29);
+            cancelModal = close;
+            Select(StoryOverlay.Button(p, "Lanjut", new Vector2(-380, -345), new Vector2(260, 65), close));
             StoryOverlay.Button(p, "Simpan", new Vector2(0, -345), new Vector2(260, 65), saveAction);
             StoryOverlay.Button(p, "Ulang Level 1", new Vector2(380, -345), new Vector2(260, 65), restart);
         }
@@ -283,7 +328,8 @@ namespace BullyingGame.LevelOne
         {
             var p = Modal("ULANG LEVEL 1?");
             Text(p, "Warning", "Progres Kartu Aksi dan Kartu Kata Level 1 akan dimulai ulang.", Vector2.zero, new Vector2(1100, 200), 30);
-            StoryOverlay.Button(p, "Batal", new Vector2(-220, -345), new Vector2(260, 65), no);
+            cancelModal = no;
+            Select(StoryOverlay.Button(p, "Batal", new Vector2(-220, -345), new Vector2(260, 65), no));
             StoryOverlay.Button(p, "Ulang", new Vector2(220, -345), new Vector2(260, 65), yes);
         }
     }
