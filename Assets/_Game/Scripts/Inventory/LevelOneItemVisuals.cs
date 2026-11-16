@@ -12,7 +12,8 @@ namespace BullyingGame.LevelOne
             if (bottle != null)
             {
                 bool visible = director.IsDayTwo
-                    ? director.Searching || director.Step?.id == "clue" || director.Progress.bottleTaken
+                    ? director.Searching || director.Step?.id == "greet" || director.Step?.id == "incident" ||
+                        director.Step?.id == "clue" || director.Progress.bottleTaken
                     : director.Searching && director.Progress.bottleFound && !director.Progress.bottleTaken;
                 if (bottle.activeSelf != visible) bottle.SetActive(visible);
             }

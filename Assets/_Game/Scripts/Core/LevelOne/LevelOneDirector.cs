@@ -45,7 +45,7 @@ namespace BullyingGame.LevelOne
         public bool Searching => Step != null && Step.search;
         public bool IsModal { get; private set; }
         public LevelOnePoint Nearest { get; private set; }
-        public LevelOnePoint Target => Complete ? null : Searching ? points.FirstOrDefault(p => p.Id == (!Progress.bottleTaken ? "P3" : "P5")) : points.FirstOrDefault(p => p.Id == Step.nodeId);
+        public LevelOnePoint Target => Complete ? null : Searching ? points.FirstOrDefault(p => p != null && p.Id == (!Progress.bottleTaken ? "P3" : "P5")) : points.FirstOrDefault(p => p != null && p.Id == Step.nodeId);
         public int HeldCount => Progress == null || Progress.returned ? 0 : (Progress.bottleTaken ? 1 : 0) + (Progress.lunchTaken ? 1 : 0);
         public bool SaveFailed { get; private set; }
         public bool Ready { get; private set; }
@@ -135,8 +135,8 @@ namespace BullyingGame.LevelOne
             if (journalAction.WasPressedThisFrame() || gamepadJournal.WasPressedThisFrame()) ShowJournal();
             else if (input.Movement.Pause.WasPressedThisFrame()) ShowPause();
             if (IsModal || dismissedFrame == Time.frameCount) return;
-            Nearest = points.Where(p => p.CanInteract() && IsReachable(p)).OrderBy(p => (p.transform.position - player.transform.position).sqrMagnitude).FirstOrDefault();
-            var available = points.Where(p => IsRelevant(p) && IsReachable(p)).Select(ActionFor).Distinct().Take(3).ToArray();
+            Nearest = points.Where(p => p != null && p.CanInteract() && IsReachable(p)).OrderBy(p => (p.transform.position - player.transform.position).sqrMagnitude).FirstOrDefault();
+            var available = points.Where(p => p != null && IsRelevant(p) && IsReachable(p)).Select(ActionFor).Distinct().Take(3).ToArray();
             if (!cards.SequenceEqual(available)) { cards.Clear(); cards.AddRange(available); selectedCard = 0; }
             if (cardOne.WasPressedThisFrame()) selectedCard = 0;
             if (cardTwo.WasPressedThisFrame() && cards.Count > 1) selectedCard = 1;
@@ -147,7 +147,7 @@ namespace BullyingGame.LevelOne
                 else if (Nearest != null)
                 {
                     var selected = cards.Count > 0 ? cards[selectedCard] : ActionFor(Nearest);
-                    var target = points.Where(p => p.CanInteract() && IsReachable(p) && ActionFor(p) == selected).OrderBy(p => (p.transform.position-player.transform.position).sqrMagnitude).FirstOrDefault();
+                    var target = points.Where(p => p != null && p.CanInteract() && IsReachable(p) && ActionFor(p) == selected).OrderBy(p => (p.transform.position-player.transform.position).sqrMagnitude).FirstOrDefault();
                     if (target != null) target.Interact(player);
                 }
             }
@@ -387,7 +387,9 @@ namespace BullyingGame.LevelOne
             Debug.Log("[Level01 PRD] " + text);
         }
         public string QuestTitle => Complete ? "Level 1 selesai" : content.Quests[Step.questIndex].questTitle;
-        public string Objective => Complete ? "Pelajaran tersimpan. TAB membuka jurnal." : Step.objective + (Searching && !IsDayTwo ? " (" + HeldCount + "/2)" : "");
+        public string Objective => Complete ? "Pelajaran tersimpan. TAB membuka jurnal." :
+            IsDayTwo && Step.id == "incident" && Progress.bimaPackedLunch ? "Ikuti Bima menuju kantin." :
+            Step.objective + (Searching && !IsDayTwo ? " (" + HeldCount + "/2)" : "");
         public bool HintActive => Searching && Time.unscaledTime - lastProgress > 90;
         public string JournalText => IsDayTwo
             ? string.Join("\n\n", Progress.journal) + "\n\nTujuan saat ini: " + Objective

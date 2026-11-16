@@ -23,17 +23,18 @@ MonoBehaviour:
     lines:
     - 'Bima: Ji, bel istirahat udah bunyi. Mau ke kantin bareng?'
     - 'Aji: Yuk, Bim. Aku ikut.'
+    - 'Bima: Sebentar, aku ambil bekal sama botol minumku dulu.'
     puzzle: {fileID: 0}
     journal: Saat bel istirahat hari kedua, Bima mengajak Aji ke kantin.
     search: 0
   - id: incident
     nodeId: Canteen
-    objective: Ikuti Bima ke penanda kantin.
+    objective: Tunggu Bima mengambil bekal dan botolnya, lalu ikuti dia menuju kantin.
     questIndex: 0
     action: 0
     lines: []
     puzzle: {fileID: 0}
-    journal: Bima kembali diganggu di kantin.
+    journal: Dalam perjalanan ke kantin, Memet merebut bekal Bima dan Raka membawa botol minumnya.
     search: 0
   - id: clue
     nodeId: BimaCanteen
@@ -41,8 +42,8 @@ MonoBehaviour:
     questIndex: 0
     action: 1
     lines:
-    - 'Aji: Bim, aku bantu cari botolmu. Terakhir kelihatan di mana?'
-    - 'Bima: Di dekat bangku belakang kantin, kayaknya.'
+    - 'Aji: Bim, aku bantu cari botolmu. Kamu lihat Raka bawa ke mana?'
+    - 'Bima: Tadi dia lari ke arah bangku belakang kantin. Mungkin botolnya tertinggal di sana.'
     - 'Aji: Oke. Kita cari di tempat aman, ya.'
     puzzle: {fileID: 0}
     journal: 

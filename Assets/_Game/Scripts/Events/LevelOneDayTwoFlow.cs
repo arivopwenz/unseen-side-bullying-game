@@ -16,13 +16,14 @@ namespace BullyingGame.LevelOne
         [SerializeField] private LevelOneDirector director;
         [SerializeField] private NavMeshAgent bima;
         [SerializeField] private SwingDoor classroomExit;
+        [SerializeField] private SwingDoor reportClassroomDoor;
+        [SerializeField] private LevelOneIncidentProps incidentProps;
         [SerializeField] private GameObject[] cinematicStandIns;
-        [SerializeField] private GameObject memet, raka;
         [Header("L01-C01")]
         [SerializeField] private string incidentScene;
         [SerializeField] private AreaSekolahGraphicsController gameplayEnvironment;
         [SerializeField] private string timelineName = "Timeline Canteen";
-        bool playing, incidentZoneOccupied;
+        bool playing, incidentZoneOccupied, propsInitialized, pickingUp;
         Animator bimaAnimator;
         static readonly int Speed = Animator.StringToHash("Speed");
         string lastStep, placedStep;
@@ -53,7 +54,8 @@ namespace BullyingGame.LevelOne
             switch (director.Step.id)
             {
                 case "incident":
-                    return !playing && IsBimaNear(point.transform, 3f);
+                    return !playing && (incidentProps == null || director.Progress.bimaPackedLunch) &&
+                        IsBimaNear(point.transform, 3f);
                 case "return":
                     return IsBimaNear(point.transform, 2.6f);
                 case "report":
@@ -71,6 +73,19 @@ namespace BullyingGame.LevelOne
             if (!director.Ready) return;
             var step = director.Step?.id;
             var target = director.Target;
+            if (!propsInitialized)
+            {
+                propsInitialized = true;
+                if (incidentProps != null && step == "incident")
+                {
+                    // Older checkpoints can already be on the way to the canteen.
+                    if ((bima.transform.position - incidentProps.PickupPosition).sqrMagnitude > 8f * 8f)
+                        director.Progress.bimaPackedLunch = true;
+                    if (director.Progress.bimaPackedLunch) incidentProps.Carry();
+                }
+                else if (incidentProps != null && step != "greet")
+                    incidentProps.AfterIncident(director.Progress.bottleTaken);
+            }
             if (step != lastStep)
             {
                 if (lastStep == null && step == "greet")
@@ -79,8 +94,6 @@ namespace BullyingGame.LevelOne
                     if (bell != null) AudioSource.PlayClipAtPoint(bell, bima.transform.position + Vector3.up, .8f);
                 }
                 lastStep = step;
-                memet.SetActive(step == "words");
-                raka.SetActive(step == "words");
             }
             if (director.IsModal || target == null)
             {
@@ -97,17 +110,22 @@ namespace BullyingGame.LevelOne
             if (!bima.isOnNavMesh) return;
             if (step == "incident")
             {
-                bima.isStopped = Vector3.Distance(bima.transform.position, director.Player.transform.position) > 10f;
-                if (!bima.isStopped) WalkTo(target.transform.position);
-                bool ready = CanInteract(target) && director.IsReachable(target);
-                if (ready && !incidentZoneOccupied) StartIncident();
-                incidentZoneOccupied = ready;
+                if (incidentProps != null && !director.Progress.bimaPackedLunch) ApproachLunch();
+                else
+                {
+                    bima.isStopped = Vector3.Distance(bima.transform.position, director.Player.transform.position) > 10f;
+                    if (!bima.isStopped) WalkTo(target.transform.position);
+                    bool ready = CanInteract(target) && director.IsReachable(target);
+                    if (ready && !incidentZoneOccupied) StartIncident();
+                    incidentZoneOccupied = ready;
+                }
             }
             else if (step == "report")
             {
                 bima.isStopped = false;
                 Vector3 playerPosition = director.Player.transform.position;
                 WalkTo(playerPosition);
+                OpenNearbyDoor(reportClassroomDoor);
             }
             else
             {
@@ -122,15 +140,45 @@ namespace BullyingGame.LevelOne
             if (bimaAnimator != null) bimaAnimator.SetFloat(Speed, bima.velocity.magnitude, .15f, Time.deltaTime);
         }
 
+        void ApproachLunch()
+        {
+            if (pickingUp) return;
+            var delta = Vector3.ProjectOnPlane(incidentProps.PickupPosition - bima.transform.position, Vector3.up);
+            float reach = Mathf.Max(bima.stoppingDistance + .1f, .28f);
+            if (delta.sqrMagnitude > reach * reach)
+            {
+                bima.isStopped = false;
+                WalkTo(incidentProps.PickupPosition);
+                return;
+            }
+            bima.isStopped = true;
+            bima.ResetPath();
+            StartCoroutine(PackLunch());
+        }
+
+        IEnumerator PackLunch()
+        {
+            pickingUp = true;
+            yield return incidentProps.PickUp();
+            director.Progress.bimaPackedLunch = true;
+            pickingUp = false;
+            director.Save();
+        }
+
         void WalkTo(Vector3 destination)
         {
             var filter = new NavMeshQueryFilter { agentTypeID = bima.agentTypeID, areaMask = bima.areaMask };
             if (!NavMesh.SamplePosition(destination, out var position, 2f, filter)) return;
             bima.SetDestination(position.position);
 
-            if (classroomExit != null && classroomExit.CanInteract() &&
-                (classroomExit.DoorwayPosition - bima.transform.position - Vector3.up).sqrMagnitude < 2.5f * 2.5f)
-                classroomExit.Open();
+            OpenNearbyDoor(classroomExit);
+        }
+
+        void OpenNearbyDoor(SwingDoor door)
+        {
+            if (door != null && door.CanInteract() &&
+                (door.DoorwayPosition - bima.transform.position - Vector3.up).sqrMagnitude < 2.5f * 2.5f)
+                door.Open();
         }
 
         public void StartIncident()
@@ -214,6 +262,7 @@ namespace BullyingGame.LevelOne
                 bool stopped = false;
                 void OnStopped(PlayableDirector source) => stopped = source == timeline;
                 timeline.stopped += OnStopped;
+                incidentProps?.PlayTimeline(timeline);
                 timeline.Play();
                 double start = Time.unscaledTimeAsDouble;
                 double deadline = start + duration + 5;
@@ -227,6 +276,11 @@ namespace BullyingGame.LevelOne
                     Time.unscaledTimeAsDouble - start >= duration - .35);
                 timeline.stopped -= OnStopped;
                 timeline.Stop();
+            }
+            if (incidentProps != null)
+            {
+                if (completed) incidentProps.AfterIncident(director.Progress.bottleTaken);
+                else incidentProps.Carry();
             }
             if (!completed) Debug.LogError("L01-C01 did not complete its authored Timeline.");
             if (hub.IsValid() && hub.isLoaded) SceneManager.SetActiveScene(hub);

@@ -108,14 +108,19 @@ namespace BullyingGame.LevelOne
                 PoseArm(bimaArm, bimaForearm, bimaHand, bima.right, hold, received ? .85f : 0f, busy ? reachWeight : 0f);
             }
             if (settlingGrip) bottle.localPosition = gripOffset * reachWeight;
-            if (carry || bottle.parent == bimaGrip)
-                bottle.rotation = (carry ? player.rotation : bima.rotation) * bottleRotation;
+            if (carry) bottle.rotation = player.rotation * bottleRotation;
+            else if (bottle.parent == bimaGrip) bottle.localRotation = Quaternion.identity;
         }
 
         void PoseArm(Transform upper, Transform lower, Transform hand, Vector3 right, Vector3 hold, float holdWeight, float interactionWeight)
         {
+            ReachArm(upper, lower, hand, right,
+                Vector3.Lerp(Vector3.Lerp(hand.position, hold, holdWeight), reach, interactionWeight));
+        }
+
+        internal static void ReachArm(Transform upper, Transform lower, Transform hand, Vector3 elbowSide, Vector3 target)
+        {
             Vector3 shoulder = upper.position;
-            Vector3 target = Vector3.Lerp(Vector3.Lerp(hand.position, hold, holdWeight), reach, interactionWeight);
             Vector3 direction = target - shoulder;
             float upperLength = Vector3.Distance(shoulder, lower.position);
             float lowerLength = Vector3.Distance(lower.position, hand.position);
@@ -124,7 +129,7 @@ namespace BullyingGame.LevelOne
             direction.Normalize();
             float distance = Mathf.Clamp(Vector3.Distance(shoulder, target),
                 Mathf.Abs(upperLength - lowerLength) + .001f, upperLength + lowerLength - .001f);
-            Vector3 pole = Vector3.ProjectOnPlane(right - Vector3.up, direction).normalized;
+            Vector3 pole = Vector3.ProjectOnPlane(elbowSide - Vector3.up, direction).normalized;
             float along = (upperLength * upperLength + distance * distance - lowerLength * lowerLength) / (2f * distance);
             Vector3 elbow = shoulder + direction * along + pole * Mathf.Sqrt(Mathf.Max(0f, upperLength * upperLength - along * along));
             Quaternion wrist = hand.rotation;
