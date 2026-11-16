@@ -29060,6 +29060,7 @@ MonoBehaviour:
   memet: {fileID: 108089396}
   raka: {fileID: 1647848186}
   incidentScene: Assets/_Game/Scenes/Levels/Level_01/cutscene/BekalCutscene.unity
+  gameplayEnvironment: {fileID: 1950543449}
   timelineName: Timeline Canteen
 --- !u!114 &567160000
 MonoBehaviour:
@@ -87145,6 +87146,17 @@ MonoBehaviour:
   m_MinRegionArea: 0.1
   m_NavMeshData: {fileID: 23800000, guid: ba42f44ef5124bb4f8c4c92db6d04557, type: 2}
   m_BuildHeightMesh: 1
+--- !u!114 &1950543449 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3920655739407487624, guid: ce243c7f4c6e438408ea167b690f727d, type: 3}
+  m_PrefabInstance: {fileID: 1950543446}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4244280bce8f2ed4a88431b569ef6d01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AreaSekolahGraphicsController
 --- !u!1 &1954782039
 GameObject:
   m_ObjectHideFlags: 0

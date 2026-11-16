@@ -18,6 +18,7 @@ namespace BullyingGame.LevelOne
         [SerializeField] private GameObject memet, raka;
         [Header("L01-C01")]
         [SerializeField] private string incidentScene;
+        [SerializeField] private AreaSekolahGraphicsController gameplayEnvironment;
         [SerializeField] private string timelineName = "Timeline Canteen";
         bool playing, incidentZoneOccupied;
         Animator bimaAnimator;
@@ -133,6 +134,25 @@ namespace BullyingGame.LevelOne
                 yield break;
             }
             if (bima.isOnNavMesh) bima.isStopped = true;
+            var hub = gameObject.scene;
+            var school = gameplayEnvironment != null ? gameplayEnvironment.gameObject : null;
+            var schoolRenderers = school != null ? school.GetComponentsInChildren<Renderer>()
+                .Where(renderer => renderer.enabled && !renderer.forceRenderingOff).ToArray() : System.Array.Empty<Renderer>();
+            var schoolLights = school != null ? school.GetComponentsInChildren<Light>()
+                .Where(light => light.enabled).ToArray() : System.Array.Empty<Light>();
+            var schoolVolumes = school != null ? school.GetComponentsInChildren<UnityEngine.Rendering.Volume>()
+                .Where(volume => volume.enabled).ToArray() : System.Array.Empty<UnityEngine.Rendering.Volume>();
+            var schoolProbes = school != null ? school.GetComponentsInChildren<ReflectionProbe>()
+                .Where(probe => probe.enabled).ToArray() : System.Array.Empty<ReflectionProbe>();
+            var schoolColliders = school != null ? school.GetComponentsInChildren<Collider>()
+                .Where(collider => collider.enabled).ToArray() : System.Array.Empty<Collider>();
+            // Keep the gameplay NavMeshSurface loaded while hiding the overlapping campus.
+            foreach (var renderer in schoolRenderers) renderer.forceRenderingOff = true;
+            foreach (var light in schoolLights) light.enabled = false;
+            foreach (var volume in schoolVolumes) volume.enabled = false;
+            foreach (var probe in schoolProbes) probe.enabled = false;
+            foreach (var collider in schoolColliders) collider.enabled = false;
+
             var renderers = cinematicStandIns.SelectMany(actor => actor.GetComponentsInChildren<Renderer>())
                 .Where(renderer => renderer.enabled).ToArray();
             foreach (var renderer in renderers) renderer.enabled = false;
@@ -156,6 +176,13 @@ namespace BullyingGame.LevelOne
                     .FirstOrDefault(candidate => candidate.name == timelineName)
                 : null;
             bool completed = false;
+            if (scene.IsValid() && scene.isLoaded && SceneManager.SetActiveScene(scene))
+            {
+                var cutsceneEnvironment = scene.GetRootGameObjects()
+                    .Select(root => root.GetComponent<AreaSekolahGraphicsController>())
+                    .FirstOrDefault(graphics => graphics != null && graphics.gameObject.activeInHierarchy);
+                cutsceneEnvironment?.ApplyGraphicsMode();
+            }
             var brain = timeline?.playableAsset?.outputs
                 .Where(output => output.outputTargetType == typeof(CinemachineBrain))
                 .Select(output => timeline.GetGenericBinding(output.sourceObject) as CinemachineBrain)
@@ -185,7 +212,14 @@ namespace BullyingGame.LevelOne
                 timeline.Stop();
             }
             if (!completed) Debug.LogError("L01-C01 did not complete its authored Timeline.");
+            if (hub.IsValid() && hub.isLoaded) SceneManager.SetActiveScene(hub);
             if (scene.IsValid() && scene.isLoaded) yield return SceneManager.UnloadSceneAsync(scene);
+            foreach (var renderer in schoolRenderers) if (renderer != null) renderer.forceRenderingOff = false;
+            foreach (var light in schoolLights) if (light != null) light.enabled = true;
+            foreach (var volume in schoolVolumes) if (volume != null) volume.enabled = true;
+            foreach (var probe in schoolProbes) if (probe != null) probe.enabled = true;
+            foreach (var collider in schoolColliders) if (collider != null) collider.enabled = true;
+            if (gameplayEnvironment != null) gameplayEnvironment.ApplyGraphicsMode();
             if (gameplayCamera != null) gameplayCamera.enabled = true;
             if (brainWasEnabled && gameplayBrain != null) gameplayBrain.enabled = true;
             if (listenerWasEnabled && gameplayListener != null) gameplayListener.enabled = true;
