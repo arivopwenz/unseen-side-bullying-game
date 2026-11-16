@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using BullyingGame.Core;
+using BullyingGame.Interaction;
 using BullyingGame.Quest;
 using BullyingGame.UI;
 using UnityEngine.EventSystems;
@@ -50,6 +51,7 @@ namespace BullyingGame.LevelOne
         public bool Ready { get; private set; }
         GameInputActions input;
         ActiveInputDeviceTracker promptDevice;
+        PlayerInteraction playerInteraction;
         public string InteractPrompt { get; private set; }
         public string PausePrompt { get; private set; }
         public string JournalPrompt { get; private set; }
@@ -101,12 +103,13 @@ namespace BullyingGame.LevelOne
             if (Progress.externalCompleted == null) Progress.externalCompleted = new string[0];
             QuestManager.Instance.RestoreProgress(Progress.quests, content.Quests);
             EnsureQuest();
-            if (Progress.hasPosition && UnityEngine.AI.NavMesh.SamplePosition(Progress.position, out var hit, 3, UnityEngine.AI.NavMesh.AllAreas))
+            bool classroomOpening = IsDayTwo && Step?.id == "greet";
+            if (!classroomOpening && Progress.hasPosition && UnityEngine.AI.NavMesh.SamplePosition(Progress.position, out var hit, 3, UnityEngine.AI.NavMesh.AllAreas))
             {
                 var controller = player.GetComponent<CharacterController>(); controller.enabled = false;
                 player.transform.position = hit.position; controller.enabled = true;
             }
-            dayTwo?.RestoreBima(Progress);
+            if (!classroomOpening) dayTwo?.RestoreBima(Progress);
             lastProgress = Time.unscaledTime; Ready = true;
             staging?.Apply(this);
             if (useExistingFlow) ConsumeExternalSteps();
@@ -114,6 +117,13 @@ namespace BullyingGame.LevelOne
         }
         void Update()
         {
+            if (playerInteraction == null && player != null)
+                playerInteraction = player.GetComponent<PlayerInteraction>();
+            var door = Ready && !IsModal && dismissedFrame != Time.frameCount &&
+                PlayerInteraction.CanUseInteraction() && playerInteraction != null && !playerInteraction.enabled
+                ? playerInteraction.FindNearbyDoor() : null;
+            if (playerInteraction != null && !playerInteraction.enabled)
+                playerInteraction.ShowDoorPrompt(door, InteractPrompt);
             if (!Ready || GameStateManager.Instance != null && GameStateManager.Instance.CurrentState == GameState.Cinematic) return;
             if (IsModal)
             {
@@ -131,11 +141,15 @@ namespace BullyingGame.LevelOne
             if (cardOne.WasPressedThisFrame()) selectedCard = 0;
             if (cardTwo.WasPressedThisFrame() && cards.Count > 1) selectedCard = 1;
             if (cardThree.WasPressedThisFrame() && cards.Count > 2) selectedCard = 2;
-            if (Nearest != null && input.Movement.Interact.WasPressedThisFrame())
+            if (input.Movement.Interact.WasPressedThisFrame())
             {
-                var selected = cards.Count > 0 ? cards[selectedCard] : ActionFor(Nearest);
-                var target = points.Where(p => p.CanInteract() && IsReachable(p) && ActionFor(p) == selected).OrderBy(p => (p.transform.position-player.transform.position).sqrMagnitude).FirstOrDefault();
-                if (target != null) target.Interact(player);
+                if (door != null) door.Interact(player);
+                else if (Nearest != null)
+                {
+                    var selected = cards.Count > 0 ? cards[selectedCard] : ActionFor(Nearest);
+                    var target = points.Where(p => p.CanInteract() && IsReachable(p) && ActionFor(p) == selected).OrderBy(p => (p.transform.position-player.transform.position).sqrMagnitude).FirstOrDefault();
+                    if (target != null) target.Interact(player);
+                }
             }
             view.Refresh(this, cards.Select(ActionName).ToArray(), selectedCard);
         }

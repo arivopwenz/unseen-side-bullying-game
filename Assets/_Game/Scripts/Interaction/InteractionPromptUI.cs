@@ -59,6 +59,7 @@ namespace BullyingGame.Interaction
 
         private void UpdatePrompt(IInteractable interactable)
         {
+            if (interactable is SwingDoor) interactable = null;
             if (interactable != null)
             {
                 if (interactable is Component comp)

@@ -17,15 +17,14 @@ MonoBehaviour:
   steps:
   - id: greet
     nodeId: MeetBima
-    objective: "Hari kedua \xB7 Sapa Bima di gerbang."
+    objective: "Hari kedua \xB7 Bel istirahat berbunyi. Sapa Bima di dalam kelas."
     questIndex: 0
     action: 1
     lines:
-    - 'Bima: Pagi, Ji! Sekarang udah hafal sekolah, kan?'
-    - 'Aji: Lumayan. Makasih udah ngajak keliling kemarin.'
-    - 'Bima: Yuk, kita ke kantin.'
+    - 'Bima: Ji, bel istirahat udah bunyi. Mau ke kantin bareng?'
+    - 'Aji: Yuk, Bim. Aku ikut.'
     puzzle: {fileID: 0}
-    journal: 
+    journal: Saat bel istirahat hari kedua, Bima mengajak Aji ke kantin.
     search: 0
   - id: incident
     nodeId: Canteen

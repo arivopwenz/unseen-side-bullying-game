@@ -22,8 +22,10 @@ namespace BullyingGame.LevelOne
         [Header("Kartu Aksi")]
         [SerializeField] private CanvasGroup actionCardArtwork;
         [SerializeField] private Image actionCardImage;
-        Coroutine actionCardReveal;
-        Vector3 actionCardRestScale;
+        CanvasGroup wordCardArtwork, activeCardArtwork;
+        Image wordCardImage, activeCardImage;
+        Coroutine cardReveal;
+        Vector3 cardRestScale;
         RectTransform trackerPanel;
         WordCardData puzzle;
         readonly List<string> selected = new List<string>();
@@ -34,8 +36,16 @@ namespace BullyingGame.LevelOne
         {
             if (actionCardArtwork != null && actionCardImage != null)
             {
-                actionCardRestScale = actionCardImage.rectTransform.localScale;
                 actionCardArtwork.gameObject.SetActive(false);
+            }
+
+            var wordCard = transform.Find("Canvas_KartuKata");
+            if (wordCard != null)
+            {
+                wordCardArtwork = wordCard.GetComponent<CanvasGroup>();
+                // The artwork image still has the name from the duplicated action card.
+                wordCardImage = wordCard.Find("Image_KartuAksi")?.GetComponent<Image>();
+                wordCard.gameObject.SetActive(false);
             }
 
             var root = new GameObject("Level01 PRD Canvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
@@ -94,7 +104,7 @@ namespace BullyingGame.LevelOne
         }
         public void HideModal()
         {
-            HideActionCardArtwork();
+            HideCardArtwork();
             cancelModal = null;
             journalScroll = null;
             controlHelp = null;
@@ -134,21 +144,29 @@ namespace BullyingGame.LevelOne
         public void SetGameplayVisible(bool visible) => hud.gameObject.SetActive(visible);
         public void ShowActionCard(string objectiveText, Action finished)
         {
-            if (actionCardArtwork == null || actionCardImage == null || actionCardImage.sprite == null)
+            ShowCardArtwork(actionCardArtwork, actionCardImage, () => ShowCard("Kartu Aksi", objectiveText, finished));
+        }
+
+        void ShowCardArtwork(CanvasGroup artwork, Image image, Action finished)
+        {
+            if (artwork == null || image == null || image.sprite == null)
             {
-                ShowCard("Kartu Aksi", objectiveText, finished);
+                finished();
                 return;
             }
 
             HideModal();
             SetGameplayVisible(false);
             UnityEngine.EventSystems.EventSystem.current?.SetSelectedGameObject(null);
-            actionCardArtwork.alpha = 0f;
-            actionCardArtwork.gameObject.SetActive(true);
-            actionCardReveal = StartCoroutine(RevealActionCard(objectiveText, finished));
+            activeCardArtwork = artwork;
+            activeCardImage = image;
+            cardRestScale = image.rectTransform.localScale;
+            artwork.alpha = 0f;
+            artwork.gameObject.SetActive(true);
+            cardReveal = StartCoroutine(RevealCardArtwork(finished));
         }
 
-        IEnumerator RevealActionCard(string objectiveText, Action finished)
+        IEnumerator RevealCardArtwork(Action finished)
         {
             const float popEnd = .36f;
             const float flipEnd = 1.26f;
@@ -164,28 +182,31 @@ namespace BullyingGame.LevelOne
                     + Mathf.Sin(pop * Mathf.PI) * .17f;
                 scale *= Mathf.Lerp(1f, .83f, exit);
                 float width = Mathf.Max(.02f, Mathf.Abs(Mathf.Cos(flip * 2f * Mathf.PI)));
-                actionCardImage.rectTransform.localScale = Vector3.Scale(actionCardRestScale, new Vector3(scale * width, scale, 1f));
-                actionCardArtwork.alpha = Mathf.Clamp01(pop * 3f) * (1f - exit);
+                activeCardImage.rectTransform.localScale = Vector3.Scale(cardRestScale, new Vector3(scale * width, scale, 1f));
+                activeCardArtwork.alpha = Mathf.Clamp01(pop * 3f) * (1f - exit);
                 yield return null;
                 elapsed += Mathf.Min(Time.unscaledDeltaTime, .09f);
             }
 
-            actionCardReveal = null;
-            ShowCard("Kartu Aksi", objectiveText, finished);
+            cardReveal = null;
+            HideCardArtwork();
+            finished();
         }
 
-        void HideActionCardArtwork()
+        void HideCardArtwork()
         {
-            if (actionCardReveal != null)
+            if (cardReveal != null)
             {
-                StopCoroutine(actionCardReveal);
-                actionCardReveal = null;
+                StopCoroutine(cardReveal);
+                cardReveal = null;
             }
-            if (actionCardArtwork != null) actionCardArtwork.gameObject.SetActive(false);
-            if (actionCardImage != null) actionCardImage.rectTransform.localScale = actionCardRestScale;
+            if (activeCardArtwork != null) activeCardArtwork.gameObject.SetActive(false);
+            if (activeCardImage != null) activeCardImage.rectTransform.localScale = cardRestScale;
+            activeCardArtwork = null;
+            activeCardImage = null;
         }
 
-        void OnDisable() => HideActionCardArtwork();
+        void OnDisable() => HideCardArtwork();
 
         public void ShowCard(string heading, string objectiveText, Action finished)
         {
@@ -218,7 +239,7 @@ namespace BullyingGame.LevelOne
                 saved?.Invoke();
             }
             puzzleFeedback = "Pilih potongan kalimat untuk mengisi tiga slot.";
-            DrawPuzzle();
+            ShowCardArtwork(wordCardArtwork, wordCardImage, DrawPuzzle);
         }
         void RedrawPuzzle()
         {
@@ -233,7 +254,7 @@ namespace BullyingGame.LevelOne
         {
             dayTwoProgress = null; puzzle = data; failures = attempts; solved = completed; save = saved; selected.Clear();
             puzzleFeedback = "Klik keping berurutan. Klik slot untuk melepasnya; keping salah belum diucapkan ke Bima.";
-            DrawPuzzle();
+            ShowCardArtwork(wordCardArtwork, wordCardImage, DrawPuzzle);
         }
         void DrawPuzzle()
         {

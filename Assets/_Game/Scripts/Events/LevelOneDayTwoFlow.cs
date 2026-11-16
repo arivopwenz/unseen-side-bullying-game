@@ -6,6 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 using BullyingGame.UI;
+using BullyingGame.Interaction;
 
 namespace BullyingGame.LevelOne
 {
@@ -14,6 +15,7 @@ namespace BullyingGame.LevelOne
         [Header("Day two route")]
         [SerializeField] private LevelOneDirector director;
         [SerializeField] private NavMeshAgent bima;
+        [SerializeField] private SwingDoor classroomExit;
         [SerializeField] private GameObject[] cinematicStandIns;
         [SerializeField] private GameObject memet, raka;
         [Header("L01-C01")]
@@ -71,6 +73,11 @@ namespace BullyingGame.LevelOne
             var target = director.Target;
             if (step != lastStep)
             {
+                if (lastStep == null && step == "greet")
+                {
+                    var bell = Resources.Load<AudioClip>("Voice/bell");
+                    if (bell != null) AudioSource.PlayClipAtPoint(bell, bima.transform.position + Vector3.up, .8f);
+                }
                 lastStep = step;
                 memet.SetActive(step == "words");
                 raka.SetActive(step == "words");
@@ -91,7 +98,7 @@ namespace BullyingGame.LevelOne
             if (step == "incident")
             {
                 bima.isStopped = Vector3.Distance(bima.transform.position, director.Player.transform.position) > 10f;
-                if (!bima.isStopped) bima.SetDestination(target.transform.position);
+                if (!bima.isStopped) WalkTo(target.transform.position);
                 bool ready = CanInteract(target) && director.IsReachable(target);
                 if (ready && !incidentZoneOccupied) StartIncident();
                 incidentZoneOccupied = ready;
@@ -100,8 +107,7 @@ namespace BullyingGame.LevelOne
             {
                 bima.isStopped = false;
                 Vector3 playerPosition = director.Player.transform.position;
-                if (NavMesh.SamplePosition(playerPosition, out var position, 2, NavMesh.AllAreas))
-                    bima.SetDestination(position.position);
+                WalkTo(playerPosition);
             }
             else
             {
@@ -114,6 +120,17 @@ namespace BullyingGame.LevelOne
                 }
             }
             if (bimaAnimator != null) bimaAnimator.SetFloat(Speed, bima.velocity.magnitude, .15f, Time.deltaTime);
+        }
+
+        void WalkTo(Vector3 destination)
+        {
+            var filter = new NavMeshQueryFilter { agentTypeID = bima.agentTypeID, areaMask = bima.areaMask };
+            if (!NavMesh.SamplePosition(destination, out var position, 2f, filter)) return;
+            bima.SetDestination(position.position);
+
+            if (classroomExit != null && classroomExit.CanInteract() &&
+                (classroomExit.DoorwayPosition - bima.transform.position - Vector3.up).sqrMagnitude < 2.5f * 2.5f)
+                classroomExit.Open();
         }
 
         public void StartIncident()
