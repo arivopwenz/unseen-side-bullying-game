@@ -62,7 +62,7 @@ namespace BullyingGame.UI
                     if (statusText != null) statusText.text = SaveManager.Instance.LastError;
                     return;
                 }
-                if (LevelOneCheckpoint.ResetDayTwo()) StartCoroutine(LoadLevel());
+                if (LevelOneCheckpoint.ResetDayTwo()) StartCoroutine(LoadLevel(startPrologue: true));
                 else if (statusText != null) statusText.text = "Progres Level 01 gagal direset. Coba lagi.";
             });
         }
@@ -74,15 +74,22 @@ namespace BullyingGame.UI
             if (SaveManager.Instance.HasSave) SaveManager.Instance.LoadGame();
             StartCoroutine(LoadLevel());
         }
-        private IEnumerator LoadLevel()
+        private IEnumerator LoadLevel(bool startPrologue = false)
         {
             loading = true;
             if (newGameButton != null) newGameButton.interactable = false;
             if (continueButton != null) continueButton.interactable = false;
             if (statusText != null) statusText.text = "Memuat cerita...";
             GameStateManager.Instance.SetState(GameState.Loading);
-            int index = Mathf.Clamp(SaveManager.Instance.CurrentData.currentChapter - 1, 0, chapters.Length - 1);
-            string scene = chapters[index].SceneName;
+            var save = SaveManager.Instance;
+            int index = Mathf.Clamp(save.CurrentData.currentChapter - 1, 0, chapters.Length - 1);
+            bool opening = startPrologue || save.HasStoryFlag(Prologue.PrologueCinematics.InProgressFlag);
+            string scene = opening ? "Tutorial" : chapters[index].SceneName;
+            if (startPrologue && ChapterSceneFlow.CanLoad(scene))
+            {
+                save.SetStoryFlag(Prologue.PrologueCinematics.InProgressFlag);
+                save.SaveGame();
+            }
             if (ChapterSceneFlow.CanLoad(scene)) yield return SceneManager.LoadSceneAsync(scene);
             else
             {

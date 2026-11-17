@@ -21,6 +21,7 @@ namespace BullyingGame.Cinematics
         [SerializeField, Min(5)] private float timeoutSeconds = 180;
         private void Start()
         {
+            if (BullyingGame.Prologue.PrologueCinematics.Pending != BullyingGame.Prologue.PrologueCinematics.Sequence.None) return;
             StartCoroutine(PlayThenReturn());
         }
         private IEnumerator PlayThenReturn()
