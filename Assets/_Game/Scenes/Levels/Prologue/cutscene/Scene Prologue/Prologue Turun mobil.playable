@@ -1,5 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9113156110600456602
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 370cc6e3011f0e247be1966528cdacd4, type: 3}
+  m_Name: PrologueDialogueClip(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: Assembly-CSharp::UnseenSide.Cutscenes.PrologueDialogueClip
+  speaker: AYAH
+  dialogue: Jadi anak baik ya Aji
+  sequence: 05 / 11
 --- !u!114 &-8283419569610031689
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13,7 +28,7 @@ MonoBehaviour:
   m_Name: PrologueDialogueClip(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::UnseenSide.Cutscenes.PrologueDialogueClip
   speaker: AJI
-  dialogue: Iya, Aji mengerti. Tapi... nanti Aji punya teman, kan?
+  dialogue: Terimakasih ya Yah!
   sequence: 04 / 11
 --- !u!114 &-8263938172713655832
 MonoBehaviour:
@@ -31,21 +46,6 @@ MonoBehaviour:
   VirtualCamera:
     exposedName: 17159b6643329754da8d0ed77b0cacd8
     defaultValue: {fileID: 0}
---- !u!114 &-8209513802393815801
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 370cc6e3011f0e247be1966528cdacd4, type: 3}
-  m_Name: PrologueDialogueClip(Clone)(Clone)
-  m_EditorClassIdentifier: Assembly-CSharp::UnseenSide.Cutscenes.PrologueDialogueClip
-  speaker: AYAH
-  dialogue: Jadilah anak baik, ya. Jangan nakal atau ikut mengejek teman.
-  sequence: 06 / 11
 --- !u!114 &-7963763396752952589
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: PrologueDialogueClip(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::UnseenSide.Cutscenes.PrologueDialogueClip
   speaker: AJI
-  dialogue: Terima kasih, Yah
+  dialogue: Aku Aji, Salam kenal Bima!
   sequence: 10 / 11
 --- !u!114 &-7445774681436377271
 MonoBehaviour:
@@ -76,6 +76,22 @@ MonoBehaviour:
   DisplayName: 
   VirtualCamera:
     exposedName: 0a4650614433af0478c5a24dbfa3d037
+    defaultValue: {fileID: 0}
+--- !u!114 &-7037416301713978758
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90fb794a295e73545af71bcdb7375791, type: 3}
+  m_Name: CinemachineShot
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineShot
+  DisplayName: 
+  VirtualCamera:
+    exposedName: 5059180089c07a142bccca8efa21218e
     defaultValue: {fileID: 0}
 --- !u!114 &-6302701766986056375
 MonoBehaviour:
@@ -187,6 +203,21 @@ MonoBehaviour:
   m_OpenClipOffsetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
   m_ApplyOffsets: 0
+--- !u!114 &-5507962146494447191
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 370cc6e3011f0e247be1966528cdacd4, type: 3}
+  m_Name: PrologueDialogueClip(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: Assembly-CSharp::UnseenSide.Cutscenes.PrologueDialogueClip
+  speaker: AJI
+  dialogue: Waalaikumsalam
+  sequence: 04 / 11
 --- !u!74 &-5332305035962527014
 AnimationClip:
   m_ObjectHideFlags: 0
@@ -210,10 +241,28 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
+        value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 3.4833333
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -263,7 +312,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 43.066666
+        time: 40.383335
         value: 0
         inSlope: 0
         outSlope: 0
@@ -272,7 +321,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 57.966667
+        time: 42.516666
         value: 0
         inSlope: 0
         outSlope: 0
@@ -281,7 +330,34 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 59.133335
+        time: 42.733334
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 43.95
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 60
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 61.166668
         value: 1
         inSlope: 0
         outSlope: 0
@@ -321,7 +397,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 59.133335
+    m_StopTime: 61.166668
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -343,10 +419,28 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
+        value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 3.4833333
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -396,7 +490,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 43.066666
+        time: 40.383335
         value: 0
         inSlope: 0
         outSlope: 0
@@ -405,7 +499,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 57.966667
+        time: 42.516666
         value: 0
         inSlope: 0
         outSlope: 0
@@ -414,7 +508,34 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 59.133335
+        time: 42.733334
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 43.95
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 60
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 61.166668
         value: 1
         inSlope: 0
         outSlope: 0
@@ -434,6 +555,22 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events: []
+--- !u!114 &-4958187783971800473
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90fb794a295e73545af71bcdb7375791, type: 3}
+  m_Name: CinemachineShot(Clone)(Clone)
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineShot
+  DisplayName: 
+  VirtualCamera:
+    exposedName: f372337a2dbdf284ab9e40cca2c42094
+    defaultValue: {fileID: 0}
 --- !u!114 &-4736910461224340207
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -447,7 +584,7 @@ MonoBehaviour:
   m_Name: PrologueDialogueClip(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::UnseenSide.Cutscenes.PrologueDialogueClip
   speaker: AYAH
-  dialogue: Berteman itu seperti menanam bunga. Mulai dari menyapa, lalu rawat dengan kebaikan.
+  dialogue: Ayah pergi dulu ya!
   sequence: 05 / 11
 --- !u!114 &-4527298415825154273
 MonoBehaviour:
@@ -597,10 +734,10 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 0
+    m_Start: 1.8833333333333333
     m_ClipIn: 0
     m_Asset: {fileID: 8373000932738566013}
-    m_Duration: 6.316666666666666
+    m_Duration: 4.2666666666666675
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4262140949115104600}
     m_EaseInDuration: 0
@@ -669,7 +806,7 @@ MonoBehaviour:
     m_Start: 6.316666666666666
     m_ClipIn: 0
     m_Asset: {fileID: 3235146688471574611}
-    m_Duration: 5.233333333333334
+    m_Duration: 6.066666666666666
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4262140949115104600}
     m_EaseInDuration: 0
@@ -735,10 +872,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: "AJI \u2022 Aji kangen teman-teman lama, Yah. Kenapa harus ikut pindah?"
   - m_Version: 1
-    m_Start: 11.55
+    m_Start: 14.83702418282628
     m_ClipIn: 0
     m_Asset: {fileID: 3875994880033734360}
-    m_Duration: 7.616666666666667
+    m_Duration: 3.712975817173721
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4262140949115104600}
     m_EaseInDuration: 0
@@ -804,10 +941,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: "AYAH \u2022 Supaya kita tetap bersama. Ayah tahu, memulai lagi itu tidak mudah."
   - m_Version: 1
-    m_Start: 19.433832203410567
+    m_Start: 19.6
     m_ClipIn: 0
     m_Asset: {fileID: -8283419569610031689}
-    m_Duration: 6.416167796589434
+    m_Duration: 5.233333333333331
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4262140949115104600}
     m_EaseInDuration: 0
@@ -873,10 +1010,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: "AJI \u2022 Iya, Aji mengerti. Tapi... nanti Aji punya teman, kan?"
   - m_Version: 1
-    m_Start: 25.85
+    m_Start: 27.666666666666668
     m_ClipIn: 0
     m_Asset: {fileID: -4736910461224340207}
-    m_Duration: 5.816666666666666
+    m_Duration: 2.541932866411905
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4262140949115104600}
     m_EaseInDuration: 0
@@ -942,79 +1079,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: "AYAH \u2022 Berteman itu seperti menanam bunga. Mulai dari menyapa, lalu rawat dengan kebaikan."
   - m_Version: 1
-    m_Start: 31.666666666666668
-    m_ClipIn: 0
-    m_Asset: {fileID: -8209513802393815801}
-    m_Duration: 5.650000000000002
-    m_TimeScale: 1
-    m_ParentTrack: {fileID: -4262140949115104600}
-    m_EaseInDuration: 0
-    m_EaseOutDuration: 0
-    m_BlendInDuration: 0
-    m_BlendOutDuration: 0
-    m_MixInCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_BlendInCurveMode: 0
-    m_BlendOutCurveMode: 0
-    m_ExposedParameterNames: []
-    m_AnimationCurves: {fileID: 0}
-    m_Recordable: 0
-    m_PostExtrapolationMode: 0
-    m_PreExtrapolationMode: 0
-    m_PostExtrapolationTime: 0
-    m_PreExtrapolationTime: 0
-    m_DisplayName: "AYAH \u2022 Jadilah anak baik, ya. Jangan nakal atau ikut mengejek teman."
-  - m_Version: 1
-    m_Start: 37.31666666666667
+    m_Start: 43.516666666666666
     m_ClipIn: 0
     m_Asset: {fileID: -334838777607190541}
-    m_Duration: 5.93333333333333
+    m_Duration: 1.7834045063704238
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4262140949115104600}
     m_EaseInDuration: 0
@@ -1080,10 +1148,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: "AYAH \u2022 Kata-kata bisa melukai. Kalau takut atau diganggu, cerita ke guru dan Ayah. Jangan dipendam."
   - m_Version: 1
-    m_Start: 43.250000000000014
+    m_Start: 45.30007117303709
     m_ClipIn: 0
     m_Asset: {fileID: 2047839324569768334}
-    m_Duration: 4.5
+    m_Duration: 2.7499288269629076
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4262140949115104600}
     m_EaseInDuration: 0
@@ -1149,10 +1217,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: "AJI \u2022 Aji akan coba, Yah. Kalau ada teman sendirian, Aji ajak main."
   - m_Version: 1
-    m_Start: 47.750000000000014
+    m_Start: 48.05
     m_ClipIn: 0
     m_Asset: {fileID: 7554369559053697242}
-    m_Duration: 3.971144283376617
+    m_Duration: 3.183333333333337
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4262140949115104600}
     m_EaseInDuration: 0
@@ -1218,10 +1286,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: "AYAH \u2022 Nah, itu baru jagoan Ayah. Sudah sampai. Semangat sekolahnya, ya!"
   - m_Version: 1
-    m_Start: 51.72114428337663
+    m_Start: 51.233333333333334
     m_ClipIn: 0
     m_Asset: {fileID: -7963763396752952589}
-    m_Duration: 2.578855716623366
+    m_Duration: 3.2666666666666657
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4262140949115104600}
     m_EaseInDuration: 0
@@ -1287,10 +1355,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: "AJI \u2022 Terima kasih, Yah. Hati-hati di jalan. Assalamualaikum!"
   - m_Version: 1
-    m_Start: 54.3
+    m_Start: 12.383333333333333
     m_ClipIn: 0
-    m_Asset: {fileID: 1160862736678583642}
-    m_Duration: 3.4666666666666686
+    m_Asset: {fileID: 6953842351677458516}
+    m_Duration: 2.453690849492947
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4262140949115104600}
     m_EaseInDuration: 0
@@ -1354,9 +1422,376 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: "AYAH \u2022 Waalaikumsalam. Ayah berangkat kerja dulu. Sampai nanti, Ji."
+    m_DisplayName: "AYAH \u2022 Supaya kita tetap bersama. Ayah tahu, memulai lagi itu tidak mudah."
+  - m_Version: 1
+    m_Start: 24.833333333333332
+    m_ClipIn: 0
+    m_Asset: {fileID: -9113156110600456602}
+    m_Duration: 2.8333333333333357
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -4262140949115104600}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: "AYAH \u2022 Berteman itu seperti menanam bunga. Mulai dari menyapa, lalu rawat dengan kebaikan."
+  - m_Version: 1
+    m_Start: 30.208599533078573
+    m_ClipIn: 0
+    m_Asset: {fileID: -2468816472355098678}
+    m_Duration: 2.541932866411905
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -4262140949115104600}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: "AYAH \u2022 Berteman itu seperti menanam bunga. Mulai dari menyapa, lalu rawat dengan kebaikan."
+  - m_Version: 1
+    m_Start: 32.75053239949048
+    m_ClipIn: 0
+    m_Asset: {fileID: -5507962146494447191}
+    m_Duration: 1.8666666666663332
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -4262140949115104600}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: "AJI \u2022 Iya, Aji mengerti. Tapi... nanti Aji punya teman, kan?"
+  - m_Version: 1
+    m_Start: 54.5
+    m_ClipIn: 0
+    m_Asset: {fileID: 3532767314454261856}
+    m_Duration: 3.1666666666666643
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -4262140949115104600}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: "AJI \u2022 Terima kasih, Yah. Hati-hati di jalan. Assalamualaikum!"
+  - m_Version: 1
+    m_Start: 57.666666666666664
+    m_ClipIn: 0
+    m_Asset: {fileID: -3005684859250301371}
+    m_Duration: 3.383333333333333
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -4262140949115104600}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: "AYAH \u2022 Nah, itu baru jagoan Ayah. Sudah sampai. Semangat sekolahnya, ya!"
   m_Markers:
     m_Objects: []
+--- !u!114 &-4213370056932440950
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030f85c3f73729f4f976f66ffb23b875, type: 3}
+  m_Name: AnimationPlayableAsset
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.AnimationPlayableAsset
+  m_Clip: {fileID: -203655887218126122, guid: f25521ae00ad32c40be0dcd71dda88b2, type: 3}
+  m_Position: {x: 0.8727145, y: 0.12716705, z: -44.887623}
+  m_EulerAngles: {x: 0.048, y: -0.02, z: 0.044}
+  m_UseTrackMatchFields: 1
+  m_MatchTargetFields: 63
+  m_RemoveStartOffset: 1
+  m_ApplyFootIK: 1
+  m_Loop: 0
+  m_Version: 1
+  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &-3665076753160082132
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1679,6 +2114,21 @@ AnimationClip:
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
   m_Events: []
+--- !u!114 &-3005684859250301371
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 370cc6e3011f0e247be1966528cdacd4, type: 3}
+  m_Name: PrologueDialogueClip(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: Assembly-CSharp::UnseenSide.Cutscenes.PrologueDialogueClip
+  speaker: BIMA
+  dialogue: Boleh Aji! Aku juga kelas 8A!
+  sequence: 09 / 11
 --- !u!74 &-2513481624158641416
 AnimationClip:
   m_ObjectHideFlags: 0
@@ -1699,7 +2149,7 @@ AnimationClip:
       - serializedVersion: 3
         time: 0
         value: {x: -90, y: 0, z: 180}
-        inSlope: {x: Infinity, y: Infinity, z: Infinity}
+        inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
@@ -1743,7 +2193,7 @@ AnimationClip:
       - serializedVersion: 3
         time: 0
         value: {x: -0.00000018261017, y: 2.199996, z: 0.000004465385}
-        inSlope: {x: Infinity, y: Infinity, z: Infinity}
+        inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
@@ -1839,9 +2289,9 @@ AnimationClip:
       - serializedVersion: 3
         time: 0
         value: -90
-        inSlope: Infinity
+        inSlope: 0
         outSlope: 0
-        tangentMode: 7
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -1887,9 +2337,9 @@ AnimationClip:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: Infinity
+        inSlope: 0
         outSlope: 0
-        tangentMode: 7
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -1935,9 +2385,9 @@ AnimationClip:
       - serializedVersion: 3
         time: 0
         value: 180
-        inSlope: Infinity
+        inSlope: 0
         outSlope: 0
-        tangentMode: 7
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -1983,9 +2433,9 @@ AnimationClip:
       - serializedVersion: 3
         time: 0
         value: -0.00000018261017
-        inSlope: Infinity
+        inSlope: 0
         outSlope: 0
-        tangentMode: 7
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -2031,9 +2481,9 @@ AnimationClip:
       - serializedVersion: 3
         time: 0
         value: 2.199996
-        inSlope: Infinity
+        inSlope: 0
         outSlope: 0
-        tangentMode: 7
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -2079,9 +2529,9 @@ AnimationClip:
       - serializedVersion: 3
         time: 0
         value: 0.000004465385
-        inSlope: Infinity
+        inSlope: 0
         outSlope: 0
-        tangentMode: 7
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -2160,6 +2610,21 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events: []
+--- !u!114 &-2468816472355098678
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 370cc6e3011f0e247be1966528cdacd4, type: 3}
+  m_Name: PrologueDialogueClip(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: Assembly-CSharp::UnseenSide.Cutscenes.PrologueDialogueClip
+  speaker: AYAH
+  dialogue: Assalamualaikum
+  sequence: 05 / 11
 --- !u!114 &-2311336570445115080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2176,6 +2641,88 @@ MonoBehaviour:
   VirtualCamera:
     exposedName: 281f7e701c0e40743a11999b5fe919c3
     defaultValue: {fileID: 0}
+--- !u!114 &-1700101765083211915
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030f85c3f73729f4f976f66ffb23b875, type: 3}
+  m_Name: Recorded
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.AnimationPlayableAsset
+  m_Clip: {fileID: -2513481624158641416}
+  m_Position: {x: 331.03558, y: 0.080004014, z: -59.639347}
+  m_EulerAngles: {x: 0.0000010410702, y: 269.94125, z: -2.5444436e-13}
+  m_UseTrackMatchFields: 1
+  m_MatchTargetFields: 63
+  m_RemoveStartOffset: 0
+  m_ApplyFootIK: 1
+  m_Loop: 0
+  m_Version: 1
+  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+--- !u!114 &-1527681595127594127
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90fb794a295e73545af71bcdb7375791, type: 3}
+  m_Name: CinemachineShot(Clone)
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineShot
+  DisplayName: 
+  VirtualCamera:
+    exposedName: 89404e640c025fb46b399fe645ab28ba
+    defaultValue: {fileID: 0}
+--- !u!114 &-1145420375504202788
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030f85c3f73729f4f976f66ffb23b875, type: 3}
+  m_Name: AnimationPlayableAsset(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.AnimationPlayableAsset
+  m_Clip: {fileID: -203655887218126122, guid: 8e29d0885d5ec0642ab30b1fdfe0ee8b, type: 3}
+  m_Position: {x: 0.8727142, y: 0.052657843, z: -44.887623}
+  m_EulerAngles: {x: 0.042, y: 0.031, z: -0.042}
+  m_UseTrackMatchFields: 1
+  m_MatchTargetFields: 63
+  m_RemoveStartOffset: 1
+  m_ApplyFootIK: 1
+  m_Loop: 0
+  m_Version: 1
+  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+--- !u!114 &-747604984818971588
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030f85c3f73729f4f976f66ffb23b875, type: 3}
+  m_Name: AnimationPlayableAsset(Clone)(Clone)
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.AnimationPlayableAsset
+  m_Clip: {fileID: -203655887218126122, guid: de663662531dd0d4e88d48edf1ea0dfe, type: 3}
+  m_Position: {x: 16.051844, y: 0.26810366, z: -86.34898}
+  m_EulerAngles: {x: 0.04, y: 0, z: 0.105}
+  m_UseTrackMatchFields: 1
+  m_MatchTargetFields: 63
+  m_RemoveStartOffset: 1
+  m_ApplyFootIK: 1
+  m_Loop: 0
+  m_Version: 1
+  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &-334838777607190541
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2188,9 +2735,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 370cc6e3011f0e247be1966528cdacd4, type: 3}
   m_Name: PrologueDialogueClip(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::UnseenSide.Cutscenes.PrologueDialogueClip
-  speaker: AYAH
-  dialogue: Kata-kata bisa melukai. Kalau takut atau diganggu, cerita ke guru dan Ayah. Jangan dipendam.
+  speaker: BIMA
+  dialogue: Kamu siapa?
   sequence: 07 / 11
+--- !u!114 &-277663971379813269
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030f85c3f73729f4f976f66ffb23b875, type: 3}
+  m_Name: AnimationPlayableAsset(Clone)(Clone)
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.AnimationPlayableAsset
+  m_Clip: {fileID: -203655887218126122, guid: 8e29d0885d5ec0642ab30b1fdfe0ee8b, type: 3}
+  m_Position: {x: 0.8727142, y: 0.052657843, z: -44.887623}
+  m_EulerAngles: {x: 0.042, y: 0.031, z: -0.042}
+  m_UseTrackMatchFields: 1
+  m_MatchTargetFields: 63
+  m_RemoveStartOffset: 1
+  m_ApplyFootIK: 1
+  m_Loop: 0
+  m_Version: 1
+  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2220,7 +2789,7 @@ MonoBehaviour:
     m_ScenePreview: 1
   m_DurationMode: 0
   m_MarkerTrack: {fileID: 0}
---- !u!114 &1160862736678583642
+--- !u!114 &106672515967626105
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2229,12 +2798,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 370cc6e3011f0e247be1966528cdacd4, type: 3}
-  m_Name: PrologueDialogueClip(Clone)(Clone)
-  m_EditorClassIdentifier: Assembly-CSharp::UnseenSide.Cutscenes.PrologueDialogueClip
-  speaker: AYAH
-  dialogue: Iya Aji, setelah ini kita sampai di sekolah baru Aji.
-  sequence: 11 / 11
+  m_Script: {fileID: 11500000, guid: 030f85c3f73729f4f976f66ffb23b875, type: 3}
+  m_Name: AnimationPlayableAsset(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.AnimationPlayableAsset
+  m_Clip: {fileID: -203655887218126122, guid: 8e29d0885d5ec0642ab30b1fdfe0ee8b, type: 3}
+  m_Position: {x: 0.8727142, y: 0.052657843, z: -44.887623}
+  m_EulerAngles: {x: 0.042, y: 0.031, z: -0.042}
+  m_UseTrackMatchFields: 1
+  m_MatchTargetFields: 63
+  m_RemoveStartOffset: 1
+  m_ApplyFootIK: 1
+  m_Loop: 0
+  m_Version: 1
+  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+--- !u!114 &1074718125989413781
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90fb794a295e73545af71bcdb7375791, type: 3}
+  m_Name: CinemachineShot(Clone)
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineShot
+  DisplayName: 
+  VirtualCamera:
+    exposedName: 620c7b0d73a27d14baf15aa46130ef18
+    defaultValue: {fileID: 0}
 --- !u!114 &2047839324569768334
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2248,7 +2840,7 @@ MonoBehaviour:
   m_Name: PrologueDialogueClip(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::UnseenSide.Cutscenes.PrologueDialogueClip
   speaker: AJI
-  dialogue: Aji akan coba, Yah. Kalau ada teman sendirian, Aji ajak main.
+  dialogue: Aku murid Baru, Nama mu siapa?
   sequence: 08 / 11
 --- !u!114 &3235146688471574611
 MonoBehaviour:
@@ -2263,7 +2855,7 @@ MonoBehaviour:
   m_Name: PrologueDialogueClip(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::UnseenSide.Cutscenes.PrologueDialogueClip
   speaker: AJI
-  dialogue: Aji kangen teman-teman lama, Yah. Kenapa harus ikut pindah?
+  dialogue: Berhenti di sebelah kiri aja Yah
   sequence: 02 / 11
 --- !u!114 &3424788103617860526
 MonoBehaviour:
@@ -2281,6 +2873,21 @@ MonoBehaviour:
   VirtualCamera:
     exposedName: d4f3364236a34ab4a9dae82176756cd0
     defaultValue: {fileID: 0}
+--- !u!114 &3532767314454261856
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 370cc6e3011f0e247be1966528cdacd4, type: 3}
+  m_Name: PrologueDialogueClip(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: Assembly-CSharp::UnseenSide.Cutscenes.PrologueDialogueClip
+  speaker: AJI
+  dialogue: Oh ya Bima, maukah kamu memanduku ke kelas 8A?
+  sequence: 10 / 11
 --- !u!114 &3875994880033734360
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2294,9 +2901,9 @@ MonoBehaviour:
   m_Name: PrologueDialogueClip(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::UnseenSide.Cutscenes.PrologueDialogueClip
   speaker: AYAH
-  dialogue: Supaya kita tetap bersama. Ayah tahu, memulai lagi itu tidak mudah.
+  dialogue: Ayah selalu mendoakan Aji
   sequence: 03 / 11
---- !u!114 &4388051579214572007
+--- !u!114 &4046903527988359722
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2306,12 +2913,116 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90fb794a295e73545af71bcdb7375791, type: 3}
-  m_Name: CinemachineShot
+  m_Name: CinemachineShot(Clone)
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineShot
   DisplayName: 
   VirtualCamera:
-    exposedName: 998fcf0b5558e7a418da53bf6244fcf6
+    exposedName: f3339525b209fc24b9475d5d04f08d1d
     defaultValue: {fileID: 0}
+--- !u!114 &4444135708770219621
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030f85c3f73729f4f976f66ffb23b875, type: 3}
+  m_Name: AnimationPlayableAsset(Clone)
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.AnimationPlayableAsset
+  m_Clip: {fileID: -203655887218126122, guid: 8e29d0885d5ec0642ab30b1fdfe0ee8b, type: 3}
+  m_Position: {x: 0.81453997, y: 0.0058819656, z: -40.359722}
+  m_EulerAngles: {x: 0.042, y: -180, z: -0.042}
+  m_UseTrackMatchFields: 1
+  m_MatchTargetFields: 63
+  m_RemoveStartOffset: 1
+  m_ApplyFootIK: 1
+  m_Loop: 0
+  m_Version: 1
+  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+--- !u!114 &5278866998840225375
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030f85c3f73729f4f976f66ffb23b875, type: 3}
+  m_Name: AnimationPlayableAsset(Clone)
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.AnimationPlayableAsset
+  m_Clip: {fileID: -203655887218126122, guid: 986c382edb68161448074c7dcb79b0c6, type: 3}
+  m_Position: {x: 0.81454074, y: 0.11340287, z: -40.359715}
+  m_EulerAngles: {x: 0.103, y: -150, z: 0.002}
+  m_UseTrackMatchFields: 1
+  m_MatchTargetFields: 63
+  m_RemoveStartOffset: 1
+  m_ApplyFootIK: 1
+  m_Loop: 0
+  m_Version: 1
+  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+--- !u!114 &5395253636568353580
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90fb794a295e73545af71bcdb7375791, type: 3}
+  m_Name: CinemachineShot(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineShot
+  DisplayName: 
+  VirtualCamera:
+    exposedName: fc0648f5b3330bd4281736c40d800698
+    defaultValue: {fileID: 0}
+--- !u!114 &5968880023043297724
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030f85c3f73729f4f976f66ffb23b875, type: 3}
+  m_Name: AnimationPlayableAsset(Clone)
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.AnimationPlayableAsset
+  m_Clip: {fileID: -203655887218126122, guid: 7f0e9770c48d8854cad01c818fe85067, type: 3}
+  m_Position: {x: 0.87271523, y: 0.17099006, z: -44.887627}
+  m_EulerAngles: {x: 0.042, y: -0.031, z: 0.042}
+  m_UseTrackMatchFields: 1
+  m_MatchTargetFields: 63
+  m_RemoveStartOffset: 1
+  m_ApplyFootIK: 1
+  m_Loop: 0
+  m_Version: 1
+  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+--- !u!114 &6476833964261511668
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030f85c3f73729f4f976f66ffb23b875, type: 3}
+  m_Name: AnimationPlayableAsset(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.AnimationPlayableAsset
+  m_Clip: {fileID: -203655887218126122, guid: de663662531dd0d4e88d48edf1ea0dfe, type: 3}
+  m_Position: {x: 0.8727146, y: 0.15332764, z: -44.887623}
+  m_EulerAngles: {x: 0.04, y: 0, z: 0.105}
+  m_UseTrackMatchFields: 1
+  m_MatchTargetFields: 63
+  m_RemoveStartOffset: 1
+  m_ApplyFootIK: 1
+  m_Loop: 0
+  m_Version: 1
+  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &6586007312602139543
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2328,6 +3039,28 @@ MonoBehaviour:
   VirtualCamera:
     exposedName: 3e9aa11448fd061408ddbcf4539e0d7e
     defaultValue: {fileID: 0}
+--- !u!114 &6645151912929780131
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030f85c3f73729f4f976f66ffb23b875, type: 3}
+  m_Name: AnimationPlayableAsset(Clone)(Clone)
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.AnimationPlayableAsset
+  m_Clip: {fileID: -203655887218126122, guid: de663662531dd0d4e88d48edf1ea0dfe, type: 3}
+  m_Position: {x: 0.8727142, y: 0.14074875, z: -44.887623}
+  m_EulerAngles: {x: 0.04, y: 0, z: 0.105}
+  m_UseTrackMatchFields: 1
+  m_MatchTargetFields: 63
+  m_RemoveStartOffset: 1
+  m_ApplyFootIK: 1
+  m_Loop: 0
+  m_Version: 1
+  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &6717873385741913120
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2344,6 +3077,21 @@ MonoBehaviour:
   VirtualCamera:
     exposedName: 32eadbf24b525484582bdf953dcaa2ca
     defaultValue: {fileID: 0}
+--- !u!114 &6953842351677458516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 370cc6e3011f0e247be1966528cdacd4, type: 3}
+  m_Name: PrologueDialogueClip(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: Assembly-CSharp::UnseenSide.Cutscenes.PrologueDialogueClip
+  speaker: AYAH
+  dialogue: Aji, Hati - hati ya nak
+  sequence: 03 / 11
 --- !u!114 &7063642962978970295
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2407,10 +3155,613 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
+    m_Start: 36.55
+    m_ClipIn: 0
+    m_Asset: {fileID: 9202457534027229023}
+    m_Duration: 6.850000000000001
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 7455790400246962715}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: 6.816666666666663
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Walking
+  - m_Version: 1
     m_Start: 19.11111111111111
     m_ClipIn: 0
     m_Asset: {fileID: 9213300678597874064}
-    m_Duration: 9.933333333333334
+    m_Duration: 17.20555555555556
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 7455790400246962715}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: 0.23333333333332718
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Breathing Idle
+  - m_Version: 1
+    m_Start: 36.583333333333336
+    m_ClipIn: 0.033333333333338544
+    m_Asset: {fileID: 5968880023043297724}
+    m_Duration: 7.516666666666666
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 7455790400246962715}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 6.816666666666663
+    m_BlendOutDuration: 0.6833333333333371
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Walking
+  - m_Version: 1
+    m_Start: 43.416666666666664
+    m_ClipIn: 0
+    m_Asset: {fileID: 6645151912929780131}
+    m_Duration: 1.75
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 7455790400246962715}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0.6833333333333371
+    m_BlendOutDuration: 0.68333333333333
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Breathing Idle
+  - m_Version: 1
+    m_Start: 44.483333333333334
+    m_ClipIn: 0
+    m_Asset: {fileID: -277663971379813269}
+    m_Duration: 4.5
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 7455790400246962715}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0.68333333333333
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: 1.7166666666666686
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Talking
+  - m_Version: 1
+    m_Start: 50.7
+    m_ClipIn: 0
+    m_Asset: {fileID: 106672515967626105}
+    m_Duration: 1.0211442833766284
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 7455790400246962715}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: 0.804477616709967
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Talking
+  - m_Version: 1
+    m_Start: 50.916666666666664
+    m_ClipIn: 4.628855716623363
+    m_Asset: {fileID: -4213370056932440950}
+    m_Duration: 2.683333333333337
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 7455790400246962715}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0.804477616709967
+    m_BlendOutDuration: 1.1333333333333329
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Talking
+  - m_Version: 1
+    m_Start: 52.46666666666667
+    m_ClipIn: 0
+    m_Asset: {fileID: 6476833964261511668}
+    m_Duration: 2.0333333333333314
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 7455790400246962715}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 1.1333333333333329
+    m_BlendOutDuration: 0.25
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Breathing Idle
+  - m_Version: 1
+    m_Start: 54.25
+    m_ClipIn: 0
+    m_Asset: {fileID: -1145420375504202788}
+    m_Duration: 3.4236393311371387
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 7455790400246962715}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0.25
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: Infinity
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Talking
+  - m_Version: 1
+    m_Start: 1.8833333333333333
+    m_ClipIn: 0
+    m_Asset: {fileID: -747604984818971588}
+    m_Duration: 17.20555555555556
     m_TimeScale: 1
     m_ParentTrack: {fileID: 7455790400246962715}
     m_EaseInDuration: 0
@@ -2472,8 +3823,8 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: Infinity
-    m_PreExtrapolationTime: 19.11111111111111
+    m_PostExtrapolationTime: 0.02222222222221859
+    m_PreExtrapolationTime: 1.8833333333333333
     m_DisplayName: Breathing Idle
   m_Markers:
     m_Objects: []
@@ -2508,8 +3859,8 @@ MonoBehaviour:
   m_Name: AnimationPlayableAsset
   m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.AnimationPlayableAsset
   m_Clip: {fileID: -203655887218126122, guid: 986c382edb68161448074c7dcb79b0c6, type: 3}
-  m_Position: {x: 0.81453896, y: 0.103609145, z: -38.789417}
-  m_EulerAngles: {x: 0, y: -150, z: 0}
+  m_Position: {x: 0.81454146, y: 0.11340288, z: -40.35971}
+  m_EulerAngles: {x: 0.09, y: -187.141, z: -0.054}
   m_UseTrackMatchFields: 1
   m_MatchTargetFields: 63
   m_RemoveStartOffset: 1
@@ -2539,10 +3890,61 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 36.733333333333334
-    m_ClipIn: 0
+    m_Start: 47.94684710325673
+    m_ClipIn: 11.213513769923395
     m_Asset: {fileID: 7457659336250727867}
-    m_Duration: 12.633333333333333
+    m_Duration: 0.903152896743272
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 7468698922515222019}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: 0.8000000000000043
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Old Man Idle
+  - m_Version: 1
+    m_Start: 17.266666666666666
+    m_ClipIn: 0
+    m_Asset: {fileID: 5278866998840225375}
+    m_Duration: 30.680180436590064
     m_TimeScale: 1
     m_ParentTrack: {fileID: 7468698922515222019}
     m_EaseInDuration: 0
@@ -2604,9 +4006,129 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: Infinity
-    m_PreExtrapolationTime: 36.733333333333334
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 17.266666666666666
     m_DisplayName: Old Man Idle
+  - m_Version: 1
+    m_Start: 48.05
+    m_ClipIn: 0
+    m_Asset: {fileID: 4444135708770219621}
+    m_Duration: 2.6500000000000057
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 7468698922515222019}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0.8000000000000043
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: 6.9666666666666615
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Talking
+  - m_Version: 1
+    m_Start: 57.666666666666664
+    m_ClipIn: 0
+    m_Asset: {fileID: 9209831725851161440}
+    m_Duration: 4.266666666666666
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 7468698922515222019}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: Infinity
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Talking
   m_Markers:
     m_Objects: []
   m_InfiniteClipPreExtrapolation: 0
@@ -2639,8 +4161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 370cc6e3011f0e247be1966528cdacd4, type: 3}
   m_Name: PrologueDialogueClip(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::UnseenSide.Cutscenes.PrologueDialogueClip
-  speaker: AYAH
-  dialogue: Nah, itu baru jagoan Ayah!
+  speaker: BIMA
+  dialogue: Hi, Aku Bima, Salam kenal!
   sequence: 09 / 11
 --- !u!114 &7793493532849071425
 MonoBehaviour:
@@ -2682,7 +4204,25 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -2913,25 +4453,7 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -2973,13 +4495,13 @@ MonoBehaviour:
     m_Start: 36.733333333333334
     m_ClipIn: 0
     m_Asset: {fileID: -4303775445617828489}
-    m_Duration: 6.516666666666666
+    m_Duration: 5.966666666666669
     m_TimeScale: 1
     m_ParentTrack: {fileID: 7793493532849071425}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
-    m_BlendOutDuration: 5.549999999999997
+    m_BlendOutDuration: 5
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -3006,25 +4528,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -3042,12 +4546,12 @@ MonoBehaviour:
     m_Start: 37.7
     m_ClipIn: 0
     m_Asset: {fileID: -7445774681436377271}
-    m_Duration: 6.666666666666664
+    m_Duration: 5.083333333333329
     m_TimeScale: 1
     m_ParentTrack: {fileID: 7793493532849071425}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 5.549999999999997
+    m_BlendInDuration: 5
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -3108,10 +4612,43 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: Camera Exit (9)
   - m_Version: 1
-    m_Start: 44.36666666666667
+    m_Start: 44.32406704997023
     m_ClipIn: 0
-    m_Asset: {fileID: 4388051579214572007}
-    m_Duration: 5
+    m_Asset: {fileID: 1074718125989413781}
+    m_Duration: 3.675932950029768
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 7793493532849071425}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Camera Exit (11)
+  - m_Version: 1
+    m_Start: 48
+    m_ClipIn: 0
+    m_Asset: {fileID: 4046903527988359722}
+    m_Duration: 2.7166666666666686
     m_TimeScale: 1
     m_ParentTrack: {fileID: 7793493532849071425}
     m_EaseInDuration: 0
@@ -3175,7 +4712,265 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
+    m_DisplayName: Camera Exit (12)
+  - m_Version: 1
+    m_Start: 50.71666666666667
+    m_ClipIn: 0
+    m_Asset: {fileID: -1527681595127594127}
+    m_Duration: 6.95697266447047
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 7793493532849071425}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Camera Exit (11)
+  - m_Version: 1
+    m_Start: 57.67363933113714
+    m_ClipIn: 0
+    m_Asset: {fileID: 5395253636568353580}
+    m_Duration: 4.259694002196191
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 7793493532849071425}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Camera Exit (12)
+  - m_Version: 1
+    m_Start: 42.78333333333333
+    m_ClipIn: 0
+    m_Asset: {fileID: -4958187783971800473}
+    m_Duration: 1.5333333333333385
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 7793493532849071425}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: 1.5166666666666728
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
     m_DisplayName: Camera Exit (10)
+  - m_Version: 1
+    m_Start: 42.8
+    m_ClipIn: 0
+    m_Asset: {fileID: -7037416301713978758}
+    m_Duration: 1.5240670499702347
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 7793493532849071425}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 1.5166666666666728
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Camera Exit (13)
   m_Markers:
     m_Objects: []
   TrackPriority: 0
@@ -3199,13 +4994,82 @@ MonoBehaviour:
   m_Curves: {fileID: 0}
   m_Parent: {fileID: 11400000}
   m_Children: []
-  m_Clips: []
+  m_Clips:
+  - m_Version: 1
+    m_Start: 0
+    m_ClipIn: 0
+    m_Asset: {fileID: -1700101765083211915}
+    m_Duration: 45.03333333333333
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 7972716038850646453}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 1
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: Infinity
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Recorded
   m_Markers:
     m_Objects: []
   m_InfiniteClipPreExtrapolation: 1
   m_InfiniteClipPostExtrapolation: 1
-  m_InfiniteClipOffsetPosition: {x: 331.03558, y: 0.080004014, z: -59.639347}
-  m_InfiniteClipOffsetEulerAngles: {x: 0.0000010410702, y: 269.94125, z: -2.5444436e-13}
+  m_InfiniteClipOffsetPosition: {x: 0, y: 0, z: 0}
+  m_InfiniteClipOffsetEulerAngles: {x: 0, y: 0, z: 0}
   m_InfiniteClipTimeOffset: 0
   m_InfiniteClipRemoveOffset: 0
   m_InfiniteClipApplyFootIK: 1
@@ -3216,7 +5080,7 @@ MonoBehaviour:
   m_AvatarMask: {fileID: 0}
   m_ApplyAvatarMask: 1
   m_TrackOffset: 0
-  m_InfiniteClip: {fileID: -2513481624158641416}
+  m_InfiniteClip: {fileID: 0}
   m_OpenClipOffsetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
   m_ApplyOffsets: 0
@@ -3255,7 +5119,7 @@ MonoBehaviour:
   m_Name: PrologueDialogueClip(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::UnseenSide.Cutscenes.PrologueDialogueClip
   speaker: AYAH
-  dialogue: Aji, Ayah dipindah tugas ke sini. Jadi Aji juga harus pindah sekolah.
+  dialogue: Sebentar lagi sampai di sekolah baru Aji
   sequence: 01 / 11
 --- !u!114 &8622388773191107591
 MonoBehaviour:
@@ -3298,6 +5162,50 @@ MonoBehaviour:
   m_OpenClipOffsetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
   m_ApplyOffsets: 0
+--- !u!114 &9202457534027229023
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030f85c3f73729f4f976f66ffb23b875, type: 3}
+  m_Name: AnimationPlayableAsset
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.AnimationPlayableAsset
+  m_Clip: {fileID: -203655887218126122, guid: 7f0e9770c48d8854cad01c818fe85067, type: 3}
+  m_Position: {x: 0.0000040721225, y: 0.098565295, z: -56.797356}
+  m_EulerAngles: {x: 0.042, y: -0.031, z: 0.042}
+  m_UseTrackMatchFields: 1
+  m_MatchTargetFields: 63
+  m_RemoveStartOffset: 1
+  m_ApplyFootIK: 1
+  m_Loop: 0
+  m_Version: 1
+  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+--- !u!114 &9209831725851161440
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030f85c3f73729f4f976f66ffb23b875, type: 3}
+  m_Name: AnimationPlayableAsset(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.AnimationPlayableAsset
+  m_Clip: {fileID: -203655887218126122, guid: 8e29d0885d5ec0642ab30b1fdfe0ee8b, type: 3}
+  m_Position: {x: 0.81453997, y: 0.0058819656, z: -40.359722}
+  m_EulerAngles: {x: 0.042, y: -180, z: -0.042}
+  m_UseTrackMatchFields: 1
+  m_MatchTargetFields: 63
+  m_RemoveStartOffset: 1
+  m_ApplyFootIK: 1
+  m_Loop: 0
+  m_Version: 1
+  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &9213300678597874064
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3311,8 +5219,8 @@ MonoBehaviour:
   m_Name: AnimationPlayableAsset
   m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.AnimationPlayableAsset
   m_Clip: {fileID: -203655887218126122, guid: de663662531dd0d4e88d48edf1ea0dfe, type: 3}
-  m_Position: {x: 17.057291, y: 0.24438153, z: -68.64544}
-  m_EulerAngles: {x: 0, y: 0, z: 0}
+  m_Position: {x: 16.051844, y: 0.26810366, z: -68.17601}
+  m_EulerAngles: {x: 0.04, y: 0, z: 0.105}
   m_UseTrackMatchFields: 1
   m_MatchTargetFields: 63
   m_RemoveStartOffset: 1
