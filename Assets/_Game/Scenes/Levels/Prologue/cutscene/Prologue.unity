@@ -35786,19 +35786,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7990756024120035969, guid: 3dda0c737585c8a469e89a1ac4c97a2c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5036948
+      value: 0.503695
       objectReference: {fileID: 0}
     - target: {fileID: -7990756024120035969, guid: 3dda0c737585c8a469e89a1ac4c97a2c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.86388177
+      value: 0.8638816
       objectReference: {fileID: 0}
     - target: {fileID: -7990756024120035969, guid: 3dda0c737585c8a469e89a1ac4c97a2c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000015744277
+      value: -0.000000015744256
       objectReference: {fileID: 0}
     - target: {fileID: -7990756024120035969, guid: 3dda0c737585c8a469e89a1ac4c97a2c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000015744277
+      value: -0.000000015744256
       objectReference: {fileID: 0}
     - target: {fileID: -3626270624012312002, guid: 3dda0c737585c8a469e89a1ac4c97a2c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -35806,15 +35806,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3626270624012312002, guid: 3dda0c737585c8a469e89a1ac4c97a2c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.045454726
+      value: 0.045454443
       objectReference: {fileID: 0}
     - target: {fileID: -3626270624012312002, guid: 3dda0c737585c8a469e89a1ac4c97a2c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000000042557784
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -3626270624012312002, guid: 3dda0c737585c8a469e89a1ac4c97a2c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00000009352998
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3dda0c737585c8a469e89a1ac4c97a2c, type: 3}
       propertyPath: m_Name
@@ -35822,35 +35822,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4821519664156428596, guid: 3dda0c737585c8a469e89a1ac4c97a2c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.045454916
+      value: -0.04545473
       objectReference: {fileID: 0}
     - target: {fileID: 4821519664156428596, guid: 3dda0c737585c8a469e89a1ac4c97a2c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.9989664
+      value: 0.9989664
       objectReference: {fileID: 0}
     - target: {fileID: 4821519664156428596, guid: 3dda0c737585c8a469e89a1ac4c97a2c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000093529984
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4821519664156428596, guid: 3dda0c737585c8a469e89a1ac4c97a2c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000004255796
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6627705557402764119, guid: 3dda0c737585c8a469e89a1ac4c97a2c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.045454916
+      value: -0.04545473
       objectReference: {fileID: 0}
     - target: {fileID: 6627705557402764119, guid: 3dda0c737585c8a469e89a1ac4c97a2c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.9989664
+      value: 0.9989664
       objectReference: {fileID: 0}
     - target: {fileID: 6627705557402764119, guid: 3dda0c737585c8a469e89a1ac4c97a2c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000093529984
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6627705557402764119, guid: 3dda0c737585c8a469e89a1ac4c97a2c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000004255796
+      value: -0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -35962,7 +35962,7 @@ MonoBehaviour:
       min: 0
       max: 0
   initialPosition: {x: 0.00000063657757, y: 0, z: -0.0003560096}
-  initialRotation: {x: 317.08923, y: 180, z: 180}
+  initialRotation: {x: 16.110125, y: 0.000005008956, z: 0.000005008956}
   initialScale: {x: 1, y: 1, z: 1}
 --- !u!1818360609 &1131652370
 RotationConstraint:
@@ -48860,8 +48860,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Aji, Ayah dipindah tugas ke sini. Jadi Aji juga harus pindah sekolah.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 51ba2efd9d7bc5949906c189a7de0b85, type: 2}
+  m_sharedMaterial: {fileID: 9191546744391840657, guid: 51ba2efd9d7bc5949906c189a7de0b85, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -67297,8 +67297,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: AYAH
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 755d087062c0ea54fab77c86937cd663, type: 2}
+  m_sharedMaterial: {fileID: 5739656248468100249, guid: 755d087062c0ea54fab77c86937cd663, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
