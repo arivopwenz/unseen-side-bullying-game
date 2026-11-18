@@ -18,6 +18,8 @@ namespace BullyingGame.Prologue
         }
 
         [SerializeField] private PrologueFlow flow;
+        [SerializeField] private PrologueDialogueCanvas dialogueCanvas;
+        [SerializeField] private PrologueDialogueShot dialogueShot;
         [SerializeField] private string displayName;
         [SerializeField] private GameObject canvasUtama;
         [SerializeField] private GameObject canvasKarakter;
@@ -39,12 +41,14 @@ namespace BullyingGame.Prologue
 
         internal bool Begin()
         {
-            if (teksDialogue == null || lines == null || lines.Length == 0)
+            bool hasCanvas = dialogueCanvas != null ? dialogueCanvas.IsConfigured : teksDialogue != null;
+            if (!hasCanvas || lines == null || lines.Length == 0)
             {
                 Debug.LogWarning("Isi Teks Dialogue dan Lines pada " + DisplayName, this);
                 return false;
             }
             lineIndex = 0;
+            if (dialogueShot != null) dialogueShot.Enter();
             SetVisible(true);
             ShowLine();
             return true;
@@ -62,8 +66,19 @@ namespace BullyingGame.Prologue
             return false;
         }
 
+        private void OnDisable()
+        {
+            if (dialogueShot != null) dialogueShot.Exit();
+        }
+
         internal void SetVisible(bool visible)
         {
+            if (!visible && dialogueShot != null) dialogueShot.Exit();
+            if (dialogueCanvas != null)
+            {
+                dialogueCanvas.SetVisible(visible);
+                return;
+            }
             if (canvasUtama != null) canvasUtama.SetActive(visible);
             if (canvasKarakter != null) canvasKarakter.SetActive(visible);
             if (teksDialogue != null) teksDialogue.gameObject.SetActive(visible);
@@ -72,6 +87,11 @@ namespace BullyingGame.Prologue
         private void ShowLine()
         {
             var line = lines[lineIndex];
+            if (dialogueCanvas != null)
+            {
+                dialogueCanvas.ShowLine(this, line);
+                return;
+            }
             teksDialogue.text = line?.text ?? "";
             if (namaKarakter != null)
                 namaKarakter.text = string.IsNullOrWhiteSpace(line?.speaker) ? DisplayName : line.speaker;
