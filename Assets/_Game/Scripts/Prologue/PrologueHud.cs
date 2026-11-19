@@ -25,6 +25,8 @@ namespace BullyingGame.Prologue
         private readonly List<(RectTransform rect, Vector2 world)> miniBuildings = new List<(RectTransform, Vector2)>();
         private GameObject map;
         private Button[] buttons;
+        private Button closeButton;
+        private string walk, jump, sprint, interact;
         private Text[] buttonLabels;
         private Image[] pins;
         private float badgeUntil;
@@ -54,7 +56,7 @@ namespace BullyingGame.Prologue
             AddText(mini.transform, "N", top, new Vector2(0, -13), new Vector2(22, 22), 15);
             miniTarget = AddImage(mini.transform, "Objective dot", Vector2.one * .5f, Vector2.zero, new Vector2(15, 15), Gold, circle);
             miniPlayer = AddImage(mini.transform, "Player", Vector2.one * .5f, Vector2.zero, new Vector2(19, 19), Color.white, triangle);
-            mapHint = AddText(root, "M  GPS", topLeft, new Vector2(102, -197), new Vector2(150, 26), 20);
+            mapHint = AddText(root, "", topLeft, new Vector2(119, -197), new Vector2(230, 30), 20);
             lesson = AddText(root, "", topRight, new Vector2(-198, -115), new Vector2(340, 180), 27, TextAnchor.MiddleLeft);
             objective = AddText(root, "", topRight, new Vector2(-258, -48), new Vector2(466, 53), 24, TextAnchor.MiddleRight);
             prompt = AddText(root, "", new Vector2(.5f, 0), new Vector2(0, 88), new Vector2(630, 56), 27);
@@ -68,8 +70,17 @@ namespace BullyingGame.Prologue
         internal void SetTutorial(bool moved, bool jumped, bool sprinted, bool hide)
         {
             lesson.gameObject.SetActive(!hide);
-            lesson.text = "Tutorial\n" + Control("W A S D    Jalan", moved) + "\n" +
-                Control("Space        Loncat", jumped) + "\n" + Control("Shift          Lari", sprinted) + "\nE               Interaksi";
+            lesson.text = "Tutorial\n" + Control(walk, moved) + "\n" + Control(jump, jumped) +
+                "\n" + Control(sprint, sprinted) + "\n" + interact;
+        }
+
+        internal void SetBindings(string moveKey, string jumpKey, string sprintKey, string interaction, string mapKey)
+        {
+            walk = $"[{moveKey}]  Jalan";
+            jump = $"[{jumpKey}]  Lompat";
+            sprint = $"[{sprintKey}]  Lari";
+            interact = interaction + "Interaksi";
+            mapHint.text = $"[{mapKey}]  GPS";
         }
 
         private static string Control(string label, bool done) => done ? "<color=#aedab6>" + label + "</color>" : label;
@@ -102,6 +113,7 @@ namespace BullyingGame.Prologue
             map.SetActive(visible);
             if (!visible) return;
             int count = 0;
+            Button first = null;
             for (int i = 0; i < territories.Length; i++)
             {
                 bool visited = flow.IsVisited(i);
@@ -111,10 +123,12 @@ namespace BullyingGame.Prologue
                     selectable ? "  •  Pilih tujuan" : "  •  Terkunci");
                 buttonLabels[i].color = selectable ? Color.white : Muted;
                 buttons[i].interactable = selectable && !visited;
+                if (first == null && buttons[i].interactable) first = buttons[i];
                 pins[i].gameObject.SetActive(selectable);
                 pins[i].color = visited ? new Color32(158, 226, 185, 255) : Gold;
             }
             mapBadge.text = $"Penjelajah Sekolah  {count}/{territories.Length}";
+            (first != null ? first : closeButton).Select();
         }
 
         private void LateUpdate()
@@ -157,7 +171,7 @@ namespace BullyingGame.Prologue
             map = overlay.gameObject;
             var panel = AddImage(map.transform, "Panel", center, Vector2.zero, new Vector2(960, 515), PanelColor);
             AddText(panel.transform, "Peta Sekolah", new Vector2(0, 1), new Vector2(150, -50), new Vector2(244, 45), 34, TextAnchor.MiddleLeft);
-            AddButton(panel.transform, "Tutup  [M]", new Vector2(372, 201), new Vector2(154, 45), () => flow.CloseMap());
+            closeButton = AddButton(panel.transform, "Tutup", new Vector2(372, 201), new Vector2(154, 45), () => flow.CloseMap());
             var layout = AddImage(panel.transform, "Lokasi", center, new Vector2(-212, -32), new Vector2(440, 350),
                 new Color32(41, 64, 59, 255));
             BuildCampus(layout.transform, false);

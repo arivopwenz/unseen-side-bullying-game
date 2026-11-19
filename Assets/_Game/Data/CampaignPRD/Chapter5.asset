@@ -1,0 +1,291 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0cc9df40ae9c2d4b995f7ae7c589932, type: 3}
+  m_Name: Chapter5
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Campaign.CampaignChapterData
+  chapter: 5
+  title: "Chapter Ending \u2022 Sisi Baru Kita"
+  reflection: Kebaikan bukan satu tindakan besar. Kelas yang aman tumbuh dari keberanian untuk mendengar, membantu, melapor, dan menjaga batas satu sama lain.
+  nextScene: Level06
+  spawn: {x: 29.4, y: 0.13410038, z: 22.401014}
+  steps:
+  - id: L05-Q01
+    title: Lihat perubahan suasana kelas
+    objective: Sapa teman-teman dan lihat kegiatan kelas
+    actor: Vivi
+    pointId: L05-Q01
+    insight: Beberapa minggu kemudian, teman-teman berkumpul untuk menyiapkan proyek kelas.
+    scenePath: Assets/_Game/Scenes/Levels/Level_05/cutscene/CS_L05_IntroKelasAman.unity
+    lines: []
+    afterLines:
+    - Beberapa minggu setelah pendampingan BK.
+    - 'Vivi: Ji! Cepetan, kita mau bikin pojok kelas baru!'
+    - 'Aji: Wah, rame banget. Ada acara apa?'
+    - 'Bu Ratna: Kita akan membuat ruang kelas yang lebih nyaman untuk semua.'
+    - 'Sahrul: Aku bagian bawa alat. Sudah aku tulis daftar, biar nggak ada yang hilang!'
+    - 'Nando: Aku bikin denah supaya jalurnya nggak ketutup.'
+    - 'Laura: Aku bantu poster dan tulisan.'
+    - 'Fatimah: Aku rangkum kesepakatan supaya semua boleh kasih masukan.'
+    - 'Radit: Aku siap cari contoh pesan dari perpustakaan.'
+    - 'Sikka: Aku punya desain kecil. Aku mau ikut masang bagian yang aku pilih.'
+    - 'Bima: Aku bantu tata meja, Ji.'
+    - 'Aji: Oke! Biar cepet beres, kita bagi tugas aja.'
+    - 'Bu Ratna: Bagus. Semua ikut sesuai kemampuan dan kesediaannya.'
+    kind: 8
+    words: {fileID: 0}
+    questions: []
+    order: []
+    position: {x: 29.4, y: 0.13410038, z: 22.401014}
+    quest: {fileID: 11400000, guid: bbe3c3fc3d2dca24293d9e7dae38c86d, type: 2}
+    choiceKey: 
+    actionCard: 0
+  - id: L05-Q02-materials
+    title: Ambil bahan poster
+    objective: Ambil poster dan selotip dari meja Vivi.
+    actor: Vivi
+    pointId: L05-Q02-materials
+    insight: Aku mengambil poster dan selotip dari meja Vivi.
+    scenePath: 
+    lines:
+    - 'Vivi: Poster dan selotip ada di meja. Laura sudah menyiapkan papan.'
+    afterLines: []
+    kind: 6
+    words: {fileID: 0}
+    questions: []
+    order: []
+    position: {x: 29.4, y: 0.13410038, z: 22.401014}
+    quest: {fileID: 11400000, guid: 43b7b8c04bb0467498cd0d1e92c2062c, type: 2}
+    choiceKey: 
+    actionCard: 0
+  - id: L05-Q02-station-a
+    title: Pasang poster bersama Laura
+    objective: Bawa poster ke papan dan tentukan tempat pemasangannya.
+    actor: Laura
+    pointId: L05-Q02-station-a
+    insight: Bersama Laura, aku memasang poster di bagian papan yang mudah dibaca.
+    scenePath: 
+    lines: []
+    afterLines: []
+    kind: 9
+    words: {fileID: 0}
+    questions:
+    - id: L05-Q02-station-a-placement
+      text: Laura memegang poster. Di mana kalian akan menempelkannya?
+      feedback: Cari tempat yang bisa dibaca teman-teman sambil tetap memperlihatkan petunjuk keluar.
+      options:
+      - Di depan petunjuk keluar
+      - Di bagian kosong papan, setinggi mata
+      - Di balik lemari kelas
+      answer: 1
+    order: []
+    position: {x: 45, y: 0.109189965, z: 5}
+    quest: {fileID: 11400000, guid: 9d410a160793c2648bd5bbbd27dee269, type: 2}
+    choiceKey: 
+    actionCard: 1
+  - id: L05-Q02-station-b
+    title: Susun pesan kelas
+    objective: Rangkai tiga tindakan yang disepakati kelas bersama Fatimah.
+    actor: Fatimah
+    pointId: L05-Q02-station-b
+    insight: Kami merangkai pesan tentang mendengar, menemani, dan mencari bantuan.
+    scenePath: 
+    lines: []
+    afterLines: []
+    kind: 1
+    words: {fileID: 0}
+    questions: []
+    order:
+    - "Mendengar \u2192 beri ruang bercerita"
+    - "Membantu \u2192 temani dengan aman"
+    - "Melapor \u2192 hubungi guru"
+    position: {x: 29.4, y: 0.13410038, z: 22.401014}
+    quest: {fileID: 11400000, guid: 7fdba05edabcfe440a916a7fcde5f33b, type: 2}
+    choiceKey: 
+    actionCard: 1
+  - id: L05-Q02-station-c
+    title: Rapikan jalur masuk
+    objective: Atur barang bersama Pak Jaya supaya jalan ke pintu tetap terbuka.
+    actor: Pak Jaya
+    pointId: L05-Q02-station-c
+    insight: Kami memindahkan barang ke tepi agar jalan menuju pintu tetap lapang.
+    scenePath: 
+    lines: []
+    afterLines:
+    - 'Pak Jaya: Nah, pojok sini boleh dihias. Tapi jalan ke pintu harus tetap kosong.'
+    - 'Aji: Siap, Pak. Aku geser papan sedikit.'
+    - 'Sahrul: Aku angkat kotaknya biar nggak nutup jalan.'
+    - 'Nando: Kalau di sini, orang masih bisa lewat dua arah.'
+    - 'Pak Jaya: Pas. Sekolah yang rapi juga bikin semua nyaman.'
+    - 'Bu Yuni: Yang bantu-bantu jangan lupa istirahat dan minum, ya.'
+    - 'Vivi: Siap, Bu! Kita gantian biar nggak capek.'
+    - 'Aji: Enak juga kalau semua bisa kerja bareng.'
+    kind: 9
+    words: {fileID: 0}
+    questions:
+    - id: L05-Q02-station-c-placement
+      text: Kotak dan papan masih ada di jalur pintu. Bagaimana kalian merapikannya?
+      feedback: Sisakan ruang untuk membuka pintu dan untuk orang yang berpapasan.
+      options:
+      - Pindahkan ke sisi dinding yang kosong
+      - Susun di tengah jalur
+      - Sandarkan pada daun pintu
+      answer: 0
+    order: []
+    position: {x: 25, y: 0.050767127, z: -20}
+    quest: {fileID: 11400000, guid: 72aa1456b6418884f89e2820f24c81ae, type: 2}
+    choiceKey: 
+    actionCard: 1
+  - id: L05-Q03
+    title: 'Tugas Susun Kata: kesepakatan kelas'
+    objective: Susun tiga prinsip kelas aman
+    actor: Bu Ratna
+    pointId: L05-Q03
+    insight: Kami menyusun kesepakatan untuk menjaga kelas bersama.
+    scenePath: 
+    lines: []
+    afterLines:
+    - 'Bu Ratna: Ada tiga hal yang kita sepakati hari ini.'
+    - 'Aji: Kita menghormati perbedaan teman.'
+    - 'Fatimah: Kita berhenti kalau candaan menyakiti.'
+    - 'Radit: Dan kita mencari bantuan saat ada perundungan.'
+    - 'Vivi: Berarti kalau ada yang diam karena takut, kita nggak boleh pura-pura nggak lihat.'
+    - 'Sahrul: Kalau bercanda, semua harus nyaman. Bukan cuma yang ngomong.'
+    - 'Nando: Sepakat. Kita buktikan dalam tindakan.'
+    - 'Bu Ratna: Betul. Kesepakatan ini milik semua kelas VIII A.'
+    kind: 0
+    words: {fileID: 11400000, guid: 1b9e31d32714bdc48b7bf496f2a9f78f, type: 2}
+    questions: []
+    order: []
+    position: {x: 29.4, y: 0.13410038, z: 22.401014}
+    quest: {fileID: 11400000, guid: 1690f98eb41b6164a857c6ec2b138d20, type: 2}
+    choiceKey: 
+    actionCard: 0
+  - id: L05-Q04
+    title: 'Tindak lanjut BK: tindakan, bukan janji'
+    objective: Lihat perubahan yang benar-benar dilakukan
+    actor: Pak Damar
+    pointId: L05-Q04
+    insight: Pak Damar membicarakan tindak lanjut yang bisa dilihat dalam keseharian.
+    scenePath: 
+    lines:
+    - 'Pak Damar: Aji, kelas terlihat lebih tenang. Tapi ini belum akhir pekerjaan.'
+    - 'Aji: Memet sama Raka beneran berubah, Pak?'
+    - 'Pak Damar: Perilaku mereka dipantau. Mereka menjalankan tanggung jawab dan konseling. Kalau ada kejadian lagi, tetap laporkan.'
+    - 'Memet: Pak, saya ingin minta maaf. Tapi saya nggak mau bikin mereka makin nggak nyaman.'
+    - 'Pak Damar: Bagus kamu memikirkan itu. Kita tanyakan bentuk komunikasi yang mereka setujui. Kamu tidak boleh menuntut dimaafkan.'
+    - 'Raka: Saya juga ikut salah. Saya mau nunjukin kalau saya berhenti ikut-ikutan.'
+    - 'Aji: Aku senang kalian mau berubah. Yang penting itu terus dilakukan.'
+    - 'Pak Damar: Betul. Perubahan terlihat dari kebiasaan, bukan satu kalimat.'
+    afterLines: []
+    kind: 0
+    words: {fileID: 0}
+    questions:
+    - id: 
+      text: Memet ingin meminta maaf. Apa langkah berikutnya?
+      feedback: Periksa informasi dan pilih bantuan yang aman.
+      options:
+      - Guru menanyakan bentuk komunikasi yang korban setujui.
+      - Paksa semua korban berkumpul dan menjawab.
+      answer: 0
+    order: []
+    position: {x: 47, y: 0.112225376, z: 12}
+    quest: {fileID: 11400000, guid: 717731b22dffa9f40ad01e6734d6a1cd, type: 2}
+    choiceKey: 
+    actionCard: 0
+  - id: L05-Q05
+    title: Karya Sikka dan pilihan kebersamaan
+    objective: Tanyakan apakah Sikka ingin memajang karyanya
+    actor: Sikka
+    pointId: L05-Q05
+    insight: Sikka menentukan kembali bagaimana ia ingin berbagi karya hari ini.
+    scenePath: 
+    lines: []
+    afterLines:
+    - 'Laura: Sik, detail desainnya bagus. Kamu mau cerita cara bikinnya?'
+    - 'Sikka: Boleh. Aku mulai dari gambar kecil, terus cari bahan yang cocok.'
+    - 'Vivi: Nanti ajarin aku bikin aksesori, ya!'
+    - 'Sikka: Boleh. Tapi pelan-pelan, soalnya butuh sabar.'
+    - 'Aji: Keren. Aku seneng lihat kamu berkarya lagi.'
+    - 'Sikka: Aku juga seneng punya teman yang mendukung, bukan cuma menilai penampilan.'
+    kind: 3
+    words: {fileID: 0}
+    questions:
+    - id: 
+      text: Apa pilihan Sikka untuk karya hari ini?
+      feedback: Periksa informasi dan pilih bantuan yang aman.
+      options:
+      - "PRIVATE \u2014 tetap pribadi"
+      - "LIMITED \u2014 teman yang disetujui"
+      - "SHOW \u2014 pajang di pojok karya"
+      answer: 0
+    order: []
+    position: {x: 37, y: 0.111950815, z: -24}
+    quest: {fileID: 11400000, guid: 8e09727589e2ea64881be350e605232f, type: 2}
+    choiceKey: exhibit
+    actionCard: 0
+  - id: L05-Q06
+    title: 'Tugas Susun Kata: refleksi bersama'
+    objective: Rangkai pesan penutup untuk seluruh kelas
+    actor: Bu Ratna
+    pointId: L05-Q06
+    insight: Kami merangkai pesan terakhir untuk teman-teman sekelas.
+    scenePath: 
+    lines: []
+    afterLines:
+    - 'Aji: Mendengar teman adalah langkah pertama.'
+    - 'Aji: Bantuan yang aman lebih penting daripada balasan.'
+    - 'Aji: Kelas yang nyaman kita bangun bersama.'
+    - 'Bima: Sekarang aku nggak terlalu takut buat cerita kalau ada masalah.'
+    - 'Radit: Aku juga bisa belajar dan baca tanpa khawatir kacamataku diambil.'
+    - 'Sikka: Aku bisa berkarya dengan caraku sendiri.'
+    - 'Fatimah: Dan kita semua bisa bantu kalau lihat ada yang kesusahan.'
+    - 'Nando: Buatku kelas yang nyaman itu yang semua orang bisa fokus.'
+    - 'Sahrul: Dan bercandanya nggak bikin siapa-siapa sedih.'
+    - 'Vivi: Setuju! Habis ini kita foto hasil proyeknya?'
+    - 'Bu Ratna: Kalau semua yang ikut foto bersedia, boleh.'
+    - 'Memet: Aku pernah bikin suasana kelas nggak nyaman. Aku sedang berusaha memperbaiki sikap dan terus mengikuti aturan kelas.'
+    - 'Raka: Aku juga mau berhenti ikut-ikutan mengejek. Aku mau belajar jadi teman yang lebih baik.'
+    - 'Aji: Yang penting kita sama-sama menjaga kelas ini ke depannya.'
+    - 'Bu Ratna: Ibu bangga melihat kalian belajar bertanggung jawab.'
+    kind: 0
+    words: {fileID: 11400000, guid: e0f5c57c11c8f164383b7322160d4ed1, type: 2}
+    questions: []
+    order: []
+    position: {x: 29.4, y: 0.13410038, z: 22.401014}
+    quest: {fileID: 11400000, guid: abfed1a803679164ca747d6934a8c5a6, type: 2}
+    choiceKey: 
+    actionCard: 0
+  - id: L05-Q07
+    title: Free-walk epilog dan tamat
+    objective: Sapa teman-teman lalu pulang
+    actor: Aji
+    pointId: L05-Q07
+    insight: Saat pulang, aku mengingat orang-orang yang sekarang tahu ke mana mereka bisa mencari bantuan.
+    scenePath: Assets/_Game/Scenes/Levels/Level_05/cutscene/CS_L05_Penutup.unity
+    lines: []
+    afterLines:
+    - 'Aji (batin): Dulu aku kira masalah di sekolah ini terlalu besar buat aku pahami.'
+    - 'Aji (batin): Ternyata aku nggak harus menyelesaikannya sendirian.'
+    - 'Aji (batin): Aku belajar untuk mendengar, bertindak dengan aman, dan meminta bantuan.'
+    - 'Aji (batin): Bima, Radit, dan Sikka sekarang punya ruang untuk jadi diri mereka sendiri.'
+    - 'Aji (batin): Memet dan Raka juga belajar bertanggung jawab. Semua masih terus belajar.'
+    - 'Aji (batin): Kelas kami belum sempurna... tapi sekarang kami saling menjaga.'
+    - 'Aji (batin): Inilah sisi yang dulu belum kulihat.'
+    - "Layar: UNSEEN SIDE \u2014 TAMAT"
+    kind: 8
+    words: {fileID: 0}
+    questions: []
+    order: []
+    position: {x: -6, y: 0.05852158, z: -48}
+    quest: {fileID: 11400000, guid: 4968baef3c8942c46920c97d2ab99d21, type: 2}
+    choiceKey: 
+    actionCard: 0

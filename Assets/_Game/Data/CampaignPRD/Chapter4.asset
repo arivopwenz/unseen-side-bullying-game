@@ -1,0 +1,297 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0cc9df40ae9c2d4b995f7ae7c589932, type: 3}
+  m_Name: Chapter4
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Campaign.CampaignChapterData
+  chapter: 4
+  title: "Chapter 4 \u2022 Sisi yang Tersembunyi"
+  reflection: Memahami alasan seseorang berbuat salah tidak berarti membenarkannya. Fakta, perlindungan korban, dan perubahan perilaku harus berjalan bersama.
+  nextScene: Level05
+  spawn: {x: 29.4, y: 0.13410038, z: 22.401014}
+  steps:
+  - id: L04-Q01
+    title: Buka jurnal kejadian bersama Fatimah
+    objective: Periksa kembali catatan kejadian yang kamu tahu
+    actor: Fatimah
+    pointId: L04-Q01
+    insight: Bersama Fatimah, aku memeriksa mana kejadian yang kusaksikan dan mana yang kudengar dari orang lain.
+    scenePath: 
+    lines:
+    - 'Fatimah: Ji, setelah kejadian kemarin aku mikir terus.'
+    - 'Aji: Soal Bima, Radit, sama Sikka?'
+    - 'Fatimah: Iya. Kita udah bantu mereka, tapi kayaknya ini pola yang berulang.'
+    - 'Aji: Aku punya catatan waktunya. Tapi ada beberapa hal yang masih cuma dugaan.'
+    - 'Fatimah: Berarti jangan kita tulis seolah sudah pasti.'
+    - 'Aji: Benar. Kita cek sumbernya dulu, lalu bawa ke Bu Ratna.'
+    - 'Fatimah: Raka kemarin kelihatan mau bilang sesuatu. Tapi jangan dipaksa di depan orang banyak.'
+    - 'Aji: Aku bisa tanya baik-baik di tempat terbuka dekat guru.'
+    afterLines: []
+    kind: 0
+    words: {fileID: 0}
+    questions: []
+    order: []
+    position: {x: 29.4, y: 0.13410038, z: 22.401014}
+    quest: {fileID: 11400000, guid: bd3deffd38569ef4b814864049611442, type: 2}
+    choiceKey: 
+    actionCard: 0
+  - id: L04-Q02
+    title: Dengarkan pengakuan Raka
+    objective: Temui Raka dan tanya apa yang ia lihat
+    actor: Raka
+    pointId: L04-Q02
+    insight: "EV-RK01 \u2022 Raka mengakui ikut menertawakan dan menekan teman. Motif Memet perlu ditindaklanjuti guru."
+    scenePath: 
+    lines:
+    - 'Aji: Rak, aku mau tanya soal kejadian belakangan ini. Kamu bersedia ngobrol sebentar?'
+    - 'Raka: Ngapain? Mau laporin aku juga?'
+    - 'Aji: Aku mau tahu yang sebenarnya terjadi. Termasuk bagian yang kamu lihat sendiri.'
+    - 'Raka: Aku... memang sering ikut ketawa. Kadang aku ikut bikin mereka takut.'
+    - 'Aji: Terima kasih udah jujur. Tapi itu juga harus kamu pertanggungjawabkan.'
+    - 'Raka: Aku tahu. Awalnya aku takut nggak diajak main kalau beda sama Memet.'
+    - 'Aji: Terus Memet kenapa sampai begitu?'
+    - 'Raka: Dulu dia sendiri sering direndahin. Sejak itu dia gampang marah kalau merasa diremehin.'
+    - 'Aji: Itu mungkin menjelaskan sebagian perasaannya, tapi bukan alasan buat nyakitin teman.'
+    - 'Raka: Aku mau cerita ke Bu Ratna. Aku juga perlu berhenti ikut-ikutan.'
+    - 'Aji: Kalau kamu siap, kita bicara sesuai yang kamu tahu.'
+    afterLines: []
+    kind: 0
+    words: {fileID: 0}
+    questions:
+    - id: 
+      text: Bagaimana mencatat pengakuan Raka?
+      feedback: Periksa informasi dan pilih bantuan yang aman.
+      options:
+      - Pernyataan Raka, termasuk keterlibatannya, untuk ditindaklanjuti guru.
+      - Memet satu-satunya pihak yang salah, Raka bebas tanggung jawab.
+      answer: 0
+    order: []
+    position: {x: 45, y: 0.109189965, z: 5}
+    quest: {fileID: 11400000, guid: 1c5588f4054d6f044a62a6868c49de1b, type: 2}
+    choiceKey: 
+    actionCard: 0
+  - id: L04-Q03
+    title: 'Tugas Aksi: susun kronologi'
+    objective: Urutkan kejadian berdasarkan hari dan konteks
+    actor: Fatimah
+    pointId: L04-Q03
+    insight: Kami mengurutkan kejadian Bima, Radit, dan Sikka sesuai waktu kejadiannya.
+    scenePath: 
+    lines: []
+    afterLines: []
+    kind: 1
+    words: {fileID: 0}
+    questions: []
+    order:
+    - "Hari pertama \u2022 Bima di koridor"
+    - "Hari pertama \u2022 Radit saat istirahat"
+    - "Hari pertama \u2022 Sikka menjelang pulang"
+    - "Hari kedua \u2022 botol Bima"
+    - "Hari berikutnya \u2022 kacamata Radit"
+    - "Hari berikutnya \u2022 komentar Sikka"
+    position: {x: 45, y: 0.109189965, z: 5}
+    quest: {fileID: 11400000, guid: 2a60e3ee39641f242b8b0bfeceb92343, type: 2}
+    choiceKey: 
+    actionCard: 1
+  - id: L04-Q04
+    title: 'Tugas Aksi: Evidence Board'
+    objective: Pasangkan fakta, saksi, dan kebutuhan keamanan
+    actor: Fatimah
+    pointId: L04-Q04
+    insight: "Evidence Board \u2022 Tiga kasus, tiga sumber sah, nol rumor sebagai fakta, data sensitif tetap privat."
+    scenePath: 
+    lines: []
+    afterLines: []
+    kind: 4
+    words: {fileID: 0}
+    questions:
+    - id: 
+      text: "Bima \u2022 Waktu: hari kedua. Tempat: kantin. Peristiwa: barang diambil. Sumber yang sah?"
+      feedback: Periksa informasi dan pilih bantuan yang aman.
+      options:
+      - Pengamatan Aji dan keterangan Bima; minta perlindungan Bu Ratna.
+      - Dugaan tentang keluarga Memet.
+      answer: 0
+    - id: 
+      text: "Radit \u2022 Kacamata ditemukan di perpustakaan. Sumber dan kebutuhan yang sesuai?"
+      feedback: Periksa informasi dan pilih bantuan yang aman.
+      options:
+      - Pernyataan Radit serta catatan Bu Lilis/Pak Jaya; akses aman ke perpustakaan.
+      - Bu Lilis pasti menyembunyikan kacamata.
+      answer: 0
+    - id: 
+      text: "Sikka \u2022 Komentar berulang di grup. Cara mencatat yang sah?"
+      feedback: Periksa informasi dan pilih bantuan yang aman.
+      options:
+      - Ringkasan dengan izin Sikka untuk guru; jaga privasi dan monitoring.
+      - Tempel screenshot mentah di mading kelas.
+      answer: 0
+    - id: 
+      text: "EV-D01 \u2022 Memet pasti membully karena tidak diperhatikan di rumah."
+      feedback: Periksa informasi dan pilih bantuan yang aman.
+      options:
+      - Belum terverifikasi; konteks untuk guru, bukan fakta pembenaran.
+      - Masukkan sebagai fakta pasti.
+      answer: 0
+    - id: 
+      text: "EV-D02 \u2022 Semua korban sudah memaafkan Memet."
+      feedback: Periksa informasi dan pilih bantuan yang aman.
+      options:
+      - Tolak klaim. Korban berhak menentukan batasnya.
+      - Anggap sudah pasti dimaafkan.
+      answer: 0
+    - id: 
+      text: "EV-D03 \u2022 Bu Lilis menyembunyikan kacamata."
+      feedback: Periksa informasi dan pilih bantuan yang aman.
+      options:
+      - Belum terverifikasi; lokasi temuan bukan bukti pelaku.
+      - Tuduh Bu Lilis.
+      answer: 0
+    order: []
+    position: {x: 45, y: 0.109189965, z: 5}
+    quest: {fileID: 11400000, guid: 3034db1db8b47224696fe4e40600a09d, type: 2}
+    choiceKey: 
+    actionCard: 1
+  - id: L04-Q05
+    title: 'Tugas Susun Kata: laporan kepada guru'
+    objective: Susun laporan yang adil dan meminta perlindungan
+    actor: Bu Ratna
+    pointId: L04-Q05
+    insight: Laporan kami menyebutkan apa yang terjadi, sumber informasi, dan bantuan yang dibutuhkan.
+    scenePath: 
+    lines: []
+    afterLines:
+    - 'Aji: Bu, kami ingin melaporkan beberapa kejadian.'
+    - 'Aji: Ini waktu, tempat, dan bukti yang kami ketahui.'
+    - 'Aji: Kami butuh bantuan agar teman-teman merasa aman.'
+    - 'Bu Ratna: Terima kasih kalian sudah berusaha menyusun informasi dengan hati-hati.'
+    - 'Fatimah: Kami juga tidak mau menambah rumor, Bu.'
+    - 'Bu Ratna: Bagus. Ibu akan teruskan ke Pak Damar, lalu siswa yang terlibat didengar secara terpisah.'
+    - 'Raka: Bu... saya juga ikut beberapa kejadian itu. Saya mau cerita jujur.'
+    - 'Bu Ratna: Terima kasih mau mengakui. Itu penting, dan kamu tetap perlu bertanggung jawab.'
+    - 'Aji: Semoga semua bisa aman, Bu.'
+    - 'Bu Ratna: Itu prioritas pertama kita.'
+    kind: 0
+    words: {fileID: 11400000, guid: 11b809f10fe18ac4d9f8103c6d0af639, type: 2}
+    questions: []
+    order: []
+    position: {x: 48.4, y: 0.13410038, z: 2.9999998}
+    quest: {fileID: 11400000, guid: acddb7f285743e6449aab2f3c9fda670, type: 2}
+    choiceKey: 
+    actionCard: 0
+  - id: L04-Q06
+    title: Pak Damar menangani kasus
+    objective: Serahkan laporan ke guru BK
+    actor: Pak Damar
+    pointId: L04-Q06
+    insight: Pak Damar menerima laporan kami untuk ditindaklanjuti secara privat.
+    scenePath: Assets/_Game/Scenes/Levels/Level_04/cutscene/CS_L04_IntakeBK.unity
+    lines: []
+    afterLines:
+    - 'Pak Damar: Duduk dulu. Saya ingin mendengar satu per satu, bukan saling tuduh di sini.'
+    - 'Bu Ratna: Ini rangkuman dari Aji, Fatimah, dan keterangan siswa yang bersedia.'
+    - 'Pak Damar: Baik. Saya utamakan keselamatan Bima, Radit, dan Sikka. Mereka tidak harus bertatap muka dengan siapa pun.'
+    - 'Aji: Pak, apa laporan ini cukup?'
+    - 'Pak Damar: Cukup untuk mulai menindaklanjuti. Selanjutnya kami periksa fakta dan mendengar semua pihak.'
+    - 'Raka: Pak... saya juga ikut mengejek. Saya mau jujur.'
+    - 'Pak Damar: Saya hargai kejujuranmu, Raka. Tapi tanggung jawabmu tetap harus dijalankan.'
+    - 'Bu Ratna: Saya akan awasi situasi di kelas, Pak.'
+    - 'Pak Damar: Bagus. Aji, kamu sudah membantu. Sekarang beri ruang bagi guru dan siswa yang bersangkutan.'
+    kind: 8
+    words: {fileID: 0}
+    questions: []
+    order: []
+    position: {x: 47, y: 0.112225376, z: 12}
+    quest: {fileID: 11400000, guid: 1dd453c3de89d0943b8c13f67e0a65ac, type: 2}
+    choiceKey: 
+    actionCard: 0
+  - id: L04-Q07
+    title: "Sisi tersembunyi Memet \u2014 tanggung jawab"
+    objective: Saksikan potongan pengungkapan Memet
+    actor: Pak Damar
+    pointId: L04-Q07
+    insight: Memet menjalani pertanggungjawaban. Rincian konseling privat tidak menjadi catatan publik Aji.
+    scenePath: Assets/_Game/Scenes/Levels/Level_04/cutscene/CS_L04_BKMemet.unity
+    lines: []
+    afterLines:
+    - 'Pak Damar: Memet, saya ingin mendengar versimu. Tapi kita mulai dari tindakanmu, bukan alasanmu.'
+    - 'Memet: Saya ganggu Bima. Saya ikut ambil botolnya. Radit juga pernah saya paksa kasih tugas.'
+    - 'Pak Damar: Dan tentang Sikka?'
+    - 'Memet: Saya ikut mengejek hobinya. Saya tahu itu bikin dia nggak nyaman.'
+    - 'Pak Damar: Mengapa kamu melakukannya?'
+    - 'Memet: Dulu saya sering direndahin juga. Di rumah saya merasa nggak ada yang mau denger. Saya jadi marah kalau ada yang nggak nurut.'
+    - 'Pak Damar: Perasaanmu perlu didengarkan dan kamu berhak dapat bantuan.'
+    - 'Pak Damar: Tapi menyakiti Bima, Radit, dan Sikka tetap salah. Kamu bertanggung jawab atas apa yang kamu lakukan.'
+    - 'Memet: Iya, Pak. Saya salah.'
+    - 'Pak Damar: Mulai hari ini ada aturan jelas, pendampingan, dan evaluasi perilaku. Minta maaf tidak cukup kalau masih mengulang.'
+    - 'Memet: Saya mau coba memperbaiki. Tapi saya nggak tahu harus mulai dari mana.'
+    - 'Pak Damar: Kita mulai dengan berhenti menyakiti orang lain, mendengar akibatnya, lalu memperbaiki hal yang bisa kamu perbaiki tanpa memaksa korban.'
+    kind: 8
+    words: {fileID: 0}
+    questions: []
+    order: []
+    position: {x: 47, y: 0.112225376, z: 12}
+    quest: {fileID: 11400000, guid: d4543f96b4ba9c64190136555dbda1d9, type: 2}
+    choiceKey: 
+    actionCard: 0
+  - id: L04-Q08
+    title: Rencana perlindungan dan tanggung jawab
+    objective: Tinjau tindakan yang akan dijalankan sekolah
+    actor: Bu Ratna
+    pointId: L04-Q08
+    insight: Kami membahas siapa yang bisa dihubungi jika ada kejadian lagi.
+    scenePath: 
+    lines: []
+    afterLines:
+    - 'Aji: Tadi aku pikir setelah melapor, semuanya bakal langsung selesai.'
+    - 'Fatimah: Ternyata nggak sesederhana itu, ya.'
+    - 'Aji: Iya. Apa pun alasan seseorang bertindak buruk, menyakiti orang lain tetap salah.'
+    - 'Bu Ratna: Kalian sudah membantu dengan laporan yang jelas. Sekarang kami teruskan penanganannya.'
+    - 'Aji: Kami bisa tetap jadi teman yang mendukung korban, Bu?'
+    - 'Bu Ratna: Tentu. Dengarkan mereka, hormati batasnya, dan beri tahu guru kalau ada kejadian lagi.'
+    - 'Fatimah: Oke. Kita jaga kelas supaya lebih baik, pelan-pelan.'
+    - 'Aji: Aku mau lihat semuanya benar-benar berubah.'
+    kind: 2
+    words: {fileID: 0}
+    questions:
+    - id: 
+      text: Akses aman korban menjadi tanggung jawab siapa?
+      feedback: Periksa informasi dan pilih bantuan yang aman.
+      options:
+      - Wali kelas dan sekolah, dengan pendampingan sesuai izin.
+      - Korban harus mengatasi sendiri.
+      answer: 0
+    - id: 
+      text: Siapa memantau Memet dan Raka?
+      feedback: Periksa informasi dan pilih bantuan yang aman.
+      options:
+      - Wali kelas dan BK dengan evaluasi perilaku.
+      - Aji menghukum mereka sendiri.
+      answer: 0
+    - id: 
+      text: Konseling dan laporan lanjutan?
+      feedback: Periksa informasi dan pilih bantuan yang aman.
+      options:
+      - BK mendampingi; siswa dapat melapor kembali.
+      - Cukup minta maaf sekali.
+      answer: 0
+    - id: 
+      text: Pertemuan korban dan pelaku?
+      feedback: Periksa informasi dan pilih bantuan yang aman.
+      options:
+      - Sesuai pilihan korban, dapat terpisah atau ditunda.
+      - Semua wajib bertemu dan memaafkan.
+      answer: 0
+    order: []
+    position: {x: 47, y: 0.112225376, z: 12}
+    quest: {fileID: 11400000, guid: 558192d49d9b7634d85b5300c041770f, type: 2}
+    choiceKey: 
+    actionCard: 1

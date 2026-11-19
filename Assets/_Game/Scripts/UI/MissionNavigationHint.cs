@@ -38,20 +38,24 @@ namespace BullyingGame.UI
             forward.y=0;
             var direction=target.position-player.position;direction.y=0;
             float distance = direction.magnitude;
-            Vector3 waypoint = target.position;
             if (path == null) path = new NavMeshPath();
-            if (NavMesh.SamplePosition(target.position, out var hit, 3f, NavMesh.AllAreas) &&
-                NavMesh.CalculatePath(player.position, hit.position, NavMesh.AllAreas, path) &&
-                path.status == NavMeshPathStatus.PathComplete)
-            {
-                foreach (var corner in path.corners)
-                    if (Vector3.Distance(player.position, corner) > 1.2f) { waypoint = corner; break; }
-            }
+            Vector3 waypoint = NextWaypoint(player.position, target.position, path);
             direction = waypoint - player.position; direction.y = 0;
             float angle=Vector3.SignedAngle(forward,direction,Vector3.up);
             hintText.text = distance < 2f ? "Tujuan di dekatmu" : distance.ToString("0") + " m";
             SetArrow(distance >= 2f);
             if (directionArrow != null) directionArrow.localRotation = Quaternion.Euler(0, 0, -angle);
+        }
+        public static Vector3 NextWaypoint(Vector3 origin, Vector3 destination, NavMeshPath route)
+        {
+            if (NavMesh.SamplePosition(origin, out var start, 2f, NavMesh.AllAreas) &&
+                NavMesh.SamplePosition(destination, out var end, 3f, NavMesh.AllAreas) &&
+                NavMesh.CalculatePath(start.position, end.position, NavMesh.AllAreas, route) &&
+                route.status == NavMeshPathStatus.PathComplete)
+                foreach (var corner in route.corners)
+                    if (Vector3.ProjectOnPlane(corner - origin, Vector3.up).sqrMagnitude > 1.44f)
+                        return corner;
+            return destination;
         }
         private void SetArrow(bool visible) { if(directionArrow != null) directionArrow.gameObject.SetActive(visible); }
     }

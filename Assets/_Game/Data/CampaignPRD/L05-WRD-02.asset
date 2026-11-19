@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a68f15f2a5d210458b8439de32da6c3, type: 3}
+  m_Name: L05-WRD-02
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.LevelOne.WordCardData
+  puzzleId: L05-WRD-02
+  title: 
+  context: 
+  hint: Mulai dari mendengar, utamakan keselamatan, tutup dengan tanggung jawab bersama.
+  feedback: Meminta maaf bukan tombol reset, dan guru BK adalah tempat mencari bantuan.
+  response: "Bu Ratna: \u201CItu yang Ibu harapkan dari kelas VIII A. Kita jaga bersama setiap hari.\u201D"
+  phrases:
+  - id: W1
+    text: Mendengar teman adalah langkah pertama.
+  - id: W2
+    text: Bantuan yang aman lebih penting daripada balasan.
+  - id: W3
+    text: Kelas yang nyaman kita bangun bersama.
+  - id: D1
+    text: Satu kali minta maaf pasti menghapus semuanya.
+  - id: D2
+    text: Guru BK hanya untuk siswa bermasalah.
+  answer:
+  - W1
+  - W2
+  - W3

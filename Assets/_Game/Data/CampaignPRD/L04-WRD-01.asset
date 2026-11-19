@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a68f15f2a5d210458b8439de32da6c3, type: 3}
+  m_Name: L04-WRD-01
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.LevelOne.WordCardData
+  puzzleId: L04-WRD-01
+  title: 
+  context: 
+  hint: Buka dengan tujuan, jelaskan informasi yang terverifikasi, lalu kebutuhan perlindungan.
+  feedback: Sanksi tidak dapat diputuskan hanya dari praduga dan tuntutan emosional.
+  response: "Bu Ratna: \u201CTerima kasih. Kita tangani sesuai proses, dan keselamatan siswa tetap prioritas.\u201D"
+  phrases:
+  - id: W1
+    text: Bu, kami ingin melaporkan beberapa kejadian.
+  - id: W2
+    text: Ini waktu, tempat, dan bukti yang kami ketahui.
+  - id: W3
+    text: Kami butuh bantuan agar teman-teman merasa aman.
+  - id: D1
+    text: Bu harus langsung menghukum tanpa mendengar siapa pun.
+  - id: D2
+    text: Semua pasti salah Memet, tanpa perlu diperiksa.
+  answer:
+  - W1
+  - W2
+  - W3

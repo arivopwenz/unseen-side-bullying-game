@@ -41,6 +41,10 @@ namespace BullyingGame.Prologue
         private static readonly HashSet<int> Visited = new HashSet<int>();
         private readonly HashSet<PrologueDialogueActor> introduced = new HashSet<PrologueDialogueActor>();
         private GameInputActions input;
+        private readonly InputAction mapAction = new InputAction("School map", InputActionType.Button);
+        private readonly InputAction closeMap = new InputAction("Close map", InputActionType.Button);
+        private ActiveInputDeviceTracker devices;
+        private string interactLabel;
         private Stage stage;
         private PrologueDialogueActor conversation;
         private PrologueDialogueActor nearby;
@@ -69,6 +73,12 @@ namespace BullyingGame.Prologue
             doors = player.GetComponent<InteractionDetector>();
             input = new GameInputActions();
             input.Movement.Enable();
+            mapAction.AddBinding("<Keyboard>/m");
+            mapAction.AddBinding("<Gamepad>/select");
+            closeMap.AddBinding("<Keyboard>/escape");
+            closeMap.AddBinding("<Gamepad>/buttonEast");
+            mapAction.Enable();
+            closeMap.Enable();
 
             if (bima != null) bima.SetVisible(false);
             if (teacher != null) teacher.SetVisible(false);
@@ -78,6 +88,9 @@ namespace BullyingGame.Prologue
         private void Start()
         {
             hud.Initialize(this, territories, player.transform);
+            devices = new ActiveInputDeviceTracker();
+            devices.Changed += RefreshBindings;
+            RefreshBindings();
             GameStateManager.Instance?.SetState(GameState.Playing);
             player.SetCursorLock(true);
             SetStage(introductionScene ? Stage.Classmates : Stage.Movement);
@@ -86,6 +99,9 @@ namespace BullyingGame.Prologue
         private void OnDestroy()
         {
             if (input == null) return;
+            devices?.Dispose();
+            mapAction.Dispose();
+            closeMap.Dispose();
             input.Movement.Disable();
             input.Dispose();
         }
@@ -102,8 +118,7 @@ namespace BullyingGame.Prologue
             }
 
             if (stage != Stage.Movement && stage != Stage.SpeakToBima &&
-                (Keyboard.current?.mKey.wasPressedThisFrame == true ||
-                 (mapOpen && Keyboard.current?.escapeKey.wasPressedThisFrame == true)))
+                (mapAction.WasPressedThisFrame() || (mapOpen && closeMap.WasPressedThisFrame())))
             {
                 ShowMap(!mapOpen);
                 return;
@@ -144,7 +159,7 @@ namespace BullyingGame.Prologue
             UpdateGps();
             nearby = FindNearby();
             IInteractable target = nearby != null ? nearby : doors?.FindNearbyDoor();
-            hud.SetPrompt(target != null ? "E  " + target.GetPromptText() : "");
+            hud.SetPrompt(target != null ? interactLabel + target.GetPromptText() : "");
             if (interact) target?.Interact(player.gameObject);
         }
 
@@ -168,7 +183,7 @@ namespace BullyingGame.Prologue
             if (interactor != player.gameObject || !CanTalk(actor) || !CanReach(actor) || !actor.Begin()) return;
             conversation = actor;
             LockMovement(true);
-            hud.SetPrompt("E  Lanjut");
+            hud.SetPrompt(interactLabel + "Lanjut");
             hud.SetTutorial(false, false, false, true);
         }
 
@@ -262,9 +277,9 @@ namespace BullyingGame.Prologue
                 Stage.Movement => "",
                 Stage.SpeakToBima => "Bicara dengan Bima",
                 Stage.FollowBima => "Ikuti Bima ke arah Kantin",
-                Stage.SelectCanteen => "Buka GPS [M] dan pilih Kantin",
+                Stage.SelectCanteen => "Buka GPS dan pilih Kantin",
                 Stage.GoToCanteen => "Pergi ke Kantin",
-                Stage.SelectClass => "Buka GPS [M] dan pilih Kelas 8A",
+                Stage.SelectClass => "Buka GPS dan pilih Kelas 8A",
                 Stage.GoToClass => "Pergi ke Kelas 8A",
                 Stage.Teacher => "Temui Bu Guru",
                 Stage.Classmates => $"Berkenalan dengan teman kelas  {introduced.Count}/{requiredClassmates}",
@@ -331,6 +346,17 @@ namespace BullyingGame.Prologue
         }
 
         internal void CloseMap() { if (mapOpen) ShowMap(false); }
+
+        private void RefreshBindings()
+        {
+            string Label(InputAction action) => InputPromptResolver.Label(action, devices.Device);
+            interactLabel = "[" + Label(input.Movement.Interact) + "]  ";
+            hud.SetBindings(Label(input.Movement.Move), Label(input.Movement.Jump), Label(input.Movement.Sprint),
+                interactLabel, Label(mapAction));
+            if (conversation != null) hud.SetPrompt(interactLabel + "Lanjut");
+            else if (stage == Stage.Movement || stage == Stage.SpeakToBima)
+                hud.SetTutorial(moved, jumped, sprinted, false);
+        }
 
         private void ShowMap(bool visible)
         {

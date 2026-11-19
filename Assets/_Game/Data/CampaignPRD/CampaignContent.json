@@ -1,0 +1,1721 @@
+{
+  "chapters": [
+    {
+      "chapter": 2,
+      "title": "Chapter 2 • Luka yang Tak Terlihat",
+      "reflection": "Melindungi diri berarti mencari jarak dan pertolongan. Kita tidak harus membalas kekerasan untuk menunjukkan keberanian.",
+      "nextScene": "Level03",
+      "spawn": [
+        29,
+        0.26,
+        24
+      ],
+      "steps": [
+        {
+          "id": "L02-Q01",
+          "pointId": "L02-Q01",
+          "title": "Cari Radit",
+          "objective": "Temui Radit yang kelihatan kesulitan",
+          "position": {
+            "x": 29,
+            "y": 0.26,
+            "z": 25
+          },
+          "actor": "Radit",
+          "kind": "Talk",
+          "lines": [
+            "Aji: Dit, bukunya kok dideketin banget?",
+            "Radit: Kacamataku hilang lagi, Ji.",
+            "Aji: Kamu lupa naruh, atau ada yang ngambil?",
+            "Radit: Tadi diminta nunjukin tugas. Pas aku nggak mau, kacamataku direbut.",
+            "Aji: Itu nggak seharusnya terjadi. Kamu mau aku bantu cari?",
+            "Radit: Mau. Tapi jangan bikin mereka makin marah.",
+            "Aji: Kita cari lewat orang-orang yang tadi ada di sekitar. Aku nggak bakal nyalahin kamu.",
+            "Radit: Terakhir aku lewat perpustakaan.",
+            "Laura: Aku bisa nemenin kalau kalian mau. Aku habis dari sana."
+          ],
+          "afterLines": [],
+          "insight": "Radit bilang kacamatanya hilang setelah direbut. Ia mengizinkan kami menelusuri rutenya.",
+          "order": [],
+          "questions": [
+            {
+              "id": "",
+              "text": "Radit bersedia dibantu. Apa yang kamu katakan?",
+              "options": [
+                "Aku bantu lewat petugas, sesuai yang kamu nyaman.",
+                "Sebut semua pelaku sekarang!"
+              ],
+              "answer": 0,
+              "feedback": "Periksa informasi dan pilih bantuan yang aman."
+            }
+          ],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": false
+        },
+        {
+          "id": "L02-Q02-witness-library",
+          "pointId": "L02-Q02-witness-library",
+          "title": "Tanya Bu Lilis",
+          "objective": "Temui Bu Lilis di perpustakaan untuk mencari saksi.",
+          "position": {
+            "x": 46,
+            "y": 0,
+            "z": -29
+          },
+          "actor": "Bu Lilis",
+          "kind": "Talk",
+          "lines": [
+            "Aji: Bu Lilis, tadi Radit lewat sini, ya? Kacamatanya hilang.",
+            "Bu Lilis: Tadi ia membawa buku ke meja ini. Saya lihat ada keramaian di lorong, tapi tidak melihat siapa yang mengambil.",
+            "Aji: Baik, Bu. Saya cek barang temuan dulu."
+          ],
+          "afterLines": [],
+          "insight": "EV-R02 • Bu Lilis melihat Radit membawa buku. Ia tidak melihat siapa yang mengambil.",
+          "order": [],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": false
+        },
+        {
+          "id": "L02-Q02-witness-janitor",
+          "pointId": "L02-Q02-witness-janitor",
+          "title": "Tanya Pak Jaya",
+          "objective": "Tanyakan kepada Pak Jaya ke mana troli buku dipindahkan.",
+          "position": {
+            "x": 34,
+            "y": 0,
+            "z": -26
+          },
+          "actor": "Pak Jaya",
+          "kind": "Talk",
+          "lines": [
+            "Pak Jaya: Saya habis geser kereta buku dari lorong. Ada barang kecil dekat rodanya.",
+            "Aji: Bapak yang mindahin ke meja temuan?",
+            "Pak Jaya: Saya serahkan ke Bu Lilis. Coba cocokkan dulu dengan milik Radit.",
+            "Bu Lilis: Aji, pastikan ada ciri yang cocok sebelum mengambil, ya.",
+            "Aji: Siap, Bu. Saya tanya Radit cirinya."
+          ],
+          "afterLines": [],
+          "insight": "EV-R02 • Pak Jaya menemukan barang dekat kereta dan menyerahkannya kepada Bu Lilis.",
+          "order": [],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": false
+        },
+        {
+          "id": "L02-Q02-clue-lorong",
+          "pointId": "L02-Q02-clue-lorong",
+          "title": "Periksa buku Radit",
+          "objective": "Periksa buku yang tertinggal di lorong perpustakaan.",
+          "position": {
+            "x": 42,
+            "y": 0,
+            "z": -22
+          },
+          "actor": "",
+          "kind": "Station",
+          "lines": [
+            "Buku Radit tertinggal di lorong perpustakaan."
+          ],
+          "afterLines": [],
+          "insight": "Di lorong perpustakaan aku menemukan buku Radit.",
+          "order": [],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": true
+        },
+        {
+          "id": "L02-Q02-clue-trolley",
+          "pointId": "L02-Q02-clue-trolley",
+          "title": "Periksa catatan troli",
+          "objective": "Cari catatan perpindahan pada troli buku.",
+          "position": {
+            "x": 46,
+            "y": 0,
+            "z": -24
+          },
+          "actor": "",
+          "kind": "Station",
+          "lines": [
+            "Catatan perpindahan: kereta buku dipindahkan Pak Jaya dari lorong."
+          ],
+          "afterLines": [],
+          "insight": "Catatan troli menyebut Pak Jaya memindahkan kereta buku dari lorong.",
+          "order": [],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": true
+        },
+        {
+          "id": "L02-Q02-clue-temuan",
+          "pointId": "L02-Q02-clue-temuan",
+          "title": "Baca catatan Bu Lilis",
+          "objective": "Periksa catatan di meja barang temuan.",
+          "position": {
+            "x": 46,
+            "y": 0,
+            "z": -28
+          },
+          "actor": "",
+          "kind": "Station",
+          "lines": [
+            "Catatan Bu Lilis: kacamata berada di kotak barang temuan."
+          ],
+          "afterLines": [],
+          "insight": "Bu Lilis mencatat kacamata di meja barang temuan.",
+          "order": [],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": true
+        },
+        {
+          "id": "L02-Q02-map",
+          "pointId": "L02-Q02-map",
+          "title": "Susun rute kacamata",
+          "objective": "Urutkan tiga lokasi berdasarkan keterangan saksi.",
+          "position": {
+            "x": 43,
+            "y": 0,
+            "z": -26
+          },
+          "actor": "",
+          "kind": "Order",
+          "lines": [],
+          "afterLines": [],
+          "insight": "Rute pencarian kacamata melewati lorong, troli buku, lalu meja temuan.",
+          "order": [
+            "Lorong",
+            "Trolley",
+            "Meja temuan"
+          ],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": true
+        },
+        {
+          "id": "L02-Q03",
+          "pointId": "L02-Q03",
+          "title": "Puzzle rak perpustakaan",
+          "objective": "Susun buku untuk membuka akses kotak temuan",
+          "position": {
+            "x": 43,
+            "y": 0,
+            "z": -26
+          },
+          "actor": "Bu Lilis",
+          "kind": "Order",
+          "lines": [],
+          "afterLines": [
+            "Bu Lilis: Nah, keretanya sudah rapi. Ini kacamata yang tadi ditemukan.",
+            "Aji: Bentuk bingkainya sama seperti yang Radit bilang.",
+            "Bu Lilis: Bagus. Kita kembalikan langsung kepadanya.",
+            "Laura: Aku cari Radit di bangku dekat perpustakaan, ya.",
+            "Aji: Makasih, Laura."
+          ],
+          "insight": "Kacamata cocok dengan ciri yang Radit berikan. Bu Lilis mengizinkan pengembalian.",
+          "order": [
+            "Sains → rak sains",
+            "Atlas/sejarah → rak sosial",
+            "Komik edukasi → rak bacaan"
+          ],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": true
+        },
+        {
+          "id": "L02-Q03-glasses",
+          "pointId": "L02-Q03-glasses",
+          "title": "Ambil kacamata Radit",
+          "objective": "Ambil kacamata dari kotak temuan.",
+          "position": {
+            "x": 46,
+            "y": 0,
+            "z": -29
+          },
+          "actor": "Bu Lilis",
+          "kind": "Pickup",
+          "lines": [
+            "Bu Lilis: Bingkai ini cocok dengan ciri milik Radit. Silakan kembalikan dengan aman."
+          ],
+          "afterLines": [],
+          "insight": "Kacamata sudah kuambil dari kotak temuan. Sekarang aku bisa mengantarnya ke Radit.",
+          "order": [],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": false
+        },
+        {
+          "id": "L02-Q04",
+          "pointId": "L02-Q04",
+          "title": "Kembalikan kacamata kepada Radit",
+          "objective": "Antar kacamata ke Radit",
+          "position": {
+            "x": 27,
+            "y": 0,
+            "z": -26
+          },
+          "actor": "Radit",
+          "kind": "Return",
+          "lines": [
+            "Aji: Dit, ini kacamatamu. Bu Lilis nemuin di dekat kereta buku.",
+            "Radit: Akhirnya... makasih, Ji. Aku udah takut nggak bisa lihat papan.",
+            "Laura: Tadi kami cari sama-sama. Kamu nggak sendiri.",
+            "Radit: Aku pengin kejadian begini berhenti, tapi kalau aku melawan malah takut.",
+            "Aji: Kamu nggak perlu lawan sendirian. Kita bisa cari bantuan.",
+            "Radit: Aku mau ditemenin ngomong sama Bu Lilis dulu."
+          ],
+          "afterLines": [],
+          "insight": "Radit sudah menerima kacamatanya. Ia ingin ditemani bicara dengan Bu Lilis.",
+          "order": [],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": false
+        },
+        {
+          "id": "L02-Q05",
+          "pointId": "L02-Q05",
+          "title": "Tugas Susun Kata: dukung Radit",
+          "objective": "Susun kalimat yang mendukung Radit",
+          "position": {
+            "x": 27,
+            "y": 0,
+            "z": -26
+          },
+          "actor": "Radit",
+          "kind": "Talk",
+          "lines": [],
+          "afterLines": [],
+          "insight": "Aku bertanya dukungan apa yang Radit mau. Ia bisa menentukan langkahnya sendiri.",
+          "order": [],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": false,
+          "wordId": "L02-WRD-01"
+        },
+        {
+          "id": "L02-Q06-warning",
+          "pointId": "L02-Q06-warning",
+          "title": "Evade to Safety — hadangan di koridor",
+          "objective": "Jaga jarak dan menuju titik aman",
+          "position": {
+            "x": 25,
+            "y": 0,
+            "z": -20
+          },
+          "actor": "Memet",
+          "kind": "Cinematic",
+          "lines": [],
+          "afterLines": [
+            "Memet: Aji, ngapain ikut campur urusan Radit?",
+            "Aji: Aku nggak mau ribut. Aku mau ke Bu Lilis sekarang."
+          ],
+          "insight": "Saat dihadang di koridor, aku mencari jalan menuju Bu Lilis.",
+          "order": [],
+          "questions": [],
+          "scenePath": "Assets/_Game/Scenes/Levels/Level_02/cutscene/CS_L02_AncamanKoridor.unity",
+          "choiceKey": "",
+          "actionCard": false
+        },
+        {
+          "id": "L02-Q06",
+          "pointId": "L02-Q06",
+          "title": "Evade to Safety — hadangan di koridor",
+          "objective": "Jaga jarak dan menuju titik aman",
+          "position": {
+            "x": 46,
+            "y": 0,
+            "z": -29
+          },
+          "actor": "Bu Lilis",
+          "kind": "Evade",
+          "lines": [],
+          "afterLines": [
+            "Memet: Aji, ngapain ikut campur urusan Radit?",
+            "Aji: Aku cuma bantu mengembalikan barangnya.",
+            "Memet: Sok jadi pahlawan, ya?",
+            "Aji: Aku nggak mau ribut. Aku mau ke Bu Lilis sekarang.",
+            "Raka: Met, udah. Banyak guru di sini.",
+            "Bu Lilis: Ada apa? Semua berhenti dulu. Kalian berdiri terpisah.",
+            "Aji: Bu, kami perlu bantuan. Ada yang mengancam Radit dan saya.",
+            "Bu Lilis: Baik. Kita catat yang terjadi dan panggil Bu Ratna.",
+            "Memet: ..."
+          ],
+          "insight": "Aku berhasil mencapai tempat aman.",
+          "order": [],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": true
+        },
+        {
+          "id": "L02-Q07",
+          "pointId": "L02-Q07",
+          "title": "Catatan kejadian dan dukungan guru",
+          "objective": "Sampaikan kejadian dengan singkat",
+          "position": {
+            "x": 46,
+            "y": 0,
+            "z": -29
+          },
+          "actor": "Bu Lilis",
+          "kind": "Talk",
+          "lines": [
+            "Bu Lilis: Radit, kamu boleh cerita sedikit dulu. Tidak harus semuanya sekarang.",
+            "Radit: Aku mau bilang kacamataku diambil dan aku takut ke perpustakaan sendirian.",
+            "Bu Lilis: Terima kasih sudah cerita. Kami akan bantu supaya kamu bisa belajar dengan tenang.",
+            "Aji: Saya juga lihat ada ancaman di koridor, Bu.",
+            "Bu Lilis: Baik. Saya hubungi wali kelas dan BK. Kalian tunggu di tempat aman.",
+            "Radit: Makasih, Ji. Sekarang aku bisa lihat jelas lagi.",
+            "Aji: Yang penting besok juga tetap aman, Dit."
+          ],
+          "afterLines": [],
+          "insight": "Bu Lilis mendengar laporanku tentang kejadian di koridor.",
+          "order": [],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": false
+        }
+      ]
+    },
+    {
+      "chapter": 3,
+      "title": "Chapter 3 • Di Balik Layar",
+      "reflection": "Identitas dan hobi seseorang bukan alasan untuk mengejek. Dukungan yang baik menghargai pilihan, menjaga privasi, dan membantu mencari perlindungan.",
+      "nextScene": "Level04",
+      "spawn": [
+        29,
+        0.26,
+        24
+      ],
+      "steps": [
+        {
+          "id": "L03-Q01",
+          "pointId": "L03-Q01",
+          "title": "Cari tahu kenapa Sikka tidak ikut klub",
+          "objective": "Temui Sikka dan tanyakan apakah ia ingin dibantu",
+          "position": {
+            "x": 29,
+            "y": 0.26,
+            "z": 25
+          },
+          "actor": "Sikka",
+          "kind": "Talk",
+          "lines": [
+            "Aji: Sik, itu sketsa kostum baru? Detailnya keren.",
+            "Sikka: Iya, aku lagi nyoba bikin bagian lengannya sendiri.",
+            "Laura: Harus lihat hasil jahitannya. Rapih banget!",
+            "Aji: Kamu ikut pameran kelas, nggak?",
+            "Sikka: Belum tahu, Ji. Aku jadi mikir dua kali.",
+            "Aji: Kalau kamu pengin cerita, kita bisa cari tempat yang lebih tenang.",
+            "Sikka: Boleh. Di perpustakaan aja, ya.",
+            "Laura: Aku ikut kalau Sikka nyaman.",
+            "Sikka: Boleh, Laur. Makasih."
+          ],
+          "afterLines": [],
+          "insight": "Aku bertanya dulu apakah Sikka ingin ditemani.",
+          "order": [],
+          "questions": [
+            {
+              "id": "",
+              "text": "Sikka ingin bicara di tempat tenang.",
+              "options": [
+                "Temani ke sudut baca dengan izin Sikka.",
+                "Tanya keras-keras di depan kelas."
+              ],
+              "answer": 0,
+              "feedback": "Periksa informasi dan pilih bantuan yang aman."
+            }
+          ],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": false
+        },
+        {
+          "id": "L03-Q02",
+          "pointId": "L03-Q02",
+          "title": "Dengarkan pengalaman Sikka",
+          "objective": "Dengarkan Sikka tanpa menyela",
+          "position": {
+            "x": 27,
+            "y": 0,
+            "z": -26
+          },
+          "actor": "Sikka",
+          "kind": "Talk",
+          "lines": [
+            "Sikka: Aku suka bikin kostum karena aku bisa menuang ide dari gambar ke sesuatu yang nyata.",
+            "Aji: Kedengarannya seru. Kenapa kamu jadi ragu ikut acara?",
+            "Sikka: Ada yang terus ngeledek penampilanku, asal keluargaku, dan hobiku. Bahkan dibawa ke grup kelas.",
+            "Aji: Itu pasti bikin nggak nyaman. Kamu nggak perlu nunjukin semua kalau nggak mau.",
+            "Sikka: Ada beberapa pesan yang mau aku simpan sebagai bukti. Boleh kamu bantu pilih?",
+            "Aji: Boleh. Kita simpan buat Bu Ratna atau Pak Damar, bukan buat disebar.",
+            "Sikka: Makasih. Aku juga masih mau nyelesaiin kostum ini.",
+            "Laura: Kalau kamu mau, aku bantu cari alat jahit.",
+            "Sikka: Boleh, tapi bagian desainnya biar aku yang putusin."
+          ],
+          "afterLines": [],
+          "insight": "Sikka bercerita tentang komentar yang membuatnya menjauh dari klub.",
+          "order": [],
+          "questions": [
+            {
+              "id": "",
+              "text": "Sikka mengizinkan beberapa pesan ditinjau.",
+              "options": [
+                "Lihat pesan yang ia pilih dan jaga privasinya.",
+                "Buka semua chat teman-temannya."
+              ],
+              "answer": 0,
+              "feedback": "Periksa informasi dan pilih bantuan yang aman."
+            }
+          ],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": false
+        },
+        {
+          "id": "L03-Q03",
+          "pointId": "L03-Q03",
+          "title": "Tugas Aksi: pilah komentar dan pilihan respons",
+          "objective": "Bedakan komentar aman, merendahkan, dan bukti yang perlu dijaga",
+          "position": {
+            "x": 27,
+            "y": 0,
+            "z": -26
+          },
+          "actor": "Sikka",
+          "kind": "Classify",
+          "lines": [],
+          "afterLines": [],
+          "insight": "EV-S01 • Ringkasan Sikka dan bukti yang diizinkan disimpan privat untuk guru. Screenshot tidak disebar.",
+          "order": [],
+          "questions": [
+            {
+              "id": "",
+              "text": "Jahitan bagian topinya rapi.",
+              "options": [
+                "DUKUNGAN",
+                "MENGHINA",
+                "PRIVASI/LAPOR"
+              ],
+              "answer": 0,
+              "feedback": "Memberi apresiasi terhadap karya."
+            },
+            {
+              "id": "",
+              "text": "Aku beda pendapat soal warna. Boleh kasih masukan?",
+              "options": [
+                "DUKUNGAN",
+                "MENGHINA",
+                "PRIVASI/LAPOR"
+              ],
+              "answer": 0,
+              "feedback": "Kritik sopan, meminta izin."
+            },
+            {
+              "id": "",
+              "text": "Ngapain tampil beda terus? Mending jangan ikut acara.",
+              "options": [
+                "DUKUNGAN",
+                "MENGHINA",
+                "PRIVASI/LAPOR"
+              ],
+              "answer": 1,
+              "feedback": "Merendahkan dan mengucilkan."
+            },
+            {
+              "id": "",
+              "text": "Karya Sikka nggak pantas dilihat karena dia beda.",
+              "options": [
+                "DUKUNGAN",
+                "MENGHINA",
+                "PRIVASI/LAPOR"
+              ],
+              "answer": 1,
+              "feedback": "Menyerang identitas, bukan karya."
+            },
+            {
+              "id": "",
+              "text": "Foto teman dibagikan tanpa izin.",
+              "options": [
+                "DUKUNGAN",
+                "MENGHINA",
+                "PRIVASI/LAPOR"
+              ],
+              "answer": 2,
+              "feedback": "Pelanggaran persetujuan, perlu ditangani."
+            },
+            {
+              "id": "",
+              "text": "Berkali-kali mengirim ejekan di grup kelas.",
+              "options": [
+                "DUKUNGAN",
+                "MENGHINA",
+                "PRIVASI/LAPOR"
+              ],
+              "answer": 2,
+              "feedback": "Pola berulang; dokumentasi terbatas dan bantuan sekolah."
+            }
+          ],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": true
+        },
+        {
+          "id": "L03-Q04-bahan-pola",
+          "pointId": "L03-Q04-bahan-pola",
+          "title": "Ambil pola kain",
+          "objective": "Temui Laura dan ambil pola untuk meja studio Sikka.",
+          "position": {
+            "x": 37,
+            "y": 0,
+            "z": -24
+          },
+          "actor": "Laura",
+          "kind": "Station",
+          "lines": [
+            "Laura: Ini pola yang diminta Sikka. Kita siapkan di mejanya."
+          ],
+          "afterLines": [],
+          "insight": "Pola kain sudah tersedia di studio.",
+          "order": [],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": true
+        },
+        {
+          "id": "L03-Q04-bahan-pita",
+          "pointId": "L03-Q04-bahan-pita",
+          "title": "Ambil pita",
+          "objective": "Cari pita yang cocok dengan pola Sikka.",
+          "position": {
+            "x": 43,
+            "y": 0,
+            "z": -26
+          },
+          "actor": "Laura",
+          "kind": "Station",
+          "lines": [
+            "Laura: Ini pita yang diminta Sikka. Kita siapkan di mejanya."
+          ],
+          "afterLines": [],
+          "insight": "Pita sudah siap untuk dipasang sesudah pola.",
+          "order": [],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": true
+        },
+        {
+          "id": "L03-Q04-bahan-aksesori",
+          "pointId": "L03-Q04-bahan-aksesori",
+          "title": "Ambil aksesori",
+          "objective": "Ambil aksesori terakhir untuk melengkapi kostum.",
+          "position": {
+            "x": 34,
+            "y": 0,
+            "z": -26
+          },
+          "actor": "Laura",
+          "kind": "Station",
+          "lines": [
+            "Laura: Ini aksesori yang diminta Sikka. Kita siapkan di mejanya."
+          ],
+          "afterLines": [],
+          "insight": "Aksesori sudah siap untuk sentuhan terakhir.",
+          "order": [],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": true
+        },
+        {
+          "id": "L03-Q04",
+          "pointId": "L03-Q04",
+          "title": "Tugas Aksi: Studio Sikka",
+          "objective": "Bantu menyiapkan karya sesuai petunjuk Sikka",
+          "position": {
+            "x": 37,
+            "y": 0,
+            "z": -24
+          },
+          "actor": "Sikka",
+          "kind": "Order",
+          "lines": [],
+          "afterLines": [
+            "Sikka: Nah, kalau pita ini dipasang setelah pola, bentuknya nggak gampang miring.",
+            "Aji: Oalah, jadi urutannya penting.",
+            "Laura: Semuanya kelihatan rapi. Mau kita bantu pajang?",
+            "Sikka: Aku mau pikir dulu. Sekarang cukup disimpan dengan aman.",
+            "Aji: Oke, itu keputusanmu.",
+            "Sikka: Makasih. Aku jadi ingat kenapa awalnya suka bikin kostum.",
+            "Nando: Kalau butuh dudukan untuk pajang, aku bisa buat. Kalau belum, juga nggak apa-apa."
+          ],
+          "insight": "Kami menyiapkan pola, memasang pita, lalu menambahkan aksesori.",
+          "order": [
+            "Pola kain",
+            "Jahit/pasang pita",
+            "Aksesori tangan"
+          ],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": true
+        },
+        {
+          "id": "L03-Q04-choice",
+          "pointId": "L03-Q04-choice",
+          "title": "Dengarkan pilihan Sikka",
+          "objective": "Tanyakan kepada Sikka siapa yang boleh melihat karyanya.",
+          "position": {
+            "x": 37,
+            "y": 0,
+            "z": -24
+          },
+          "actor": "Sikka",
+          "kind": "Choice",
+          "lines": [],
+          "afterLines": [],
+          "insight": "Aku menanyakan kepada Sikka siapa yang boleh melihat karyanya.",
+          "order": [],
+          "questions": [
+            {
+              "id": "",
+              "text": "Sikka menentukan pilihan karya. Semua pilihan dihormati.",
+              "options": [
+                "PRIVATE — Simpan pribadi",
+                "LIMITED — Tunjukkan ke teman yang dipilih",
+                "SHOW — Pajang dengan izin Sikka"
+              ],
+              "answer": 0,
+              "feedback": "Periksa informasi dan pilih bantuan yang aman."
+            }
+          ],
+          "scenePath": "",
+          "choiceKey": "exhibit",
+          "actionCard": false
+        },
+        {
+          "id": "L03-Q05",
+          "pointId": "L03-Q05",
+          "title": "Tugas Susun Kata: dukungan identitas dan hobi",
+          "objective": "Susun kalimat yang menghargai Sikka",
+          "position": {
+            "x": 37,
+            "y": 0,
+            "z": -24
+          },
+          "actor": "Sikka",
+          "kind": "Talk",
+          "lines": [],
+          "afterLines": [],
+          "insight": "Sikka boleh terus berkarya dengan caranya sendiri.",
+          "order": [],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": false,
+          "wordId": "L03-WRD-01"
+        },
+        {
+          "id": "L03-Q06-format",
+          "pointId": "L03-Q06-format",
+          "title": "Pilih cara menyampaikan laporan",
+          "objective": "Bantu Sikka memilih cara bicara dengan Bu Ratna.",
+          "position": {
+            "x": 54,
+            "y": 0.29,
+            "z": 3
+          },
+          "actor": "Bu Ratna",
+          "kind": "Choice",
+          "lines": [],
+          "afterLines": [],
+          "insight": "Kami membicarakan cara meminta bantuan yang terasa nyaman untuk Sikka.",
+          "order": [],
+          "questions": [
+            {
+              "id": "",
+              "text": "Cara pendampingan yang Sikka pilih",
+              "options": [
+                "Bicara langsung dengan guru secara privat",
+                "Pesan ringkas lewat wali kelas",
+                "Pendampingan tanpa pertemuan hari ini"
+              ],
+              "answer": 0,
+              "feedback": "Periksa informasi dan pilih bantuan yang aman."
+            }
+          ],
+          "scenePath": "",
+          "choiceKey": "report",
+          "actionCard": false
+        },
+        {
+          "id": "L03-Q06",
+          "pointId": "L03-Q06",
+          "title": "Laporan privat dan solidaritas",
+          "objective": "Bantu Sikka memilih cara melapor",
+          "position": {
+            "x": 54,
+            "y": 0.29,
+            "z": 3
+          },
+          "actor": "Bu Ratna",
+          "kind": "Talk",
+          "lines": [],
+          "afterLines": [
+            "Bu Ratna: Sikka, terima kasih mau menyampaikan. Kamu boleh cerita sesuai yang kamu nyaman.",
+            "Sikka: Saya diejek soal asal dan penampilan, Bu. Ada juga komentar tentang kostum saya di grup.",
+            "Bu Ratna: Itu tidak bisa dibenarkan. Ibu akan bantu menjaga keamananmu dan koordinasi dengan BK.",
+            "Aji: Kami menyimpan beberapa pesan yang Sikka izinkan untuk ditinjau, Bu.",
+            "Bu Ratna: Bagus, jangan disebarkan ke siswa lain. Bukti ini cukup disampaikan lewat jalur yang aman.",
+            "Fatimah: Kami juga akan berhenti diam kalau ada komentar begitu lagi.",
+            "Sikka: Saya pengin tetap bikin karya, Bu. Tapi saya ingin pelan-pelan dulu.",
+            "Bu Ratna: Tentu. Kamu yang tentukan kesiapannya, dan sekolah akan melindungimu."
+          ],
+          "insight": "Bu Ratna menerima informasi yang diizinkan Sikka untuk disampaikan.",
+          "order": [],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": false
+        }
+      ]
+    },
+    {
+      "chapter": 4,
+      "title": "Chapter 4 • Sisi yang Tersembunyi",
+      "reflection": "Memahami alasan seseorang berbuat salah tidak berarti membenarkannya. Fakta, perlindungan korban, dan perubahan perilaku harus berjalan bersama.",
+      "nextScene": "Level05",
+      "spawn": [
+        29,
+        0.26,
+        24
+      ],
+      "steps": [
+        {
+          "id": "L04-Q01",
+          "pointId": "L04-Q01",
+          "title": "Buka jurnal kejadian bersama Fatimah",
+          "objective": "Periksa kembali catatan kejadian yang kamu tahu",
+          "position": {
+            "x": 29,
+            "y": 0.26,
+            "z": 25
+          },
+          "actor": "Fatimah",
+          "kind": "Talk",
+          "lines": [
+            "Fatimah: Ji, setelah kejadian kemarin aku mikir terus.",
+            "Aji: Soal Bima, Radit, sama Sikka?",
+            "Fatimah: Iya. Kita udah bantu mereka, tapi kayaknya ini pola yang berulang.",
+            "Aji: Aku punya catatan waktunya. Tapi ada beberapa hal yang masih cuma dugaan.",
+            "Fatimah: Berarti jangan kita tulis seolah sudah pasti.",
+            "Aji: Benar. Kita cek sumbernya dulu, lalu bawa ke Bu Ratna.",
+            "Fatimah: Raka kemarin kelihatan mau bilang sesuatu. Tapi jangan dipaksa di depan orang banyak.",
+            "Aji: Aku bisa tanya baik-baik di tempat terbuka dekat guru."
+          ],
+          "afterLines": [],
+          "insight": "Bersama Fatimah, aku memeriksa mana kejadian yang kusaksikan dan mana yang kudengar dari orang lain.",
+          "order": [],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": false
+        },
+        {
+          "id": "L04-Q02",
+          "pointId": "L04-Q02",
+          "title": "Dengarkan pengakuan Raka",
+          "objective": "Temui Raka dan tanya apa yang ia lihat",
+          "position": {
+            "x": 45,
+            "y": 0,
+            "z": 5
+          },
+          "actor": "Raka",
+          "kind": "Talk",
+          "lines": [
+            "Aji: Rak, aku mau tanya soal kejadian belakangan ini. Kamu bersedia ngobrol sebentar?",
+            "Raka: Ngapain? Mau laporin aku juga?",
+            "Aji: Aku mau tahu yang sebenarnya terjadi. Termasuk bagian yang kamu lihat sendiri.",
+            "Raka: Aku... memang sering ikut ketawa. Kadang aku ikut bikin mereka takut.",
+            "Aji: Terima kasih udah jujur. Tapi itu juga harus kamu pertanggungjawabkan.",
+            "Raka: Aku tahu. Awalnya aku takut nggak diajak main kalau beda sama Memet.",
+            "Aji: Terus Memet kenapa sampai begitu?",
+            "Raka: Dulu dia sendiri sering direndahin. Sejak itu dia gampang marah kalau merasa diremehin.",
+            "Aji: Itu mungkin menjelaskan sebagian perasaannya, tapi bukan alasan buat nyakitin teman.",
+            "Raka: Aku mau cerita ke Bu Ratna. Aku juga perlu berhenti ikut-ikutan.",
+            "Aji: Kalau kamu siap, kita bicara sesuai yang kamu tahu."
+          ],
+          "afterLines": [],
+          "insight": "EV-RK01 • Raka mengakui ikut menertawakan dan menekan teman. Motif Memet perlu ditindaklanjuti guru.",
+          "order": [],
+          "questions": [
+            {
+              "id": "",
+              "text": "Bagaimana mencatat pengakuan Raka?",
+              "options": [
+                "Pernyataan Raka, termasuk keterlibatannya, untuk ditindaklanjuti guru.",
+                "Memet satu-satunya pihak yang salah, Raka bebas tanggung jawab."
+              ],
+              "answer": 0,
+              "feedback": "Periksa informasi dan pilih bantuan yang aman."
+            }
+          ],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": false
+        },
+        {
+          "id": "L04-Q03",
+          "pointId": "L04-Q03",
+          "title": "Tugas Aksi: susun kronologi",
+          "objective": "Urutkan kejadian berdasarkan hari dan konteks",
+          "position": {
+            "x": 45,
+            "y": 0,
+            "z": 5
+          },
+          "actor": "Fatimah",
+          "kind": "Order",
+          "lines": [],
+          "afterLines": [],
+          "insight": "Kami mengurutkan kejadian Bima, Radit, dan Sikka sesuai waktu kejadiannya.",
+          "order": [
+            "Hari pertama • Bima di koridor",
+            "Hari pertama • Radit saat istirahat",
+            "Hari pertama • Sikka menjelang pulang",
+            "Hari kedua • botol Bima",
+            "Hari berikutnya • kacamata Radit",
+            "Hari berikutnya • komentar Sikka"
+          ],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": true
+        },
+        {
+          "id": "L04-Q04",
+          "pointId": "L04-Q04",
+          "title": "Tugas Aksi: Evidence Board",
+          "objective": "Pasangkan fakta, saksi, dan kebutuhan keamanan",
+          "position": {
+            "x": 45,
+            "y": 0,
+            "z": 5
+          },
+          "actor": "Fatimah",
+          "kind": "Evidence",
+          "lines": [],
+          "afterLines": [],
+          "insight": "Evidence Board • Tiga kasus, tiga sumber sah, nol rumor sebagai fakta, data sensitif tetap privat.",
+          "order": [],
+          "questions": [
+            {
+              "id": "",
+              "text": "Bima • Waktu: hari kedua. Tempat: kantin. Peristiwa: barang diambil. Sumber yang sah?",
+              "options": [
+                "Pengamatan Aji dan keterangan Bima; minta perlindungan Bu Ratna.",
+                "Dugaan tentang keluarga Memet."
+              ],
+              "answer": 0,
+              "feedback": "Periksa informasi dan pilih bantuan yang aman."
+            },
+            {
+              "id": "",
+              "text": "Radit • Kacamata ditemukan di perpustakaan. Sumber dan kebutuhan yang sesuai?",
+              "options": [
+                "Pernyataan Radit serta catatan Bu Lilis/Pak Jaya; akses aman ke perpustakaan.",
+                "Bu Lilis pasti menyembunyikan kacamata."
+              ],
+              "answer": 0,
+              "feedback": "Periksa informasi dan pilih bantuan yang aman."
+            },
+            {
+              "id": "",
+              "text": "Sikka • Komentar berulang di grup. Cara mencatat yang sah?",
+              "options": [
+                "Ringkasan dengan izin Sikka untuk guru; jaga privasi dan monitoring.",
+                "Tempel screenshot mentah di mading kelas."
+              ],
+              "answer": 0,
+              "feedback": "Periksa informasi dan pilih bantuan yang aman."
+            },
+            {
+              "id": "",
+              "text": "EV-D01 • Memet pasti membully karena tidak diperhatikan di rumah.",
+              "options": [
+                "Belum terverifikasi; konteks untuk guru, bukan fakta pembenaran.",
+                "Masukkan sebagai fakta pasti."
+              ],
+              "answer": 0,
+              "feedback": "Periksa informasi dan pilih bantuan yang aman."
+            },
+            {
+              "id": "",
+              "text": "EV-D02 • Semua korban sudah memaafkan Memet.",
+              "options": [
+                "Tolak klaim. Korban berhak menentukan batasnya.",
+                "Anggap sudah pasti dimaafkan."
+              ],
+              "answer": 0,
+              "feedback": "Periksa informasi dan pilih bantuan yang aman."
+            },
+            {
+              "id": "",
+              "text": "EV-D03 • Bu Lilis menyembunyikan kacamata.",
+              "options": [
+                "Belum terverifikasi; lokasi temuan bukan bukti pelaku.",
+                "Tuduh Bu Lilis."
+              ],
+              "answer": 0,
+              "feedback": "Periksa informasi dan pilih bantuan yang aman."
+            }
+          ],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": true
+        },
+        {
+          "id": "L04-Q05",
+          "pointId": "L04-Q05",
+          "title": "Tugas Susun Kata: laporan kepada guru",
+          "objective": "Susun laporan yang adil dan meminta perlindungan",
+          "position": {
+            "x": 54,
+            "y": 0.29,
+            "z": 3
+          },
+          "actor": "Bu Ratna",
+          "kind": "Talk",
+          "lines": [],
+          "afterLines": [
+            "Aji: Bu, kami ingin melaporkan beberapa kejadian.",
+            "Aji: Ini waktu, tempat, dan bukti yang kami ketahui.",
+            "Aji: Kami butuh bantuan agar teman-teman merasa aman.",
+            "Bu Ratna: Terima kasih kalian sudah berusaha menyusun informasi dengan hati-hati.",
+            "Fatimah: Kami juga tidak mau menambah rumor, Bu.",
+            "Bu Ratna: Bagus. Ibu akan teruskan ke Pak Damar, lalu siswa yang terlibat didengar secara terpisah.",
+            "Raka: Bu... saya juga ikut beberapa kejadian itu. Saya mau cerita jujur.",
+            "Bu Ratna: Terima kasih mau mengakui. Itu penting, dan kamu tetap perlu bertanggung jawab.",
+            "Aji: Semoga semua bisa aman, Bu.",
+            "Bu Ratna: Itu prioritas pertama kita."
+          ],
+          "insight": "Laporan kami menyebutkan apa yang terjadi, sumber informasi, dan bantuan yang dibutuhkan.",
+          "order": [],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": false,
+          "wordId": "L04-WRD-01"
+        },
+        {
+          "id": "L04-Q06",
+          "pointId": "L04-Q06",
+          "title": "Pak Damar menangani kasus",
+          "objective": "Serahkan laporan ke guru BK",
+          "position": {
+            "x": 47,
+            "y": 0,
+            "z": 12
+          },
+          "actor": "Pak Damar",
+          "kind": "Cinematic",
+          "lines": [],
+          "afterLines": [
+            "Pak Damar: Duduk dulu. Saya ingin mendengar satu per satu, bukan saling tuduh di sini.",
+            "Bu Ratna: Ini rangkuman dari Aji, Fatimah, dan keterangan siswa yang bersedia.",
+            "Pak Damar: Baik. Saya utamakan keselamatan Bima, Radit, dan Sikka. Mereka tidak harus bertatap muka dengan siapa pun.",
+            "Aji: Pak, apa laporan ini cukup?",
+            "Pak Damar: Cukup untuk mulai menindaklanjuti. Selanjutnya kami periksa fakta dan mendengar semua pihak.",
+            "Raka: Pak... saya juga ikut mengejek. Saya mau jujur.",
+            "Pak Damar: Saya hargai kejujuranmu, Raka. Tapi tanggung jawabmu tetap harus dijalankan.",
+            "Bu Ratna: Saya akan awasi situasi di kelas, Pak.",
+            "Pak Damar: Bagus. Aji, kamu sudah membantu. Sekarang beri ruang bagi guru dan siswa yang bersangkutan."
+          ],
+          "insight": "Pak Damar menerima laporan kami untuk ditindaklanjuti secara privat.",
+          "order": [],
+          "questions": [],
+          "scenePath": "Assets/_Game/Scenes/Levels/Level_04/cutscene/CS_L04_IntakeBK.unity",
+          "choiceKey": "",
+          "actionCard": false
+        },
+        {
+          "id": "L04-Q07",
+          "pointId": "L04-Q07",
+          "title": "Sisi tersembunyi Memet — tanggung jawab",
+          "objective": "Saksikan potongan pengungkapan Memet",
+          "position": {
+            "x": 47,
+            "y": 0,
+            "z": 12
+          },
+          "actor": "Pak Damar",
+          "kind": "Cinematic",
+          "lines": [],
+          "afterLines": [
+            "Pak Damar: Memet, saya ingin mendengar versimu. Tapi kita mulai dari tindakanmu, bukan alasanmu.",
+            "Memet: Saya ganggu Bima. Saya ikut ambil botolnya. Radit juga pernah saya paksa kasih tugas.",
+            "Pak Damar: Dan tentang Sikka?",
+            "Memet: Saya ikut mengejek hobinya. Saya tahu itu bikin dia nggak nyaman.",
+            "Pak Damar: Mengapa kamu melakukannya?",
+            "Memet: Dulu saya sering direndahin juga. Di rumah saya merasa nggak ada yang mau denger. Saya jadi marah kalau ada yang nggak nurut.",
+            "Pak Damar: Perasaanmu perlu didengarkan dan kamu berhak dapat bantuan.",
+            "Pak Damar: Tapi menyakiti Bima, Radit, dan Sikka tetap salah. Kamu bertanggung jawab atas apa yang kamu lakukan.",
+            "Memet: Iya, Pak. Saya salah.",
+            "Pak Damar: Mulai hari ini ada aturan jelas, pendampingan, dan evaluasi perilaku. Minta maaf tidak cukup kalau masih mengulang.",
+            "Memet: Saya mau coba memperbaiki. Tapi saya nggak tahu harus mulai dari mana.",
+            "Pak Damar: Kita mulai dengan berhenti menyakiti orang lain, mendengar akibatnya, lalu memperbaiki hal yang bisa kamu perbaiki tanpa memaksa korban."
+          ],
+          "insight": "Memet menjalani pertanggungjawaban. Rincian konseling privat tidak menjadi catatan publik Aji.",
+          "order": [],
+          "questions": [],
+          "scenePath": "Assets/_Game/Scenes/Levels/Level_04/cutscene/CS_L04_BKMemet.unity",
+          "choiceKey": "",
+          "actionCard": false
+        },
+        {
+          "id": "L04-Q08",
+          "pointId": "L04-Q08",
+          "title": "Rencana perlindungan dan tanggung jawab",
+          "objective": "Tinjau tindakan yang akan dijalankan sekolah",
+          "position": {
+            "x": 47,
+            "y": 0,
+            "z": 12
+          },
+          "actor": "Bu Ratna",
+          "kind": "Classify",
+          "lines": [],
+          "afterLines": [
+            "Aji: Tadi aku pikir setelah melapor, semuanya bakal langsung selesai.",
+            "Fatimah: Ternyata nggak sesederhana itu, ya.",
+            "Aji: Iya. Apa pun alasan seseorang bertindak buruk, menyakiti orang lain tetap salah.",
+            "Bu Ratna: Kalian sudah membantu dengan laporan yang jelas. Sekarang kami teruskan penanganannya.",
+            "Aji: Kami bisa tetap jadi teman yang mendukung korban, Bu?",
+            "Bu Ratna: Tentu. Dengarkan mereka, hormati batasnya, dan beri tahu guru kalau ada kejadian lagi.",
+            "Fatimah: Oke. Kita jaga kelas supaya lebih baik, pelan-pelan.",
+            "Aji: Aku mau lihat semuanya benar-benar berubah."
+          ],
+          "insight": "Kami membahas siapa yang bisa dihubungi jika ada kejadian lagi.",
+          "order": [],
+          "questions": [
+            {
+              "id": "",
+              "text": "Akses aman korban menjadi tanggung jawab siapa?",
+              "options": [
+                "Wali kelas dan sekolah, dengan pendampingan sesuai izin.",
+                "Korban harus mengatasi sendiri."
+              ],
+              "answer": 0,
+              "feedback": "Periksa informasi dan pilih bantuan yang aman."
+            },
+            {
+              "id": "",
+              "text": "Siapa memantau Memet dan Raka?",
+              "options": [
+                "Wali kelas dan BK dengan evaluasi perilaku.",
+                "Aji menghukum mereka sendiri."
+              ],
+              "answer": 0,
+              "feedback": "Periksa informasi dan pilih bantuan yang aman."
+            },
+            {
+              "id": "",
+              "text": "Konseling dan laporan lanjutan?",
+              "options": [
+                "BK mendampingi; siswa dapat melapor kembali.",
+                "Cukup minta maaf sekali."
+              ],
+              "answer": 0,
+              "feedback": "Periksa informasi dan pilih bantuan yang aman."
+            },
+            {
+              "id": "",
+              "text": "Pertemuan korban dan pelaku?",
+              "options": [
+                "Sesuai pilihan korban, dapat terpisah atau ditunda.",
+                "Semua wajib bertemu dan memaafkan."
+              ],
+              "answer": 0,
+              "feedback": "Periksa informasi dan pilih bantuan yang aman."
+            }
+          ],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": true
+        }
+      ]
+    },
+    {
+      "chapter": 5,
+      "title": "Chapter Ending • Sisi Baru Kita",
+      "reflection": "Kebaikan bukan satu tindakan besar. Kelas yang aman tumbuh dari keberanian untuk mendengar, membantu, melapor, dan menjaga batas satu sama lain.",
+      "nextScene": "Level06",
+      "spawn": [
+        29,
+        0.26,
+        24
+      ],
+      "steps": [
+        {
+          "id": "L05-Q01",
+          "pointId": "L05-Q01",
+          "title": "Lihat perubahan suasana kelas",
+          "objective": "Sapa teman-teman dan lihat kegiatan kelas",
+          "position": {
+            "x": 29,
+            "y": 0.26,
+            "z": 25
+          },
+          "actor": "Vivi",
+          "kind": "Cinematic",
+          "lines": [],
+          "afterLines": [
+            "Beberapa minggu setelah pendampingan BK.",
+            "Vivi: Ji! Cepetan, kita mau bikin pojok kelas baru!",
+            "Aji: Wah, rame banget. Ada acara apa?",
+            "Bu Ratna: Kita akan membuat ruang kelas yang lebih nyaman untuk semua.",
+            "Sahrul: Aku bagian bawa alat. Sudah aku tulis daftar, biar nggak ada yang hilang!",
+            "Nando: Aku bikin denah supaya jalurnya nggak ketutup.",
+            "Laura: Aku bantu poster dan tulisan.",
+            "Fatimah: Aku rangkum kesepakatan supaya semua boleh kasih masukan.",
+            "Radit: Aku siap cari contoh pesan dari perpustakaan.",
+            "Sikka: Aku punya desain kecil. Aku mau ikut masang bagian yang aku pilih.",
+            "Bima: Aku bantu tata meja, Ji.",
+            "Aji: Oke! Biar cepet beres, kita bagi tugas aja.",
+            "Bu Ratna: Bagus. Semua ikut sesuai kemampuan dan kesediaannya."
+          ],
+          "insight": "Beberapa minggu kemudian, teman-teman berkumpul untuk menyiapkan proyek kelas.",
+          "order": [],
+          "questions": [],
+          "scenePath": "Assets/_Game/Scenes/Levels/Level_05/cutscene/CS_L05_IntroKelasAman.unity",
+          "choiceKey": "",
+          "actionCard": false
+        },
+        {
+          "id": "L05-Q02-materials",
+          "pointId": "L05-Q02-materials",
+          "title": "Ambil bahan poster",
+          "objective": "Ambil poster dan selotip dari meja Vivi.",
+          "position": {
+            "x": 29,
+            "y": 0.26,
+            "z": 25
+          },
+          "actor": "Vivi",
+          "kind": "Pickup",
+          "lines": [
+            "Vivi: Poster dan selotip ada di meja. Laura sudah menyiapkan papan."
+          ],
+          "afterLines": [],
+          "insight": "Aku mengambil poster dan selotip dari meja Vivi.",
+          "order": [],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": false
+        },
+        {
+          "id": "L05-Q02-station-a",
+          "pointId": "L05-Q02-station-a",
+          "title": "Pasang poster bersama Laura",
+          "objective": "Bawa poster ke papan dan tentukan tempat pemasangannya.",
+          "position": {
+            "x": 45,
+            "y": 0,
+            "z": 5
+          },
+          "actor": "Laura",
+          "kind": "Station",
+          "lines": [],
+          "afterLines": [],
+          "insight": "Bersama Laura, aku memasang poster di bagian papan yang mudah dibaca.",
+          "order": [],
+          "questions": [
+            {
+              "id": "L05-Q02-station-a-placement",
+              "text": "Laura memegang poster. Di mana kalian akan menempelkannya?",
+              "options": [
+                "Di depan petunjuk keluar",
+                "Di bagian kosong papan, setinggi mata",
+                "Di balik lemari kelas"
+              ],
+              "answer": 1,
+              "feedback": "Cari tempat yang bisa dibaca teman-teman sambil tetap memperlihatkan petunjuk keluar."
+            }
+          ],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": true
+        },
+        {
+          "id": "L05-Q02-station-b",
+          "pointId": "L05-Q02-station-b",
+          "title": "Susun pesan kelas",
+          "objective": "Rangkai tiga tindakan yang disepakati kelas bersama Fatimah.",
+          "position": {
+            "x": 29,
+            "y": 0.26,
+            "z": 25
+          },
+          "actor": "Fatimah",
+          "kind": "Order",
+          "lines": [],
+          "afterLines": [],
+          "insight": "Kami merangkai pesan tentang mendengar, menemani, dan mencari bantuan.",
+          "order": [
+            "Mendengar → beri ruang bercerita",
+            "Membantu → temani dengan aman",
+            "Melapor → hubungi guru"
+          ],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": true
+        },
+        {
+          "id": "L05-Q02-station-c",
+          "pointId": "L05-Q02-station-c",
+          "title": "Rapikan jalur masuk",
+          "objective": "Atur barang bersama Pak Jaya supaya jalan ke pintu tetap terbuka.",
+          "position": {
+            "x": 25,
+            "y": 0,
+            "z": -20
+          },
+          "actor": "Pak Jaya",
+          "kind": "Station",
+          "lines": [],
+          "afterLines": [
+            "Pak Jaya: Nah, pojok sini boleh dihias. Tapi jalan ke pintu harus tetap kosong.",
+            "Aji: Siap, Pak. Aku geser papan sedikit.",
+            "Sahrul: Aku angkat kotaknya biar nggak nutup jalan.",
+            "Nando: Kalau di sini, orang masih bisa lewat dua arah.",
+            "Pak Jaya: Pas. Sekolah yang rapi juga bikin semua nyaman.",
+            "Bu Yuni: Yang bantu-bantu jangan lupa istirahat dan minum, ya.",
+            "Vivi: Siap, Bu! Kita gantian biar nggak capek.",
+            "Aji: Enak juga kalau semua bisa kerja bareng."
+          ],
+          "insight": "Kami memindahkan barang ke tepi agar jalan menuju pintu tetap lapang.",
+          "order": [],
+          "questions": [
+            {
+              "id": "L05-Q02-station-c-placement",
+              "text": "Kotak dan papan masih ada di jalur pintu. Bagaimana kalian merapikannya?",
+              "options": [
+                "Pindahkan ke sisi dinding yang kosong",
+                "Susun di tengah jalur",
+                "Sandarkan pada daun pintu"
+              ],
+              "answer": 0,
+              "feedback": "Sisakan ruang untuk membuka pintu dan untuk orang yang berpapasan."
+            }
+          ],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": true
+        },
+        {
+          "id": "L05-Q03",
+          "pointId": "L05-Q03",
+          "title": "Tugas Susun Kata: kesepakatan kelas",
+          "objective": "Susun tiga prinsip kelas aman",
+          "position": {
+            "x": 29,
+            "y": 0.26,
+            "z": 25
+          },
+          "actor": "Bu Ratna",
+          "kind": "Talk",
+          "lines": [],
+          "afterLines": [
+            "Bu Ratna: Ada tiga hal yang kita sepakati hari ini.",
+            "Aji: Kita menghormati perbedaan teman.",
+            "Fatimah: Kita berhenti kalau candaan menyakiti.",
+            "Radit: Dan kita mencari bantuan saat ada perundungan.",
+            "Vivi: Berarti kalau ada yang diam karena takut, kita nggak boleh pura-pura nggak lihat.",
+            "Sahrul: Kalau bercanda, semua harus nyaman. Bukan cuma yang ngomong.",
+            "Nando: Sepakat. Kita buktikan dalam tindakan.",
+            "Bu Ratna: Betul. Kesepakatan ini milik semua kelas VIII A."
+          ],
+          "insight": "Kami menyusun kesepakatan untuk menjaga kelas bersama.",
+          "order": [],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": false,
+          "wordId": "L05-WRD-01"
+        },
+        {
+          "id": "L05-Q04",
+          "pointId": "L05-Q04",
+          "title": "Tindak lanjut BK: tindakan, bukan janji",
+          "objective": "Lihat perubahan yang benar-benar dilakukan",
+          "position": {
+            "x": 47,
+            "y": 0,
+            "z": 12
+          },
+          "actor": "Pak Damar",
+          "kind": "Talk",
+          "lines": [
+            "Pak Damar: Aji, kelas terlihat lebih tenang. Tapi ini belum akhir pekerjaan.",
+            "Aji: Memet sama Raka beneran berubah, Pak?",
+            "Pak Damar: Perilaku mereka dipantau. Mereka menjalankan tanggung jawab dan konseling. Kalau ada kejadian lagi, tetap laporkan.",
+            "Memet: Pak, saya ingin minta maaf. Tapi saya nggak mau bikin mereka makin nggak nyaman.",
+            "Pak Damar: Bagus kamu memikirkan itu. Kita tanyakan bentuk komunikasi yang mereka setujui. Kamu tidak boleh menuntut dimaafkan.",
+            "Raka: Saya juga ikut salah. Saya mau nunjukin kalau saya berhenti ikut-ikutan.",
+            "Aji: Aku senang kalian mau berubah. Yang penting itu terus dilakukan.",
+            "Pak Damar: Betul. Perubahan terlihat dari kebiasaan, bukan satu kalimat."
+          ],
+          "afterLines": [],
+          "insight": "Pak Damar membicarakan tindak lanjut yang bisa dilihat dalam keseharian.",
+          "order": [],
+          "questions": [
+            {
+              "id": "",
+              "text": "Memet ingin meminta maaf. Apa langkah berikutnya?",
+              "options": [
+                "Guru menanyakan bentuk komunikasi yang korban setujui.",
+                "Paksa semua korban berkumpul dan menjawab."
+              ],
+              "answer": 0,
+              "feedback": "Periksa informasi dan pilih bantuan yang aman."
+            }
+          ],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": false
+        },
+        {
+          "id": "L05-Q05",
+          "pointId": "L05-Q05",
+          "title": "Karya Sikka dan pilihan kebersamaan",
+          "objective": "Tanyakan apakah Sikka ingin memajang karyanya",
+          "position": {
+            "x": 37,
+            "y": 0,
+            "z": -24
+          },
+          "actor": "Sikka",
+          "kind": "Choice",
+          "lines": [],
+          "afterLines": [
+            "Laura: Sik, detail desainnya bagus. Kamu mau cerita cara bikinnya?",
+            "Sikka: Boleh. Aku mulai dari gambar kecil, terus cari bahan yang cocok.",
+            "Vivi: Nanti ajarin aku bikin aksesori, ya!",
+            "Sikka: Boleh. Tapi pelan-pelan, soalnya butuh sabar.",
+            "Aji: Keren. Aku seneng lihat kamu berkarya lagi.",
+            "Sikka: Aku juga seneng punya teman yang mendukung, bukan cuma menilai penampilan."
+          ],
+          "insight": "Sikka menentukan kembali bagaimana ia ingin berbagi karya hari ini.",
+          "order": [],
+          "questions": [
+            {
+              "id": "",
+              "text": "Apa pilihan Sikka untuk karya hari ini?",
+              "options": [
+                "PRIVATE — tetap pribadi",
+                "LIMITED — teman yang disetujui",
+                "SHOW — pajang di pojok karya"
+              ],
+              "answer": 0,
+              "feedback": "Periksa informasi dan pilih bantuan yang aman."
+            }
+          ],
+          "scenePath": "",
+          "choiceKey": "exhibit",
+          "actionCard": false
+        },
+        {
+          "id": "L05-Q06",
+          "pointId": "L05-Q06",
+          "title": "Tugas Susun Kata: refleksi bersama",
+          "objective": "Rangkai pesan penutup untuk seluruh kelas",
+          "position": {
+            "x": 29,
+            "y": 0.26,
+            "z": 25
+          },
+          "actor": "Bu Ratna",
+          "kind": "Talk",
+          "lines": [],
+          "afterLines": [
+            "Aji: Mendengar teman adalah langkah pertama.",
+            "Aji: Bantuan yang aman lebih penting daripada balasan.",
+            "Aji: Kelas yang nyaman kita bangun bersama.",
+            "Bima: Sekarang aku nggak terlalu takut buat cerita kalau ada masalah.",
+            "Radit: Aku juga bisa belajar dan baca tanpa khawatir kacamataku diambil.",
+            "Sikka: Aku bisa berkarya dengan caraku sendiri.",
+            "Fatimah: Dan kita semua bisa bantu kalau lihat ada yang kesusahan.",
+            "Nando: Buatku kelas yang nyaman itu yang semua orang bisa fokus.",
+            "Sahrul: Dan bercandanya nggak bikin siapa-siapa sedih.",
+            "Vivi: Setuju! Habis ini kita foto hasil proyeknya?",
+            "Bu Ratna: Kalau semua yang ikut foto bersedia, boleh.",
+            "Memet: Aku pernah bikin suasana kelas nggak nyaman. Aku sedang berusaha memperbaiki sikap dan terus mengikuti aturan kelas.",
+            "Raka: Aku juga mau berhenti ikut-ikutan mengejek. Aku mau belajar jadi teman yang lebih baik.",
+            "Aji: Yang penting kita sama-sama menjaga kelas ini ke depannya.",
+            "Bu Ratna: Ibu bangga melihat kalian belajar bertanggung jawab."
+          ],
+          "insight": "Kami merangkai pesan terakhir untuk teman-teman sekelas.",
+          "order": [],
+          "questions": [],
+          "scenePath": "",
+          "choiceKey": "",
+          "actionCard": false,
+          "wordId": "L05-WRD-02"
+        },
+        {
+          "id": "L05-Q07",
+          "pointId": "L05-Q07",
+          "title": "Free-walk epilog dan tamat",
+          "objective": "Sapa teman-teman lalu pulang",
+          "position": {
+            "x": -6,
+            "y": 0,
+            "z": -48
+          },
+          "actor": "Aji",
+          "kind": "Cinematic",
+          "lines": [],
+          "afterLines": [
+            "Aji (batin): Dulu aku kira masalah di sekolah ini terlalu besar buat aku pahami.",
+            "Aji (batin): Ternyata aku nggak harus menyelesaikannya sendirian.",
+            "Aji (batin): Aku belajar untuk mendengar, bertindak dengan aman, dan meminta bantuan.",
+            "Aji (batin): Bima, Radit, dan Sikka sekarang punya ruang untuk jadi diri mereka sendiri.",
+            "Aji (batin): Memet dan Raka juga belajar bertanggung jawab. Semua masih terus belajar.",
+            "Aji (batin): Kelas kami belum sempurna... tapi sekarang kami saling menjaga.",
+            "Aji (batin): Inilah sisi yang dulu belum kulihat.",
+            "Layar: UNSEEN SIDE — TAMAT"
+          ],
+          "insight": "Saat pulang, aku mengingat orang-orang yang sekarang tahu ke mana mereka bisa mencari bantuan.",
+          "order": [],
+          "questions": [],
+          "scenePath": "Assets/_Game/Scenes/Levels/Level_05/cutscene/CS_L05_Penutup.unity",
+          "choiceKey": "",
+          "actionCard": false
+        }
+      ]
+    }
+  ],
+  "puzzles": [
+    {
+      "id": "L01-WRD-01",
+      "title": "",
+      "phrases": [
+        {
+          "id": "W1",
+          "text": "Memet, Raka, tolong berhenti."
+        },
+        {
+          "id": "W2",
+          "text": "Bima perlu ruang."
+        },
+        {
+          "id": "W3",
+          "text": "Kalau ada masalah, kita bisa bicara sama Bu Ratna."
+        },
+        {
+          "id": "D1",
+          "text": "Kalian pasti selalu bikin masalah."
+        },
+        {
+          "id": "D2",
+          "text": "Bima harus urus sendiri."
+        }
+      ],
+      "answer": [
+        "W1",
+        "W2",
+        "W3"
+      ],
+      "hint": "Mulailah dengan batas yang jelas, berikan Bima ruang, lalu ajak bantuan orang dewasa.",
+      "feedback": "Ucapan yang menyalahkan atau meninggalkan korban dapat memperkeruh keadaan.",
+      "response": "Raka: “Ya udah. Kita pergi.”"
+    },
+    {
+      "id": "L02-WRD-01",
+      "title": "",
+      "phrases": [
+        {
+          "id": "W1",
+          "text": "Kamu berhak memakai kacamatamu dengan tenang."
+        },
+        {
+          "id": "W2",
+          "text": "Aku bisa nemenin kamu cari bantuan."
+        },
+        {
+          "id": "W3",
+          "text": "Kita cerita sesuai yang kamu nyaman bagikan."
+        },
+        {
+          "id": "D1",
+          "text": "Kamu harus berani balas sekarang."
+        },
+        {
+          "id": "D2",
+          "text": "Udah, lupakan aja semuanya."
+        }
+      ],
+      "answer": [
+        "W1",
+        "W2",
+        "W3"
+      ],
+      "hint": "Validasi perasaan dulu, tawarkan pendampingan, lalu hormati batas informasi.",
+      "feedback": "Jangan memaksa korban membalas atau menekan korban untuk segera melupakan pengalaman buruk.",
+      "response": "Radit: “Aku mau. Kita ke Bu Lilis bareng, ya.”"
+    },
+    {
+      "id": "L03-WRD-01",
+      "title": "",
+      "phrases": [
+        {
+          "id": "W1",
+          "text": "Aku denger apa yang kamu alami, Sik."
+        },
+        {
+          "id": "W2",
+          "text": "Kamu berhak jadi diri sendiri dan berkarya."
+        },
+        {
+          "id": "W3",
+          "text": "Kalau kamu mau, aku bisa temenin cari bantuan."
+        },
+        {
+          "id": "D1",
+          "text": "Mending kamu ubah gaya supaya nggak diejek."
+        },
+        {
+          "id": "D2",
+          "text": "Abaikan saja semuanya, pasti selesai sendiri."
+        }
+      ],
+      "answer": [
+        "W1",
+        "W2",
+        "W3"
+      ],
+      "hint": "Dengarkan, hargai hak atas identitas dan hobi, lalu tawarkan bantuan dengan izin.",
+      "feedback": "Meminta korban mengubah identitas atau menyepelekan dampak tidak menyelesaikan masalah.",
+      "response": "Sikka: “Makasih, Ji. Aku mau ngomong sama Bu Ratna, tapi pelan-pelan.”"
+    },
+    {
+      "id": "L04-WRD-01",
+      "title": "",
+      "phrases": [
+        {
+          "id": "W1",
+          "text": "Bu, kami ingin melaporkan beberapa kejadian."
+        },
+        {
+          "id": "W2",
+          "text": "Ini waktu, tempat, dan bukti yang kami ketahui."
+        },
+        {
+          "id": "W3",
+          "text": "Kami butuh bantuan agar teman-teman merasa aman."
+        },
+        {
+          "id": "D1",
+          "text": "Bu harus langsung menghukum tanpa mendengar siapa pun."
+        },
+        {
+          "id": "D2",
+          "text": "Semua pasti salah Memet, tanpa perlu diperiksa."
+        }
+      ],
+      "answer": [
+        "W1",
+        "W2",
+        "W3"
+      ],
+      "hint": "Buka dengan tujuan, jelaskan informasi yang terverifikasi, lalu kebutuhan perlindungan.",
+      "feedback": "Sanksi tidak dapat diputuskan hanya dari praduga dan tuntutan emosional.",
+      "response": "Bu Ratna: “Terima kasih. Kita tangani sesuai proses, dan keselamatan siswa tetap prioritas.”"
+    },
+    {
+      "id": "L05-WRD-01",
+      "title": "",
+      "phrases": [
+        {
+          "id": "W1",
+          "text": "Kita menghormati perbedaan teman."
+        },
+        {
+          "id": "W2",
+          "text": "Kita berhenti jika candaan menyakiti."
+        },
+        {
+          "id": "W3",
+          "text": "Kita mencari bantuan saat ada perundungan."
+        },
+        {
+          "id": "D1",
+          "text": "Kalau semua tertawa, pasti aman."
+        },
+        {
+          "id": "D2",
+          "text": "Masalah orang lain bukan urusan kita."
+        }
+      ],
+      "answer": [
+        "W1",
+        "W2",
+        "W3"
+      ],
+      "hint": "Pilih prinsip yang menjaga martabat, batas candaan, dan jalur bantuan.",
+      "feedback": "Slogan yang menutup mata terhadap perasaan korban tidak menciptakan kelas aman.",
+      "response": "Bu Ratna: “Bagus. Kita jalankan bersama, bukan cuma ditulis di papan.”"
+    },
+    {
+      "id": "L05-WRD-02",
+      "title": "",
+      "phrases": [
+        {
+          "id": "W1",
+          "text": "Mendengar teman adalah langkah pertama."
+        },
+        {
+          "id": "W2",
+          "text": "Bantuan yang aman lebih penting daripada balasan."
+        },
+        {
+          "id": "W3",
+          "text": "Kelas yang nyaman kita bangun bersama."
+        },
+        {
+          "id": "D1",
+          "text": "Satu kali minta maaf pasti menghapus semuanya."
+        },
+        {
+          "id": "D2",
+          "text": "Guru BK hanya untuk siswa bermasalah."
+        }
+      ],
+      "answer": [
+        "W1",
+        "W2",
+        "W3"
+      ],
+      "hint": "Mulai dari mendengar, utamakan keselamatan, tutup dengan tanggung jawab bersama.",
+      "feedback": "Meminta maaf bukan tombol reset, dan guru BK adalah tempat mencari bantuan.",
+      "response": "Bu Ratna: “Itu yang Ibu harapkan dari kelas VIII A. Kita jaga bersama setiap hari.”"
+    }
+  ]
+}

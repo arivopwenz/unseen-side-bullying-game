@@ -22,6 +22,9 @@ namespace BullyingGame.LevelOne
         [Header("Kartu Aksi")]
         [SerializeField] private CanvasGroup actionCardArtwork;
         [SerializeField] private Image actionCardImage;
+        [Header("Dialog")]
+        [SerializeField] private TMP_FontAsset speakerFont;
+        [SerializeField] private TMP_FontAsset dialogueFont;
         CanvasGroup wordCardArtwork, activeCardArtwork;
         Image wordCardImage, activeCardImage;
         Coroutine cardReveal;
@@ -32,6 +35,10 @@ namespace BullyingGame.LevelOne
         int[] failures;
         Action solved, save;
         string puzzleFeedback = "Klik keping berurutan untuk mengisi tiga slot. Klik slot untuk melepas keping.";
+        UnityEngine.AI.NavMeshPath campaignPath;
+        Transform lastDestination;
+        float nextRouteUpdate;
+        Vector3 waypoint;
         void Awake()
         {
             if (actionCardArtwork != null && actionCardImage != null)
@@ -127,21 +134,129 @@ namespace BullyingGame.LevelOne
         }
 
         public void ShowLines(string[] lines, Action finished)
+            => ShowDialogue(lines, finished, false);
+
+        public void ShowCinematicLines(string[] lines, Action finished)
+            => ShowDialogue(lines, finished, true);
+
+        void ShowDialogue(string[] lines, Action finished, bool skippable)
         {
             if (lines == null || lines.Length == 0) { finished?.Invoke(); return; }
+            HideModal();
+            hud.gameObject.SetActive(false);
+            modal = StoryOverlay.Rect(canvas, "Dialog", Vector2.zero, Vector2.zero);
+            modal.anchorMin = Vector2.zero;
+            modal.anchorMax = Vector2.one;
+            modal.sizeDelta = Vector2.zero;
+            var panel = Panel(modal, "Percakapan", Vector2.zero, Vector2.zero);
+            panel.anchorMin = new Vector2(.07f, 0);
+            panel.anchorMax = new Vector2(.93f, 0);
+            panel.pivot = new Vector2(.5f, 0);
+            panel.sizeDelta = new Vector2(0, 230);
+            panel.anchoredPosition = new Vector2(0, 24);
+            var speaker = Text(panel, "Speaker", "", Vector2.zero, Vector2.zero, 31);
+            var body = Text(panel, "Dialogue", "", Vector2.zero, Vector2.zero, 32);
+            StretchDialogueText(speaker, 165, 53);
+            StretchDialogueText(body, 65, 100);
+            speaker.color = new Color32(255, 212, 111, 255);
+            if (speakerFont != null) speaker.font = speakerFont;
+            if (dialogueFont != null) body.font = dialogueFont;
+            body.enableAutoSizing = true;
+            body.fontSizeMin = 22;
+            body.fontSizeMax = 32;
+            body.alignment = TextAlignmentOptions.MidlineLeft;
+            var counter = Text(panel, "Page", "", Vector2.zero, new Vector2(160, 44), 22);
+            counter.rectTransform.anchorMin = counter.rectTransform.anchorMax = Vector2.zero;
+            counter.rectTransform.anchoredPosition = new Vector2(115, 34);
             int index = 0;
-            var panel = Modal("SAATNYA BERTINDAK");
-            var body = Text(panel, "Dialogue", lines[0], new Vector2(0, 20), new Vector2(1090, 510), 32);
-            var counter = Text(panel, "Page", "1 / " + lines.Length, new Vector2(-430, -350), new Vector2(200, 45), 24);
-            Button nextButton = null;
-            nextButton = StoryOverlay.Button(panel, "Lanjut", new Vector2(400, -345), new Vector2(260, 65), () =>
+            void Draw()
             {
-                if (++index >= lines.Length) { nextButton.interactable = false; finished?.Invoke(); return; }
-                body.text = lines[index]; counter.text = (index + 1) + " / " + lines.Length;
+                string line = lines[index] ?? "";
+                int split = line.IndexOf(':');
+                speaker.text = split > 0 && split <= 32 ? line.Substring(0, split) : "";
+                body.text = speaker.text.Length > 0 ? line.Substring(split + 1).TrimStart() : line;
+                counter.text = (index + 1) + " / " + lines.Length;
+            }
+            bool done = false;
+            void Finish()
+            {
+                if (done) return;
+                done = true;
+                finished?.Invoke();
+            }
+            Draw();
+            var nextButton = StoryOverlay.Button(panel, "Lanjut", Vector2.zero, new Vector2(180, 50), () =>
+            {
+                if (done) return;
+                if (++index == lines.Length) Finish();
+                else Draw();
             });
+            AnchorDialogueButton(nextButton, -122);
+            if (skippable)
+                AnchorDialogueButton(StoryOverlay.Button(panel, "Lewati adegan", Vector2.zero,
+                    new Vector2(215, 50), Finish), -335);
             Select(nextButton);
         }
+        static void StretchDialogueText(TMP_Text text, float bottom, float height)
+        {
+            var rect = text.rectTransform;
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.right;
+            rect.offsetMin = new Vector2(36, bottom);
+            rect.offsetMax = new Vector2(-36, bottom + height);
+        }
+        static void AnchorDialogueButton(Button button, float offset)
+        {
+            var rect = (RectTransform)button.transform;
+            rect.anchorMin = rect.anchorMax = Vector2.right;
+            rect.anchoredPosition = new Vector2(offset, 34);
+        }
         public void SetGameplayVisible(bool visible) => hud.gameObject.SetActive(visible);
+        public void RefreshCampaign(string questTitle, string currentObjective, string interaction, string controls, bool modalOpen,
+            Transform player = null, Transform destination = null)
+        {
+            hud.gameObject.SetActive(!modalOpen);
+            actionPanel.gameObject.SetActive(false);
+            trackerPanel.gameObject.SetActive(true);
+            bool guide = destination != null && player != null && string.IsNullOrEmpty(interaction);
+            navigation.gameObject.SetActive(guide);
+            if (guide)
+            {
+                if (lastDestination != destination || Time.unscaledTime >= nextRouteUpdate)
+                {
+                    campaignPath ??= new UnityEngine.AI.NavMeshPath();
+                    waypoint = MissionNavigationHint.NextWaypoint(player.position, destination.position, campaignPath);
+                    lastDestination = destination;
+                    nextRouteUpdate = Time.unscaledTime + .3f;
+                }
+                var camera = UnityEngine.Camera.main;
+                var facing = camera != null ? camera.transform.forward : player.forward;
+                float angle = Vector3.SignedAngle(Vector3.ProjectOnPlane(facing, Vector3.up),
+                    Vector3.ProjectOnPlane(waypoint - player.position, Vector3.up), Vector3.up);
+                string arrow = Mathf.Abs(angle) > 145 ? "↓" : angle < -35 ? "←" : angle > 35 ? "→" : "↑";
+                navigation.text = arrow + "   " + Mathf.RoundToInt(Vector3.Distance(player.position, destination.position)) + " m";
+            }
+            title.text = questTitle;
+            objective.text = currentObjective;
+            prompt.text = interaction;
+            promptBackdrop.gameObject.SetActive(!string.IsNullOrEmpty(interaction));
+            saveText.text = controls;
+        }
+
+        public void ShowOptions(string heading, string body, string[] options, Action<int> picked, Action back = null)
+        {
+            var panel = Modal(heading);
+            cancelModal = back;
+            Text(panel, "Task", body, new Vector2(0, 160), new Vector2(1090, 280), 28);
+            float height = Mathf.Min(74, 290f / Mathf.Max(1, options.Length));
+            for (int i = 0; i < options.Length; i++)
+            {
+                int index = i;
+                var button = StoryOverlay.Button(panel, options[i], new Vector2(0, -35 - i * (height + 9)),
+                    new Vector2(1080, height), () => picked(index));
+                if (i == 0) Select(button);
+            }
+        }
         public void ShowActionCard(string objectiveText, Action finished)
         {
             ShowCardArtwork(actionCardArtwork, actionCardImage, () => ShowCard("Kartu Aksi", objectiveText, finished));

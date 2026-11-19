@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a68f15f2a5d210458b8439de32da6c3, type: 3}
+  m_Name: L05-WRD-01
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.LevelOne.WordCardData
+  puzzleId: L05-WRD-01
+  title: 
+  context: 
+  hint: Pilih prinsip yang menjaga martabat, batas candaan, dan jalur bantuan.
+  feedback: Slogan yang menutup mata terhadap perasaan korban tidak menciptakan kelas aman.
+  response: "Bu Ratna: \u201CBagus. Kita jalankan bersama, bukan cuma ditulis di papan.\u201D"
+  phrases:
+  - id: W1
+    text: Kita menghormati perbedaan teman.
+  - id: W2
+    text: Kita berhenti jika candaan menyakiti.
+  - id: W3
+    text: Kita mencari bantuan saat ada perundungan.
+  - id: D1
+    text: Kalau semua tertawa, pasti aman.
+  - id: D2
+    text: Masalah orang lain bukan urusan kita.
+  answer:
+  - W1
+  - W2
+  - W3

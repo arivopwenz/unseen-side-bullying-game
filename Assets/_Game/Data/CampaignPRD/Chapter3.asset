@@ -1,0 +1,324 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0cc9df40ae9c2d4b995f7ae7c589932, type: 3}
+  m_Name: Chapter3
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Campaign.CampaignChapterData
+  chapter: 3
+  title: "Chapter 3 \u2022 Di Balik Layar"
+  reflection: Identitas dan hobi seseorang bukan alasan untuk mengejek. Dukungan yang baik menghargai pilihan, menjaga privasi, dan membantu mencari perlindungan.
+  nextScene: Level04
+  spawn: {x: 29.4, y: 0.13410038, z: 22.401014}
+  steps:
+  - id: L03-Q01
+    title: Cari tahu kenapa Sikka tidak ikut klub
+    objective: Temui Sikka dan tanyakan apakah ia ingin dibantu
+    actor: Sikka
+    pointId: L03-Q01
+    insight: Aku bertanya dulu apakah Sikka ingin ditemani.
+    scenePath: 
+    lines:
+    - 'Aji: Sik, itu sketsa kostum baru? Detailnya keren.'
+    - 'Sikka: Iya, aku lagi nyoba bikin bagian lengannya sendiri.'
+    - 'Laura: Harus lihat hasil jahitannya. Rapih banget!'
+    - 'Aji: Kamu ikut pameran kelas, nggak?'
+    - 'Sikka: Belum tahu, Ji. Aku jadi mikir dua kali.'
+    - 'Aji: Kalau kamu pengin cerita, kita bisa cari tempat yang lebih tenang.'
+    - 'Sikka: Boleh. Di perpustakaan aja, ya.'
+    - 'Laura: Aku ikut kalau Sikka nyaman.'
+    - 'Sikka: Boleh, Laur. Makasih.'
+    afterLines: []
+    kind: 0
+    words: {fileID: 0}
+    questions:
+    - id: 
+      text: Sikka ingin bicara di tempat tenang.
+      feedback: Periksa informasi dan pilih bantuan yang aman.
+      options:
+      - Temani ke sudut baca dengan izin Sikka.
+      - Tanya keras-keras di depan kelas.
+      answer: 0
+    order: []
+    position: {x: 29.4, y: 0.13410038, z: 22.401014}
+    quest: {fileID: 11400000, guid: e87049962695be74185ade5234e8a8af, type: 2}
+    choiceKey: 
+    actionCard: 0
+  - id: L03-Q02
+    title: Dengarkan pengalaman Sikka
+    objective: Dengarkan Sikka tanpa menyela
+    actor: Sikka
+    pointId: L03-Q02
+    insight: Sikka bercerita tentang komentar yang membuatnya menjauh dari klub.
+    scenePath: 
+    lines:
+    - 'Sikka: Aku suka bikin kostum karena aku bisa menuang ide dari gambar ke sesuatu yang nyata.'
+    - 'Aji: Kedengarannya seru. Kenapa kamu jadi ragu ikut acara?'
+    - 'Sikka: Ada yang terus ngeledek penampilanku, asal keluargaku, dan hobiku. Bahkan dibawa ke grup kelas.'
+    - 'Aji: Itu pasti bikin nggak nyaman. Kamu nggak perlu nunjukin semua kalau nggak mau.'
+    - 'Sikka: Ada beberapa pesan yang mau aku simpan sebagai bukti. Boleh kamu bantu pilih?'
+    - 'Aji: Boleh. Kita simpan buat Bu Ratna atau Pak Damar, bukan buat disebar.'
+    - 'Sikka: Makasih. Aku juga masih mau nyelesaiin kostum ini.'
+    - 'Laura: Kalau kamu mau, aku bantu cari alat jahit.'
+    - 'Sikka: Boleh, tapi bagian desainnya biar aku yang putusin.'
+    afterLines: []
+    kind: 0
+    words: {fileID: 0}
+    questions:
+    - id: 
+      text: Sikka mengizinkan beberapa pesan ditinjau.
+      feedback: Periksa informasi dan pilih bantuan yang aman.
+      options:
+      - Lihat pesan yang ia pilih dan jaga privasinya.
+      - Buka semua chat teman-temannya.
+      answer: 0
+    order: []
+    position: {x: 26.731028, y: 0.4103834, z: -25.73103}
+    quest: {fileID: 11400000, guid: 7ba9c26558bbe4d47b911f5b272bcb14, type: 2}
+    choiceKey: 
+    actionCard: 0
+  - id: L03-Q03
+    title: 'Tugas Aksi: pilah komentar dan pilihan respons'
+    objective: Bedakan komentar aman, merendahkan, dan bukti yang perlu dijaga
+    actor: Sikka
+    pointId: L03-Q03
+    insight: "EV-S01 \u2022 Ringkasan Sikka dan bukti yang diizinkan disimpan privat untuk guru. Screenshot tidak disebar."
+    scenePath: 
+    lines: []
+    afterLines: []
+    kind: 2
+    words: {fileID: 0}
+    questions:
+    - id: 
+      text: Jahitan bagian topinya rapi.
+      feedback: Memberi apresiasi terhadap karya.
+      options:
+      - DUKUNGAN
+      - MENGHINA
+      - PRIVASI/LAPOR
+      answer: 0
+    - id: 
+      text: Aku beda pendapat soal warna. Boleh kasih masukan?
+      feedback: Kritik sopan, meminta izin.
+      options:
+      - DUKUNGAN
+      - MENGHINA
+      - PRIVASI/LAPOR
+      answer: 0
+    - id: 
+      text: Ngapain tampil beda terus? Mending jangan ikut acara.
+      feedback: Merendahkan dan mengucilkan.
+      options:
+      - DUKUNGAN
+      - MENGHINA
+      - PRIVASI/LAPOR
+      answer: 1
+    - id: 
+      text: Karya Sikka nggak pantas dilihat karena dia beda.
+      feedback: Menyerang identitas, bukan karya.
+      options:
+      - DUKUNGAN
+      - MENGHINA
+      - PRIVASI/LAPOR
+      answer: 1
+    - id: 
+      text: Foto teman dibagikan tanpa izin.
+      feedback: Pelanggaran persetujuan, perlu ditangani.
+      options:
+      - DUKUNGAN
+      - MENGHINA
+      - PRIVASI/LAPOR
+      answer: 2
+    - id: 
+      text: Berkali-kali mengirim ejekan di grup kelas.
+      feedback: Pola berulang; dokumentasi terbatas dan bantuan sekolah.
+      options:
+      - DUKUNGAN
+      - MENGHINA
+      - PRIVASI/LAPOR
+      answer: 2
+    order: []
+    position: {x: 26.731028, y: 0.4103834, z: -25.73103}
+    quest: {fileID: 11400000, guid: 6214ab0af0b4ce94d82018c6e64de733, type: 2}
+    choiceKey: 
+    actionCard: 1
+  - id: L03-Q04-bahan-pola
+    title: Ambil pola kain
+    objective: Temui Laura dan ambil pola untuk meja studio Sikka.
+    actor: Laura
+    pointId: L03-Q04-bahan-pola
+    insight: Pola kain sudah tersedia di studio.
+    scenePath: 
+    lines:
+    - 'Laura: Ini pola yang diminta Sikka. Kita siapkan di mejanya.'
+    afterLines: []
+    kind: 9
+    words: {fileID: 0}
+    questions: []
+    order: []
+    position: {x: 37, y: 0.111950815, z: -24}
+    quest: {fileID: 11400000, guid: b2eb6019291d00b4081e76c6b0524ee0, type: 2}
+    choiceKey: 
+    actionCard: 1
+  - id: L03-Q04-bahan-pita
+    title: Ambil pita
+    objective: Cari pita yang cocok dengan pola Sikka.
+    actor: Laura
+    pointId: L03-Q04-bahan-pita
+    insight: Pita sudah siap untuk dipasang sesudah pola.
+    scenePath: 
+    lines:
+    - 'Laura: Ini pita yang diminta Sikka. Kita siapkan di mejanya.'
+    afterLines: []
+    kind: 9
+    words: {fileID: 0}
+    questions: []
+    order: []
+    position: {x: 42.4, y: 0.13410038, z: -26}
+    quest: {fileID: 11400000, guid: f16c05a55f98bde4381049e06840bce4, type: 2}
+    choiceKey: 
+    actionCard: 1
+  - id: L03-Q04-bahan-aksesori
+    title: Ambil aksesori
+    objective: Ambil aksesori terakhir untuk melengkapi kostum.
+    actor: Laura
+    pointId: L03-Q04-bahan-aksesori
+    insight: Aksesori sudah siap untuk sentuhan terakhir.
+    scenePath: 
+    lines:
+    - 'Laura: Ini aksesori yang diminta Sikka. Kita siapkan di mejanya.'
+    afterLines: []
+    kind: 9
+    words: {fileID: 0}
+    questions: []
+    order: []
+    position: {x: 34, y: 0.050767127, z: -26}
+    quest: {fileID: 11400000, guid: f6ede49ebe5ebad44a0e85e313d95523, type: 2}
+    choiceKey: 
+    actionCard: 1
+  - id: L03-Q04
+    title: 'Tugas Aksi: Studio Sikka'
+    objective: Bantu menyiapkan karya sesuai petunjuk Sikka
+    actor: Sikka
+    pointId: L03-Q04
+    insight: Kami menyiapkan pola, memasang pita, lalu menambahkan aksesori.
+    scenePath: 
+    lines: []
+    afterLines:
+    - 'Sikka: Nah, kalau pita ini dipasang setelah pola, bentuknya nggak gampang miring.'
+    - 'Aji: Oalah, jadi urutannya penting.'
+    - 'Laura: Semuanya kelihatan rapi. Mau kita bantu pajang?'
+    - 'Sikka: Aku mau pikir dulu. Sekarang cukup disimpan dengan aman.'
+    - 'Aji: Oke, itu keputusanmu.'
+    - 'Sikka: Makasih. Aku jadi ingat kenapa awalnya suka bikin kostum.'
+    - 'Nando: Kalau butuh dudukan untuk pajang, aku bisa buat. Kalau belum, juga nggak apa-apa.'
+    kind: 1
+    words: {fileID: 0}
+    questions: []
+    order:
+    - Pola kain
+    - Jahit/pasang pita
+    - Aksesori tangan
+    position: {x: 37, y: 0.111950815, z: -24}
+    quest: {fileID: 11400000, guid: 17d68de42c318b3448889a420a1741ac, type: 2}
+    choiceKey: 
+    actionCard: 1
+  - id: L03-Q04-choice
+    title: Dengarkan pilihan Sikka
+    objective: Tanyakan kepada Sikka siapa yang boleh melihat karyanya.
+    actor: Sikka
+    pointId: L03-Q04-choice
+    insight: Aku menanyakan kepada Sikka siapa yang boleh melihat karyanya.
+    scenePath: 
+    lines: []
+    afterLines: []
+    kind: 3
+    words: {fileID: 0}
+    questions:
+    - id: 
+      text: Sikka menentukan pilihan karya. Semua pilihan dihormati.
+      feedback: Periksa informasi dan pilih bantuan yang aman.
+      options:
+      - "PRIVATE \u2014 Simpan pribadi"
+      - "LIMITED \u2014 Tunjukkan ke teman yang dipilih"
+      - "SHOW \u2014 Pajang dengan izin Sikka"
+      answer: 0
+    order: []
+    position: {x: 37, y: 0.111950815, z: -24}
+    quest: {fileID: 11400000, guid: 2a21b0cf08da8f640a7133d731104a6f, type: 2}
+    choiceKey: exhibit
+    actionCard: 0
+  - id: L03-Q05
+    title: 'Tugas Susun Kata: dukungan identitas dan hobi'
+    objective: Susun kalimat yang menghargai Sikka
+    actor: Sikka
+    pointId: L03-Q05
+    insight: Sikka boleh terus berkarya dengan caranya sendiri.
+    scenePath: 
+    lines: []
+    afterLines: []
+    kind: 0
+    words: {fileID: 11400000, guid: 904f97f9f0b5115449cacc95f687049c, type: 2}
+    questions: []
+    order: []
+    position: {x: 37, y: 0.111950815, z: -24}
+    quest: {fileID: 11400000, guid: 286dad46c4f9c7f44a7862d38a8c91bd, type: 2}
+    choiceKey: 
+    actionCard: 0
+  - id: L03-Q06-format
+    title: Pilih cara menyampaikan laporan
+    objective: Bantu Sikka memilih cara bicara dengan Bu Ratna.
+    actor: Bu Ratna
+    pointId: L03-Q06-format
+    insight: Kami membicarakan cara meminta bantuan yang terasa nyaman untuk Sikka.
+    scenePath: 
+    lines: []
+    afterLines: []
+    kind: 3
+    words: {fileID: 0}
+    questions:
+    - id: 
+      text: Cara pendampingan yang Sikka pilih
+      feedback: Periksa informasi dan pilih bantuan yang aman.
+      options:
+      - Bicara langsung dengan guru secara privat
+      - Pesan ringkas lewat wali kelas
+      - Pendampingan tanpa pertemuan hari ini
+      answer: 0
+    order: []
+    position: {x: 48.4, y: 0.13410038, z: 2.9999998}
+    quest: {fileID: 11400000, guid: d5eeeb2ca082d9e46a0139bb5b0c6484, type: 2}
+    choiceKey: report
+    actionCard: 0
+  - id: L03-Q06
+    title: Laporan privat dan solidaritas
+    objective: Bantu Sikka memilih cara melapor
+    actor: Bu Ratna
+    pointId: L03-Q06
+    insight: Bu Ratna menerima informasi yang diizinkan Sikka untuk disampaikan.
+    scenePath: 
+    lines: []
+    afterLines:
+    - 'Bu Ratna: Sikka, terima kasih mau menyampaikan. Kamu boleh cerita sesuai yang kamu nyaman.'
+    - 'Sikka: Saya diejek soal asal dan penampilan, Bu. Ada juga komentar tentang kostum saya di grup.'
+    - 'Bu Ratna: Itu tidak bisa dibenarkan. Ibu akan bantu menjaga keamananmu dan koordinasi dengan BK.'
+    - 'Aji: Kami menyimpan beberapa pesan yang Sikka izinkan untuk ditinjau, Bu.'
+    - 'Bu Ratna: Bagus, jangan disebarkan ke siswa lain. Bukti ini cukup disampaikan lewat jalur yang aman.'
+    - 'Fatimah: Kami juga akan berhenti diam kalau ada komentar begitu lagi.'
+    - 'Sikka: Saya pengin tetap bikin karya, Bu. Tapi saya ingin pelan-pelan dulu.'
+    - 'Bu Ratna: Tentu. Kamu yang tentukan kesiapannya, dan sekolah akan melindungimu.'
+    kind: 0
+    words: {fileID: 0}
+    questions: []
+    order: []
+    position: {x: 48.4, y: 0.13410038, z: 2.9999998}
+    quest: {fileID: 11400000, guid: 2603994689651094ba6662fe955652d2, type: 2}
+    choiceKey: 
+    actionCard: 0

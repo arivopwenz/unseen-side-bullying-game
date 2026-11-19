@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a68f15f2a5d210458b8439de32da6c3, type: 3}
+  m_Name: L02-WRD-01
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.LevelOne.WordCardData
+  puzzleId: L02-WRD-01
+  title: 
+  context: 
+  hint: Validasi perasaan dulu, tawarkan pendampingan, lalu hormati batas informasi.
+  feedback: Jangan memaksa korban membalas atau menekan korban untuk segera melupakan pengalaman buruk.
+  response: "Radit: \u201CAku mau. Kita ke Bu Lilis bareng, ya.\u201D"
+  phrases:
+  - id: W1
+    text: Kamu berhak memakai kacamatamu dengan tenang.
+  - id: W2
+    text: Aku bisa nemenin kamu cari bantuan.
+  - id: W3
+    text: Kita cerita sesuai yang kamu nyaman bagikan.
+  - id: D1
+    text: Kamu harus berani balas sekarang.
+  - id: D2
+    text: Udah, lupakan aja semuanya.
+  answer:
+  - W1
+  - W2
+  - W3

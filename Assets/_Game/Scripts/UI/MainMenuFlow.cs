@@ -6,6 +6,7 @@ using TMPro;
 using BullyingGame.Core;
 using BullyingGame.Save;
 using BullyingGame.LevelOne;
+using BullyingGame.Campaign;
 
 namespace BullyingGame.UI
 {
@@ -62,11 +63,12 @@ namespace BullyingGame.UI
                     if (statusText != null) statusText.text = SaveManager.Instance.LastError;
                     return;
                 }
-                if (LevelOneCheckpoint.ResetDayTwo()) StartCoroutine(LoadLevel(startPrologue: true));
+                if (LevelOneCheckpoint.ResetDayTwo() && CampaignCheckpoint.Reset()) StartCoroutine(LoadLevel(startPrologue: true));
                 else if (statusText != null) statusText.text = "Progres Level 01 gagal direset. Coba lagi.";
             });
         }
-        private bool CanContinue => SaveManager.Instance.HasSave || LevelOneCheckpoint.HasDayTwoProgress;
+        private bool CanContinue => SaveManager.Instance.HasSave || LevelOneCheckpoint.HasDayTwoProgress ||
+            CampaignCheckpoint.Load().unlockedChapter > 1;
 
         public void ContinueGame()
         {
@@ -85,6 +87,9 @@ namespace BullyingGame.UI
             int index = Mathf.Clamp(save.CurrentData.currentChapter - 1, 0, chapters.Length - 1);
             bool opening = startPrologue || save.HasStoryFlag(Prologue.PrologueCinematics.InProgressFlag);
             string scene = opening ? "Tutorial" : chapters[index].SceneName;
+            var finalCampaign = CampaignCheckpoint.Load();
+            if (!opening && finalCampaign.unlockedChapter > 1)
+                scene = "Level" + finalCampaign.activeChapter.ToString("00");
             if (startPrologue && ChapterSceneFlow.CanLoad(scene))
             {
                 save.SetStoryFlag(Prologue.PrologueCinematics.InProgressFlag);
