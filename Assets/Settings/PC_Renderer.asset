@@ -70,11 +70,11 @@ MonoBehaviour:
   m_Active: 1
   m_Settings:
     AOMethod: 0
-    Downsample: 0
+    Downsample: 1
     AfterOpaque: 0
     Source: 1
     NormalSamples: 1
-    Intensity: 0.65
+    Intensity: 0.09
     DirectLightingStrength: 0.3
     Radius: 0.45
     Samples: 1
