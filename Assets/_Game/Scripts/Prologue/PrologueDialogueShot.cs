@@ -23,9 +23,23 @@ namespace BullyingGame.Prologue
         private bool presenting;
         private Quaternion npcRotation, playerRotation;
 
+        internal void EnterLevelShot(Transform participant, CinemachineCamera camera)
+        {
+            player = participant;
+            dialogueCamera = camera;
+            var main = UnityEngine.Camera.main;
+            var axis = Vector3.ProjectOnPlane(transform.position - player.position, Vector3.up);
+            if (main != null && axis.sqrMagnitude > .01f)
+            {
+                var side = Vector3.Cross(Vector3.up, axis);
+                angle = Vector3.Dot(main.transform.position - (player.position + transform.position) * .5f, side) > 0 ? -83f : 83f;
+            }
+            Enter();
+        }
+
         internal void Enter()
         {
-            if (dialogueCamera == null || gameplay == null || player == null || presenting) return;
+            if (dialogueCamera == null || player == null || presenting) return;
             presenting = true;
             npcRotation = transform.rotation;
             playerRotation = player.rotation;
@@ -40,7 +54,8 @@ namespace BullyingGame.Prologue
             }
             if (autoFrame) Frame(heading);
             dialogueCamera.PreviousStateIsValid = false;
-            gameplay.BeginDialogue(dialogueCamera);
+            if (gameplay != null) gameplay.BeginDialogue(dialogueCamera);
+            else dialogueCamera.Priority = 1000;
         }
 
         internal void Exit()
@@ -48,6 +63,7 @@ namespace BullyingGame.Prologue
             if (!presenting) return;
             presenting = false;
             if (gameplay != null) gameplay.EndDialogue(dialogueCamera);
+            else if (dialogueCamera != null) dialogueCamera.Priority = -1000;
             if (faceEachOther)
             {
                 transform.rotation = npcRotation;
@@ -75,7 +91,7 @@ namespace BullyingGame.Prologue
                 Vector3 candidate = centre + desired.normalized * Mathf.Max(.5f, clearance);
                 float score = Visible(candidate, player.position + Vector3.up * 1.5f) +
                     Visible(candidate, transform.position + Vector3.up * 1.5f);
-                score = score * 100f + clearance - i * .12f;
+                score = score * 100f + clearance - i * .12f - Mathf.Abs(Vector3.Dot(direction, heading)) * 2f;
                 if (score <= bestScore) continue;
                 bestScore = score;
                 best = candidate;

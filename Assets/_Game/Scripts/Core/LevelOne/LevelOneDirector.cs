@@ -45,6 +45,7 @@ namespace BullyingGame.LevelOne
         public bool Searching => Step != null && Step.search;
         public bool IsModal { get; private set; }
         public LevelOnePoint Nearest { get; private set; }
+        public LevelOneDayTwoFlow DayTwoFlow => dayTwo;
         public LevelOnePoint Target => Complete ? null : Searching ? points.FirstOrDefault(p => p != null && p.Id == (!Progress.bottleTaken ? "P3" : "P5")) : points.FirstOrDefault(p => p != null && p.Id == Step.nodeId);
         public int HeldCount => Progress == null || Progress.returned ? 0 : (Progress.bottleTaken ? 1 : 0) + (Progress.lunchTaken ? 1 : 0);
         public bool SaveFailed { get; private set; }
@@ -100,6 +101,18 @@ namespace BullyingGame.LevelOne
             RefreshPrompts();
             LevelOneCheckpoint.UseDayTwo = IsDayTwo;
             Progress = LevelOneCheckpoint.Load(content.Steps.Length);
+            if (IsDayTwo && !Progress.gardenRoute)
+            {
+                if (Progress.step >= 3 && Progress.step <= 5)
+                {
+                    Progress.step = 3;
+                    Progress.bottleTaken = Progress.bottleFound = Progress.lunchTaken = Progress.returned = false;
+                }
+                if (Progress.returned) Progress.lunchTaken = true;
+                Progress.gardenRoute = true;
+            }
+            if (IsDayTwo && Progress.returned && Step?.action == LevelOneAction.Return &&
+                ChapterSceneFlow.Load("CH1_QuestAksiDone")) return;
             if (Progress.externalCompleted == null) Progress.externalCompleted = new string[0];
             QuestManager.Instance.RestoreProgress(Progress.quests, content.Quests);
             EnsureQuest();
@@ -143,7 +156,8 @@ namespace BullyingGame.LevelOne
             if (cardThree.WasPressedThisFrame() && cards.Count > 2) selectedCard = 2;
             if (input.Movement.Interact.WasPressedThisFrame())
             {
-                if (door != null) door.Interact(player);
+                if (dayTwo != null && dayTwo.CanAsk) dayTwo.AskStudent();
+                else if (door != null) door.Interact(player);
                 else if (Nearest != null)
                 {
                     var selected = cards.Count > 0 ? cards[selectedCard] : ActionFor(Nearest);
@@ -161,7 +175,7 @@ namespace BullyingGame.LevelOne
         {
             if (Searching)
             {
-                if (IsDayTwo) return Progress.bottleFound ? LevelOneAction.Take : LevelOneAction.Inspect;
+                if (IsDayTwo) return LevelOneAction.Take;
                 if (point.Id == "Staff") return LevelOneAction.Ask;
                 if (point.Id == "P3" && Progress.bottleFound && !Progress.bottleTaken || point.Id == "P5" && Progress.lunchFound && !Progress.lunchTaken) return LevelOneAction.Take;
                 return LevelOneAction.Inspect;
@@ -171,7 +185,7 @@ namespace BullyingGame.LevelOne
         public bool IsRelevant(LevelOnePoint point)
         {
             if (!Ready || Complete) return false;
-            if (Searching && IsDayTwo) return point.Id == "P3" && !Progress.bottleTaken;
+            if (Searching && IsDayTwo) return point.Id == (Progress.bottleTaken ? "P5" : "P3");
             if (Searching) return point.Id == "Staff" && !Progress.permission || point.Id.StartsWith("P") && point.Id.Length == 2 &&
                 !(point.Id == "P3" && Progress.bottleTaken) && !(point.Id == "P5" && Progress.lunchTaken);
             return point.Id == Step.nodeId;
@@ -200,9 +214,18 @@ namespace BullyingGame.LevelOne
             if (!CanUse(point) || !IsReachable(point)) return;
             if (IsDayTwo && Step.id == "incident") { dayTwo.StartIncident(); return; }
             if (Searching) { Search(point); return; }
-            if (Step.action == LevelOneAction.Return && (!Progress.bottleTaken || !IsDayTwo && !Progress.lunchTaken))
+            if (Step.action == LevelOneAction.Return && (!Progress.bottleTaken || !Progress.lunchTaken))
             {
                 if (IsDayTwo) Present(new[] { "Cari botol Bima terlebih dahulu." });
+                return;
+            }
+            if (IsDayTwo && Step.action == LevelOneAction.Return)
+            {
+                Progress.returned = true;
+                Save();
+                if (!SaveFailed && ChapterSceneFlow.Load("CH1_QuestAksiDone")) return;
+                Progress.returned = false;
+                Present(new[] { "Adegan penutup belum bisa dibuka. Coba serahkan barang sekali lagi." });
                 return;
             }
             if (IsDayTwo && Step.puzzle != null)
@@ -212,12 +235,16 @@ namespace BullyingGame.LevelOne
             }
             var current = Step;
             SetModal(GameState.Dialogue);
-            Action show = () => view.ShowLines(current.lines, () =>
+            Action show = () =>
+            {
+                dayTwo?.BeginStoryShot();
+                view.ShowLines(current.lines, () =>
             {
                 if (current.puzzle != null) view.ShowPuzzle(current.puzzle, Progress.puzzleFailures, () => Resolve(current), Save);
                 else if ((StepIndex == 2 || StepIndex == 6) && staging != null) staging.Depart(() => Resolve(current));
                 else Resolve(current);
-            });
+                });
+            };
             if (IsDayTwo && current.action == LevelOneAction.Return && bottleGrab != null)
             {
                 view.SetGameplayVisible(false);
@@ -248,14 +275,9 @@ namespace BullyingGame.LevelOne
         {
             var current = Step;
             SetModal(GameState.Dialogue);
+            dayTwo.BeginStoryShot();
             void Open() => view.ShowDayTwoPuzzle(current.puzzle, Progress, () => Resolve(current), CloseModal, Save);
-            if (Progress.wordCardShown) Open();
-            else view.ShowCard("Kartu Kata", current.objective, () =>
-            {
-                Progress.wordCardShown = true;
-                Save();
-                Open();
-            });
+            view.ShowLines(new[] { "Aji: Met, Rak, tolong kembalikan bekal dan botol Bima.", "Raka: Ah, cuma bercanda, Ji.", "Memet: Memangnya kenapa? Bima sendiri diam saja." }, Open);
         }
         public void BeginIncident()
         {
@@ -287,6 +309,32 @@ namespace BullyingGame.LevelOne
                 CloseModal();
             });
         }
+        internal void CorridorExchange(string question, string answer, System.Action answering, System.Action finished)
+        {
+            SetModal(GameState.Dialogue);
+            view.ShowLines(new[] { "Aji: " + question }, () =>
+            {
+                answering();
+                view.ShowLines(new[] { answer }, () => { finished(); CloseModal(); });
+            });
+        }
+
+        internal LevelOnePoint Point(string id) => points.First(p => p.Id == id);
+
+        internal void Caught()
+        {
+            Progress.step = Array.FindIndex(content.Steps, step => step.id == "bottle");
+            Progress.bottleTaken = Progress.bottleFound = Progress.lunchTaken = false;
+            var controller = player.GetComponent<CharacterController>();
+            controller.enabled = false;
+            player.transform.position = Point("SafeWords").transform.position + Vector3.right * 2;
+            controller.enabled = true;
+            dayTwo.ResetSearch();
+            EnsureQuest();
+            Save();
+            Present(new[] { "Memet menyusul Aji. Coba lagi dari pohon untuk mengambil botol Bima." });
+        }
+
         void Present(string[] lines)
         {
             SetModal(GameState.Dialogue);
@@ -326,26 +374,22 @@ namespace BullyingGame.LevelOne
             if (IsDayTwo)
             {
                 SetModal(GameState.Dialogue);
-                if (Progress.bottleFound)
+                if (Progress.bottleTaken)
                 {
-                    var current = Step;
-                    void FinishPickup()
-                    {
-                        Progress.bottleTaken = true;
-                        Resolve(current);
-                    }
-                    if (bottleGrab == null) FinishPickup();
-                    else
-                    {
-                        view.SetGameplayVisible(false);
-                        bottleGrab.PickUp(FinishPickup);
-                    }
+                    Progress.lunchTaken = true;
+                    dayTwo.TakeLunch();
+                    Resolve(Step);
                 }
                 else
                 {
-                    Progress.bottleFound = true;
-                    Save();
-                    view.ShowLines(new[] { "Ini botol Bima. Gunakan tombol interaksi lagi untuk mengambilnya." }, CloseModal);
+                    void PickedUp()
+                    {
+                        Progress.bottleFound = Progress.bottleTaken = true;
+                        Save();
+                        StartCoroutine(dayTwo.ChaseIntro(view, CloseModal));
+                    }
+                    if (bottleGrab != null) bottleGrab.PickUp(PickedUp);
+                    else PickedUp();
                 }
                 return;
             }
@@ -388,7 +432,8 @@ namespace BullyingGame.LevelOne
         }
         public string QuestTitle => Complete ? "Level 1 selesai" : content.Quests[Step.questIndex].questTitle;
         public string Objective => Complete ? "Pelajaran tersimpan. TAB membuka jurnal." :
-            IsDayTwo && Step.id == "incident" && Progress.bimaPackedLunch ? "Ikuti Bima menuju kantin." :
+            IsDayTwo && Step.id == "incident" && Progress.bimaPackedLunch ? dayTwo.CanteenObjective :
+            IsDayTwo && Searching && Progress.bottleTaken ? "Hindari Memet! Ambil bekal di meja kelas 8B." :
             Step.objective + (Searching && !IsDayTwo ? " (" + HeldCount + "/2)" : "");
         public bool HintActive => Searching && Time.unscaledTime - lastProgress > 90;
         public string JournalText => IsDayTwo
@@ -420,6 +465,7 @@ namespace BullyingGame.LevelOne
         }
         void CloseModal()
         {
+            dayTwo?.EndShot();
             view.HideModal(); IsModal = false; dismissedFrame = Time.frameCount;
             GameStateManager.Instance.SetState(GameState.Playing);
             if (controlStates != null) for (int i = 0; i < modalControls.Length; i++) if (modalControls[i] != null) modalControls[i].enabled = controlStates[i];
@@ -442,6 +488,7 @@ namespace BullyingGame.LevelOne
         }
         void OnDisable()
         {
+            dayTwo?.EndShot();
             if (promptDevice != null)
             {
                 promptDevice.Changed -= RefreshPrompts;

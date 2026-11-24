@@ -80,8 +80,10 @@ namespace BullyingGame.LevelOne
             title.text = director.QuestTitle; objective.text = director.Objective;
             trackerPanel.gameObject.SetActive(!useExistingHUD);
             navigation.gameObject.SetActive(!useExistingHUD);
-            prompt.text = director.Nearest == null ? "" : FormatControl(director.InteractPrompt, director.Nearest.GetPromptText());
-            promptBackdrop.gameObject.SetActive(director.Nearest != null);
+            var flow = director.DayTwoFlow;
+            bool canAsk = flow != null && flow.CanAsk;
+            prompt.text = canAsk ? FormatControl(director.InteractPrompt, "Tanya " + flow.StudentName) : director.Nearest == null ? "" : FormatControl(director.InteractPrompt, director.Nearest.GetPromptText());
+            promptBackdrop.gameObject.SetActive(canAsk || director.Nearest != null);
             cardText.text = cards.Length == 0 ? "Dekati penanda tujuan untuk melihat aksi." : string.Join("    ", cards.Select((s, i) => (i == active ? "<color=#FFD46B>" : "<color=#C2D6DF>") + (i + 1) + "  " + s + "</color>"));
             saveText.text = director.SaveFailed ? "Simpan gagal. Coba simpan lagi dari menu jeda." :
                 FormatControl(director.JournalPrompt, "Jurnal") + "     " + FormatControl(director.PausePrompt, "Jeda");
@@ -89,11 +91,13 @@ namespace BullyingGame.LevelOne
             if (target == null) navigation.text = "";
             else
             {
-                float distance = Vector3.Distance(director.Player.transform.position, target.transform.position);
-                Vector3 delta = target.transform.position - director.Player.transform.position;
+                var destination = flow != null && flow.InterviewStudent != null ? flow.InterviewStudent.transform : target.transform;
+                string label = destination == target.transform ? target.Label : flow.StudentName;
+                float distance = Vector3.Distance(director.Player.transform.position, destination.position);
+                Vector3 delta = destination.position - director.Player.transform.position;
                 var camera = UnityEngine.Camera.main;
                 float angle = camera != null ? Vector3.SignedAngle(Vector3.ProjectOnPlane(camera.transform.forward, Vector3.up), Vector3.ProjectOnPlane(delta, Vector3.up), Vector3.up) : 0;
-                navigation.text = (angle < -30 ? "← " : angle > 30 ? "→ " : "↑ ") + target.Label + "  •  " + Mathf.RoundToInt(distance) + " m" + (director.HintActive && !director.IsDayTwo ? "\nPetunjuk: rak troli (P3) dan bangku pojok (P5)." : "");
+                navigation.text = (angle < -30 ? "← " : angle > 30 ? "→ " : "↑ ") + label + "  •  " + Mathf.RoundToInt(distance) + " m" + (director.HintActive && !director.IsDayTwo ? "\nPetunjuk: rak troli (P3) dan bangku pojok (P5)." : "");
             }
         }
         static TMP_Text Text(Transform p, string name, string text, Vector2 position, Vector2 size, float font) => StoryOverlay.Text(p, name, text, position, size, font);
@@ -343,18 +347,85 @@ namespace BullyingGame.LevelOne
         static void Select(Button button) => UnityEngine.EventSystems.EventSystem.current?.SetSelectedGameObject(button.gameObject);
         public void ShowDayTwoPuzzle(WordCardData data, LevelOneSaveData progress, Action completed, Action close, Action saved)
         {
-            dayTwoProgress = progress; closePuzzle = close; puzzle = data;
-            failures = progress.puzzleFailures; solved = completed; save = saved;
-            selected.Clear();
-            selected.AddRange((progress.wordSlots ?? Array.Empty<string>())
-                .Where(id => data.Phrases.Any(phrase => phrase.id == id)).Distinct().Take(3));
-            if (progress.wordOrder == null || progress.wordOrder.Length != data.Phrases.Count())
+            ShowCardArtwork(wordCardArtwork, wordCardImage, () => StartCoroutine(WordAttempt(data, completed)));
+        }
+
+        RectTransform BottomPanel(float height)
+        {
+            HideModal();
+            modal = Panel(canvas, "Percakapan", Vector2.zero, new Vector2(1230, height));
+            modal.anchorMin = modal.anchorMax = new Vector2(.5f, 0);
+            modal.pivot = new Vector2(.5f, 0);
+            modal.anchoredPosition = new Vector2(0, 18);
+            return modal;
+        }
+
+        internal void Caption(string speaker, string line)
+        {
+            var panel = BottomPanel(125);
+            Text(panel, "Dialog", speaker + "  •  " + line, Vector2.zero, new Vector2(1160, 110), 31);
+        }
+
+        internal void ChaseCall() => StartCoroutine(ShowChaseCall());
+        IEnumerator ShowChaseCall()
+        {
+            var call = Text(hud, "Memet", "Memet: Ji, tunggu dulu!", new Vector2(0,-200), new Vector2(800,60), 32);
+            yield return new WaitForSecondsRealtime(1.4f);
+            if (call != null) Destroy(call.gameObject);
+        }
+
+        IEnumerator WordAttempt(WordCardData data, Action completed)
+        {
+            var panel = BottomPanel(300);
+            var status = Text(panel, "Instruksi", "", new Vector2(0, 124), new Vector2(1150, 45), 25);
+            var bar = Panel(panel, "Sisa waktu", new Vector2(0, 98), new Vector2(1140, 9));
+            bar.pivot = new Vector2(0, .5f);
+            bar.anchoredPosition = new Vector2(-570, 98);
+            var slots = new RectTransform[data.Answer.Length];
+            var filled = new bool[slots.Length];
+            for (int i = 0; i < slots.Length; i++)
             {
-                progress.wordOrder = data.Phrases.OrderBy(_ => UnityEngine.Random.value).Select(phrase => phrase.id).ToArray();
-                saved?.Invoke();
+                slots[i] = Panel(panel, "Slot " + (i+1), new Vector2((i-1)*390,58), new Vector2(375,62));
+                Text(slots[i], "Nomor", (i+1).ToString(), Vector2.zero, new Vector2(365,60), 23);
             }
-            puzzleFeedback = "Pilih potongan kalimat untuk mengisi tiga slot.";
-            ShowCardArtwork(wordCardArtwork, wordCardImage, DrawPuzzle);
+            int lives = 3;
+            var distractors = data.Phrases.Where(p => !data.Answer.Contains(p.id)).ToArray();
+            for (int column = 0; column < slots.Length; column++)
+            {
+                int slot = column;
+                int correctRow = UnityEngine.Random.Range(0, 2);
+                for (int row = 0; row < 2; row++)
+                {
+                    bool correct = row == correctRow;
+                    string id = correct ? data.Answer[slot] : distractors[slot].id;
+                    string label = data.TextFor(id);
+                    var tile = Panel(panel, id, new Vector2((slot-1)*390, -21-row*68), new Vector2(375,60));
+                    tile.GetComponent<Image>().color = new Color(.12f,.32f,.35f,.97f);
+                    Text(tile, "Kata", label, Vector2.zero, new Vector2(367,58), 23);
+                    tile.gameObject.AddComponent<WordTileDrag>().Dropped = pointer =>
+                    {
+                        if (filled[slot] || !RectTransformUtility.RectangleContainsScreenPoint(slots[slot], pointer)) return;
+                        if (!correct) { lives--; return; }
+                        filled[slot] = true;
+                        slots[slot].GetComponentInChildren<TMP_Text>().text = label;
+                        tile.gameObject.SetActive(false);
+                    };
+                }
+            }
+            float remaining = 40;
+            while (remaining > 0 && lives > 0 && !filled.All(x=>x) && panel != null && panel.gameObject.activeSelf)
+            {
+                remaining -= Time.unscaledDeltaTime;
+                float fraction = Mathf.Clamp01(remaining/40f);
+                bar.localScale = new Vector3(fraction,1,1);
+                bar.GetComponent<Image>().color = Color.Lerp(Color.red,Color.green,fraction);
+                status.text = "Seret satu jawaban ke slot tepat di atasnya   •   Nyawa " + lives + "/3";
+                yield return null;
+            }
+            if (panel == null || !panel.gameObject.activeSelf) yield break;
+            if (filled.All(x=>x))
+                ShowLines(new[] { "Aji: " + string.Join(" ",data.Answer.Select(data.TextFor)), "Memet: Aku baru kepikiran gimana rasanya jadi Bima. Maaf, Ji. Botolnya di dekat pohon taman. Bekalnya di meja kelas 8B." }, completed);
+            else ShowLines(new[] { lives <= 0 ? "Nyawa habis. Coba susun nasihat Aji sekali lagi." : "Waktu habis. Coba susun nasihat Aji sekali lagi." }, () => StartCoroutine(WordAttempt(data, completed)));
         }
         void RedrawPuzzle()
         {

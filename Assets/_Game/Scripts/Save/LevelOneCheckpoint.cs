@@ -18,6 +18,8 @@ namespace BullyingGame.LevelOne
         public bool hasPosition;
         public bool actionCardShown, wordCardShown, hasBimaPosition;
         public bool bimaPackedLunch;
+        public int corridorInterviews;
+        public bool waitingForInterviews, gardenRoute;
         public Vector3 bimaPosition;
         public string[] wordSlots = new string[0];
         public string[] wordOrder = new string[0];

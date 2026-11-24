@@ -126,6 +126,26 @@ namespace BullyingGame.LevelOne
             }
         }
 
+        public NavMeshAgent Pursuer => memetAgent;
+        public Transform Raka => rakaAgent.transform;
+        public void PlaceLunch(Vector3 surface, bool held)
+        {
+            stage = Stage.Desk;
+            lunchBox.SetParent(lunchHome, true);
+            lunchBox.rotation = lunchRotation;
+            lunchBox.position = surface;
+            var renderer = lunchBox.GetComponentInChildren<Renderer>(true);
+            if (renderer != null) lunchBox.position += Vector3.up * (surface.y - renderer.bounds.min.y);
+            lunchBox.gameObject.SetActive(!held);
+        }
+
+        public void ReturnLunch()
+        {
+            lunchBox.gameObject.SetActive(true);
+            lunchBox.SetParent(bimaLunchGrip, false);
+            lunchBox.localPosition = Vector3.zero;
+        }
+
         private void RestoreGameplayProps()
         {
             if (hiddenGameplayProps == null) return;

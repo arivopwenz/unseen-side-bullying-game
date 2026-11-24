@@ -26,7 +26,7 @@ namespace BullyingGame.LevelOne
             if (director == null || director.Player == null || !agent.isOnNavMesh) return;
             bool active = GameStateManager.Instance != null && GameStateManager.Instance.CurrentState == GameState.Playing;
             float distance = Vector3.Distance(transform.position, director.Player.transform.position);
-            bool follow = witness ? director.Searching : director.StepIndex == 1;
+            bool follow = witness ? !director.IsDayTwo && director.Searching : director.StepIndex == 1;
             agent.isStopped = !active || !follow || distance > 12;
             if (!agent.isStopped)
             {

@@ -24,13 +24,15 @@ MonoBehaviour:
   - id: W1
     text: Memet, Raka, tolong berhenti.
   - id: W2
-    text: Bima perlu ruang.
+    text: Bayangkan kalau bekal kalian yang diambil.
   - id: W3
-    text: Kalau ada masalah, kita bisa bicara sama Bu Ratna.
+    text: Yuk, kembalikan barang Bima.
   - id: D1
     text: Kalian selalu bikin masalah.
   - id: D2
     text: Bima harus urus sendiri.
+  - id: D3
+    text: Simpan saja barangnya.
   answer:
   - W1
   - W2

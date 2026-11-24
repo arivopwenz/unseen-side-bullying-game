@@ -20,6 +20,7 @@ namespace BullyingGame.Prologue
         [SerializeField] private PrologueFlow flow;
         [SerializeField] private PrologueDialogueCanvas dialogueCanvas;
         [SerializeField] private PrologueDialogueShot dialogueShot;
+        [SerializeField] private Animator dialogueAnimator;
         [SerializeField] private string displayName;
         [SerializeField] private GameObject canvasUtama;
         [SerializeField] private GameObject canvasKarakter;
@@ -68,11 +69,15 @@ namespace BullyingGame.Prologue
 
         private void OnDisable()
         {
+            if (dialogueAnimator != null && dialogueAnimator.isActiveAndEnabled)
+                dialogueAnimator.Play("Base Layer.Idle", 0, 0f);
             if (dialogueShot != null) dialogueShot.Exit();
         }
 
         internal void SetVisible(bool visible)
         {
+            if (!visible && dialogueAnimator != null && dialogueAnimator.isActiveAndEnabled)
+                dialogueAnimator.CrossFadeInFixedTime("Base Layer.Idle", .15f);
             if (!visible && dialogueShot != null) dialogueShot.Exit();
             if (dialogueCanvas != null)
             {
@@ -86,6 +91,8 @@ namespace BullyingGame.Prologue
 
         private void ShowLine()
         {
+            if (dialogueAnimator != null && lineIndex <= 1)
+                dialogueAnimator.CrossFadeInFixedTime(lineIndex == 0 ? "Base Layer.Standing Greeting" : "Base Layer.Talking", .15f, 0, 0f);
             var line = lines[lineIndex];
             if (dialogueCanvas != null)
             {

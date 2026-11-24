@@ -14282,6 +14282,8 @@ GameObject:
   m_Component:
   - component: {fileID: 499150454}
   - component: {fileID: 499150453}
+  - component: {fileID: 499150456}
+  - component: {fileID: 499150455}
   m_Layer: 0
   m_Name: Cutscene Botol Bima
   m_TagString: Untagged
@@ -14342,6 +14344,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 986109677}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &499150455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499150452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa9c5fd1260c004faea58b6ed5bbfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Campaign.ChapterOneClosing
+--- !u!114 &499150456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499150452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 876c2e9cfe8386341a17b922e7700404, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.LevelOne.LevelOneView
+  useExistingHUD: 0
+  actionCardArtwork: {fileID: 0}
+  actionCardImage: {fileID: 0}
+  speakerFont: {fileID: 0}
+  dialogueFont: {fileID: 0}
 --- !u!1001 &518632755
 PrefabInstance:
   m_ObjectHideFlags: 0

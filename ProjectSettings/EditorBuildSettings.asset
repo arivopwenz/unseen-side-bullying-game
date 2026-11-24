@@ -53,6 +53,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Game/Scenes/Levels/Level_05/cutscene/CS_L05_Penutup.unity
     guid: be7e9ec36c1cfb543adfce634fd363d1
+  - enabled: 1
+    path: Assets/_Game/Scenes/Levels/Level_01/cutscene/CH1_QuestAksiDone.unity
+    guid: 1c4c4dae7c5c01740a63b14e41f58e09
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 9ce4757902b7f474fa95015119cec2df, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 7b39895b635b20148bc571db1aafeaa9, type: 3}

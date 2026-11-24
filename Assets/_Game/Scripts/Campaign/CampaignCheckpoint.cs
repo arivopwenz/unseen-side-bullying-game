@@ -124,7 +124,7 @@ namespace BullyingGame.Campaign
             if (data.activeChapter == 1) data.activeChapter = 2;
             if (!data.completedStepIds.Contains("L01/report"))
                 data.completedStepIds = data.completedStepIds.Concat(new[] { "L01/report" }).ToArray();
-            AddJournal(data, "Bima • Observasi Aji: barang diambil di kantin. Botol kembali. Bu Ratna menerima laporan awal.");
+            AddJournal(data, "Bima • Observasi Aji: barang diambil di kantin. Botol dan bekal sudah dikembalikan.");
             return Write(data);
         }
     }
