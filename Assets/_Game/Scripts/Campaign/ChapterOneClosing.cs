@@ -40,24 +40,19 @@ namespace BullyingGame.Campaign
         {
             if (finished) return;
             finished = true;
+            if (ChapterSceneFlow.CanLoad("Level02") && CampaignCheckpoint.AcceptChapterOne())
+            {
+                ChapterClosingTransition.Play();
+                return;
+            }
+
             GameStateManager.Instance?.SetState(GameState.Result);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             if (EventSystem.current == null)
                 new GameObject("EventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
-            ShowResult();
-        }
-
-        void ShowResult()
-        {
-            if (!CampaignCheckpoint.AcceptChapterOne())
-            {
-                view.ShowOptions("Progres belum tersimpan", "Coba simpan lagi untuk membuka Chapter 2.",
-                    new[] { "Coba lagi" }, _ => ShowResult());
-                return;
-            }
-            view.ShowOptions("Chapter 1 selesai", "Aji mengembalikan botol dan bekal Bima.",
-                new[] { "Lanjut ke Level 02" }, _ => ChapterSceneFlow.Load("Level02"));
+            view.ShowOptions("Transisi belum berhasil", "Coba lagi untuk menyimpan progres dan membuka Level 02.",
+                new[] { "Coba lagi" }, _ => { finished = false; Finish(); });
         }
 
         void OnDisable() { if (timeline != null) timeline.stopped -= OnStopped; }

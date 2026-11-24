@@ -48,23 +48,43 @@ namespace BullyingGame.Prologue
             Vector2 topRight = Vector2.one;
             Vector2 top = new Vector2(.5f, 1);
 
-            var mini = AddImage(root, "Minimap", topLeft, new Vector2(102, -102), new Vector2(156, 156), PanelColor, circle);
-            var miniArea = AddImage(mini.transform, "Area", Vector2.one * .5f, Vector2.zero, new Vector2(146, 146),
-                new Color32(54, 75, 67, 255), circle);
-            miniArea.gameObject.AddComponent<Mask>();
-            BuildCampus(miniArea.transform, true);
-            AddText(mini.transform, "N", top, new Vector2(0, -13), new Vector2(22, 22), 15);
-            miniTarget = AddImage(mini.transform, "Objective dot", Vector2.one * .5f, Vector2.zero, new Vector2(15, 15), Gold, circle);
-            miniPlayer = AddImage(mini.transform, "Player", Vector2.one * .5f, Vector2.zero, new Vector2(19, 19), Color.white, triangle);
-            mapHint = AddText(root, "", topLeft, new Vector2(119, -197), new Vector2(230, 30), 20);
-            lesson = AddText(root, "", topRight, new Vector2(-198, -115), new Vector2(340, 180), 27, TextAnchor.MiddleLeft);
-            objective = AddText(root, "", topRight, new Vector2(-258, -48), new Vector2(466, 53), 24, TextAnchor.MiddleRight);
+            bool onRight = gameObject.scene.name == "Tutorial";
+            BuildMinimap(root, circle, triangle, onRight);
+            mapHint = AddText(root, "", onRight ? topRight : topLeft, new Vector2(onRight ? -102 : 119, -197), new Vector2(230, 30), 20);
+            lesson = AddText(root, "", onRight ? topLeft : topRight, new Vector2(onRight ? 198 : -198, -115), new Vector2(340, 180), 27, TextAnchor.MiddleLeft);
+            objective = AddText(root, "", onRight ? topLeft : topRight, new Vector2(onRight ? 258 : -258, -48), new Vector2(466, 53), 24, onRight ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight);
             prompt = AddText(root, "", new Vector2(.5f, 0), new Vector2(0, 88), new Vector2(630, 56), 27);
             badge = AddText(root, "", top, new Vector2(0, -37), new Vector2(520, 62), 25);
             badge.color = Gold;
             direction = AddImage(root, "Panah GPS", top, new Vector2(0, -100), new Vector2(40, 40), Gold, triangle);
             distance = AddText(root, "", top, new Vector2(0, -140), new Vector2(115, 35), 24);
             BuildMap(root, circle, triangle);
+        }
+
+        internal void InitializeMinimap(RectTransform parent, Transform actor)
+        {
+            player = actor;
+            font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            BuildMinimap(parent, MakeSprite(Minimap.MakeCircleTexture(96)),
+                MakeSprite(Minimap.MakeTriangleTexture(64)), true);
+        }
+
+        internal void SetMinimapTarget(Transform destination)
+        {
+            target = destination;
+            miniTarget.gameObject.SetActive(target != null);
+        }
+
+        private void BuildMinimap(RectTransform root, Sprite circle, Sprite triangle, bool onRight)
+        {
+            var mini = AddImage(root, "Minimap", onRight ? Vector2.one : new Vector2(0, 1), new Vector2(onRight ? -102 : 102, -102), new Vector2(156, 156), PanelColor, circle);
+            var miniArea = AddImage(mini.transform, "Area", Vector2.one * .5f, Vector2.zero, new Vector2(146, 146),
+                new Color32(54, 75, 67, 255), circle);
+            miniArea.gameObject.AddComponent<Mask>();
+            BuildCampus(miniArea.transform, true);
+            AddText(mini.transform, "N", new Vector2(.5f, 1), new Vector2(0, -13), new Vector2(22, 22), 15);
+            miniTarget = AddImage(mini.transform, "Objective dot", Vector2.one * .5f, Vector2.zero, new Vector2(15, 15), Gold, circle);
+            miniPlayer = AddImage(mini.transform, "Player", Vector2.one * .5f, Vector2.zero, new Vector2(19, 19), Color.white, triangle);
         }
 
         internal void SetTutorial(bool moved, bool jumped, bool sprinted, bool hide)
@@ -91,7 +111,7 @@ namespace BullyingGame.Prologue
         internal void SetObjective(string text, Transform destination, bool gps)
         {
             objective.text = text;
-            objective.rectTransform.anchoredPosition = new Vector2(-258, text == "Bicara dengan Bima" ? -224 : -48);
+            objective.rectTransform.anchoredPosition = new Vector2(gameObject.scene.name == "Tutorial" ? 258 : -258, text == "Bicara dengan Bima" ? -224 : -48);
             target = destination;
             routeHint = null;
             miniTarget.gameObject.SetActive(destination != null);
@@ -134,7 +154,7 @@ namespace BullyingGame.Prologue
         private void LateUpdate()
         {
             if (player == null) return;
-            badge.gameObject.SetActive(Time.unscaledTime < badgeUntil);
+            if (badge != null) badge.gameObject.SetActive(Time.unscaledTime < badgeUntil);
             float yaw = player.eulerAngles.y;
             miniPlayer.rectTransform.localRotation = Quaternion.Euler(0, 0, -yaw);
             Vector3 position = player.position;
@@ -146,6 +166,7 @@ namespace BullyingGame.Prologue
                 Vector3 delta = target.position - player.position;
                 Vector2 planar = new Vector2(delta.x, delta.z);
                 miniTarget.rectTransform.anchoredPosition = Vector2.ClampMagnitude(planar * 2.9f, 60f);
+                if (direction == null) return;
                 var camera = UnityEngine.Camera.main;
                 Vector3 forward = camera != null ? camera.transform.forward : player.forward;
                 Vector3 heading = Vector3.ProjectOnPlane((routeHint ?? target.position) - position, Vector3.up);
@@ -153,7 +174,7 @@ namespace BullyingGame.Prologue
                 direction.rectTransform.localRotation = Quaternion.Euler(0, 0, -angle);
                 distance.text = Mathf.RoundToInt(planar.magnitude) + " m";
             }
-            if (map.activeSelf)
+            if (map != null && map.activeSelf)
             {
                 mapPlayer.rectTransform.anchoredPosition = MapPosition(player.position);
                 mapPlayer.rectTransform.localRotation = miniPlayer.rectTransform.localRotation;

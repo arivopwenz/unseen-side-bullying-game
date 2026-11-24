@@ -128,15 +128,25 @@ namespace BullyingGame.LevelOne
 
         public NavMeshAgent Pursuer => memetAgent;
         public Transform Raka => rakaAgent.transform;
-        public void PlaceLunch(Vector3 surface, bool held)
+        public void PlaceLunch(Vector3 surface, Transform carryingHand = null)
         {
             stage = Stage.Desk;
+            lunchBox.gameObject.SetActive(true);
+            if (carryingHand != null)
+            {
+                lunchBox.SetParent(carryingHand, true);
+                lunchBox.rotation = lunchRotation;
+                var bounds = lunchBox.GetComponentInChildren<Renderer>().bounds;
+                // Align the top of the handle with the palm, preserving the prop's world scale.
+                var handle = new Vector3(bounds.center.x, bounds.max.y, bounds.center.z);
+                lunchBox.position += carryingHand.position - handle;
+                return;
+            }
             lunchBox.SetParent(lunchHome, true);
             lunchBox.rotation = lunchRotation;
             lunchBox.position = surface;
             var renderer = lunchBox.GetComponentInChildren<Renderer>(true);
             if (renderer != null) lunchBox.position += Vector3.up * (surface.y - renderer.bounds.min.y);
-            lunchBox.gameObject.SetActive(!held);
         }
 
         public void ReturnLunch()

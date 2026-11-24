@@ -55,6 +55,16 @@ namespace BullyingGame.Prologue
             imageKarakter.enabled = sprite != null;
         }
 
+        internal void ShowLine(string speaker, string text)
+        {
+            SetVisible(true);
+            teksDialogue.text = text;
+            if (namaKarakter != null) namaKarakter.text = speaker;
+            string name = speaker.Split('(')[0].Trim();
+            imageKarakter.sprite = FindPortrait(null, name);
+            imageKarakter.enabled = imageKarakter.sprite != null;
+        }
+
         private Sprite FindPortrait(PrologueDialogueActor actor, string speaker)
         {
             if (string.Equals(speaker.Trim(), "Aji", StringComparison.OrdinalIgnoreCase)) return ajiSprite;
@@ -62,7 +72,7 @@ namespace BullyingGame.Prologue
             {
                 if (entry == null) continue;
                 bool namedSpeaker = string.Equals(entry.speakerName?.Trim(), speaker.Trim(), StringComparison.OrdinalIgnoreCase);
-                bool ownSpeaker = entry.character == actor.gameObject &&
+                bool ownSpeaker = actor != null && entry.character == actor.gameObject &&
                     string.Equals(speaker, actor.DisplayName, StringComparison.OrdinalIgnoreCase);
                 if (namedSpeaker || ownSpeaker) return entry.sprite;
             }

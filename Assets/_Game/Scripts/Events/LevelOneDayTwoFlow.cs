@@ -144,7 +144,7 @@ namespace BullyingGame.LevelOne
             }
             if (step != lastStep && (step == "bottle" || step == "return" || step == "report"))
             {
-                incidentProps.PlaceLunch(director.Point("P5").transform.position, director.Progress.lunchTaken);
+                incidentProps.PlaceLunch(director.Point("P5").transform.position, director.Progress.lunchTaken ? LunchHand : null);
                 if (director.Progress.returned) incidentProps.ReturnLunch();
             }
             var pursuer = incidentProps.Pursuer;
@@ -269,12 +269,14 @@ namespace BullyingGame.LevelOne
                 });
         }
 
-        internal void TakeLunch() => incidentProps.PlaceLunch(director.Point("P5").transform.position, true);
+        private Transform LunchHand => director.Player.GetComponentInChildren<Animator>().GetBoneTransform(HumanBodyBones.LeftHand);
+
+        internal void TakeLunch() => incidentProps.PlaceLunch(director.Point("P5").transform.position, LunchHand);
 
         internal void ResetSearch()
         {
             incidentProps.AfterIncident(false);
-            incidentProps.PlaceLunch(director.Point("P5").transform.position, false);
+            incidentProps.PlaceLunch(director.Point("P5").transform.position);
         }
 
         private bool chaseFirstStep;

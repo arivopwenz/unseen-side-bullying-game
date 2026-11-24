@@ -11,6 +11,8 @@ namespace BullyingGame.LevelOne
 {
     public class LevelOneView : MonoBehaviour
     {
+        [SerializeField] private BullyingGame.Prologue.PrologueDialogueCanvas tutorialDialogue;
+        private int dialogueVersion;
         RectTransform canvas, modal, hud;
         TMP_Text title, objective, prompt, cardText, navigation, saveText;
         RectTransform promptBackdrop, actionPanel;
@@ -39,6 +41,99 @@ namespace BullyingGame.LevelOne
         Transform lastDestination;
         float nextRouteUpdate;
         Vector3 waypoint;
+        RectTransform questLayer;
+        TMP_Text questMessage, cardObjective;
+        BullyingGame.Prologue.PrologueHud questMap;
+        float questElapsed;
+        Vector2 cardOrigin;
+        bool puzzleVisible;
+        [Header("Layout dari Canvas PRD Quest")]
+        [SerializeField] TMP_Text questCenter, questDock;
+        [SerializeField] RectTransform wordLayout;
+        [SerializeField] GameObject advanceHint;
+        Action advanceDialogue;
+        int dialogueOpenedFrame;
+
+        internal void AdvanceDialogue()
+        {
+            if (Time.frameCount != dialogueOpenedFrame) advanceDialogue?.Invoke();
+        }
+
+        void CreateQuestHud(LevelOneDirector director)
+        {
+            questLayer = StoryOverlay.Rect(canvas, "Quest HUD", Vector2.zero, Vector2.zero);
+            questLayer.anchorMin = Vector2.zero;
+            questLayer.anchorMax = Vector2.one;
+            questLayer.sizeDelta = Vector2.zero;
+            questMap = questLayer.gameObject.AddComponent<BullyingGame.Prologue.PrologueHud>();
+            questMap.InitializeMinimap(questLayer, director.Player.transform);
+            if (questCenter != null && questDock != null)
+            {
+                questMessage = Instantiate(questCenter, questLayer, false);
+                questMessage.gameObject.SetActive(true);
+                questMessage.text = "";
+                questCenter.transform.parent.gameObject.SetActive(false);
+                return;
+            }
+            questMessage = Text(questLayer, "Quest", "", Vector2.zero, Vector2.zero, 46);
+            StyleQuest(questMessage);
+        }
+
+        void StyleQuest(TMP_Text text)
+        {
+            text.font = dialogueFont;
+            text.color = new Color32(255, 220, 124, 255);
+            text.alignment = TextAlignmentOptions.Center;
+            text.raycastTarget = false;
+            text.fontMaterial.SetColor(TMPro.ShaderUtilities.ID_OutlineColor, new Color32(28, 33, 42, 255));
+            text.outlineWidth = .22f;
+        }
+
+        void Announce(string message)
+        {
+            questMessage.text = message;
+            questElapsed = 0;
+            PositionQuest();
+        }
+
+        void LateUpdate()
+        {
+            if (questLayer == null) return;
+            bool visible = hud.gameObject.activeSelf || puzzleVisible;
+            questLayer.gameObject.SetActive(visible);
+            if (!visible) return;
+            questElapsed += Time.unscaledDeltaTime;
+            PositionQuest();
+        }
+
+        void PositionQuest()
+        {
+            float t = Mathf.SmoothStep(0, 1, Mathf.Clamp01((questElapsed - 10f) / .55f));
+            var rect = questMessage.rectTransform;
+            if (questCenter != null && questDock != null)
+            {
+                var a = questCenter.rectTransform;
+                var b = questDock.rectTransform;
+                rect.anchorMin = Vector2.Lerp(a.anchorMin,b.anchorMin,t);
+                rect.anchorMax = Vector2.Lerp(a.anchorMax,b.anchorMax,t);
+                rect.pivot = Vector2.Lerp(a.pivot,b.pivot,t);
+                rect.anchoredPosition = Vector2.Lerp(a.anchoredPosition,b.anchoredPosition,t);
+                rect.sizeDelta = Vector2.Lerp(a.sizeDelta,b.sizeDelta,t);
+                questMessage.fontSize = Mathf.Lerp(questCenter.fontSize,questDock.fontSize,t);
+                var style = t >= 1 ? questDock : questCenter;
+                questMessage.font = style.font;
+                questMessage.color = style.color;
+                questMessage.alignment = style.alignment;
+                return;
+            }
+            rect.anchorMin = rect.anchorMax = Vector2.Lerp(new Vector2(.5f, .53f), Vector2.one, t);
+            rect.pivot = Vector2.Lerp(Vector2.one * .5f, Vector2.one, t);
+            rect.anchoredPosition = Vector2.Lerp(Vector2.zero, new Vector2(-24, -194), t);
+            rect.sizeDelta = new Vector2(Mathf.Lerp(Mathf.Min(1080, canvas.rect.width * .88f), 370, t), 130);
+            questMessage.fontSize = Mathf.Lerp(46, 28, t);
+            questMessage.alignment = t >= 1 ? TextAlignmentOptions.TopRight : TextAlignmentOptions.Center;
+        }
+
         void Awake()
         {
             if (actionCardArtwork != null && actionCardImage != null)
@@ -55,6 +150,7 @@ namespace BullyingGame.LevelOne
                 wordCard.gameObject.SetActive(false);
             }
 
+            if (tutorialDialogue != null) tutorialDialogue.SetVisible(false);
             var root = new GameObject("Level01 PRD Canvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             root.transform.SetParent(transform, false); canvas = root.GetComponent<RectTransform>();
             var c = root.GetComponent<Canvas>(); c.renderMode = RenderMode.ScreenSpaceOverlay; c.sortingOrder = 200;
@@ -72,13 +168,21 @@ namespace BullyingGame.LevelOne
             cardText = Text(cards, "Cards", "", new Vector2(0, -15), new Vector2(570, 85), 25);
             navigation = Text(hud, "Destination", "", new Vector2(0, 430), new Vector2(660, 90), 24); navigation.alignment = TextAlignmentOptions.Center;
             saveText = Text(hud, "Save and controls", "", new Vector2(-560, -480), new Vector2(720, 65), 21);
+            var director = GetComponent<LevelOneDirector>();
+            if (director != null && director.IsDayTwo) CreateQuestHud(director);
         }
         public void Refresh(LevelOneDirector director, string[] cards, int active)
         {
             hud.gameObject.SetActive(!director.IsModal);
             actionPanel.gameObject.SetActive(!director.IsDayTwo);
             title.text = director.QuestTitle; objective.text = director.Objective;
-            trackerPanel.gameObject.SetActive(!useExistingHUD);
+            trackerPanel.gameObject.SetActive(!useExistingHUD && !director.IsDayTwo);
+            if (director.IsDayTwo)
+            {
+                if (questMessage.text != director.Objective) Announce(director.Objective);
+                var student = director.DayTwoFlow.InterviewStudent;
+                questMap.SetMinimapTarget(student != null ? student.transform : director.Target?.transform);
+            }
             navigation.gameObject.SetActive(!useExistingHUD);
             var flow = director.DayTwoFlow;
             bool canAsk = flow != null && flow.CanAsk;
@@ -115,6 +219,11 @@ namespace BullyingGame.LevelOne
         }
         public void HideModal()
         {
+            puzzleVisible = false;
+            advanceDialogue = null;
+            if (advanceHint != null) advanceHint.SetActive(false);
+            dialogueVersion++;
+            if (tutorialDialogue != null) tutorialDialogue.SetVisible(false);
             HideCardArtwork();
             cancelModal = null;
             journalScroll = null;
@@ -152,6 +261,28 @@ namespace BullyingGame.LevelOne
             modal.anchorMin = Vector2.zero;
             modal.anchorMax = Vector2.one;
             modal.sizeDelta = Vector2.zero;
+            if (tutorialDialogue != null)
+            {
+                int page = 0;
+                void Display()
+                {
+                    string line = lines[page] ?? "";
+                    int colon = line.IndexOf(':');
+                    bool named = colon > 0 && colon <= 32;
+                    tutorialDialogue.ShowLine(named ? line.Substring(0, colon) : "", named ? line.Substring(colon + 1).TrimStart() : line);
+                }
+                void End()
+                {
+                    HideModal();
+                    finished?.Invoke();
+                }
+                Display();
+                dialogueOpenedFrame = Time.frameCount;
+                advanceDialogue = () => { if (++page < lines.Length) Display(); else End(); };
+                if (advanceHint != null) advanceHint.SetActive(true);
+                if (skippable) AnchorDialogueButton(StoryOverlay.Button(modal, "Lewati adegan", Vector2.zero, new Vector2(215, 50), End), -125);
+                return;
+            }
             var panel = Panel(modal, "Percakapan", Vector2.zero, Vector2.zero);
             panel.anchorMin = new Vector2(.07f, 0);
             panel.anchorMax = new Vector2(.93f, 0);
@@ -263,10 +394,12 @@ namespace BullyingGame.LevelOne
         }
         public void ShowActionCard(string objectiveText, Action finished)
         {
-            ShowCardArtwork(actionCardArtwork, actionCardImage, () => ShowCard("Kartu Aksi", objectiveText, finished));
+            if (questLayer != null)
+                ShowCardArtwork(actionCardArtwork, actionCardImage, () => { questMessage.text = ""; finished(); }, objectiveText);
+            else ShowCardArtwork(actionCardArtwork, actionCardImage, () => ShowCard("Kartu Aksi", objectiveText, finished));
         }
 
-        void ShowCardArtwork(CanvasGroup artwork, Image image, Action finished)
+        void ShowCardArtwork(CanvasGroup artwork, Image image, Action finished, string message = null)
         {
             if (artwork == null || image == null || image.sprite == null)
             {
@@ -280,6 +413,13 @@ namespace BullyingGame.LevelOne
             activeCardArtwork = artwork;
             activeCardImage = image;
             cardRestScale = image.rectTransform.localScale;
+            cardOrigin = image.rectTransform.anchoredPosition;
+            if (message != null)
+            {
+                cardObjective = Text(artwork.transform, "Tujuan kartu", message, Vector2.zero, new Vector2(500, 300), 46);
+                StyleQuest(cardObjective);
+                cardObjective.alpha = 0;
+            }
             artwork.alpha = 0f;
             artwork.gameObject.SetActive(true);
             cardReveal = StartCoroutine(RevealCardArtwork(finished));
@@ -289,8 +429,8 @@ namespace BullyingGame.LevelOne
         {
             const float popEnd = .36f;
             const float flipEnd = 1.26f;
-            const float exitStart = 2f;
-            const float exitEnd = 2.28f;
+            float exitStart = cardObjective != null ? 5f : 2f;
+            float exitEnd = exitStart + .28f;
             float elapsed = 0f;
             while (elapsed < exitEnd)
             {
@@ -302,6 +442,16 @@ namespace BullyingGame.LevelOne
                 scale *= Mathf.Lerp(1f, .83f, exit);
                 float width = Mathf.Max(.02f, Mathf.Abs(Mathf.Cos(flip * 2f * Mathf.PI)));
                 activeCardImage.rectTransform.localScale = Vector3.Scale(cardRestScale, new Vector3(scale * width, scale, 1f));
+                if (cardObjective != null)
+                {
+                    float slide = Mathf.SmoothStep(0, 1, Mathf.InverseLerp(flipEnd, 2f, elapsed));
+                    float widthAvailable = ((RectTransform)activeCardArtwork.transform).rect.width;
+                    activeCardImage.rectTransform.anchoredPosition = cardOrigin + Vector2.left * (widthAvailable * .21f * slide);
+                    activeCardImage.rectTransform.localScale *= Mathf.Lerp(1f, .79f, slide);
+                    cardObjective.rectTransform.anchoredPosition = new Vector2(widthAvailable * .19f, 0);
+                    cardObjective.rectTransform.sizeDelta = new Vector2(widthAvailable * .42f, 300);
+                    cardObjective.alpha = slide;
+                }
                 activeCardArtwork.alpha = Mathf.Clamp01(pop * 3f) * (1f - exit);
                 yield return null;
                 elapsed += Mathf.Min(Time.unscaledDeltaTime, .09f);
@@ -320,7 +470,13 @@ namespace BullyingGame.LevelOne
                 cardReveal = null;
             }
             if (activeCardArtwork != null) activeCardArtwork.gameObject.SetActive(false);
-            if (activeCardImage != null) activeCardImage.rectTransform.localScale = cardRestScale;
+            if (activeCardImage != null)
+            {
+                activeCardImage.rectTransform.localScale = cardRestScale;
+                activeCardImage.rectTransform.anchoredPosition = cardOrigin;
+            }
+            if (cardObjective != null) Destroy(cardObjective.gameObject);
+            cardObjective = null;
             activeCardArtwork = null;
             activeCardImage = null;
         }
@@ -347,7 +503,7 @@ namespace BullyingGame.LevelOne
         static void Select(Button button) => UnityEngine.EventSystems.EventSystem.current?.SetSelectedGameObject(button.gameObject);
         public void ShowDayTwoPuzzle(WordCardData data, LevelOneSaveData progress, Action completed, Action close, Action saved)
         {
-            ShowCardArtwork(wordCardArtwork, wordCardImage, () => StartCoroutine(WordAttempt(data, completed)));
+            ShowCardArtwork(wordCardArtwork, wordCardImage, () => StartCoroutine(WordAttempt(data, completed)), "Susun nasihat untuk Memet agar ia mengembalikan barang Bima.");
         }
 
         RectTransform BottomPanel(float height)
@@ -362,6 +518,7 @@ namespace BullyingGame.LevelOne
 
         internal void Caption(string speaker, string line)
         {
+            if (tutorialDialogue != null) { HideModal(); tutorialDialogue.ShowLine(speaker, line); return; }
             var panel = BottomPanel(125);
             Text(panel, "Dialog", speaker + "  •  " + line, Vector2.zero, new Vector2(1160, 110), 31);
         }
@@ -369,6 +526,14 @@ namespace BullyingGame.LevelOne
         internal void ChaseCall() => StartCoroutine(ShowChaseCall());
         IEnumerator ShowChaseCall()
         {
+            if (tutorialDialogue != null)
+            {
+                int version = ++dialogueVersion;
+                tutorialDialogue.ShowLine("Memet", "Ji, tunggu dulu!");
+                yield return new WaitForSecondsRealtime(1.4f);
+                if (dialogueVersion == version) tutorialDialogue.SetVisible(false);
+                yield break;
+            }
             var call = Text(hud, "Memet", "Memet: Ji, tunggu dulu!", new Vector2(0,-200), new Vector2(800,60), 32);
             yield return new WaitForSecondsRealtime(1.4f);
             if (call != null) Destroy(call.gameObject);
@@ -376,18 +541,20 @@ namespace BullyingGame.LevelOne
 
         IEnumerator WordAttempt(WordCardData data, Action completed)
         {
-            var panel = BottomPanel(300);
-            var status = Text(panel, "Instruksi", "", new Vector2(0, 124), new Vector2(1150, 45), 25);
-            var bar = Panel(panel, "Sisa waktu", new Vector2(0, 98), new Vector2(1140, 9));
-            bar.pivot = new Vector2(0, .5f);
-            bar.anchoredPosition = new Vector2(-570, 98);
+            HideModal();
+            var panel = modal = Instantiate(wordLayout, canvas, false);
+            panel.gameObject.SetActive(true);
+            if (questMessage != null)
+            {
+                puzzleVisible = true;
+                Announce("Susun nasihat untuk Memet agar ia mengembalikan barang Bima.");
+            }
+            var status = panel.Find("Instruksi").GetComponent<TMP_Text>();
+            var bar = (RectTransform)panel.Find("Sisa waktu");
             var slots = new RectTransform[data.Answer.Length];
             var filled = new bool[slots.Length];
             for (int i = 0; i < slots.Length; i++)
-            {
-                slots[i] = Panel(panel, "Slot " + (i+1), new Vector2((i-1)*390,58), new Vector2(375,62));
-                Text(slots[i], "Nomor", (i+1).ToString(), Vector2.zero, new Vector2(365,60), 23);
-            }
+                slots[i] = (RectTransform)panel.Find("Slot " + (i+1));
             int lives = 3;
             var distractors = data.Phrases.Where(p => !data.Answer.Contains(p.id)).ToArray();
             for (int column = 0; column < slots.Length; column++)
@@ -399,9 +566,8 @@ namespace BullyingGame.LevelOne
                     bool correct = row == correctRow;
                     string id = correct ? data.Answer[slot] : distractors[slot].id;
                     string label = data.TextFor(id);
-                    var tile = Panel(panel, id, new Vector2((slot-1)*390, -21-row*68), new Vector2(375,60));
-                    tile.GetComponent<Image>().color = new Color(.12f,.32f,.35f,.97f);
-                    Text(tile, "Kata", label, Vector2.zero, new Vector2(367,58), 23);
+                    var tile = panel.Find("Pilihan " + (slot+1) + "-" + (row+1));
+                    tile.GetComponentInChildren<TMP_Text>().text = label;
                     tile.gameObject.AddComponent<WordTileDrag>().Dropped = pointer =>
                     {
                         if (filled[slot] || !RectTransformUtility.RectangleContainsScreenPoint(slots[slot], pointer)) return;

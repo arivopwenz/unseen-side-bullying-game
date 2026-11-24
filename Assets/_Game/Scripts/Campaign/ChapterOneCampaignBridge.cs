@@ -14,6 +14,7 @@ namespace BullyingGame.Campaign
         {
             if (shown || !chapter.Ready || !chapter.Complete || chapter.IsModal) return;
             shown = true;
+            if (chapter.IsDayTwo && ChapterSceneFlow.Load("CH1_QuestAksiDone")) return;
             GameStateManager.Instance.SetState(GameState.Result);
             var view = GetComponent<LevelOneView>();
             view.ShowOptions("Chapter 1 selesai", "Membantu teman berarti mendengar, bertindak dengan aman, " +

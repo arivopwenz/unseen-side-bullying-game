@@ -140,6 +140,7 @@ namespace BullyingGame.LevelOne
             if (!Ready || GameStateManager.Instance != null && GameStateManager.Instance.CurrentState == GameState.Cinematic) return;
             if (IsModal)
             {
+                if (input.Movement.Interact.WasPressedThisFrame()) { view.AdvanceDialogue(); return; }
                 if (gamepadCancel.WasPressedThisFrame() || input.Movement.Pause.WasPressedThisFrame())
                     view.CancelModal();
                 if (IsModal) view.ScrollJournal(gamepadScroll.ReadValue<float>() * Time.unscaledDeltaTime);
@@ -302,7 +303,7 @@ namespace BullyingGame.LevelOne
         {
             if (IsModal || Progress.actionCardShown || Step?.id != "clue") return;
             SetModal(GameState.Dialogue);
-            view.ShowActionCard("Cari dan kembalikan botol Bima", () =>
+            view.ShowActionCard("Cari dan kembalikan botol dan bekal Bima", () =>
             {
                 Progress.actionCardShown = true;
                 Save();
