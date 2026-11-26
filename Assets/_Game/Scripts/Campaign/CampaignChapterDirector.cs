@@ -22,6 +22,18 @@ namespace BullyingGame.Campaign
         [SerializeField] private Behaviour[] modalControls;
         [SerializeField] private CampaignEvade evade;
         [SerializeField] private CampaignWorldState world;
+        [Header("Pembuka perpustakaan")]
+        [SerializeField] private Transform classroomRadit;
+        [SerializeField] private Transform[] glassesSearchSites = Array.Empty<Transform>();
+        Transform searchTarget;
+        [SerializeField] private Transform classroomMemet;
+        [SerializeField] private RuntimeAnimatorController raditLocomotion;
+        [SerializeField] private UnityEngine.Playables.PlayableDirector libraryArrivalTimeline;
+        private bool raditArrived;
+        [Header("Quest Kata - perpustakaan")]
+        [SerializeField] private UnityEngine.Playables.PlayableDirector failureTimeline;
+        [SerializeField] private Transform walkoutTarget;
+        [SerializeField] private UnityEngine.Events.UnityEvent onEncounterOpened, onAnswerCorrect, onAnswerWrong, onWalkout;
         CampaignProgress data;
         CampaignChapterProgress progress;
         LevelOneView view;
@@ -43,7 +55,7 @@ namespace BullyingGame.Campaign
         public CampaignProgress Data => data;
         public CampaignChapterProgress Progress => progress;
         public CampaignStep Step => Ready && progress.step < content.steps.Length ? content.steps[progress.step] : null;
-        public Transform Target => Step != null ? points[progress.step] : null;
+        public Transform Target => searchTarget != null ? searchTarget : Step != null ? points[progress.step] : null;
         public bool Ready { get; private set; }
         public bool IsModal => modal;
         public bool Complete => Ready && Step == null;
@@ -52,6 +64,7 @@ namespace BullyingGame.Campaign
         void Awake()
         {
             view = GetComponent<LevelOneView>();
+            if (content != null && content.chapter == 2) view.UseTutorialDialogue();
             challenges = GetComponent<CampaignChallenges>();
             BootstrapLauncher.EnsurePersistentSystems();
             if (QuestManager.Instance == null) new GameObject("QuestManager").AddComponent<QuestManager>();
@@ -78,6 +91,12 @@ namespace BullyingGame.Campaign
             {
                 int index = Array.FindIndex(content.steps, step => step.id == progress.stepId);
                 if (index >= 0) progress.step = index;
+                else if (content.chapter == 2 && progress.stepId.StartsWith("L02-Q02-"))
+                {
+                    progress.step = 0;
+                    progress.question = progress.failures = 0;
+                    progress.actionPresented = progress.hasPosition = false;
+                }
             }
             progress.step = Mathf.Clamp(progress.step, 0, content.steps.Length);
             var quests = content.steps.Select(step => step.quest).ToArray();
@@ -89,6 +108,19 @@ namespace BullyingGame.Campaign
                 QuestManager.Instance.UpdateObjective(quests[i], content.steps[i].id);
             }
             world?.Initialize();
+            if (classroomRadit != null)
+            {
+                var previousRadit = transform.Find("Characters/Radit");
+                if (previousRadit != null)
+                {
+                    var grip = previousRadit.Find("Glasses");
+                    var animator = classroomRadit.GetComponentInChildren<Animator>();
+                    if (grip != null && animator != null && animator.isHuman)
+                        grip.SetParent(animator.GetBoneTransform(HumanBodyBones.Head), false);
+                    previousRadit.gameObject.SetActive(false);
+                }
+                view.EnableCampaignMap(player.transform);
+            }
             data.activeChapter = content.chapter;
             data.unlockedChapter = Mathf.Max(data.unlockedChapter, content.chapter);
             var spawn = content.spawn;
@@ -111,6 +143,7 @@ namespace BullyingGame.Campaign
             if (!Ready || loading) return;
             if (modal)
             {
+                if (input.Movement.Interact.WasPressedThisFrame()) view.AdvanceDialogue();
                 if (back.WasPressedThisFrame() || input.Movement.Pause.WasPressedThisFrame()) view.CancelModal();
                 view.ScrollJournal(scroll.ReadValue<float>() * Time.unscaledDeltaTime);
                 return;
@@ -140,9 +173,15 @@ namespace BullyingGame.Campaign
                 return;
             }
             string objective = evade != null && evade.Running ? evade.Instruction(dodgeLabel) : Step.objective;
+            if (SearchingLibrary)
+            {
+                SelectSearchSite();
+                objective = $"Cari kacamata Radit di perpustakaan ({SitesChecked()}/4).";
+            }
             bool near = CanUse();
+            bool escort = Step.kind == CampaignTaskKind.LibraryEscort;
             view.RefreshCampaign(chapterHeading, objective,
-                near && !(evade != null && evade.Running) ? "[" + interactLabel + "] " + Step.title : "",
+                near && !escort && !(evade != null && evade.Running) ? "[" + interactLabel + "] " + Step.title : "",
                 saveFailed ? "Progres belum tersimpan. Buka menu jeda untuk mencoba lagi." :
                 "[" + journalLabel + "] Jurnal     [" + pauseLabel + "] Jeda", false, player.transform, Target);
             if (Target != null && Target != markedPoint)
@@ -151,7 +190,7 @@ namespace BullyingGame.Campaign
                 GroundMarker.SetTarget(Target.position);
                 Minimap.SetMissionTarget(Target.position);
             }
-            if (near && input.Movement.Interact.WasPressedThisFrame() && !(evade != null && evade.Running)) Use();
+            if (near && (escort || input.Movement.Interact.WasPressedThisFrame()) && !(evade != null && evade.Running)) Use();
         }
         static string EpilogueLine(string actor)
         {
@@ -170,12 +209,13 @@ namespace BullyingGame.Campaign
         {
             if (Step == null || modal || loading || GameStateManager.Instance.CurrentState != GameState.Playing) return false;
             if (Vector3.Distance(player.transform.position, Target.position) > 2.8f) return false;
+            if (Step.kind == CampaignTaskKind.LibraryEscort) return raditArrived;
             Vector3 from = player.transform.position + Vector3.up;
             Vector3 to = Target.position + Vector3.up;
             return !Physics.RaycastAll(from, (to - from).normalized, Vector3.Distance(from, to), ~0,
                     QueryTriggerInteraction.Ignore)
                 .Any(hit => !hit.transform.IsChildOf(player.transform) && hit.transform != player.transform &&
-                    !(hit.collider is CapsuleCollider) && !(hit.collider is CharacterController));
+                    !hit.transform.IsChildOf(Target) && !(hit.collider is CapsuleCollider) && !(hit.collider is CharacterController));
         }
 
         public void Use()
@@ -183,6 +223,38 @@ namespace BullyingGame.Campaign
             if (!CanUse()) return;
             int index = progress.step;
             SetModal(GameState.Dialogue);
+            if (Step.kind == CampaignTaskKind.LibraryEscort)
+            {
+                StartCoroutine(LibraryArrival(index));
+                return;
+            }
+            if (Step.kind == CampaignTaskKind.DialogueEncounter)
+            {
+                if (SearchingLibrary)
+                {
+                    int site = Array.IndexOf(glassesSearchSites, searchTarget);
+                    progress.librarySitesMask |= 1 << site;
+                    int count = SitesChecked();
+                    if (count < 4)
+                    {
+                        Save();
+                        string clue = count == 1 ? "Di sini cuma ada buku. Aku cek tempat lain."
+                            : count == 2 ? "Itu penjepit kertas. Belum ketemu juga." : "Masih ada satu tempat yang belum kuperiksa.";
+                        view.ShowLines(new[] { "Aji: " + clue }, CloseModal);
+                        return;
+                    }
+                    progress.glassesSite = site;
+                    Save();
+                    RevealGlasses();
+                }
+                var speaker = transform.Find("Characters/" + Step.actor);
+                if (speaker != null)
+                {
+                    if (searchTarget != null) PlaceActor(speaker, searchTarget);
+                    speaker.gameObject.SetActive(true);
+                }
+                onEncounterOpened?.Invoke();
+            }
             Action run = () =>
             {
                 if (!modal || progress.step != index) return;
@@ -202,6 +274,12 @@ namespace BullyingGame.Campaign
         void RunTask(int index)
         {
             if (Step == null || progress.step != index || !modal) return;
+            if (Step.kind == CampaignTaskKind.DialogueEncounter)
+            {
+                view.ShowDialogueQuestCard("Pilih ucapan Aji untuk membantu Radit mengambil kembali kacamatanya.",
+                    () => EncounterQuestion(index, 0, 3));
+                return;
+            }
             if (Step.words != null)
             {
                 view.ShowDayTwoPuzzle(Step.words, progress.wordProgress, () => After(index), CloseModal, () => Save());
@@ -244,6 +322,66 @@ namespace BullyingGame.Campaign
             }
             After(index);
         }
+        void EncounterQuestion(int index, int round, int lives)
+        {
+            var question = Step.questions[round];
+            view.ShowOptions($"Quest Kata   •   Nyawa {lives}/3", question.text, question.options, choice =>
+            {
+                if (choice == question.answer)
+                {
+                    onAnswerCorrect?.Invoke();
+                    if (round + 1 < Step.questions.Length) EncounterQuestion(index, round + 1, lives);
+                    else view.ShowLines(Step.afterLines, () => StartCoroutine(Walkout(index)));
+                    return;
+                }
+                onAnswerWrong?.Invoke();
+                if (lives == 1) StartCoroutine(EncounterFailure(index, question.feedback));
+                else view.ShowLines(new[] { question.feedback }, () => EncounterQuestion(index, round, lives - 1));
+            });
+        }
+
+        System.Collections.IEnumerator EncounterFailure(int index, string reason)
+        {
+            view.HideModal();
+            if (failureTimeline != null && failureTimeline.playableAsset != null)
+            {
+                GameStateManager.Instance.SetState(GameState.Cinematic);
+                failureTimeline.time = 0;
+                failureTimeline.Play();
+                yield return null;
+                while (failureTimeline.state == UnityEngine.Playables.PlayState.Playing) yield return null;
+                GameStateManager.Instance.SetState(GameState.Dialogue);
+            }
+            view.ShowLines(new[] { "Quest Kata gagal. " + reason, "Coba lagi dari awal percakapan." },
+                () => view.ShowLines(Step.lines, () => EncounterQuestion(index, 0, 3)));
+        }
+
+        System.Collections.IEnumerator Walkout(int index)
+        {
+            view.HideModal();
+            onWalkout?.Invoke();
+            var actor = transform.Find("Characters/" + Step.actor);
+            if (actor != null)
+            {
+                var destination = walkoutTarget != null ? walkoutTarget.position : actor.position - actor.forward * 3f;
+                if (NavMesh.SamplePosition(actor.position, out var start, 1f, NavMesh.AllAreas) &&
+                    NavMesh.SamplePosition(destination, out var end, 2f, NavMesh.AllAreas))
+                {
+                    var path = new NavMeshPath();
+                    if (NavMesh.CalculatePath(start.position, end.position, NavMesh.AllAreas, path))
+                        foreach (var corner in path.corners)
+                            while (Vector3.Distance(actor.position, corner) > .05f)
+                            {
+                                var direction = Vector3.ProjectOnPlane(corner - actor.position, Vector3.up);
+                                if (direction.sqrMagnitude > .001f) actor.rotation = Quaternion.LookRotation(direction);
+                                actor.position = Vector3.MoveTowards(actor.position, corner, 2f * Time.unscaledDeltaTime);
+                                yield return null;
+                            }
+                }
+            }
+            Commit(index);
+        }
+
         void After(int index)
         {
             if (progress.step != index || !modal) return;
@@ -294,28 +432,157 @@ namespace BullyingGame.Campaign
         }
         void ActivateStep()
         {
+            searchTarget = null;
             world?.Apply(data);
             if (Step == null) return;
+            if (SearchingLibrary) SelectSearchSite();
+            else if ((Step.kind == CampaignTaskKind.DialogueEncounter || Step.id == "L02-Q03-glasses")
+                && progress.librarySitesMask == 15 && progress.glassesSite >= 0 && progress.glassesSite < glassesSearchSites.Length)
+            {
+                searchTarget = glassesSearchSites[progress.glassesSite];
+                RevealGlasses();
+            }
+            if (classroomMemet != null && !Step.id.StartsWith("L02-intro-"))
+                PrepareMemet();
             chapterHeading = content.title + "   ·   " + (progress.step + 1) + "/" + content.steps.Length;
             var cast = transform.Find("Characters");
             var actor = cast != null ? cast.Find(Step.actor ?? "") : null;
+            if (classroomRadit != null && Step.actor == "Radit") actor = classroomRadit;
+            if (Step.kind == CampaignTaskKind.LibraryEscort) StartCoroutine(EscortRadit());
             if (actor != null && Step.kind != CampaignTaskKind.Evade)
             {
-                Vector3 stand = Target.position;
+                PlaceActor(actor, Target);
+                if (Step.kind == CampaignTaskKind.DialogueEncounter) actor.gameObject.SetActive(false);
+            }
+            QuestManager.Instance.MakeQuestAvailable(Step.quest);
+            QuestManager.Instance.TryStartQuest(Step.quest);
+        }
+
+        bool SearchingLibrary => Step?.id == "L02-Q03" && glassesSearchSites.Length == 4 && progress.librarySitesMask != 15;
+
+        int SitesChecked()
+        {
+            int count = 0;
+            for (int i = 0; i < 4; i++)
+                if ((progress.librarySitesMask & (1 << i)) != 0) count++;
+            return count;
+        }
+
+        void SelectSearchSite()
+        {
+            float nearest = float.PositiveInfinity;
+            for (int i = 0; i < glassesSearchSites.Length; i++)
+            {
+                if ((progress.librarySitesMask & (1 << i)) != 0) continue;
+                float distance = (glassesSearchSites[i].position - player.transform.position).sqrMagnitude;
+                if (distance >= nearest) continue;
+                nearest = distance;
+                searchTarget = glassesSearchSites[i];
+            }
+        }
+
+        void RevealGlasses()
+        {
+            world?.RevealGlasses(searchTarget.position + Vector3.up * .12f);
+        }
+
+        static void PlaceActor(Transform actor, Transform target)
+        {
+                Vector3 stand = target.position;
                 for (int i = 0; i < 8; i++)
                 {
                     var offset = Quaternion.Euler(0, i * 45, 0) * Vector3.right * 1.3f;
-                    if (!NavMesh.SamplePosition(Target.position + offset, out var hit, .8f, NavMesh.AllAreas) ||
-                        NavMesh.Raycast(Target.position, hit.position, out _, NavMesh.AllAreas)) continue;
+                    if (!NavMesh.SamplePosition(target.position + offset, out var hit, .8f, NavMesh.AllAreas) ||
+                        NavMesh.Raycast(target.position, hit.position, out _, NavMesh.AllAreas)) continue;
                     stand = hit.position;
                     break;
                 }
                 actor.position = stand;
-                Vector3 facing = Vector3.ProjectOnPlane(Target.position - stand, Vector3.up);
+                Vector3 facing = Vector3.ProjectOnPlane(target.position - stand, Vector3.up);
                 if (facing.sqrMagnitude > .01f) actor.rotation = Quaternion.LookRotation(facing);
+        }
+
+        System.Collections.IEnumerator EscortRadit()
+        {
+            raditArrived = false;
+            var animator = classroomRadit.GetComponentInChildren<Animator>();
+            var previous = animator != null ? animator.runtimeAnimatorController : null;
+            var rootMotion = animator != null && animator.applyRootMotion;
+            var path = new NavMeshPath();
+            while (!NavMesh.SamplePosition(classroomRadit.position, out var start, 3f, NavMesh.AllAreas) ||
+                   !NavMesh.SamplePosition(Target.position, out var end, 3f, NavMesh.AllAreas) ||
+                   !NavMesh.CalculatePath(start.position, end.position, NavMesh.AllAreas, path) ||
+                   path.status != NavMeshPathStatus.PathComplete)
+                yield return new WaitForSeconds(1f);
+
+            if (animator != null && raditLocomotion != null)
+            {
+                animator.runtimeAnimatorController = raditLocomotion;
+                animator.applyRootMotion = false;
+                animator.SetBool("Grounded", true);
             }
-            QuestManager.Instance.MakeQuestAvailable(Step.quest);
-            QuestManager.Instance.TryStartQuest(Step.quest);
+            foreach (var corner in path.corners)
+                while (Vector3.Distance(classroomRadit.position, corner) > .05f)
+                {
+                    if (animator != null && raditLocomotion != null) animator.SetFloat("Speed", modal ? 0 : .65f);
+                    if (!modal)
+                    {
+                        var direction = Vector3.ProjectOnPlane(corner - classroomRadit.position, Vector3.up);
+                        if (direction.sqrMagnitude > .001f)
+                            classroomRadit.rotation = Quaternion.RotateTowards(classroomRadit.rotation, Quaternion.LookRotation(direction), 480 * Time.deltaTime);
+                        classroomRadit.position = Vector3.MoveTowards(classroomRadit.position, corner, 2.5f * Time.deltaTime);
+                    }
+                    yield return null;
+                }
+            if (animator != null && raditLocomotion != null)
+            {
+                animator.runtimeAnimatorController = previous;
+                animator.applyRootMotion = rootMotion;
+            }
+            raditArrived = true;
+        }
+
+        System.Collections.IEnumerator LibraryArrival(int index)
+        {
+            GameStateManager.Instance.SetState(GameState.Cinematic);
+            var memet = PrepareMemet();
+            if (memet != null)
+            {
+                memet.gameObject.SetActive(true);
+                memet.position = classroomRadit.position + classroomRadit.right * 1.3f;
+                memet.LookAt(classroomRadit.position);
+            }
+            if (libraryArrivalTimeline != null && libraryArrivalTimeline.playableAsset != null)
+            {
+                libraryArrivalTimeline.time = 0;
+                libraryArrivalTimeline.Play();
+                yield return null;
+                while (libraryArrivalTimeline.state == UnityEngine.Playables.PlayState.Playing) yield return null;
+            }
+            else
+            {
+                bool finished = false;
+                view.ShowCinematicLines(new[] { "Memet: Dit, rangkumin bukuku sekalian, ya.",
+                    "Radit: Aku masih harus ngerjain tugasku sendiri, Met.",
+                    "Memet: Kacamatamu aku pegang dulu. Nanti balik kalau tugasku selesai." }, () => finished = true);
+                while (!finished) yield return null;
+            }
+            if (memet != null) memet.gameObject.SetActive(false);
+            Commit(index);
+        }
+
+        Transform PrepareMemet()
+        {
+            var actor = transform.Find("Characters/Memet");
+            if (actor != null && classroomMemet != null && classroomMemet.parent != actor)
+            {
+                foreach (Transform placeholder in actor) placeholder.gameObject.SetActive(false);
+                classroomMemet.SetParent(actor, true);
+                classroomMemet.localPosition = Vector3.zero;
+                classroomMemet.localRotation = Quaternion.identity;
+                classroomMemet.gameObject.SetActive(true);
+            }
+            return actor;
         }
         bool Save()
         {

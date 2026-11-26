@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: L02-Q03
   m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Quest.QuestData
   questId: L02-Q03
-  questTitle: Puzzle rak perpustakaan
-  questDescription: Susun buku untuk membuka akses kotak temuan
+  questTitle: Periksa titik pencarian
+  questDescription: Periksa empat titik di perpustakaan.
   objectives:
   - objectiveId: L02-Q03
-    description: Susun buku untuk membuka akses kotak temuan
+    description: Periksa empat titik di perpustakaan.
     requiredAmount: 1
     currentAmount: 0
   prerequisites: []

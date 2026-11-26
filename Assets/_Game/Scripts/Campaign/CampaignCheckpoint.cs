@@ -12,6 +12,8 @@ namespace BullyingGame.Campaign
         public int chapter;
         public int step, question, failures;
         public string stepId = "";
+        public int librarySitesMask;
+        public int glassesSite = -1;
         public bool hasPosition, actionPresented;
         public Vector3 position;
         public string[] selectedOrder = Array.Empty<string>();

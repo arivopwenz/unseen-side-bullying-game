@@ -31,6 +31,15 @@ namespace BullyingGame.Campaign
             }
         }
 
+        public void RevealGlasses(Vector3 position)
+        {
+            var glasses = Array.Find(props, prop => prop.id == "glasses");
+            if (glasses?.visual == null) return;
+            glasses.visual.transform.position = position;
+            glasses.position = glasses.home.InverseTransformPoint(position);
+            glasses.visual.SetActive(true);
+        }
+
         public void Apply(CampaignProgress data)
         {
             foreach (var prop in props)

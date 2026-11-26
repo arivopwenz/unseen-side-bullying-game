@@ -5,7 +5,7 @@ using BullyingGame.Quest;
 
 namespace BullyingGame.Campaign
 {
-    public enum CampaignTaskKind { Talk, Order, Classify, Choice, Evidence, Evade, Pickup, Return, Cinematic, Station }
+    public enum CampaignTaskKind { Talk, Order, Classify, Choice, Evidence, Evade, Pickup, Return, Cinematic, Station, DialogueEncounter, LibraryEscort }
 
     [Serializable]
     public class CampaignQuestion

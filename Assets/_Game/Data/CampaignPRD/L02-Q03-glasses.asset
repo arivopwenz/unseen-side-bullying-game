@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Quest.QuestData
   questId: L02-Q03-glasses
   questTitle: Ambil kacamata Radit
-  questDescription: Ambil kacamata dari kotak temuan.
+  questDescription: Ambil kacamata Radit di titik penemuan.
   objectives:
   - objectiveId: L02-Q03-glasses
-    description: Ambil kacamata dari kotak temuan.
+    description: Ambil kacamata Radit di titik penemuan.
     requiredAmount: 1
     currentAmount: 0
   prerequisites: []

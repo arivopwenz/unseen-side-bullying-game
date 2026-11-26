@@ -13,194 +13,132 @@ MonoBehaviour:
   m_Name: Chapter2
   m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Campaign.CampaignChapterData
   chapter: 2
-  title: "Chapter 2 \u2022 Luka yang Tak Terlihat"
+  title: Chapter 2
   reflection: Melindungi diri berarti mencari jarak dan pertolongan. Kita tidak harus membalas kekerasan untuk menunjukkan keberanian.
   nextScene: Level03
-  spawn: {x: 28.999998, y: 0.13409996, z: 24.649414}
+  spawn: {x: 37, y: 0.3, z: 32}
   steps:
-  - id: L02-Q01
-    title: Cari Radit
-    objective: Temui Radit yang kelihatan kesulitan
-    actor: Radit
-    pointId: L02-Q01
-    insight: Radit bilang kacamatanya hilang setelah direbut. Ia mengizinkan kami menelusuri rutenya.
+  - id: L02-intro-kelas
+    title: Tugas dari Bu Guru
+    objective: Dengarkan tugas Bu Guru di depan kelas.
+    actor: 
+    pointId: L02-intro-kelas
+    insight: Bu Guru meminta setiap siswa merangkum satu buku.
     scenePath: 
     lines:
-    - 'Aji: Dit, bukunya kok dideketin banget?'
-    - 'Radit: Kacamataku hilang lagi, Ji.'
-    - 'Aji: Kamu lupa naruh, atau ada yang ngambil?'
-    - 'Radit: Tadi diminta nunjukin tugas. Pas aku nggak mau, kacamataku direbut.'
-    - 'Aji: Itu nggak seharusnya terjadi. Kamu mau aku bantu cari?'
-    - 'Radit: Mau. Tapi jangan bikin mereka makin marah.'
-    - 'Aji: Kita cari lewat orang-orang yang tadi ada di sekitar. Aku nggak bakal nyalahin kamu.'
-    - 'Radit: Terakhir aku lewat perpustakaan.'
-    - 'Laura: Aku bisa nemenin kalau kalian mau. Aku habis dari sana.'
+    - 'Bu Guru: Anak-anak, pergi ke perpustakaan, ya. Pilih satu buku dan tulis rangkumannya dengan kata-kata kalian sendiri.'
+    - 'Aji: Baik, Bu.'
     afterLines: []
     kind: 0
     words: {fileID: 0}
-    questions:
-    - id: 
-      text: Radit bersedia dibantu. Apa yang kamu katakan?
-      feedback: Periksa informasi dan pilih bantuan yang aman.
-      options:
-      - Aku bantu lewat petugas, sesuai yang kamu nyaman.
-      - Sebut semua pelaku sekarang!
-      answer: 0
+    questions: []
     order: []
-    position: {x: 28.999996, y: 0.13409996, z: 25}
+    position: {x: 0, y: 0, z: 0}
+    quest: {fileID: 11400000, guid: 90a881bde0024092bf233bbb91364420, type: 2}
+    choiceKey: 
+    actionCard: 0
+  - id: L02-intro-ajak
+    title: Ajak Radit
+    objective: Ajak Radit pergi ke perpustakaan.
+    actor: 
+    pointId: L02-intro-ajak
+    insight: Radit dan aku pergi bersama ke perpustakaan.
+    scenePath: 
+    lines:
+    - 'Aji: Dit, kita ke perpustakaan bareng, yuk.'
+    - 'Radit: Yuk, Ji. Lewat sini.'
+    afterLines: []
+    kind: 0
+    words: {fileID: 0}
+    questions: []
+    order: []
+    position: {x: 0, y: 0, z: 0}
+    quest: {fileID: 11400000, guid: 90a881bde0024092bf233bbb91364421, type: 2}
+    choiceKey: 
+    actionCard: 0
+  - id: L02-intro-perpus
+    title: Ikuti Radit
+    objective: Ikuti Radit sampai tanda kuning di perpustakaan.
+    actor: 
+    pointId: L02-intro-perpus
+    insight: Memet mengambil kacamata Radit di perpustakaan.
+    scenePath: 
+    lines: []
+    afterLines: []
+    kind: 11
+    words: {fileID: 0}
+    questions: []
+    order: []
+    position: {x: 0, y: 0, z: 0}
+    quest: {fileID: 11400000, guid: 90a881bde0024092bf233bbb91364422, type: 2}
+    choiceKey: 
+    actionCard: 0
+  - id: L02-Q01
+    title: Bicara dengan Radit
+    objective: Temui Radit di dekat perpustakaan.
+    actor: Radit
+    pointId: L02-Q01
+    insight: Radit mendengar buku jatuh setelah Memet berlari ke arah rak.
+    scenePath: 
+    lines:
+    - 'Aji: Dit, aku di sini. Kamu sempat lihat Memet pergi ke mana?'
+    - 'Radit: Samar-samar, Ji. Dia lari ke arah rak buku, terus aku dengar buku jatuh.'
+    - 'Radit: Bisa bantu cari kacamataku? Tanpa itu tulisannya kabur semua.'
+    - 'Aji: Bisa. Aku periksa rak itu dulu.'
+    afterLines: []
+    kind: 0
+    words: {fileID: 0}
+    questions: []
+    order: []
+    position: {x: 26.666668, y: 0.050766706, z: -25.73103}
     quest: {fileID: 11400000, guid: 58c77ae0fd9f04b4b9781d20061d644a, type: 2}
     choiceKey: 
     actionCard: 0
-  - id: L02-Q02-witness-library
-    title: Tanya Bu Lilis
-    objective: Temui Bu Lilis di perpustakaan untuk mencari saksi.
-    actor: Bu Lilis
-    pointId: L02-Q02-witness-library
-    insight: "EV-R02 \u2022 Bu Lilis melihat Radit membawa buku. Ia tidak melihat siapa yang mengambil."
-    scenePath: 
-    lines:
-    - 'Aji: Bu Lilis, tadi Radit lewat sini, ya? Kacamatanya hilang.'
-    - 'Bu Lilis: Tadi ia membawa buku ke meja ini. Saya lihat ada keramaian di lorong, tapi tidak melihat siapa yang mengambil.'
-    - 'Aji: Baik, Bu. Saya cek barang temuan dulu.'
-    afterLines: []
-    kind: 0
-    words: {fileID: 0}
-    questions: []
-    order: []
-    position: {x: 46, y: 0.13409996, z: -28.850586}
-    quest: {fileID: 11400000, guid: 42a46ac92e78fcb4aacdc6bd4704fa50, type: 2}
-    choiceKey: 
-    actionCard: 0
-  - id: L02-Q02-witness-janitor
-    title: Tanya Pak Jaya
-    objective: Tanyakan kepada Pak Jaya ke mana troli buku dipindahkan.
-    actor: Pak Jaya
-    pointId: L02-Q02-witness-janitor
-    insight: "EV-R02 \u2022 Pak Jaya menemukan barang dekat kereta dan menyerahkannya kepada Bu Lilis."
-    scenePath: 
-    lines:
-    - 'Pak Jaya: Saya habis geser kereta buku dari lorong. Ada barang kecil dekat rodanya.'
-    - 'Aji: Bapak yang mindahin ke meja temuan?'
-    - 'Pak Jaya: Saya serahkan ke Bu Lilis. Coba cocokkan dulu dengan milik Radit.'
-    - 'Bu Lilis: Aji, pastikan ada ciri yang cocok sebelum mengambil, ya.'
-    - 'Aji: Siap, Bu. Saya tanya Radit cirinya.'
-    afterLines: []
-    kind: 0
-    words: {fileID: 0}
-    questions: []
-    order: []
-    position: {x: 34.016262, y: 0.38409996, z: -26.020327}
-    quest: {fileID: 11400000, guid: 047746c3a60145c40b3b384a156f6e69, type: 2}
-    choiceKey: 
-    actionCard: 0
-  - id: L02-Q02-clue-lorong
-    title: Periksa buku Radit
-    objective: Periksa buku yang tertinggal di lorong perpustakaan.
-    actor: 
-    pointId: L02-Q02-clue-lorong
-    insight: Di lorong perpustakaan aku menemukan buku Radit.
-    scenePath: 
-    lines:
-    - Buku Radit tertinggal di lorong perpustakaan.
-    afterLines: []
-    kind: 9
-    words: {fileID: 0}
-    questions: []
-    order: []
-    position: {x: 42, y: 0.09792866, z: -22}
-    quest: {fileID: 11400000, guid: d912cceb657ec4440bcf6f0174630c59, type: 2}
-    choiceKey: 
-    actionCard: 1
-  - id: L02-Q02-clue-trolley
-    title: Periksa catatan troli
-    objective: Cari catatan perpindahan pada troli buku.
-    actor: 
-    pointId: L02-Q02-clue-trolley
-    insight: Catatan troli menyebut Pak Jaya memindahkan kereta buku dari lorong.
-    scenePath: 
-    lines:
-    - 'Catatan perpindahan: kereta buku dipindahkan Pak Jaya dari lorong.'
-    afterLines: []
-    kind: 9
-    words: {fileID: 0}
-    questions: []
-    order: []
-    position: {x: 46, y: 0.13409996, z: -24}
-    quest: {fileID: 11400000, guid: f1c97346253b3664ea8106767a3f3033, type: 2}
-    choiceKey: 
-    actionCard: 1
-  - id: L02-Q02-clue-temuan
-    title: Baca catatan Bu Lilis
-    objective: Periksa catatan di meja barang temuan.
-    actor: 
-    pointId: L02-Q02-clue-temuan
-    insight: Bu Lilis mencatat kacamata di meja barang temuan.
-    scenePath: 
-    lines:
-    - 'Catatan Bu Lilis: kacamata berada di kotak barang temuan.'
-    afterLines: []
-    kind: 9
-    words: {fileID: 0}
-    questions: []
-    order: []
-    position: {x: 46, y: 0.13409996, z: -28}
-    quest: {fileID: 11400000, guid: 47d772aaac086f94498f140652632bdf, type: 2}
-    choiceKey: 
-    actionCard: 1
-  - id: L02-Q02-map
-    title: Susun rute kacamata
-    objective: Urutkan tiga lokasi berdasarkan keterangan saksi.
-    actor: 
-    pointId: L02-Q02-map
-    insight: Rute pencarian kacamata melewati lorong, troli buku, lalu meja temuan.
-    scenePath: 
-    lines: []
-    afterLines: []
-    kind: 1
-    words: {fileID: 0}
-    questions: []
-    order:
-    - Lorong
-    - Trolley
-    - Meja temuan
-    position: {x: 42.611473, y: 0.09865846, z: -26}
-    quest: {fileID: 11400000, guid: 67234f9625f718243bb494fec1669b2e, type: 2}
-    choiceKey: 
-    actionCard: 1
   - id: L02-Q03
-    title: Puzzle rak perpustakaan
-    objective: Susun buku untuk membuka akses kotak temuan
-    actor: Bu Lilis
+    title: Periksa titik pencarian
+    objective: Periksa empat titik di perpustakaan.
+    actor: Memet
     pointId: L02-Q03
-    insight: Kacamata cocok dengan ciri yang Radit berikan. Bu Lilis mengizinkan pengembalian.
+    insight: Memet berhenti menghalangi Aji mengambil kacamata Radit.
     scenePath: 
-    lines: []
+    lines:
+    - 'Aji: Itu gagang kacamatanya Radit...'
+    - 'Memet: Tunggu, Ji. Radit belum selesai ngerjain rangkumanku.'
     afterLines:
-    - 'Bu Lilis: Nah, keretanya sudah rapi. Ini kacamata yang tadi ditemukan.'
-    - 'Aji: Bentuk bingkainya sama seperti yang Radit bilang.'
-    - 'Bu Lilis: Bagus. Kita kembalikan langsung kepadanya.'
-    - 'Laura: Aku cari Radit di bangku dekat perpustakaan, ya.'
-    - 'Aji: Makasih, Laura.'
-    kind: 1
+    - 'Memet: Ya udah, ambil sendiri. Aku pergi.'
+    kind: 10
     words: {fileID: 0}
-    questions: []
-    order:
-    - "Sains \u2192 rak sains"
-    - "Atlas/sejarah \u2192 rak sosial"
-    - "Komik edukasi \u2192 rak bacaan"
+    questions:
+    - id: 
+      text: 'Memet: Kalau kamu mau kacamatanya, siapa yang ngerjain tugasku?'
+      feedback: Menukar kacamata dengan tugas tetap membuat Radit harus membayar untuk barangnya sendiri.
+      options:
+      - Aku aja. Asal kamu kasih kacamatanya.
+      - Itu tugasmu, Met. Radit perlu kacamatanya buat baca.
+      - Biar Radit kerjain dulu.
+      answer: 1
+    - id: 
+      text: 'Memet: Kamu mau bikin aku malu di depan semua orang?'
+      feedback: Mempermalukan atau mengancam Memet membuat percakapan makin panas. Fokus pada kebutuhan Radit.
+      options:
+      - Aku mau Radit bisa baca lagi. Kita bisa bicara pelan-pelan.
+      - Iya, biar semua tahu.
+      - Aku ambil barangmu juga kalau begitu.
+      answer: 0
+    order: []
     position: {x: 42.611473, y: 0.09865846, z: -26}
     quest: {fileID: 11400000, guid: 0ff528cf50b634b45af8993c28ce97f4, type: 2}
     choiceKey: 
-    actionCard: 1
+    actionCard: 0
   - id: L02-Q03-glasses
     title: Ambil kacamata Radit
-    objective: Ambil kacamata dari kotak temuan.
-    actor: Bu Lilis
+    objective: Ambil kacamata Radit di titik penemuan.
+    actor: 
     pointId: L02-Q03-glasses
-    insight: Kacamata sudah kuambil dari kotak temuan. Sekarang aku bisa mengantarnya ke Radit.
+    insight: Aku menemukan kacamata di titik terakhir dan bisa mengantarnya kepada Radit.
     scenePath: 
     lines:
-    - 'Bu Lilis: Bingkai ini cocok dengan ciri milik Radit. Silakan kembalikan dengan aman.'
+    - 'Aji: Ini kacamatanya. Aku antar ke Radit sekarang.'
     afterLines: []
     kind: 6
     words: {fileID: 0}
@@ -218,7 +156,7 @@ MonoBehaviour:
     insight: Radit sudah menerima kacamatanya. Ia ingin ditemani bicara dengan Bu Lilis.
     scenePath: 
     lines:
-    - 'Aji: Dit, ini kacamatamu. Bu Lilis nemuin di dekat kereta buku.'
+    - 'Aji: Dit, ini kacamatamu. Aku nemuin di dekat rak tadi.'
     - 'Radit: Akhirnya... makasih, Ji. Aku udah takut nggak bisa lihat papan.'
     - 'Laura: Tadi kami cari sama-sama. Kamu nggak sendiri.'
     - 'Radit: Aku pengin kejadian begini berhenti, tapi kalau aku melawan malah takut.'

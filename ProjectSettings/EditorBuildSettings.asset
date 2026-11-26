@@ -42,6 +42,9 @@ EditorBuildSettings:
     path: Assets/_Game/Scenes/Levels/Level_02/Cutscene/CS_L02_AncamanKoridor.unity
     guid: 56c115b1a433b1144a16569bd0aff5f5
   - enabled: 1
+    path: Assets/_Game/Scenes/Levels/Level_02/Cutscene/Chapter02_Istirahat 2.unity
+    guid: 251219bad28e6c242ac1574e6a3d620f
+  - enabled: 1
     path: Assets/_Game/Scenes/Levels/Level_04/cutscene/CS_L04_IntakeBK.unity
     guid: 717e7690d051a764a830eac1d9e85d68
   - enabled: 1

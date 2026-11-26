@@ -59,6 +59,20 @@ namespace BullyingGame.LevelOne
             if (Time.frameCount != dialogueOpenedFrame) advanceDialogue?.Invoke();
         }
 
+        internal void UseTutorialDialogue()
+        {
+            if (tutorialDialogue != null) return;
+            var prefab = Resources.Load<GameObject>("TutorialDialogueCanvas");
+            tutorialDialogue = Instantiate(prefab, transform).GetComponent<BullyingGame.Prologue.PrologueDialogueCanvas>();
+            tutorialDialogue.SetVisible(false);
+        }
+
+        internal void EnableCampaignMap(Transform player)
+        {
+            questMap = hud.gameObject.AddComponent<BullyingGame.Prologue.PrologueHud>();
+            questMap.InitializeMinimap(hud, player);
+        }
+
         void CreateQuestHud(LevelOneDirector director)
         {
             questLayer = StoryOverlay.Rect(canvas, "Quest HUD", Vector2.zero, Vector2.zero);
@@ -280,6 +294,11 @@ namespace BullyingGame.LevelOne
                 dialogueOpenedFrame = Time.frameCount;
                 advanceDialogue = () => { if (++page < lines.Length) Display(); else End(); };
                 if (advanceHint != null) advanceHint.SetActive(true);
+                else
+                {
+                    var hint = Text(modal, "Lanjut dialog", "[E] Lanjut", Vector2.zero, new Vector2(220, 50), 23);
+                    hint.rectTransform.anchorMin = hint.rectTransform.anchorMax = new Vector2(.78f, .13f);
+                }
                 if (skippable) AnchorDialogueButton(StoryOverlay.Button(modal, "Lewati adegan", Vector2.zero, new Vector2(215, 50), End), -125);
                 return;
             }
@@ -351,6 +370,7 @@ namespace BullyingGame.LevelOne
             Transform player = null, Transform destination = null)
         {
             hud.gameObject.SetActive(!modalOpen);
+            if (questMap != null) questMap.SetMinimapTarget(destination);
             actionPanel.gameObject.SetActive(false);
             trackerPanel.gameObject.SetActive(true);
             bool guide = destination != null && player != null && string.IsNullOrEmpty(interaction);
@@ -392,6 +412,13 @@ namespace BullyingGame.LevelOne
                 if (i == 0) Select(button);
             }
         }
+        public void ShowDialogueQuestCard(string objectiveText, Action finished)
+        {
+            if (wordCardArtwork != null && wordCardImage != null && wordCardImage.sprite != null)
+                ShowCardArtwork(wordCardArtwork, wordCardImage, finished, objectiveText);
+            else ShowCard("Kartu Kata", objectiveText, finished);
+        }
+
         public void ShowActionCard(string objectiveText, Action finished)
         {
             if (questLayer != null)
