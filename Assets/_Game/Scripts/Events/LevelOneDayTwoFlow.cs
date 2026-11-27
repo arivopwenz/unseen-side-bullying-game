@@ -15,6 +15,40 @@ namespace BullyingGame.LevelOne
         [Header("Day two route")]
         [SerializeField] private LevelOneDirector director;
         [SerializeField] private NavMeshAgent bima;
+        [SerializeField] private Vector3[] libraryRoute;
+        public bool HasLibraryRoute => libraryRoute?.Length > 0;
+        private int libraryWaypoint;
+        private int requestedLibraryWaypoint = -1;
+        private const float LibraryChoiceSeconds = 40f;
+        [SerializeField] private Transform libraryMemet;
+        [SerializeField] private Transform libraryEncounterPoint;
+        [SerializeField] private PlayableDirector libraryEncounter;
+        [SerializeField] private Animator timelineMemet;
+        [SerializeField] private NavMeshAgent timelineMemetAgent;
+        [SerializeField] private GameObject glassesModel;
+        [SerializeField] private PlayableDirector libraryArrival, libraryFailure;
+        [SerializeField] private Transform[] librarySearchWaypoints;
+        [SerializeField] private Vector3[] searchOffsets =
+        {
+            new Vector3(1.5f, 0, -1.5f), new Vector3(3.5f, 0, -3f),
+            new Vector3(1.5f, 0, -5f), new Vector3(4.5f, 0, -6f)
+        };
+        Transform[] searchPoints;
+        Transform libraryDestination;
+        GameObject glasses;
+        int checkedSites;
+        bool libraryStarted, awaitingLibraryEncounter, permissionGranted, holdingGlasses, libraryDone;
+        Transform glassesLocation;
+        internal bool LibraryActive => HasLibraryRoute && director.Step?.id == "incident";
+        internal Transform LibraryTarget { get; private set; }
+        internal string LibraryPrompt => !libraryStarted || awaitingLibraryEncounter || libraryDone || LibraryTarget == null ||
+            Vector3.Distance(LibraryTarget.position, director.Player.transform.position) > 2f ? "" :
+            holdingGlasses ? "Kembalikan kacamata" : permissionGranted ? "Ambil kacamata" : "Periksa titik";
+        internal Transform LibraryGuide => bima.transform;
+        internal string LibraryObjective => libraryDone ? "Kacamata Radit sudah kembali." :
+            holdingGlasses ? "Kembalikan kacamata ke Radit." : permissionGranted ? "Ambil kacamata Radit." :
+            awaitingLibraryEncounter ? "Dekati titik pertemuan di perpustakaan." :
+            libraryStarted ? $"Cari kacamata Radit ({checkedSites}/4)." : "Ikuti Radit menuju perpustakaan.";
         [SerializeField] private Animator[] corridorStudents = new Animator[0];
         static readonly string[] Questions = {
             "Sahrul, kapan ejekan termasuk perundungan?",
@@ -35,12 +69,16 @@ namespace BullyingGame.LevelOne
         internal void BeginShot(Transform actor, Transform other = null)
         {
             EndShot();
-            if (actor == null) return;
+            if (actor == null || !actor.gameObject.activeInHierarchy) return;
             if (conversationCamera == null)
             {
                 var rig = new GameObject("Level01 Dialogue Camera");
                 rig.transform.SetParent(transform, false);
                 conversationCamera = rig.AddComponent<CinemachineCamera>();
+                conversationCamera.Priority = -1000;
+                var lens = conversationCamera.Lens;
+                lens.FieldOfView = 48f;
+                conversationCamera.Lens = lens;
             }
             currentShot = actor.GetComponent<BullyingGame.Prologue.PrologueDialogueShot>();
             if (currentShot == null) currentShot = actor.gameObject.AddComponent<BullyingGame.Prologue.PrologueDialogueShot>();
@@ -67,7 +105,7 @@ namespace BullyingGame.LevelOne
         public string StudentName => director.Progress.corridorInterviews == 0 ? "Sahrul" : "Nando";
         public bool CanAsk => InterviewStudent != null &&
             Vector3.Distance(director.Player.transform.position, InterviewStudent.transform.position) <= 2.3f;
-        public string CanteenObjective => InterviewStudent != null
+        public string CanteenObjective => libraryRoute?.Length > 0 ? "Ikuti Radit menuju perpustakaan." : InterviewStudent != null
             ? $"Tanya {StudentName} tentang perundungan ({director.Progress.corridorInterviews}/2). Bima menunggu di koridor."
             : "Ikuti Bima menuju kantin.";
         [SerializeField] private SwingDoor classroomExit;
@@ -86,6 +124,7 @@ namespace BullyingGame.LevelOne
         void Awake()
         {
             escortSpeed = bima.speed;
+            if (HasLibraryRoute) bima.autoTraverseOffMeshLink = false;
             var animator = bima.GetComponentInChildren<Animator>();
             if (animator != null && animator.parameters.Any(parameter =>
                     parameter.nameHash == Speed && parameter.type == AnimatorControllerParameterType.Float))
@@ -107,6 +146,7 @@ namespace BullyingGame.LevelOne
 
         public bool CanInteract(LevelOnePoint point)
         {
+            if (director.Step.id == "incident" && libraryRoute?.Length > 0) return false;
             switch (director.Step.id)
             {
                 case "incident":
@@ -121,6 +161,275 @@ namespace BullyingGame.LevelOne
             }
         }
 
+        void GuideToLibrary()
+        {
+            if (!bima.isOnNavMesh) return;
+            bool paused = director.IsModal;
+            if (paused)
+            {
+                GroundMarker.ClearTarget();
+                Minimap.ClearMissionTarget();
+            }
+            else
+            {
+                if (LibraryTarget != null && !libraryDone)
+                {
+                    GroundMarker.SetTarget(LibraryTarget.position);
+                    Minimap.SetMissionTarget(LibraryTarget.position);
+                }
+            }
+
+            if (bima.isOnOffMeshLink)
+            {
+                WalkLibraryLink(paused);
+                return;
+            }
+
+            if (libraryWaypoint < libraryRoute.Length &&
+                Vector3.ProjectOnPlane(libraryRoute[libraryWaypoint] - bima.transform.position, Vector3.up).sqrMagnitude <= 4f)
+                libraryWaypoint++;
+
+            bima.isStopped = paused || libraryWaypoint == libraryRoute.Length ||
+                Vector3.Distance(bima.transform.position, director.Player.transform.position) > 10f;
+            if (!bima.isStopped)
+            {
+                OpenNearbyDoor(classroomExit);
+                OpenNearbyDoor(reportClassroomDoor);
+                if (requestedLibraryWaypoint != libraryWaypoint || (!bima.pathPending && !bima.hasPath))
+                {
+                    WalkTo(libraryRoute[libraryWaypoint]);
+                    requestedLibraryWaypoint = libraryWaypoint;
+                }
+            }
+            if (bimaAnimator != null)
+                bimaAnimator.SetFloat(Speed, bima.isStopped ? 0f : bima.velocity.magnitude, .15f, Time.deltaTime);
+            if (!libraryStarted)
+            {
+                if (libraryDestination == null)
+                {
+                    libraryDestination = new GameObject("Tujuan perpustakaan").transform;
+                    libraryDestination.SetParent(transform);
+                    libraryDestination.position = libraryRoute[^1];
+                }
+                LibraryTarget = libraryDestination;
+                if (!paused && libraryWaypoint == libraryRoute.Length &&
+                    Vector3.Distance(director.Player.transform.position, libraryDestination.position) <= 3f)
+                    StartCoroutine(BeginLibrarySearch());
+            }
+            else if (!paused && !permissionGranted && checkedSites < 4)
+                LibraryTarget = searchPoints.Where(point => point != null)
+                    .OrderBy(point => (point.position - director.Player.transform.position).sqrMagnitude).FirstOrDefault();
+            else if (!paused && awaitingLibraryEncounter &&
+                     (director.Player.transform.position - LibraryTarget.position).sqrMagnitude <= 1.2f * 1.2f)
+            {
+                awaitingLibraryEncounter = false;
+                LibraryTarget = glassesLocation;
+                director.OpenLibraryModal();
+                StartCoroutine(BeginLibraryEncounter());
+            }
+        }
+
+        void WalkLibraryLink(bool paused)
+        {
+            if (paused)
+            {
+                if (bimaAnimator != null) bimaAnimator.SetFloat(Speed, 0f, .15f, Time.deltaTime);
+                return;
+            }
+
+            var end = bima.currentOffMeshLinkData.endPos + Vector3.up * bima.baseOffset;
+            float speed = Mathf.Clamp(escortSpeed, 1f, 2.6f);
+            var actor = bima.transform;
+            var heading = Vector3.ProjectOnPlane(end - actor.position, Vector3.up);
+            foreach (var door in SwingDoor.ActiveDoors)
+                OpenNearbyDoor(door);
+            if (heading.sqrMagnitude > .0001f)
+                actor.rotation = Quaternion.RotateTowards(actor.rotation, Quaternion.LookRotation(heading),
+                    bima.angularSpeed * Time.deltaTime);
+            actor.position = Vector3.MoveTowards(actor.position, end, speed * Time.deltaTime);
+            if (bimaAnimator != null) bimaAnimator.SetFloat(Speed, speed, .15f, Time.deltaTime);
+            if ((actor.position - end).sqrMagnitude <= .0001f) bima.CompleteOffMeshLink();
+        }
+
+        IEnumerator BeginLibrarySearch()
+        {
+            libraryStarted = true;
+            LibraryTarget = null;
+            director.OpenLibraryModal();
+            yield return PlayLibraryTimeline(libraryArrival);
+            searchPoints = new Transform[4];
+            bool hasManualWaypoints = librarySearchWaypoints != null && librarySearchWaypoints.Length == searchPoints.Length &&
+                librarySearchWaypoints.All(waypoint => waypoint != null) &&
+                librarySearchWaypoints.Distinct().Count() == searchPoints.Length;
+            for (int i = 0; i < searchPoints.Length; i++)
+            {
+                if (hasManualWaypoints)
+                {
+                    searchPoints[i] = librarySearchWaypoints[i];
+                    continue;
+                }
+                var point = new GameObject("Titik pencarian kacamata " + (i + 1)).transform;
+                point.SetParent(transform);
+                var position = libraryDestination.position + searchOffsets[i];
+                point.position = NavMesh.SamplePosition(position, out var hit, 1f, NavMesh.AllAreas) ? hit.position : position;
+                searchPoints[i] = point;
+            }
+            director.LibraryView.ShowLines(new[] { "Radit: Memet mengambil kacamataku, Ji. Terakhir kulihat dia ke arah rak buku.",
+                "Aji: Aku cek tempat-tempat di sekitar rak, ya." }, director.CloseLibraryModal);
+        }
+
+        internal void InspectLibrary()
+        {
+            if (!libraryStarted || libraryDone || string.IsNullOrEmpty(LibraryPrompt)) return;
+            var view = director.LibraryView;
+            director.OpenLibraryModal();
+            if (holdingGlasses)
+            {
+                holdingGlasses = false;
+                libraryDone = true;
+                LibraryTarget = null;
+                if (glasses != null) Destroy(glasses);
+                BeginShot(bima.transform);
+                view.ShowLines(new[] { "Aji: Dit, ini kacamatamu.", "Radit: Sekarang aku bisa baca lagi. Makasih, Ji." }, director.CloseLibraryModal);
+                return;
+            }
+            if (permissionGranted)
+            {
+                holdingGlasses = true;
+                if (glasses != null) glasses.SetActive(false);
+                LibraryTarget = bima.transform;
+                director.CloseLibraryModal();
+                return;
+            }
+            int site = System.Array.IndexOf(searchPoints, LibraryTarget);
+            searchPoints[site] = null;
+            if (++checkedSites < 4)
+            {
+                LibraryTarget = null;
+                view.ShowLines(new[] { "Aji: Kacamatanya tidak ada di sini. Coba tempat lain." }, director.CloseLibraryModal);
+                return;
+            }
+            if (glassesModel != null)
+                glasses = Instantiate(glassesModel, LibraryTarget.position + Vector3.up * .12f, Quaternion.identity);
+            glassesLocation = LibraryTarget;
+            if (libraryEncounterPoint == null)
+            {
+                StartCoroutine(BeginLibraryEncounter());
+                return;
+            }
+            awaitingLibraryEncounter = true;
+            LibraryTarget = libraryEncounterPoint;
+            view.ShowLines(new[] { "Aji: Itu kacamatanya! Aku dekati dari sisi rak." }, director.CloseLibraryModal);
+        }
+
+        IEnumerator BeginLibraryEncounter()
+        {
+            var view = director.LibraryView;
+            view.HideModal();
+            view.SetGameplayVisible(false);
+            if (libraryEncounter != null && libraryEncounter.playableAsset != null &&
+                libraryEncounter.gameObject.activeInHierarchy && timelineMemet != null)
+            {
+                if (timelineMemetAgent != null) timelineMemetAgent.enabled = false;
+                timelineMemet.gameObject.SetActive(true);
+                libraryMemet = timelineMemet.transform;
+                libraryEncounter.extrapolationMode = DirectorWrapMode.Hold;
+                libraryEncounter.time = 0;
+                libraryEncounter.Play();
+                yield return null;
+                while (libraryEncounter.state == PlayState.Playing &&
+                       libraryEncounter.time < libraryEncounter.duration - .001)
+                    yield return null;
+                var position = libraryMemet.position;
+                var rotation = libraryMemet.rotation;
+                libraryEncounter.Stop();
+                libraryMemet.SetPositionAndRotation(position, rotation);
+            }
+            else if (libraryMemet != null)
+            {
+                var stand = libraryEncounterPoint != null ? libraryEncounterPoint.position :
+                    LibraryTarget.position + Vector3.right * 1.3f;
+                if (NavMesh.SamplePosition(stand, out var hit, .8f, NavMesh.AllAreas)) stand = hit.position;
+                libraryMemet.position = stand;
+                libraryMemet.gameObject.SetActive(true);
+            }
+            BeginShot(libraryMemet);
+            view.ShowLines(new[] { "Memet: Tunggu, Ji. Radit belum selesai ngerjain rangkumanku." }, () =>
+                view.ShowDialogueQuestCard("Pilih respons Aji untuk membantu Radit.", () => LibraryQuestion(0, 3, LibraryChoiceSeconds)));
+        }
+
+        void LibraryQuestion(int round, int lives, float seconds)
+        {
+            var view = director.LibraryView;
+            string[] answers = round == 0
+                ? new[] { "Aku kerjakan tugasmu saja.", "Itu tugasmu, Met. Radit perlu kacamatanya untuk membaca.", "Biar Radit kerjakan dulu.", "Simpan saja kacamatanya." }
+                : new[] { "Aku mau Radit bisa baca lagi. Kita bisa bicara baik-baik.", "Biar semua orang tahu dan menertawakanmu.", "Kalau begitu aku ambil barangmu juga.", "Aku diam saja dan pergi." };
+            string reason = round == 0 ? "Menukar kacamata dengan tugas membuat pemaksaan tetap berlangsung."
+                : "Ancaman dan ejekan memperkeruh keadaan. Fokus pada kebutuhan Radit.";
+            view.ShowDirectionalChoices(
+                round == 0 ? "Memet: Kalau kacamatanya kamu ambil, siapa yang kerjakan tugasku?" : "Memet: Kamu mau bikin aku malu?",
+                answers, lives, seconds, LibraryChoiceSeconds, (choice, remaining) =>
+                {
+                    if (choice < 0)
+                    {
+                        StartCoroutine(LibraryRetry("Waktu habis sebelum Aji menyelesaikan percakapan."));
+                        return;
+                    }
+                    if (choice == (round == 0 ? 1 : 0))
+                    {
+                        if (round == 0) LibraryQuestion(1, lives, remaining);
+                        else view.ShowLines(new[] { "Memet: Ya sudah, ambil sendiri. Aku pergi." }, () => StartCoroutine(LibraryWalkout()));
+                    }
+                    else if (lives > 1) view.ShowLines(new[] { reason }, () => LibraryQuestion(round, lives - 1, remaining));
+                    else StartCoroutine(LibraryRetry(reason));
+                });
+        }
+
+        IEnumerator LibraryWalkout()
+        {
+            EndShot();
+            if (libraryMemet != null)
+            {
+                var end = libraryMemet.position - libraryMemet.forward * 2f;
+                if (NavMesh.SamplePosition(end, out var hit, 1f, NavMesh.AllAreas) &&
+                    !NavMesh.Raycast(libraryMemet.position, hit.position, out _, NavMesh.AllAreas))
+                {
+                    var heading = Vector3.ProjectOnPlane(hit.position - libraryMemet.position, Vector3.up);
+                    if (heading.sqrMagnitude > .001f) libraryMemet.rotation = Quaternion.LookRotation(heading);
+                    while ((libraryMemet.position - hit.position).sqrMagnitude > .01f)
+                    {
+                        libraryMemet.position = Vector3.MoveTowards(libraryMemet.position, hit.position, 2f * Time.deltaTime);
+                        yield return null;
+                    }
+                }
+                libraryMemet.gameObject.SetActive(false);
+            }
+            permissionGranted = true;
+            director.CloseLibraryModal();
+        }
+
+        IEnumerator LibraryRetry(string reason)
+        {
+            director.LibraryView.HideModal();
+            EndShot();
+            yield return PlayLibraryTimeline(libraryFailure);
+            director.LibraryView.ShowLines(new[] { "Quest Kata gagal. " + reason }, () =>
+            {
+                BeginShot(libraryMemet);
+                LibraryQuestion(0, 3, LibraryChoiceSeconds);
+            });
+        }
+
+        static IEnumerator PlayLibraryTimeline(PlayableDirector timeline)
+        {
+            if (timeline == null || timeline.playableAsset == null) yield break;
+            timeline.extrapolationMode = DirectorWrapMode.None;
+            timeline.time = 0;
+            timeline.Play();
+            yield return null;
+            while (timeline.state == PlayState.Playing) yield return null;
+        }
+
         bool IsBimaNear(Transform point, float distance) =>
             (bima.transform.position - point.position).sqrMagnitude <= distance * distance;
 
@@ -129,6 +438,16 @@ namespace BullyingGame.LevelOne
             if (!director.Ready) return;
             var step = director.Step?.id;
             var target = director.Target;
+            if (step == "incident" && libraryRoute?.Length > 0)
+            {
+                GuideToLibrary();
+                return;
+            }
+            if (HasLibraryRoute && step == "greet")
+            {
+                if (bima.isOnNavMesh) bima.isStopped = true;
+                return;
+            }
             if (!propsInitialized)
             {
                 propsInitialized = true;
