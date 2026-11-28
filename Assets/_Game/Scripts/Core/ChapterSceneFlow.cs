@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using BullyingGame.UI;
 
 namespace BullyingGame.Core
 {
@@ -13,12 +14,21 @@ namespace BullyingGame.Core
 
         public static bool Load(string sceneName)
         {
-            if (pending != null && !pending.isDone) return destination == sceneName;
             if (!CanLoad(sceneName))
             {
                 Debug.LogError("Chapter scene is missing from Build Settings: " + sceneName);
                 return false;
             }
+
+            var loadingScreen = LoadingScreenController.EnsureInstance();
+            if (loadingScreen != null)
+            {
+                if (loadingScreen.IsLoading) return destination == sceneName;
+                destination = sceneName;
+                return loadingScreen.LoadScene(sceneName);
+            }
+
+            if (pending != null && !pending.isDone) return destination == sceneName;
             Time.timeScale = 1f;
             GameStateManager.Instance?.SetState(GameState.Loading);
             destination = sceneName;

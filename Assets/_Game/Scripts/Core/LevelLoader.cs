@@ -27,6 +27,14 @@ namespace BullyingGame.Core
         public void LoadScene(string sceneName)
         {
             if(IsLoading || string.IsNullOrWhiteSpace(sceneName) || !Application.CanStreamedLevelBeLoaded(sceneName)) return;
+
+            var globalLoading = BullyingGame.UI.LoadingScreenController.EnsureInstance();
+            if (globalLoading != null)
+            {
+                globalLoading.LoadScene(sceneName);
+                return;
+            }
+
             IsLoading=true;
             Time.timeScale=1;
             StartCoroutine(LoadSceneRoutine(sceneName));

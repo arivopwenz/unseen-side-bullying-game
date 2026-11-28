@@ -5052,8 +5052,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -443, y: -288}
-  m_SizeDelta: {x: 653.7968, y: 159.2462}
+  m_AnchoredPosition: {x: -109.83014, y: -268.58667}
+  m_SizeDelta: {x: 1320.1362, y: 120.4196}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &266304872
 MonoBehaviour:
@@ -15766,7 +15766,7 @@ MonoBehaviour:
     chapterCard: {fileID: 162468204}
     canvasGroup: {fileID: 162468207}
     lockedOverlay: {fileID: 0}
-    sceneName: Tutorial
+    sceneName: Prologue
     isUnlocked: 1
     requiredUnlockedChapter: 0
     unlockRequirementText: Selesaikan bagian sebelumnya untuk membuka chapter ini.
@@ -29891,8 +29891,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -438, y: -362}
-  m_SizeDelta: {x: 653.7968, y: 159.2462}
+  m_AnchoredPosition: {x: -258.3155, y: -365.19}
+  m_SizeDelta: {x: 1013.1658, y: 165.62}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1851975001
 MonoBehaviour:
@@ -33170,7 +33170,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -650, y: -470}
+  m_AnchoredPosition: {x: 564, y: -409}
   m_SizeDelta: {x: 240, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!43 &2061536250

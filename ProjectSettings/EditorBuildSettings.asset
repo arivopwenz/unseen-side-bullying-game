@@ -59,6 +59,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Game/Scenes/Levels/Level_01/cutscene/CH1_QuestAksiDone.unity
     guid: 1c4c4dae7c5c01740a63b14e41f58e09
+  - enabled: 1
+    path: Assets/_Game/Scenes/Levels/Prologue/cutscene/Prologue.unity
+    guid: 2256ca264adeba0479474a9296cfe71f
+  - enabled: 1
+    path: Assets/_Game/Scenes/Levels/Prologue/cutscene/Prologue Keluar Mobil.unity
+    guid: fcd5aa62373449f49b6d9ada0c0a4079
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 9ce4757902b7f474fa95015119cec2df, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 7b39895b635b20148bc571db1aafeaa9, type: 3}

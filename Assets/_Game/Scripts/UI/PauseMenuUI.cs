@@ -71,8 +71,7 @@ namespace BullyingGame.UI
         public void RestartLevel()
         {
             ResumeGame();Time.timeScale=1;
-            GameStateManager.Instance?.SetState(GameState.Loading);
-            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+            ChapterSceneFlow.Load(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         }
         public void ShowSettings() => StorySettings.Show();
         public void ReturnToMenu()

@@ -60398,7 +60398,7 @@ MonoBehaviour:
       min: 0
       max: 0
   initialPosition: {x: 0.00000063657757, y: 0, z: -0.0003560096}
-  initialRotation: {x: 347.61206, y: 180, z: 180}
+  initialRotation: {x: 301.32343, y: 0.0000050089566, z: 0.0000050089566}
   initialScale: {x: 1, y: 1, z: 1}
 --- !u!1818360609 &1131652370
 RotationConstraint:
@@ -81350,8 +81350,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Hi, Aku Bima, Salam kenal!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 51ba2efd9d7bc5949906c189a7de0b85, type: 2}
+  m_sharedMaterial: {fileID: 9191546744391840657, guid: 51ba2efd9d7bc5949906c189a7de0b85, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -114769,6 +114769,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1993339150}
   - component: {fileID: 1993339149}
+  - component: {fileID: 1993339151}
   m_Layer: 0
   m_Name: TIMELINE (1)
   m_TagString: Untagged
@@ -114900,6 +114901,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1993339151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993339148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c227f8a8a76a06944b91b8888c92d33b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BullyingGame.Cinematics.TimelineSceneTransition
+  director: {fileID: 1993339149}
+  nextSceneName: Tutorial
+  delayAfterEnd: 0
 --- !u!43 &1993583404
 Mesh:
   m_ObjectHideFlags: 0
@@ -119996,15 +120012,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: BIMA
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 755d087062c0ea54fab77c86937cd663, type: 2}
+  m_sharedMaterial: {fileID: 5739656248468100249, guid: 755d087062c0ea54fab77c86937cd663, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4285582591
-  m_fontColor: {r: 1, g: 0.8, b: 0.4392157, a: 1}
+  m_fontColor: {r: 0.537, g: 0.835, b: 0.91, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -123116,7 +123132,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5536955648969608320}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.48995292, y: 0.000000059521877, z: 0.000000059521877, w: 0.8717489}
+  m_LocalRotation: {x: -0.48997718, y: 0.000000059522346, z: 0.000000059522346, w: 0.8717353}
   m_LocalPosition: {x: 0.00000063657757, y: 0, z: -0.0003560096}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -124140,7 +124156,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3579153381297191948}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.061266907, y: 0.00000009345087, z: -0.0000000057362217, w: 0.99812144}
+  m_LocalRotation: {x: 0.061239157, y: 0.000000093451035, z: -0.0000000057336234, w: 0.99812317}
   m_LocalPosition: {x: 0.0150838, y: 0, z: -0.0003560096}
   m_LocalScale: {x: -1, y: -1, z: -1}
   m_ConstrainProportionsScale: 0
@@ -124454,7 +124470,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3186371348659987673}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.99812144, y: 0.000000005736204, z: 0.00000009345087, w: 0.06126672}
+  m_LocalRotation: {x: -0.99812317, y: 0.0000000057335967, z: 0.00000009345103, w: 0.061238874}
   m_LocalPosition: {x: 0.00000063657757, y: -0.027902262, z: -0.0003560096}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -124618,7 +124634,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6963383373200413552}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.061266907, y: 0.00000009345087, z: -0.0000000057362217, w: 0.99812144}
+  m_LocalRotation: {x: 0.061239157, y: 0.000000093451035, z: -0.0000000057336234, w: 0.99812317}
   m_LocalPosition: {x: 0.0150838, y: -0.027902262, z: -0.0003560096}
   m_LocalScale: {x: -1, y: -1, z: -1}
   m_ConstrainProportionsScale: 0

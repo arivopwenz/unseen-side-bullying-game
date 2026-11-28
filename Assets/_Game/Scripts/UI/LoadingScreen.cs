@@ -37,6 +37,15 @@ namespace BullyingGame.UI
 
         private void Awake()
         {
+            // Consolidate safely with Global LoadingScreenController to prevent duplicate loading screens
+            if (LoadingScreenController.EnsureInstance() != null)
+            {
+                var legacyCg = GetComponentInChildren<CanvasGroup>(true);
+                if (legacyCg != null) { legacyCg.alpha = 0f; legacyCg.blocksRaycasts = false; legacyCg.interactable = false; }
+                foreach (var c in GetComponentsInChildren<Canvas>(true)) c.enabled = false;
+                return;
+            }
+
             if (Instance != null && Instance != this) { Destroy(gameObject); return; }
             Instance = this;
             DontDestroyOnLoad(gameObject);
@@ -106,8 +115,15 @@ namespace BullyingGame.UI
 
         public static void LoadSceneWithLoading(string sceneName)
         {
+            var globalLoading = LoadingScreenController.EnsureInstance();
+            if (globalLoading != null)
+            {
+                globalLoading.LoadScene(sceneName);
+                return;
+            }
+
             if (Instance != null) Instance.StartCoroutine(Instance.LoadRoutine(sceneName));
-            else SceneManager.LoadScene(sceneName);
+            else SceneManager.LoadSceneAsync(sceneName);
         }
 
         private IEnumerator LoadRoutine(string sceneName)
