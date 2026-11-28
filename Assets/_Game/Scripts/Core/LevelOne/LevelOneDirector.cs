@@ -157,7 +157,15 @@ namespace BullyingGame.LevelOne
             if (cardThree.WasPressedThisFrame() && cards.Count > 2) selectedCard = 2;
             if (input.Movement.Interact.WasPressedThisFrame())
             {
-                if (dayTwo != null && dayTwo.CanAsk) dayTwo.AskStudent();
+                if (dayTwo != null && dayTwo.LibraryActive && !string.IsNullOrEmpty(dayTwo.LibraryPrompt)) dayTwo.InspectLibrary();
+                else if (dayTwo != null && dayTwo.HasLibraryRoute && Step?.id == "greet" && Vector3.Distance(player.transform.position, dayTwo.LibraryGuide.position) <= 2.5f)
+                {
+                    var opening = Step;
+                    SetModal(GameState.Dialogue);
+                    dayTwo.BeginShot(dayTwo.LibraryGuide);
+                    view.ShowLines(new[] { "Aji: Dit, kita ke perpustakaan bareng, yuk?", "Radit: Yuk, Ji. Ikuti aku." }, () => Resolve(opening));
+                }
+                else if (dayTwo != null && dayTwo.CanAsk) dayTwo.AskStudent();
                 else if (door != null) door.Interact(player);
                 else if (Nearest != null)
                 {
@@ -192,6 +200,7 @@ namespace BullyingGame.LevelOne
             return point.Id == Step.nodeId;
         }
         public bool CanUse(LevelOnePoint point) => Ready && !IsModal && IsRelevant(point) &&
+            !(dayTwo != null && dayTwo.HasLibraryRoute && Step?.id == "greet") &&
             (!IsDayTwo || dayTwo.CanInteract(point)) &&
             (!useExistingFlow || StepIndex == 5 || StepIndex >= 7) &&
             (StepIndex != 1 || staging == null || staging.BimaNear(point.transform)) &&
@@ -432,8 +441,13 @@ namespace BullyingGame.LevelOne
             Debug.Log("[Level01 PRD] " + text);
         }
         public string QuestTitle => Complete ? "Level 1 selesai" : content.Quests[Step.questIndex].questTitle;
+        internal LevelOneView LibraryView => view;
+        internal void OpenLibraryModal() => SetModal(GameState.Dialogue);
+        internal void CloseLibraryModal() => CloseModal();
         public string Objective => Complete ? "Pelajaran tersimpan. TAB membuka jurnal." :
-            IsDayTwo && Step.id == "incident" && Progress.bimaPackedLunch ? dayTwo.CanteenObjective :
+            dayTwo != null && dayTwo.LibraryActive ? dayTwo.LibraryObjective :
+            dayTwo != null && dayTwo.HasLibraryRoute && Step?.id == "greet" ? "Ajak Radit ke perpustakaan." :
+            IsDayTwo && Step.id == "incident" && (Progress.bimaPackedLunch || dayTwo.HasLibraryRoute) ? dayTwo.CanteenObjective :
             IsDayTwo && Searching && Progress.bottleTaken ? "Hindari Memet! Ambil bekal di meja kelas 8B." :
             Step.objective + (Searching && !IsDayTwo ? " (" + HeldCount + "/2)" : "");
         public bool HintActive => Searching && Time.unscaledTime - lastProgress > 90;

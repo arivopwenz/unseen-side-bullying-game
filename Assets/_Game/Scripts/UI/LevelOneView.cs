@@ -53,6 +53,8 @@ namespace BullyingGame.LevelOne
         [SerializeField] GameObject advanceHint;
         Action advanceDialogue;
         int dialogueOpenedFrame;
+        bool ownsChoiceCursor, cursorWasVisible;
+        CursorLockMode previousChoiceLock;
 
         internal void AdvanceDialogue()
         {
@@ -195,13 +197,23 @@ namespace BullyingGame.LevelOne
             {
                 if (questMessage.text != director.Objective) Announce(director.Objective);
                 var student = director.DayTwoFlow.InterviewStudent;
-                questMap.SetMinimapTarget(student != null ? student.transform : director.Target?.transform);
+                var dayTwo = director.DayTwoFlow;
+                questMap.SetMinimapTarget(dayTwo.LibraryActive ? dayTwo.LibraryTarget :
+                    dayTwo.HasLibraryRoute ? dayTwo.LibraryGuide : student != null ? student.transform : director.Target?.transform);
             }
             navigation.gameObject.SetActive(!useExistingHUD);
             var flow = director.DayTwoFlow;
             bool canAsk = flow != null && flow.CanAsk;
             prompt.text = canAsk ? FormatControl(director.InteractPrompt, "Tanya " + flow.StudentName) : director.Nearest == null ? "" : FormatControl(director.InteractPrompt, director.Nearest.GetPromptText());
             promptBackdrop.gameObject.SetActive(canAsk || director.Nearest != null);
+            if (flow != null && flow.HasLibraryRoute)
+            {
+                string action = flow.LibraryActive ? flow.LibraryPrompt :
+                    Vector3.Distance(director.Player.transform.position, flow.LibraryGuide.position) <= 2.5f ? "Bicara dengan Radit" : "";
+                prompt.text = string.IsNullOrEmpty(action) ? "" : FormatControl(director.InteractPrompt, action);
+                promptBackdrop.gameObject.SetActive(!string.IsNullOrEmpty(action));
+                navigation.gameObject.SetActive(false);
+            }
             cardText.text = cards.Length == 0 ? "Dekati penanda tujuan untuk melihat aksi." : string.Join("    ", cards.Select((s, i) => (i == active ? "<color=#FFD46B>" : "<color=#C2D6DF>") + (i + 1) + "  " + s + "</color>"));
             saveText.text = director.SaveFailed ? "Simpan gagal. Coba simpan lagi dari menu jeda." :
                 FormatControl(director.JournalPrompt, "Jurnal") + "     " + FormatControl(director.PausePrompt, "Jeda");
@@ -233,6 +245,12 @@ namespace BullyingGame.LevelOne
         }
         public void HideModal()
         {
+            if (ownsChoiceCursor)
+            {
+                Cursor.lockState = previousChoiceLock;
+                Cursor.visible = cursorWasVisible;
+                ownsChoiceCursor = false;
+            }
             puzzleVisible = false;
             advanceDialogue = null;
             if (advanceHint != null) advanceHint.SetActive(false);
@@ -412,6 +430,102 @@ namespace BullyingGame.LevelOne
                 if (i == 0) Select(button);
             }
         }
+        public void ShowDirectionalChoices(string question, string[] answers, int lives, float seconds,
+            float duration, Action<int, float> finished)
+        {
+            HideModal();
+            hud.gameObject.SetActive(false);
+            modal = StoryOverlay.Rect(canvas, "Quest Kata - Pilihan Arah", Vector2.zero, Vector2.zero);
+            modal.anchorMin = Vector2.zero;
+            modal.anchorMax = Vector2.one;
+            modal.sizeDelta = Vector2.zero;
+
+            var panel = StoryOverlay.Rect(modal, "Pilihan", new Vector2(0, 170), new Vector2(1190, 290));
+            panel.anchorMin = panel.anchorMax = new Vector2(.5f, 0);
+            var questionText = Text(panel, "Pertanyaan", question, new Vector2(0, 150), new Vector2(1090, 46), 26);
+            questionText.alignment = TextAlignmentOptions.Center;
+            var cards = new Image[4];
+            var labels = new TMP_Text[4];
+            var positions = new[] { new Vector2(0, 75), new Vector2(-381, 0), new Vector2(381, 0), new Vector2(0, -75) };
+            var arrows = new[] { "↑", "←", "→", "↓" };
+            var idleColor = new Color32(20, 35, 48, 231);
+            var activeColor = new Color32(255, 210, 102, 255);
+            for (int i = 0; i < answers.Length; i++)
+            {
+                var tile = StoryOverlay.Rect(panel, "Pilihan " + arrows[i], positions[i], new Vector2(346, 66));
+                cards[i] = tile.gameObject.AddComponent<Image>();
+                cards[i].raycastTarget = false;
+                labels[i] = Text(tile, "Jawaban", arrows[i] + "  " + answers[i], Vector2.zero, new Vector2(322, 62), 22);
+                labels[i].alignment = TextAlignmentOptions.Center;
+                labels[i].enableAutoSizing = true;
+                labels[i].fontSizeMin = 17;
+                labels[i].fontSizeMax = 22;
+                labels[i].raycastTarget = false;
+                cards[i].color = idleColor;
+            }
+
+            var clock = StoryOverlay.Rect(panel, "Jalur timer", new Vector2(0, -123), new Vector2(370, 8));
+            var track = clock.gameObject.AddComponent<Image>();
+            track.color = new Color32(20, 35, 48, 225);
+            track.raycastTarget = false;
+            var fill = StoryOverlay.Rect(clock, "Sisa waktu", Vector2.zero, new Vector2(370, 8));
+            fill.anchorMin = fill.anchorMax = new Vector2(0, .5f);
+            fill.pivot = new Vector2(0, .5f);
+            var bar = fill.gameObject.AddComponent<Image>();
+            bar.raycastTarget = false;
+            var hint = Text(panel, "Petunjuk", $"Geser mouse  •  [E] Konfirmasi  •  Nyawa {lives}/3",
+                new Vector2(0, -151), new Vector2(670, 38), 20);
+            hint.alignment = TextAlignmentOptions.Center;
+
+            previousChoiceLock = Cursor.lockState;
+            cursorWasVisible = Cursor.visible;
+            ownsChoiceCursor = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            dialogueOpenedFrame = Time.frameCount;
+            StartCoroutine(TrackDirectionalChoice(modal, panel, cards, labels, bar, idleColor, activeColor,
+                seconds, duration, finished));
+        }
+
+        IEnumerator TrackDirectionalChoice(RectTransform root, RectTransform panel, Image[] cards,
+            TMP_Text[] labels, Image bar, Color idle, Color active, float remaining, float duration,
+            Action<int, float> finished)
+        {
+            int selected = -1;
+            bool confirmed = false;
+            Vector2 gesture = Vector2.zero;
+            advanceDialogue = () => { if (selected >= 0) confirmed = true; };
+            while (root != null && root.gameObject.activeSelf)
+            {
+                float fraction = Mathf.Clamp01(remaining / duration);
+                bar.rectTransform.localScale = new Vector3(fraction, 1f, 1f);
+                bar.color = Color.Lerp(new Color32(231, 63, 66, 255), new Color32(92, 232, 104, 255), fraction);
+                panel.localScale = Vector3.one * Mathf.Min(1f, root.rect.width / 1190f, root.rect.height / 420f);
+                if (remaining <= 0 || confirmed) break;
+                var mouse = UnityEngine.InputSystem.Mouse.current;
+                if (mouse != null)
+                {
+                    gesture = gesture * Mathf.Exp(-10f * Time.unscaledDeltaTime) + mouse.delta.ReadValue();
+                    if (gesture.sqrMagnitude >= 14f * 14f)
+                    {
+                        selected = Mathf.Abs(gesture.x) > Mathf.Abs(gesture.y)
+                            ? (gesture.x < 0 ? 1 : 2) : (gesture.y > 0 ? 0 : 3);
+                        gesture = Vector2.zero;
+                        for (int i = 0; i < cards.Length; i++)
+                        {
+                            cards[i].color = i == selected ? active : idle;
+                            labels[i].color = i == selected ? idle : Color.white;
+                        }
+                    }
+                }
+                yield return null;
+                remaining -= Time.unscaledDeltaTime;
+            }
+            if (root == null || !root.gameObject.activeSelf) yield break;
+            HideModal();
+            finished(remaining > 0 && confirmed ? selected : -1, Mathf.Max(0, remaining));
+        }
+
         public void ShowDialogueQuestCard(string objectiveText, Action finished)
         {
             if (wordCardArtwork != null && wordCardImage != null && wordCardImage.sprite != null)
