@@ -49,7 +49,8 @@ namespace BullyingGame.UI
             if (statusText != null) statusText.text = SaveManager.Instance.LastError ?? (SaveManager.Instance.CurrentData.campaignCompleted
                 ? "Cerita selesai. Dukungan dan pemantauan sekolah berlanjut."
                 : "Aji • 5 chapter • 15 misi\nWASD bergerak • Mouse kamera • E interaksi • J jurnal • M peta • Esc jeda");
-            UnityEngine.EventSystems.EventSystem.current?.SetSelectedGameObject(newGameButton.gameObject);
+            if (newGameButton != null)
+                UnityEngine.EventSystems.EventSystem.current?.SetSelectedGameObject(newGameButton.gameObject);
         }
         public void NewGame()
         {
